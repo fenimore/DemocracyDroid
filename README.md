@@ -1,5 +1,5 @@
 # democracynow-android
-This program parses Democracy Now's rss and links to the videos
+This program parses the Democracy Now (Democracy Now!(.)org) rss and links to the videos
 It uses the SimplisticRss library by ShirwaM
 https://github.com/ShirwaM/Simplistic-RSS
 
