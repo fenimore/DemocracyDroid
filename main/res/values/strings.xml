@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Democracy Now Feed</string>
+    <string name="hello_world">The War and Peace Report</string>
+    <string name="action_settings">Settings</string>
+    <string name="about_string">Long click an entry in order to open that day\'s headlines.\n\nI have no affiliation with Democracy Now!\n\nThe source code is available on github:</string>
+    <string name="about_string_two">\n\nThis project uses Shirwa Mohamed\'s Simplistic-RSS library.</string>
+</resources>

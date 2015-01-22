@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    <item
+        android:id="@+id/action_refresh" android:title="Refresh"
+        android:orderInCategory="100" app:showAsAction="always"/>
+    <item
+        android:orderInCategory="300" android:title="Donate at DemocracyNow.org"
+        android:id="@+id/action_launch_dm" />
+    <item
+        android:orderInCategory="400" android:title="About"
+        android:id="@+id/action_about" />
+</menu>
