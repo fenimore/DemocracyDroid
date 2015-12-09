@@ -1,12 +1,20 @@
 package com.workingagenda.democracydroid;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -34,25 +42,25 @@ public class EpisodeAdapter extends ArrayAdapter<Episode> {
 
         Episode e = getItem(position);
         if (e != null) {
-            TextView tt1 = (TextView) v.findViewById(R.id.id);
-            TextView tt2 = (TextView) v.findViewById(R.id.categoryId);
-            TextView tt3 = (TextView) v.findViewById(R.id.description);
+            ImageView img = (ImageView) v.findViewById(R.id.row_image);
+            TextView txt = (TextView) v.findViewById(R.id.row_title);
 
-            if (tt1 != null) {
-                tt1.setText(e.getImageUrl());
+            try {
+                URL url = new URL(e.getImageUrl());
+                //Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                //img.setImageBitmap(image);
+            } catch (MalformedURLException ex) {
+                Log.v("EpisodeAdapter","malformed URL");
+            } catch (IOException ex) {
+                Log.v("Episode Adapter", "io exception");
             }
 
-            if (tt2 != null) {
-                if (e.getTitle().length() > 14){
-                    tt2.setText(e.getTitle().substring(14));
-
+            if (txt != null) {
+                if (e.getTitle().length() > 15){
+                    txt.setText(e.getTitle().substring(14));
                 } else {
-                    tt2.setText(e.getTitle());
+                    txt.setText(e.getTitle());
                 }
-            }
-
-            if (tt3 != null) {
-                tt3.setText(e.getDescription());
             }
         }
 
