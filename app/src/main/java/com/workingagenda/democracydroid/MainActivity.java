@@ -33,6 +33,7 @@ import android.widget.TextView;
 import com.workingagenda.democracydroid.feedreader.RssItem;
 import com.workingagenda.democracydroid.feedreader.RssReader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -97,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_refresh) {
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -109,15 +113,11 @@ public class MainActivity extends AppCompatActivity {
         //Declaire some variables
         public ListView videoList;
         public ListView mList;
-        ArrayAdapter<String> VideoListAdapter;
-        // ArrayAdapter<String> AudioListAdapter;
-        //ArrayAdapter<String> adapter;
-        public String[] videoArray = new String[15];
-        public String[] audioArray = new String[15];
-        public String[] titleArray = new String[15];
-        public String[] descriptionArray = new String[15];
-        public String[] imageArray = new String[15];
+        //ArrayAdapter<String> VideoListAdapter;
 
+        // Episode objects!!!
+        ArrayList<Episode> episodes = new ArrayList<Episode>(10);
+        // set up custom adapter with episodes
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -125,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
+        }
+        public void populateList(ArrayList<Episode> episodes) {
+            mList.setAdapter(new EpisodeAdapter(getContext(), R.layout.episode_row, episodes));
         }
 
         /**
@@ -145,23 +148,26 @@ public class MainActivity extends AppCompatActivity {
             final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            // List View
-            videoList= (ListView) rootView.findViewById(R.id.list);
-            VideoListAdapter = new ArrayAdapter<String>(rootView.getContext(), R.layout.video_row);
-            new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
-            new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml");
+            // this needs custom adapter
+            // VideoListAdapter = new ArrayAdapter<String>(rootView.getContext(), R.layout.video_row);
 
-            videoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
+            new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
+
+            mList = (ListView) rootView.findViewById(R.id.list);
+
+            mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Episode e = episodes.get(i);
                     // CHANGE INTENT depending on the
                     if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(videoArray[i]));
+                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
                         startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
                     } else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
                         // Audio Array is broken
                         // play as a service
-                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(audioArray[i]));
+                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getAudioUrl()));
                         startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
                     }
                     /**
@@ -169,24 +175,19 @@ public class MainActivity extends AppCompatActivity {
                      */
                 }
             });
-            videoList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            mList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Episode e = episodes.get(i);
                     AlertDialog description = new AlertDialog.Builder(
                             rootView.getContext()).create();
                     // Get Description and Title
                     description.setTitle("The War and Peace Report");
-                    description.setMessage(descriptionArray[i] + "\n\n" + titleArray[i]);
+                    description.setMessage(e.getDescription() + "\n\n" + e.getTitle());
                     //description.setIcon(R.drawable.dm_icon_small);
                     /**
-                     * TODO: Share Button
+                     * TODO: Share Button Context Menu
                      */
-                    description.setButton("ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            //...
-                        }
-
-                    });
                     description.setButton("Share", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             //...
@@ -207,27 +208,29 @@ public class MainActivity extends AppCompatActivity {
                     RssReader rssReader = new RssReader(params[0]);
                     int j = 0;
                     for(RssItem item : rssReader.getItems()){
-                        VideoListAdapter.add(item.getTitle().substring(14));
+                        //VideoListAdapter.add(item.getTitle().substring(14));
                         // This should just be the Episode Object (class?)
-                        videoArray[j] = item.getVideoUrl();
-                        imageArray[j] = item.getImageUrl();
-                        //urlArray[j] = item.getLink();
-                        titleArray[j] = item.getTitle();
-                        descriptionArray[j] = item.getDescription();
+                        Episode e = new Episode();
+                        e.setTitle(item.getTitle());
+                        e.setVideoUrl(item.getVideoUrl());
+                        e.setDescription(item.getDescription());
+                        e.setImageUrl(item.getImageUrl());
+                        e.setUrl(item.getLink());
+                        episodes.add(e);
                         j++;
                     }
+                    //EpisodeAdapter episodeAdapter = new EpisodeAdapter(getContext(), R.layout.episode_row, episodes);
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");
                 }
                 return null;
             }
-
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                VideoListAdapter.notifyDataSetChanged();
+                //VideoListAdapter.notifyDataSetChanged();
                 // AudioListAdapter.notifyDataSetChanged();
-                videoList.setAdapter(VideoListAdapter);
+                populateList(episodes);
             }
         }
         private class GetAudioFeed extends AsyncTask<String, Void, Void> {
@@ -237,7 +240,9 @@ public class MainActivity extends AppCompatActivity {
                     RssReader rssReader = new RssReader(params[0]);
                     int j = 0;
                     for(RssItem item : rssReader.getItems()){
-                        audioArray[j] = item.getVideoUrl(); // TODO
+                        episodes.get(j).setAudioUrl(item.getVideoUrl());
+                        // Audio Feed must be called before Video Feed
+                        // Otherewise the episodes objects wont be there
                         j++;
                     }
                 } catch (Exception e) {
@@ -256,8 +261,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
