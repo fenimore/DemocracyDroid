@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Video"));
         tabLayout.addTab(tabLayout.newTab().setText("Audio"));
-        tabLayout.addTab(tabLayout.newTab().setText("Foo"));
+        tabLayout.addTab(tabLayout.newTab().setText("About"));
+        //tabLayout.getTabAt(3).setIcon(Foo);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Create the adapter that will return a fragment for each of the three
@@ -77,18 +78,17 @@ public class MainActivity extends AppCompatActivity {
         // Gather the Episode Lists
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount()); //but why is it final?
         //mViewPager.setAdapter(pagerAdapter); This breaks it!...
+        // Set up the tab and View Pager
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mViewPager.setCurrentItem(tab.getPosition());
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
 
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
@@ -125,6 +125,15 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_refresh) {
+            finish();
+            startActivity(getIntent());
+            return true;
+        }
+        if (id == R.id.action_donate) {
+            String url = "http://www.democracynow.org/";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
             return true;
         }
 
@@ -137,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
     public static class PlaceholderFragment extends Fragment {
 
         //Declaire some variables
-        public ListView videoList;
         public ListView mList;
         public TextView mTxt;
         //ArrayAdapter<String> VideoListAdapter;
@@ -179,55 +187,53 @@ public class MainActivity extends AppCompatActivity {
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
             new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
 
-            if(getArguments().getInt(ARG_SECTION_NUMBER) == 1 || getArguments().getInt(ARG_SECTION_NUMBER) ==  2) {
-                mList = (ListView) rootView.findViewById(R.id.list);
-
-                mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Episode e = episodes.get(i);
-                        // CHANGE INTENT depending on the
-                        if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                            Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
-                            startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
-                        } else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
-                            // Audio Array is broken
-                            // play as a service
-                            Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getAudioUrl()));
-                            startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+            mList = (ListView) rootView.findViewById(R.id.list);
+            mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Episode e = episodes.get(i);
+                    // CHANGE INTENT depending on the
+                    if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
+                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
+                        startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+                    } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
+                        // Audio Array is broken
+                        // play as a service
+                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getAudioUrl()));
+                        startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+                    }
+                    /**
+                     * TODO:Have the APP GALLERY play the video
+                     */
+                }
+            });
+            mList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    final Episode e = episodes.get(i);
+                    AlertDialog description = new AlertDialog.Builder(
+                            rootView.getContext()).create();
+                    // Get Description and Title
+                    description.setTitle("The War and Peace Report");
+                    description.setMessage(e.getDescription() + "\n\n" + e.getTitle());
+                    //description.setIcon(R.drawable.dm_icon_small);
+                    /**
+                     * TODO: Share Button Context Menu
+                     */
+                    description.setButton("Share", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent sendIntent = new Intent();
+                            sendIntent.setAction(Intent.ACTION_SEND);
+                            sendIntent.putExtra(Intent.EXTRA_TEXT, e.getTitle() + "\n\n" + e.getUrl());
+                            sendIntent.setType("text/plain");
+                            startActivity(sendIntent);
                         }
-                        /**
-                         * TODO:Have the APP GALLERY play the video
-                         */
-                    }
-                });
-                mList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Episode e = episodes.get(i);
-                        AlertDialog description = new AlertDialog.Builder(
-                                rootView.getContext()).create();
-                        // Get Description and Title
-                        description.setTitle("The War and Peace Report");
-                        description.setMessage(e.getDescription() + "\n\n" + e.getTitle());
-                        //description.setIcon(R.drawable.dm_icon_small);
-                        /**
-                         * TODO: Share Button Context Menu
-                         */
-                        description.setButton("Share", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                //...
-                            }
 
-                        });
-                        description.show();
-                        return true;
-                    }
-                });
-            } else if(getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
-                mTxt = (TextView) rootView.findViewById(R.id.section_label);
-            }
-
+                    });
+                    description.show();
+                    return true;
+                }
+            });
             return rootView;
         }
         private class GetVideoFeed extends AsyncTask<String, Void, Void> {
@@ -290,6 +296,54 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class AboutFragment extends Fragment {
+
+        //Declaire some variables
+        public TextView Txt1;
+        public TextView Txt2;
+        public TextView Txt3;
+
+       /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        public AboutFragment() {
+        }
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static AboutFragment newInstance(int sectionNumber) {
+            AboutFragment fragment = new AboutFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            final View rootView = inflater.inflate(R.layout.about_fragment, container, false);
+            // TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            // textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+            Txt1 = (TextView) rootView.findViewById(R.id.about_app);
+            Txt1.setText(R.string.about_app);
+            Txt2 = (TextView) rootView.findViewById(R.id.about_dm);
+            Txt2.setText(R.string.about_dm);
+            Txt3 = (TextView) rootView.findViewById(R.id.about_instructions);
+            Txt3.setText(R.string.about_instructions);
+            return rootView;
+
+        }
+    }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -305,7 +359,14 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            //return PlaceholderFragment.newInstance(position + 1);
+            switch(position) {
+
+                case 0: return PlaceholderFragment.newInstance(position + 1);
+                case 1: return PlaceholderFragment.newInstance(position + 1);
+                case 2: return AboutFragment.newInstance(position + 1);
+                default: return PlaceholderFragment.newInstance(position + 1);
+            }
         }
 
         @Override

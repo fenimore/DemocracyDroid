@@ -3,4 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="section_format">Section: %1$d</string>
     <string name="action_refresh">Refresh</string>
+    <string name="action_donate">Donate at Democracy Now!</string>
+    <string name="about_app">Democracy Droid is in no way affiliated with Democracy Now! (they won\'t even return my emails). This application streams the audio or video episodes of Democracy Now! the War and Peace Report.</string>
+    <string name="about_dm">Democracy Now! is a national, daily, independent, award-winning news program hosted by journalists Amy Goodman and Juan Gonzalez. Pioneering the largest public media collaboration in the U.S., Democracy Now! Democracy now is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States.</string>
+    <string name="about_instructions">Democracy Now! streams live weekdays at 8 am; the video/audio is added to their feed around an hour after the end of the show (10 am). Click the Donate at Democracy Now! button in order to visit their website and stream live.</string>
 </resources>
