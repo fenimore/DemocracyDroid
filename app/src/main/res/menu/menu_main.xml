@@ -6,8 +6,8 @@
         android:id="@+id/action_refresh"
         android:orderInCategory="100"
         android:title="@string/action_refresh"
-        app:showAsAction="always"
-        android:icon=""/>
+        android:icon="@drawable/ic_refresh_white_24dp"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="200"

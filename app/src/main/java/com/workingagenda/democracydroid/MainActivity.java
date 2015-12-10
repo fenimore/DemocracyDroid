@@ -65,10 +65,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Video"));
-        tabLayout.addTab(tabLayout.newTab().setText("Audio"));
-        tabLayout.addTab(tabLayout.newTab().setText("About"));
-        //tabLayout.getTabAt(3).setIcon(Foo);
+        tabLayout.addTab(tabLayout.newTab().setText("Video").setIcon(R.drawable.ic_movie_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText("Audio").setIcon(R.drawable.ic_mic_none_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText("About").setIcon(R.drawable.ic_feedback_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Create the adapter that will return a fragment for each of the three
@@ -222,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
             super.onCreateContextMenu(menu, v, menuInfo);
             if (v.getId()==R.id.list) {
                 MenuInflater inflater = new MenuInflater(getContext());
+                menu.setHeaderTitle("Democracy Now!");
                 //MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.context_menu, menu);
             }
