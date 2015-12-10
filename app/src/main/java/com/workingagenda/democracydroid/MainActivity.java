@@ -98,14 +98,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Live Weekdays 8 am ET", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //fab.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View view) {
+        //        Snackbar.make(view, "Live Weekdays 8 am ET", Snackbar.LENGTH_LONG)
+        //                .setAction("Action", null).show();
+        //    }
+        //});
 
     }
 
@@ -229,21 +229,23 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onContextItemSelected(MenuItem item) {
             //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
-            //Episode e = episodes.get(pos);
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            int pos = info.position;
+            Episode e = episodes.get(pos);
             switch(item.getItemId()) {
                 case R.id.action_share:
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
-                    // sendIntent.putExtra(Intent.EXTRA_TEXT, e.getTitle() + "\n\n" + e.getUrl());
+                    sendIntent.putExtra(Intent.EXTRA_SUBJECT, e.getTitle());
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, e.getUrl());
                     sendIntent.setType("text/plain");
                     startActivity(sendIntent);
                     return true;
                 case R.id.action_description:
-                    //final Episode e = episodes.get(i);
                     AlertDialog description = new AlertDialog.Builder(getContext()).create();
                     // Get Description and Title
                     description.setTitle("The War and Peace Report");
-                    //description.setMessage(e.getDescription() + "\n\n" + e.getTitle());
+                    description.setMessage(e.getDescription() + "\n\n" + e.getTitle());
                     //description.setIcon(R.drawable.dm_icon_small);
                     description.setButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -326,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
         public TextView Txt1;
         public TextView Txt2;
         public TextView Txt3;
-
+        public TextView Txt4;
        /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -361,6 +363,8 @@ public class MainActivity extends AppCompatActivity {
             Txt2.setText(R.string.about_dm);
             Txt3 = (TextView) rootView.findViewById(R.id.about_instructions);
             Txt3.setText(R.string.about_instructions);
+            Txt4 = (TextView) rootView.findViewById(R.id.about_info);
+            Txt4.setText(R.string.about_info);
             return rootView;
 
         }
