@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -32,7 +33,7 @@ import android.widget.TextView;
 
 import com.workingagenda.democracydroid.feedreader.RssItem;
 import com.workingagenda.democracydroid.feedreader.RssReader;
-
+import com.workingagenda.democracydroid.tabfragment.TabFragment1;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Video"));
+        tabLayout.addTab(tabLayout.newTab().setText("Audio"));
+        tabLayout.addTab(tabLayout.newTab().setText("Foo"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -68,12 +75,31 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         // Gather the Episode Lists
+        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount()); //but why is it final?
+        //mViewPager.setAdapter(pagerAdapter); This breaks it!...
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Live Weekdays 8 am ET", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -113,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
         //Declaire some variables
         public ListView videoList;
         public ListView mList;
+        public TextView mTxt;
         //ArrayAdapter<String> VideoListAdapter;
 
         // Episode objects!!!
@@ -146,58 +173,60 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            // this needs custom adapter
-            // VideoListAdapter = new ArrayAdapter<String>(rootView.getContext(), R.layout.video_row);
+            // TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            // textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
             new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
 
-            mList = (ListView) rootView.findViewById(R.id.list);
+            if(getArguments().getInt(ARG_SECTION_NUMBER) == 1 || getArguments().getInt(ARG_SECTION_NUMBER) ==  2) {
+                mList = (ListView) rootView.findViewById(R.id.list);
 
-            mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Episode e = episodes.get(i);
-                    // CHANGE INTENT depending on the
-                    if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
-                        startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
-                    } else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
-                        // Audio Array is broken
-                        // play as a service
-                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getAudioUrl()));
-                        startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
-                    }
-                    /**
-                     * TODO:Have the APP GALLERY play the video
-                     */
-                }
-            });
-            mList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Episode e = episodes.get(i);
-                    AlertDialog description = new AlertDialog.Builder(
-                            rootView.getContext()).create();
-                    // Get Description and Title
-                    description.setTitle("The War and Peace Report");
-                    description.setMessage(e.getDescription() + "\n\n" + e.getTitle());
-                    //description.setIcon(R.drawable.dm_icon_small);
-                    /**
-                     * TODO: Share Button Context Menu
-                     */
-                    description.setButton("Share", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            //...
+                mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Episode e = episodes.get(i);
+                        // CHANGE INTENT depending on the
+                        if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
+                            Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
+                            startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+                        } else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
+                            // Audio Array is broken
+                            // play as a service
+                            Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getAudioUrl()));
+                            startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
                         }
+                        /**
+                         * TODO:Have the APP GALLERY play the video
+                         */
+                    }
+                });
+                mList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Episode e = episodes.get(i);
+                        AlertDialog description = new AlertDialog.Builder(
+                                rootView.getContext()).create();
+                        // Get Description and Title
+                        description.setTitle("The War and Peace Report");
+                        description.setMessage(e.getDescription() + "\n\n" + e.getTitle());
+                        //description.setIcon(R.drawable.dm_icon_small);
+                        /**
+                         * TODO: Share Button Context Menu
+                         */
+                        description.setButton("Share", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //...
+                            }
 
-                    });
-                    description.show();
-                    return true;
-                }
-            });
+                        });
+                        description.show();
+                        return true;
+                    }
+                });
+            } else if(getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
+                mTxt = (TextView) rootView.findViewById(R.id.section_label);
+            }
 
             return rootView;
         }
