@@ -21,8 +21,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.workingagenda.democracydroid.feedreader.RssItem;
 import com.workingagenda.democracydroid.feedreader.RssReader;
@@ -177,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
             return fragment;
         }
 
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -188,6 +192,8 @@ public class MainActivity extends AppCompatActivity {
             new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
 
             mList = (ListView) rootView.findViewById(R.id.list);
+            registerForContextMenu(mList);
+
             mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -207,35 +213,50 @@ public class MainActivity extends AppCompatActivity {
                      */
                 }
             });
-            mList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    final Episode e = episodes.get(i);
-                    AlertDialog description = new AlertDialog.Builder(
-                            rootView.getContext()).create();
+
+
+            return rootView;
+        }
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            super.onCreateContextMenu(menu, v, menuInfo);
+            if (v.getId()==R.id.list) {
+                MenuInflater inflater = new MenuInflater(getContext());
+                //MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.context_menu, menu);
+            }
+        }
+        @Override
+        public boolean onContextItemSelected(MenuItem item) {
+            //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
+            //Episode e = episodes.get(pos);
+            switch(item.getItemId()) {
+                case R.id.action_share:
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    // sendIntent.putExtra(Intent.EXTRA_TEXT, e.getTitle() + "\n\n" + e.getUrl());
+                    sendIntent.setType("text/plain");
+                    startActivity(sendIntent);
+                    return true;
+                case R.id.action_description:
+                    //final Episode e = episodes.get(i);
+                    AlertDialog description = new AlertDialog.Builder(getContext()).create();
                     // Get Description and Title
                     description.setTitle("The War and Peace Report");
-                    description.setMessage(e.getDescription() + "\n\n" + e.getTitle());
+                    //description.setMessage(e.getDescription() + "\n\n" + e.getTitle());
                     //description.setIcon(R.drawable.dm_icon_small);
-                    /**
-                     * TODO: Share Button Context Menu
-                     */
-                    description.setButton("Share", new DialogInterface.OnClickListener() {
+                    description.setButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent sendIntent = new Intent();
-                            sendIntent.setAction(Intent.ACTION_SEND);
-                            sendIntent.putExtra(Intent.EXTRA_TEXT, e.getTitle() + "\n\n" + e.getUrl());
-                            sendIntent.setType("text/plain");
-                            startActivity(sendIntent);
+                            // do nothing?
                         }
-
                     });
                     description.show();
                     return true;
-                }
-            });
-            return rootView;
+                default:
+                    return super.onContextItemSelected(item);
+            }
         }
+
         private class GetVideoFeed extends AsyncTask<String, Void, Void> {
             @Override
             protected Void doInBackground(String... params) {
