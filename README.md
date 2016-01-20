@@ -17,3 +17,8 @@ feel like compiling from the source, look in the build folder for an app-release
     - settings
         -- only stream on wifi
     - Live streaming link/notification    
+    - Delete individual downloads
+    - About options menu
+    - nicer downloads button
+    - refresh on swipe down
+
