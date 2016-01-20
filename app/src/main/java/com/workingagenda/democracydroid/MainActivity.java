@@ -17,16 +17,14 @@
 package com.workingagenda.democracydroid;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
-import android.app.ListFragment;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.Build;
+import android.os.Environment;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -45,14 +43,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.workingagenda.democracydroid.feedreader.RssItem;
-import com.workingagenda.democracydroid.feedreader.RssReader;
-import com.workingagenda.democracydroid.tabfragment.TabFragment1;
+import com.workingagenda.democracydroid.Adapters.DownloadsAdapter;
+import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
+import com.workingagenda.democracydroid.Adapters.PagerAdapter;
+import com.workingagenda.democracydroid.Helpers.DownloadsDataSave;
+import com.workingagenda.democracydroid.Objects.Download;
+import com.workingagenda.democracydroid.Objects.Episode;
+import com.workingagenda.democracydroid.Feedreader.RssItem;
+import com.workingagenda.democracydroid.Feedreader.RssReader;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private DownloadsDataSave datasource;
+
     //ArrayAdapter<String> AudioListAdapter;
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -81,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Video").setIcon(R.drawable.ic_movie_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Audio").setIcon(R.drawable.ic_mic_none_white_24dp));
-        tabLayout.addTab(tabLayout.newTab().setText("About").setIcon(R.drawable.ic_feedback_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText("Video").setIcon(R.drawable.ic_movie_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText("Downloads").setIcon(R.drawable.ic_file_download_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Create the adapter that will return a fragment for each of the three
@@ -93,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setCurrentItem(1);
         // Gather the Episode Lists
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount()); //but why is it final?
         //mViewPager.setAdapter(pagerAdapter); This breaks it!...
@@ -148,11 +156,22 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_donate) {
+            String url = "https://www.democracynow.org/donate";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+            return true;
+        }
+        if (id == R.id.action_site) {
             String url = "http://www.democracynow.org/";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             startActivity(i);
             return true;
+        }
+        if(id == R.id.action_about){
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivityForResult(intent, 0);
         }
 
         return super.onOptionsItemSelected(item);
@@ -161,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PodcastFragment extends Fragment {
 
         //Declaire some variables
         public ListView mList;
@@ -169,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
         //ArrayAdapter<String> VideoListAdapter;
 
         // Episode objects!!!
-        ArrayList<Episode> episodes = new ArrayList<Episode>(10);
+        ArrayList<Episode> episodes = new ArrayList<Episode>(20);
         // set up custom adapter with episodes
         /**
          * The fragment argument representing the section number for this
@@ -177,18 +196,19 @@ public class MainActivity extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public PlaceholderFragment() {
+        public PodcastFragment() {
         }
+
         public void populateList(ArrayList<Episode> episodes) {
-            mList.setAdapter(new EpisodeAdapter(getContext(), R.layout.episode_row, episodes));
+            mList.setAdapter(new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes));
         }
 
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
+        public static PodcastFragment newInstance(int sectionNumber) {
+            PodcastFragment fragment = new PodcastFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
@@ -214,10 +234,10 @@ public class MainActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Episode e = episodes.get(i);
                     // CHANGE INTENT depending on the
-                    if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
+                    if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
                         Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
                         startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
-                    } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
+                    } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
                         // Audio Array is broken
                         // play as a service
                         Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getAudioUrl()));
@@ -270,6 +290,14 @@ public class MainActivity extends AppCompatActivity {
                     });
                     description.show();
                     return true;
+                case R.id.action_download:
+                    if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
+                        Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
+
+                    } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
+                        Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
+                    }
+                    return true;
                 default:
                     return super.onContextItemSelected(item);
             }
@@ -293,9 +321,10 @@ public class MainActivity extends AppCompatActivity {
                         episodes.add(e);
                         j++;
                     }
-                    //EpisodeAdapter episodeAdapter = new EpisodeAdapter(getContext(), R.layout.episode_row, episodes);
+                    //EpisodeAdapter episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");
+
                 }
                 return null;
             }
@@ -305,6 +334,7 @@ public class MainActivity extends AppCompatActivity {
                 //VideoListAdapter.notifyDataSetChanged();
                 // AudioListAdapter.notifyDataSetChanged();
                 populateList(episodes);
+
             }
         }
         private class GetAudioFeed extends AsyncTask<String, Void, Void> {
@@ -321,6 +351,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");
+
                 }
                 return null;
             }
@@ -328,38 +359,57 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                //VideoListAdapter.notifyDataSetChanged();
-                // AudioListAdapter.notifyDataSetChanged();
-                //videoList.setAdapter(VideoListAdapter);
             }
+        }
+        //http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
+        public void Download(String url, String title, String desc){
+
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+            request.setDescription(desc);
+            request.setTitle(title);
+            // in order for this if to run, you must use the android 3.2 to compile your app
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                request.allowScanningByMediaScanner();
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            }
+            String fileext = url.substring(url.lastIndexOf('/') + 1);
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PODCASTS, fileext);
+            //http://stackoverflow.com/questions/24427414/getsystemservices-is-undefined-when-called-in-a-fragment
+
+            // get download service and enqueue file
+            DownloadManager manager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
+            manager.enqueue(request);
+
+            Toast toast = Toast.makeText(getActivity(), "Starting download of " +title, Toast.LENGTH_LONG);
+            toast.show();
         }
 
     }
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class AboutFragment extends Fragment {
+    public static class DownloadFragment extends Fragment {
 
         //Declaire some variables
         public TextView Txt1;
-        public TextView Txt2;
-        public TextView Txt3;
-        public TextView Txt4;
-       /**
+        public Button btn;
+        public ListView dList;
+
+        /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public AboutFragment() {
+        public DownloadFragment() {
         }
 
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static AboutFragment newInstance(int sectionNumber) {
-            AboutFragment fragment = new AboutFragment();
+        public static DownloadFragment newInstance(int sectionNumber) {
+            DownloadFragment fragment = new DownloadFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
@@ -369,20 +419,58 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            final View rootView = inflater.inflate(R.layout.about_fragment, container, false);
-            // TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            // textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            final View rootView = inflater.inflate(R.layout.fragment_download, container, false);
 
-            Txt1 = (TextView) rootView.findViewById(R.id.about_app);
-            Txt1.setText(R.string.about_app);
-            Txt2 = (TextView) rootView.findViewById(R.id.about_dm);
-            Txt2.setText(R.string.about_dm);
-            Txt3 = (TextView) rootView.findViewById(R.id.about_instructions);
-            Txt3.setText(R.string.about_instructions);
-            Txt4 = (TextView) rootView.findViewById(R.id.about_info);
-            Txt4.setText(R.string.about_info);
+            final List<File> files = getListFiles();
+
+            dList = (ListView) rootView.findViewById(R.id.list);
+            Txt1 = (TextView) rootView.findViewById(R.id.download_help);
+            Txt1.setText(R.string.download_help);
+            btn = (Button) rootView.findViewById(R.id.clear);
+
+            dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
+
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    for (File file : files) {
+                        Log.d("File", file.getName());
+                        // remove files
+                        file.delete();
+                    }
+                    Toast toast = Toast.makeText(getActivity(), "Downloads Removed", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            });
+            dList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    File f = files.get(position);
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.fromFile(f), "*/*");
+                    startActivity(intent);
+
+                }
+            });
+
+
             return rootView;
 
+        }
+        private List<File> getListFiles() {
+            ArrayList<File> inFiles = new ArrayList<File>();
+            File parentDir = new File(Environment.getExternalStorageDirectory().toString()+"/Podcasts");
+            File[] files = parentDir.listFiles();
+            if(files != null) { // I don't know why I need this, but otherwise it breaks
+                for (File file : files) {
+                    if(file.getName().startsWith("dn")){ // there must be a smarter way to do this
+                        if(file.getName().endsWith(".mp3") || file.getName().endsWith(".mp4")){
+                            inFiles.add(file);
+                        }
+                    }
+                }
+            }
+            return inFiles;
         }
     }
 
@@ -399,14 +487,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            //return PlaceholderFragment.newInstance(position + 1);
+            // Return a PodcastFragment (defined as a static inner class below).
+            //return PodcastFragment.newInstance(position + 1);
             switch(position) {
 
-                case 0: return PlaceholderFragment.newInstance(position + 1);
-                case 1: return PlaceholderFragment.newInstance(position + 1);
-                case 2: return AboutFragment.newInstance(position + 1);
-                default: return PlaceholderFragment.newInstance(position + 1);
+                case 0: return PodcastFragment.newInstance(position + 1);
+                case 1: return PodcastFragment.newInstance(position + 1);
+                case 2: return DownloadFragment.newInstance(position + 1);
+                default: return PodcastFragment.newInstance(position + 1);
             }
         }
 
@@ -428,7 +516,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
-    }
 
+    }
 
 }

@@ -18,4 +18,15 @@
         android:orderInCategory="200"
         android:title="@string/action_donate"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_site"
+        android:orderInCategory="200"
+        android:title="@string/action_site"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="200"
+        android:title="@string/action_about"
+        android:icon="@drawable/ic_feedback_white_24dp"
+        app:showAsAction="never" />
 </menu>

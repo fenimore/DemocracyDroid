@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="com.workingagenda.democracydroid.MainActivity$PlaceholderFragment">
+    tools:context=".MainActivity$PodcastFragment">
 
     <ListView android:layout_width="fill_parent"
         android:layout_height="fill_parent"

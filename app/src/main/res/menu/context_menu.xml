@@ -8,4 +8,8 @@
         android:id="@+id/action_description"
         android:orderInCategory="100"
         android:title="Description" />
+    <item
+        android:id="@+id/action_download"
+        android:orderInCategory="300"
+        android:title="Download"/>
 </menu>

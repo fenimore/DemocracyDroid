@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.workingagenda.democracydroid.AboutActivity">
+        <item
+            android:id="@+id/action_back"
+            android:orderInCategory="100"
+            android:title="@string/action_back"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/action_settings"
+            android:orderInCategory="200"
+            android:title="@string/action_settings"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_donate"
+            android:orderInCategory="200"
+            android:title="@string/action_donate"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_site"
+            android:orderInCategory="200"
+            android:title="@string/action_site"
+            app:showAsAction="never" />
+    </menu>
+</menu>
