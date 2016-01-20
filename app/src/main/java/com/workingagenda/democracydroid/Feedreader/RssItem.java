@@ -23,6 +23,16 @@ public class RssItem {
     String imageUrl;
     String videoUrl;
 
+    public String getTest() {
+        return test;
+    }
+
+    public void setTest(String test) {
+        this.test = test;
+    }
+
+    String test;
+
     public String getDescription() {
         return description;
     }
@@ -52,9 +62,10 @@ public class RssItem {
     }
 
     public void setDescription(String description) {
-        description.replace('"', '`');
-        description.replace("&","and");
         this.description = description;
+    }
+    public void addToDescription(String addition){
+        this.description.concat(addition);
     }
 
     public void setTitle(String title) {

@@ -16,6 +16,8 @@
 package com.workingagenda.democracydroid.Feedreader;
 
 
+import android.util.Log;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -88,8 +90,13 @@ public class RssHandler extends DefaultHandler {
             else if (parsingLink)
                 currentItem.setLink(new String(ch, start, length));
                 //If parsingDescription is true, then that means we are inside a <description> tag so the text is the description of an item.
-            else if (parsingDescription)
-                currentItem.setDescription(new String(ch, start, length));
+            else if (parsingDescription){
+                if (currentItem.description == null){
+                    currentItem.setDescription(new String(ch)); //just ch works best so far...
+                } else {
+                    currentItem.addToDescription(new String(ch));
+                }
+            }
         }
     }
 }
