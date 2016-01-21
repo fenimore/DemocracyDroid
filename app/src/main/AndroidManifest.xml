@@ -6,14 +6,15 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/appicon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:icon="@drawable/appicon">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +23,7 @@
         </activity>
         <activity android:name=".AboutActivity"
             android:label="About Democracy Droid"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/appicon"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>

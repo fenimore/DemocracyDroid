@@ -34,7 +34,7 @@ public class AboutActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.about_title);
-        toolbar.setLogo(R.mipmap.ic_launcher);
+        toolbar.setLogo(R.drawable.appicon);
         // TextView textView = (TextView) rootView.findViewById(R.id.section_label);
         // textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 

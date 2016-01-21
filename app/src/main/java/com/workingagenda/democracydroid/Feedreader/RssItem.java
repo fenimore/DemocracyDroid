@@ -65,7 +65,11 @@ public class RssItem {
         this.description = description;
     }
     public void addToDescription(String addition){
-        this.description.concat(addition);
+        if(this.description == null){
+            this.description = addition;
+        } else {
+            this.description.concat(addition);
+        }
     }
 
     public void setTitle(String title) {

@@ -91,11 +91,7 @@ public class RssHandler extends DefaultHandler {
                 currentItem.setLink(new String(ch, start, length));
                 //If parsingDescription is true, then that means we are inside a <description> tag so the text is the description of an item.
             else if (parsingDescription){
-                if (currentItem.description == null){
-                    currentItem.setDescription(new String(ch)); //just ch works best so far...
-                } else {
-                    currentItem.addToDescription(new String(ch));
-                }
+                currentItem.addToDescription(new String(ch));
             }
         }
     }

@@ -449,9 +449,9 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setDataAndType(Uri.fromFile(f), "*/*");
                     startActivity(intent);
-
                 }
             });
+
 
 
             return rootView;

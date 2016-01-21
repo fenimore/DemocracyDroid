@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:actionOverflowButtonStyle">@style/AppTheme.OverFlow</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,10 +15,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="OverFlow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+    <style name="AppTheme.OverFlow">
         <item name="android:src">@drawable/ic_menu_white_24dp</item>
     </style>
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
