@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/fen/access/Android/DemocracyDroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/home/fen/access/Android/DemocracyDroid/app/build/intermediates/pre-dexed/release/com.android.support-support-v4-23.1.1_03b964b8513ba8c972b8a7ab74a4935e401df165.jar" />
+    </item>
+    <item
+        jar="/home/fen/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/home/fen/access/Android/DemocracyDroid/app/build/intermediates/pre-dexed/release/picasso-2.5.2_7c3b662ec5eabd868e0b322add888562ddb8f1bd.jar" />
+    </item>
+    <item
+        jar="/home/fen/access/Android/DemocracyDroid/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="/home/fen/access/Android/DemocracyDroid/app/build/intermediates/pre-dexed/release/com.android.support-recyclerview-v7-23.1.1_041357899982abc4de9e0f261ac09f80c11b9980.jar" />
+    </item>
+    <item
+        jar="/home/fen/access/Android/DemocracyDroid/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/home/fen/access/Android/DemocracyDroid/app/build/intermediates/pre-dexed/release/com.android.support-appcompat-v7-23.1.1_430178a84aaa79c938aa993b9893c342c9a05256.jar" />
+    </item>
+    <item
+        jar="/home/fen/access/Android/DemocracyDroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/home/fen/access/Android/DemocracyDroid/app/build/intermediates/pre-dexed/release/internal_impl-23.1.1_201c1564323380c5576fbdd4b146412da4f1d335.jar" />
+    </item>
+    <item
+        jar="/opt/android-sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/home/fen/access/Android/DemocracyDroid/app/build/intermediates/pre-dexed/release/support-annotations-23.1.1_a191f39ca41bd9735f8d3a9cc6638ec5404adeab.jar" />
+    </item>
+    <item
+        jar="/home/fen/access/Android/DemocracyDroid/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="/home/fen/access/Android/DemocracyDroid/app/build/intermediates/pre-dexed/release/com.android.support-design-23.1.1_6e071462af988cf118052f08099cc214c7444b76.jar" />
+    </item>
+
+</items>
