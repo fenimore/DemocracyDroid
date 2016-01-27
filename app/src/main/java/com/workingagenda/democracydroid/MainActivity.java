@@ -58,6 +58,7 @@ import com.workingagenda.democracydroid.Feedreader.RssItem;
 import com.workingagenda.democracydroid.Feedreader.RssReader;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -321,6 +322,10 @@ public class MainActivity extends AppCompatActivity {
                         episodes.add(e);
                         j++;
                     }
+                    //if(in between the hours, add a initial episodeto the list.);
+                    //DateFormat df = DateFormat.getDateInstance();
+
+
                     //EpisodeAdapter episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");
