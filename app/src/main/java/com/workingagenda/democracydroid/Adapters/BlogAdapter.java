@@ -38,18 +38,23 @@ public class BlogAdapter extends ArrayAdapter<Episode> {
             v = vi.inflate(R.layout.row_episodes, null);
         }
 
-        Episode e = getItem(position);
-        if (e != null) {
+        Episode b = getItem(position);
+        if (b != null) {
             ImageView img = (ImageView) v.findViewById(R.id.row_image);
             TextView txt = (TextView) v.findViewById(R.id.row_title);
-            try {
-                Picasso.with(getContext()).load(e.getImageUrl()).into(img);
-            } catch (Exception ex) {
-                Log.v("Blog Adapter", "exception");
+            if(b.getVideoUrl() != null){
+                try {
+                    Picasso.with(getContext()).load(b.getImageUrl()).into(img);
+                } catch (Exception ex) {
+                    Log.v("Blog Adapter", "exception");
+                }
+            } else {
+                Picasso.with(getContext()).load(R.drawable.ic_library_books_black_24dp).into(img);
             }
 
+
             if (txt != null) {
-                txt.setText(e.getTitle());
+                txt.setText(b.getTitle());
 
             }
         }

@@ -29,11 +29,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="fragment_download.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_download.xml">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.2727273">
-              <caret line="11" column="40" selection-start-line="11" selection-start-column="40" selection-end-line="11" selection-end-column="40" />
+            <state vertical-scroll-proportion="-2.1333334">
+              <caret line="447" column="47" selection-start-line="447" selection-start-column="47" selection-end-line="447" selection-end-column="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;field#mViewPager#0;class#MainActivity#0" expanded="false" />
+                <element signature="e#5850#5908#0" expanded="false" />
+                <element signature="docComment;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
+                <element signature="e#9498#10069#0" expanded="true" />
+                <element signature="e#10068#10069#0" expanded="true" />
+                <element signature="method#onCreateContextMenu#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
+                <element signature="method#onContextItemSelected#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
+                <element signature="class#GetVideoFeed#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
+                <element signature="class#GetAudioFeed#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
+                <element signature="method#Download#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
+                <element signature="e#18317#19061#0" expanded="true" />
+                <element signature="e#19060#19061#0" expanded="true" />
+                <element signature="docComment;class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
+                <element signature="class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
+                <element signature="e#23247#23269#0" expanded="true" />
+                <element signature="e#23580#24202#0" expanded="true" />
+                <element signature="e#24201#24202#0" expanded="true" />
+                <element signature="e#24247#24527#0" expanded="true" />
+                <element signature="e#24526#24527#0" expanded="true" />
+                <element signature="docComment;class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
+                <element signature="e#27304#27305#0" expanded="true" />
+                <element signature="e#27337#27338#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="row_blog.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/row_blog.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.37719297">
+              <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+              <folding>
+                <element signature="e#748#781#0" expanded="true" />
+                <element signature="e#810#845#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="row_episodes.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/row_episodes.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -42,44 +92,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.8">
-              <caret line="663" column="43" selection-start-line="663" selection-start-column="43" selection-end-line="663" selection-end-column="43" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;field#mViewPager#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#5788#5846#0" expanded="false" />
-                <element signature="docComment;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#9436#10007#0" expanded="true" />
-                <element signature="e#10006#10007#0" expanded="true" />
-                <element signature="method#onCreateContextMenu#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-                <element signature="method#onContextItemSelected#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-                <element signature="class#GetVideoFeed#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-                <element signature="class#GetAudioFeed#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-                <element signature="method#Download#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#18258#18727#0" expanded="true" />
-                <element signature="e#18726#18727#0" expanded="true" />
-                <element signature="docComment;class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#22912#22934#0" expanded="true" />
-                <element signature="e#23245#23867#0" expanded="true" />
-                <element signature="e#23866#23867#0" expanded="true" />
-                <element signature="e#23912#24192#0" expanded="true" />
-                <element signature="e#24191#24192#0" expanded="true" />
-                <element signature="docComment;class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#26969#26970#0" expanded="true" />
-                <element signature="e#27002#27003#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BlogAdapter.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BlogAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/BlogAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.71304345">
-              <caret line="51" column="40" selection-start-line="51" selection-start-column="40" selection-end-line="51" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="51" column="96" selection-start-line="51" selection-start-column="96" selection-end-line="51" selection-end-column="96" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -149,34 +166,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="context_menu.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/context_menu.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="46" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Fragment.java" pinned="false" current-in-tab="false">
-        <entry file="jar:///opt/android-sdk/extras/android/m2repository/com/android/support/support-v4/23.1.1/support-v4-23.1.1-sources.jar!/android/support/v4/app/Fragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="167" column="13" selection-start-line="167" selection-start-column="13" selection-end-line="167" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="resourceFile" />
-        <option value="layoutResourceFile_vertical" />
         <option value="Class" />
+        <option value="layoutResourceFile_vertical" />
       </list>
     </option>
   </component>
@@ -1932,6 +1929,7 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_blog.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/BlogAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/row_blog.xml" />
       </list>
     </option>
   </component>
@@ -2320,10 +2318,10 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39868203" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3294893" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2353,8 +2351,19 @@
           <url>file://$PROJECT_DIR$/app/src/main/res/values/colors.xml</url>
           <line>3</line>
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java</url>
+          <line>446</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java</url>
+          <line>445</line>
+          <properties />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="2" />
+      <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2385,26 +2394,27 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;field#mViewPager#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#5788#5846#0" expanded="false" />
+            <element signature="e#5850#5908#0" expanded="false" />
             <element signature="docComment;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#9436#10007#0" expanded="true" />
-            <element signature="e#10006#10007#0" expanded="true" />
+            <element signature="e#9498#10069#0" expanded="true" />
+            <element signature="e#10068#10069#0" expanded="true" />
             <element signature="method#onCreateContextMenu#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="method#onContextItemSelected#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="class#GetVideoFeed#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="class#GetAudioFeed#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="method#Download#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#18258#18727#0" expanded="true" />
-            <element signature="e#18726#18727#0" expanded="true" />
+            <element signature="e#18317#19061#0" expanded="true" />
+            <element signature="e#19060#19061#0" expanded="true" />
             <element signature="docComment;class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#22912#22934#0" expanded="true" />
-            <element signature="e#23245#23867#0" expanded="true" />
-            <element signature="e#23866#23867#0" expanded="true" />
-            <element signature="e#23912#24192#0" expanded="true" />
-            <element signature="e#24191#24192#0" expanded="true" />
+            <element signature="class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#23247#23269#0" expanded="true" />
+            <element signature="e#23580#24202#0" expanded="true" />
+            <element signature="e#24201#24202#0" expanded="true" />
+            <element signature="e#24247#24527#0" expanded="true" />
+            <element signature="e#24526#24527#0" expanded="true" />
             <element signature="docComment;class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#26969#26970#0" expanded="true" />
-            <element signature="e#27002#27003#0" expanded="true" />
+            <element signature="e#27304#27305#0" expanded="true" />
+            <element signature="e#27337#27338#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2484,28 +2494,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_blog.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.2727273">
-          <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab_fragment_1.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
@@ -2528,35 +2516,37 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/row_episodes.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.8">
-          <caret line="663" column="43" selection-start-line="663" selection-start-column="43" selection-end-line="663" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;field#mViewPager#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#5788#5846#0" expanded="false" />
-            <element signature="docComment;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#9436#10007#0" expanded="true" />
-            <element signature="e#10006#10007#0" expanded="true" />
-            <element signature="method#onCreateContextMenu#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#onContextItemSelected#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="class#GetVideoFeed#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="class#GetAudioFeed#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#Download#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#18258#18727#0" expanded="true" />
-            <element signature="e#18726#18727#0" expanded="true" />
-            <element signature="docComment;class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#22912#22934#0" expanded="true" />
-            <element signature="e#23245#23867#0" expanded="true" />
-            <element signature="e#23866#23867#0" expanded="true" />
-            <element signature="e#23912#24192#0" expanded="true" />
-            <element signature="e#24191#24192#0" expanded="true" />
-            <element signature="docComment;class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#26969#26970#0" expanded="true" />
-            <element signature="e#27002#27003#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="15" />
+          <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab_fragment_1.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_blog.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.2727273">
+          <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/EpisodeAdapter.java">
@@ -2567,14 +2557,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///opt/android-sdk/sources/android-23/android/widget/AdapterView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1764706">
+          <caret line="272" column="13" selection-start-line="272" selection-start-column="13" selection-end-line="272" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.1333334">
+          <caret line="447" column="47" selection-start-line="447" selection-start-column="47" selection-end-line="447" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;field#mViewPager#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#5850#5908#0" expanded="false" />
+            <element signature="docComment;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#9498#10069#0" expanded="true" />
+            <element signature="e#10068#10069#0" expanded="true" />
+            <element signature="method#onCreateContextMenu#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onContextItemSelected#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="class#GetVideoFeed#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="class#GetAudioFeed#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#Download#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#18317#19061#0" expanded="true" />
+            <element signature="e#19060#19061#0" expanded="true" />
+            <element signature="docComment;class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#23247#23269#0" expanded="true" />
+            <element signature="e#23580#24202#0" expanded="true" />
+            <element signature="e#24201#24202#0" expanded="true" />
+            <element signature="e#24247#24527#0" expanded="true" />
+            <element signature="e#24526#24527#0" expanded="true" />
+            <element signature="docComment;class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#27304#27305#0" expanded="true" />
+            <element signature="e#27337#27338#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/BlogAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.71304345">
-          <caret line="51" column="40" selection-start-line="51" selection-start-column="40" selection-end-line="51" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="51" column="96" selection-start-line="51" selection-start-column="96" selection-end-line="51" selection-end-column="96" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/row_blog.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37719297">
+          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+          <folding>
+            <element signature="e#748#781#0" expanded="true" />
+            <element signature="e#810#845#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
   </component>

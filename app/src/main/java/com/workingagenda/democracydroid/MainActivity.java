@@ -48,6 +48,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.workingagenda.democracydroid.Adapters.BlogAdapter;
 import com.workingagenda.democracydroid.Adapters.DownloadsAdapter;
 import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
 import com.workingagenda.democracydroid.Adapters.PagerAdapter;
@@ -424,7 +425,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void populateList(ArrayList<Episode> blogs) {
-            bList.setAdapter(new EpisodeAdapter(getContext(), R.layout.row_episodes, blogs));
+            bList.setAdapter(new BlogAdapter(getContext(), R.layout.row_episodes, blogs));
         }
 
         @Override
@@ -444,8 +445,13 @@ public class MainActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Episode b = blogPosts.get(position);
                     // CHANGE INTENT depending on the
-                    Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(b.getVideoUrl()));
-                    startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+                    if (b.getVideoUrl() != null) {
+                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(b.getVideoUrl()));
+                        startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+                    } else {
+                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(b.getUrl()));
+                        startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+                    }
                 }
             });
 
@@ -454,6 +460,7 @@ public class MainActivity extends AppCompatActivity {
             return rootView;
 
         }
+
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             super.onCreateContextMenu(menu, v, menuInfo);
