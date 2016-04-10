@@ -286,6 +286,13 @@ public class MainActivity extends AppCompatActivity {
                     sendIntent.setType("text/plain");
                     startActivity(sendIntent);
                     return true;
+                case R.id.action_audio:
+
+                    return true;
+                case R.id.action_download_audio:
+
+                    return true;
+
                 case R.id.action_description:
                     AlertDialog description = new AlertDialog.Builder(getContext()).create();
                     // Get Description and Title

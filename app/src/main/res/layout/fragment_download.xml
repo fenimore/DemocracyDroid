@@ -6,24 +6,30 @@
     android:paddingLeft="15dp"
     android:paddingBottom="70dp"
     android:layout_marginBottom="50dp">
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_clear_all_black_24dp"
-        android:paddingRight="20px"
-        android:paddingLeft="20px"
-        android:id="@+id/clear"
-        android:text="Clear All"
-        android:layout_marginTop="10dp"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_refresh_black_24dp"
-        android:paddingRight="20px"
-        android:paddingLeft="20px"
-        android:id="@+id/refresh"
-        android:text="Clear All"
-        android:layout_marginTop="10dp"/>
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_clear_all_black_24dp"
+            android:paddingRight="20px"
+            android:paddingLeft="20px"
+            android:id="@+id/clear"
+            android:text="Clear All"
+            android:layout_marginTop="10dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_refresh_black_24dp"
+            android:paddingRight="20px"
+            android:paddingLeft="20px"
+            android:id="@+id/refresh"
+            android:text="Refresh"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
     <ListView android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/list">

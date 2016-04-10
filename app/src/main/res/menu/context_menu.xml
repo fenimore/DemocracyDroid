@@ -9,6 +9,14 @@
         android:orderInCategory="100"
         android:title="Description" />
     <item
+        android:id="@+id/action_audio"
+        android:orderInCategory="100"
+        android:title="Stream Audio" />
+    <item
+        android:id="@+id/action_download_audio"
+        android:orderInCategory="100"
+        android:title="Download Audio" />
+    <item
         android:id="@+id/action_download"
         android:orderInCategory="300"
         android:title="Download"/>
