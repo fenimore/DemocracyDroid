@@ -45,31 +45,31 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.06147541">
-              <caret line="93" column="105" selection-start-line="93" selection-start-column="105" selection-end-line="93" selection-end-column="105" />
+            <state vertical-scroll-proportion="0.60453403">
+              <caret line="159" column="47" selection-start-line="159" selection-start-column="47" selection-end-line="159" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;field#mViewPager#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#5857#5915#0" expanded="false" />
+                <element signature="e#5868#5926#0" expanded="false" />
                 <element signature="docComment;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#9505#10076#0" expanded="true" />
-                <element signature="e#10075#10076#0" expanded="true" />
+                <element signature="e#9695#10266#0" expanded="true" />
+                <element signature="e#10265#10266#0" expanded="true" />
                 <element signature="method#onCreateContextMenu#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#Download#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#18324#19068#0" expanded="true" />
-                <element signature="e#19067#19068#0" expanded="true" />
-                <element signature="e#20450#20661#0" expanded="true" />
-                <element signature="e#20660#20661#0" expanded="true" />
+                <element signature="e#18514#19258#0" expanded="true" />
+                <element signature="e#19257#19258#0" expanded="true" />
+                <element signature="e#20640#20851#0" expanded="true" />
+                <element signature="e#20850#20851#0" expanded="true" />
                 <element signature="docComment;class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
                 <element signature="class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#23973#23995#0" expanded="true" />
-                <element signature="e#24306#24928#0" expanded="true" />
-                <element signature="e#24927#24928#0" expanded="true" />
-                <element signature="e#24973#25253#0" expanded="true" />
-                <element signature="e#25252#25253#0" expanded="true" />
+                <element signature="e#24163#24185#0" expanded="true" />
+                <element signature="e#24496#25118#0" expanded="true" />
+                <element signature="e#25117#25118#0" expanded="true" />
+                <element signature="e#25163#25443#0" expanded="true" />
+                <element signature="e#25442#25443#0" expanded="true" />
                 <element signature="docComment;class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#28030#28031#0" expanded="true" />
-                <element signature="e#28063#28064#0" expanded="true" />
+                <element signature="e#28220#28221#0" expanded="true" />
+                <element signature="e#28253#28254#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2297,7 +2297,7 @@
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="100" y="127" width="1166" height="541" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.47116968" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21911038" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -2305,15 +2305,15 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24962063" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.114567526" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294893" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39868203" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3970346" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294893" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2348,12 +2348,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java</url>
-          <line>446</line>
+          <line>451</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java</url>
-          <line>445</line>
+          <line>450</line>
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
@@ -2389,26 +2389,26 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;field#mViewPager#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#5857#5915#0" expanded="false" />
+            <element signature="e#5868#5926#0" expanded="false" />
             <element signature="docComment;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#9505#10076#0" expanded="true" />
-            <element signature="e#10075#10076#0" expanded="true" />
+            <element signature="e#9695#10266#0" expanded="true" />
+            <element signature="e#10265#10266#0" expanded="true" />
             <element signature="method#onCreateContextMenu#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="method#Download#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#18324#19068#0" expanded="true" />
-            <element signature="e#19067#19068#0" expanded="true" />
-            <element signature="e#20450#20661#0" expanded="true" />
-            <element signature="e#20660#20661#0" expanded="true" />
+            <element signature="e#18514#19258#0" expanded="true" />
+            <element signature="e#19257#19258#0" expanded="true" />
+            <element signature="e#20640#20851#0" expanded="true" />
+            <element signature="e#20850#20851#0" expanded="true" />
             <element signature="docComment;class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#23973#23995#0" expanded="true" />
-            <element signature="e#24306#24928#0" expanded="true" />
-            <element signature="e#24927#24928#0" expanded="true" />
-            <element signature="e#24973#25253#0" expanded="true" />
-            <element signature="e#25252#25253#0" expanded="true" />
+            <element signature="e#24163#24185#0" expanded="true" />
+            <element signature="e#24496#25118#0" expanded="true" />
+            <element signature="e#25117#25118#0" expanded="true" />
+            <element signature="e#25163#25443#0" expanded="true" />
+            <element signature="e#25442#25443#0" expanded="true" />
             <element signature="docComment;class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#28030#28031#0" expanded="true" />
-            <element signature="e#28063#28064#0" expanded="true" />
+            <element signature="e#28220#28221#0" expanded="true" />
+            <element signature="e#28253#28254#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2638,31 +2638,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06147541">
-          <caret line="93" column="105" selection-start-line="93" selection-start-column="105" selection-end-line="93" selection-end-column="105" />
+        <state vertical-scroll-proportion="0.60453403">
+          <caret line="159" column="47" selection-start-line="159" selection-start-column="47" selection-end-line="159" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;field#mViewPager#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#5857#5915#0" expanded="false" />
+            <element signature="e#5868#5926#0" expanded="false" />
             <element signature="docComment;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#9505#10076#0" expanded="true" />
-            <element signature="e#10075#10076#0" expanded="true" />
+            <element signature="e#9695#10266#0" expanded="true" />
+            <element signature="e#10265#10266#0" expanded="true" />
             <element signature="method#onCreateContextMenu#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="method#Download#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#18324#19068#0" expanded="true" />
-            <element signature="e#19067#19068#0" expanded="true" />
-            <element signature="e#20450#20661#0" expanded="true" />
-            <element signature="e#20660#20661#0" expanded="true" />
+            <element signature="e#18514#19258#0" expanded="true" />
+            <element signature="e#19257#19258#0" expanded="true" />
+            <element signature="e#20640#20851#0" expanded="true" />
+            <element signature="e#20850#20851#0" expanded="true" />
             <element signature="docComment;class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#23973#23995#0" expanded="true" />
-            <element signature="e#24306#24928#0" expanded="true" />
-            <element signature="e#24927#24928#0" expanded="true" />
-            <element signature="e#24973#25253#0" expanded="true" />
-            <element signature="e#25252#25253#0" expanded="true" />
+            <element signature="e#24163#24185#0" expanded="true" />
+            <element signature="e#24496#25118#0" expanded="true" />
+            <element signature="e#25117#25118#0" expanded="true" />
+            <element signature="e#25163#25443#0" expanded="true" />
+            <element signature="e#25442#25443#0" expanded="true" />
             <element signature="docComment;class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#28030#28031#0" expanded="true" />
-            <element signature="e#28063#28064#0" expanded="true" />
+            <element signature="e#28220#28221#0" expanded="true" />
+            <element signature="e#28253#28254#0" expanded="true" />
           </folding>
         </state>
       </provider>

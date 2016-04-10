@@ -32,6 +32,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
@@ -74,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private DownloadsDataSave datasource;
 
     //ArrayAdapter<String> AudioListAdapter;
     /**
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(1);
         // Gather the Episode Lists
-        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount()); //but why is it final?
+        //final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount()); //but why is it final?
         //mViewPager.setAdapter(pagerAdapter); This breaks it!...
         // Set up the tab and View Pager
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -153,8 +153,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_refresh) {
-            PodcastFragment.newInstance(2);
-            DownloadFragment.newInstance(3); //doesn't work
+
+            getSupportFragmentManager().getFragments();
+            for(Fragment x :getSupportFragmentManager().getFragments()){
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.detach(x).attach(x).commit();
+
+            }
             //finish();
             //startActivity(getIntent());
             return true;
