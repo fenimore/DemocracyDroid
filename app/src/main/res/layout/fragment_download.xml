@@ -9,10 +9,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_clear_all_black_24dp"
+        android:paddingRight="20px"
+        android:paddingLeft="20px"
         android:id="@+id/clear"
-        android:text="Remove All Downloads"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="#f6f6f6"
+        android:text="Clear All"
         android:layout_marginTop="10dp"/>
     <ListView android:layout_width="fill_parent"
         android:layout_height="fill_parent"
