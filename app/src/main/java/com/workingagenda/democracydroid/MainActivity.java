@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.action_refresh) {
             PodcastFragment.newInstance(2);
+            DownloadFragment.newInstance(3); //doesn't work
             //finish();
             //startActivity(getIntent());
             return true;
@@ -405,6 +406,7 @@ public class MainActivity extends AppCompatActivity {
         //Declaire some variables
         public TextView Txt1;
         public Button btn;
+        public Button btnRefresh;
         public ListView dList;
         public List<File> files;
         /**
@@ -439,6 +441,7 @@ public class MainActivity extends AppCompatActivity {
             Txt1 = (TextView) rootView.findViewById(R.id.download_help);
             Txt1.setText(R.string.download_help);
             btn = (Button) rootView.findViewById(R.id.clear);
+            btnRefresh= (Button) rootView.findViewById(R.id.refresh);
             registerForContextMenu(dList);
 
             dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
@@ -452,9 +455,16 @@ public class MainActivity extends AppCompatActivity {
                         file.delete();
                     }
                     files = getListFiles();
-                    dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download,files));
+                    dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
                     Toast toast = Toast.makeText(getActivity(), "Downloads Removed", Toast.LENGTH_SHORT);
                     toast.show();
+                }
+            });
+            btnRefresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    files = getListFiles();
+                    dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
                 }
             });
             dList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
