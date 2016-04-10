@@ -152,8 +152,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_refresh) {
-            finish();
-            startActivity(getIntent());
+            PodcastFragment.newInstance(2);
+            //finish();
+            //startActivity(getIntent());
             return true;
         }
         if (id == R.id.action_donate) {
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public static class PodcastFragment extends Fragment {
 
+
         //Declaire some variables
         public ListView mList;
         public TextView mTxt;
@@ -202,6 +204,10 @@ public class MainActivity extends AppCompatActivity {
 
         public void populateList(ArrayList<Episode> episodes) {
             mList.setAdapter(new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes));
+        }
+        private void refresh() {
+            new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
+            new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
         }
 
         /**
@@ -223,12 +229,13 @@ public class MainActivity extends AppCompatActivity {
             final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             // TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             // textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            mList = (ListView) rootView.findViewById(R.id.list);
+            registerForContextMenu(mList);
 
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
             new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
 
-            mList = (ListView) rootView.findViewById(R.id.list);
-            registerForContextMenu(mList);
+
 
             mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -485,7 +492,7 @@ public class MainActivity extends AppCompatActivity {
                     File file = files.get(pos);
                     file.delete();
                     files = getListFiles();
-                    dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download,files));
+                    dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
                     return true;
 
                 default:
