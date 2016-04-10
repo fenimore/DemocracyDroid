@@ -9,6 +9,12 @@
         android:icon="@drawable/ic_refresh_white_24dp"
         app:showAsAction="always" />
     <item
+        android:id="@+id/action_site"
+        android:orderInCategory="150"
+        android:title="@string/action_site"
+        android:icon="@drawable/ic_public_white_24dp"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="200"
         android:title="@string/action_settings"
@@ -18,11 +24,7 @@
         android:orderInCategory="200"
         android:title="@string/action_donate"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_site"
-        android:orderInCategory="200"
-        android:title="@string/action_site"
-        app:showAsAction="never" />
+
     <item
         android:id="@+id/action_about"
         android:orderInCategory="200"

@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Blog").setIcon(R.drawable.ic_library_books_white_24dp));
-        tabLayout.addTab(tabLayout.newTab().setText("Broadcast").setIcon(R.drawable.ic_movie_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText("Broadcast").setIcon(R.drawable.ic_live_tv_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Downloads").setIcon(R.drawable.ic_file_download_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
