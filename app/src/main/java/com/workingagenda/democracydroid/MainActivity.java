@@ -444,6 +444,8 @@ public class MainActivity extends AppCompatActivity {
                         // remove files
                         file.delete();
                     }
+                    files = getListFiles();
+                    dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download,files));
                     Toast toast = Toast.makeText(getActivity(), "Downloads Removed", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -482,6 +484,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.action_delete:
                     File file = files.get(pos);
                     file.delete();
+                    files = getListFiles();
+                    dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download,files));
                     return true;
 
                 default:
