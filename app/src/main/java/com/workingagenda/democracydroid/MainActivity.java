@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Blog").setIcon(R.drawable.ic_mic_none_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText("Blog").setIcon(R.drawable.ic_library_books_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Broadcast").setIcon(R.drawable.ic_movie_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Downloads").setIcon(R.drawable.ic_file_download_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -468,7 +468,7 @@ public class MainActivity extends AppCompatActivity {
                 MenuInflater inflater = new MenuInflater(getContext());
                 menu.setHeaderTitle("Democracy Now!");
                 //MenuInflater inflater = getMenuInflater();
-                inflater.inflate(R.menu.download_menu, menu);
+                inflater.inflate(R.menu.blog_menu, menu);
             }
         }
         @Override
@@ -476,10 +476,21 @@ public class MainActivity extends AppCompatActivity {
             //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int pos = info.position;
+            Episode b = blogPosts.get(pos);
             switch(item.getItemId()) {
-                case R.id.action_delete:
+                case R.id.action_blog_description:
+                    AlertDialog description = new AlertDialog.Builder(getContext()).create();
+                    // Get Description and Title
+                    description.setTitle("Democracy Now! Blog");
+                    description.setMessage(b.getDescription() + "\n\n" + b.getTitle());
+                    //description.setIcon(R.drawable.dm_icon_small);
+                    description.setButton("Close", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing?
+                        }
+                    });
+                    description.show();
                     return true;
-
                 default:
                     return super.onContextItemSelected(item);
             }
