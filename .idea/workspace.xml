@@ -55,23 +55,23 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.48867926">
-              <caret line="292" column="0" selection-start-line="292" selection-start-column="0" selection-end-line="292" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.5696721">
+              <caret line="293" column="80" selection-start-line="293" selection-start-column="80" selection-end-line="293" selection-end-column="80" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;field#mViewPager#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#onCreate#0;class#MainActivity#0" expanded="false" />
-                <element signature="method#onCreateOptionsMenu#0;class#MainActivity#0" expanded="false" />
                 <element signature="e#5785#5843#0" expanded="false" />
                 <element signature="docComment;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
                 <element signature="docComment;class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
                 <element signature="class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#18970#19592#0" expanded="true" />
-                <element signature="e#19591#19592#0" expanded="true" />
-                <element signature="e#19637#19917#0" expanded="true" />
-                <element signature="e#19916#19917#0" expanded="true" />
+                <element signature="e#18944#19566#0" expanded="true" />
+                <element signature="e#19565#19566#0" expanded="true" />
+                <element signature="e#19611#19891#0" expanded="true" />
+                <element signature="e#19890#19891#0" expanded="true" />
                 <element signature="docComment;class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
-                <element signature="class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
+                <element signature="e#22668#22669#0" expanded="true" />
+                <element signature="e#22701#22702#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2248,7 +2248,7 @@
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="100" y="127" width="1166" height="541" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47116968" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.47116968" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -2330,17 +2330,17 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;field#mViewPager#0;class#MainActivity#0" expanded="false" />
             <element signature="method#onCreate#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#onCreateOptionsMenu#0;class#MainActivity#0" expanded="false" />
             <element signature="e#5785#5843#0" expanded="false" />
             <element signature="docComment;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="docComment;class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#18970#19592#0" expanded="true" />
-            <element signature="e#19591#19592#0" expanded="true" />
-            <element signature="e#19637#19917#0" expanded="true" />
-            <element signature="e#19916#19917#0" expanded="true" />
+            <element signature="e#18944#19566#0" expanded="true" />
+            <element signature="e#19565#19566#0" expanded="true" />
+            <element signature="e#19611#19891#0" expanded="true" />
+            <element signature="e#19890#19891#0" expanded="true" />
             <element signature="docComment;class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
-            <element signature="class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#22668#22669#0" expanded="true" />
+            <element signature="e#22701#22702#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2422,23 +2422,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48867926">
-          <caret line="292" column="0" selection-start-line="292" selection-start-column="0" selection-end-line="292" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.5696721">
+          <caret line="293" column="80" selection-start-line="293" selection-start-column="80" selection-end-line="293" selection-end-column="80" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;field#mViewPager#0;class#MainActivity#0" expanded="false" />
             <element signature="method#onCreate#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#onCreateOptionsMenu#0;class#MainActivity#0" expanded="false" />
             <element signature="e#5785#5843#0" expanded="false" />
             <element signature="docComment;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="docComment;class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="class#DownloadFragment#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#18970#19592#0" expanded="true" />
-            <element signature="e#19591#19592#0" expanded="true" />
-            <element signature="e#19637#19917#0" expanded="true" />
-            <element signature="e#19916#19917#0" expanded="true" />
+            <element signature="e#18944#19566#0" expanded="true" />
+            <element signature="e#19565#19566#0" expanded="true" />
+            <element signature="e#19611#19891#0" expanded="true" />
+            <element signature="e#19890#19891#0" expanded="true" />
             <element signature="docComment;class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
-            <element signature="class#SectionsPagerAdapter#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#22668#22669#0" expanded="true" />
+            <element signature="e#22701#22702#0" expanded="true" />
           </folding>
         </state>
       </provider>

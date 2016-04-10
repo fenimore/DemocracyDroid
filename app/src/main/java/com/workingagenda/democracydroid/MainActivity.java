@@ -287,10 +287,11 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(sendIntent);
                     return true;
                 case R.id.action_audio:
-
+                    Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getAudioUrl()));
+                    startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
                     return true;
                 case R.id.action_download_audio:
-
+                    Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
                     return true;
 
                 case R.id.action_description:
@@ -307,12 +308,7 @@ public class MainActivity extends AppCompatActivity {
                     description.show();
                     return true;
                 case R.id.action_download:
-                    if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
-                        Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
-
-                    } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                        Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
-                    }
+                    Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
                     return true;
                 default:
                     return super.onContextItemSelected(item);
