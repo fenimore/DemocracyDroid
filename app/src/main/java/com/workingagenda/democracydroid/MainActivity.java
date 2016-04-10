@@ -399,7 +399,7 @@ public class MainActivity extends AppCompatActivity {
         public TextView Txt1;
         public Button btn;
         public ListView dList;
-
+        public List<File> files;
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -426,7 +426,7 @@ public class MainActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_download, container, false);
 
-            final List<File> files = getListFiles();
+            files = getListFiles();
 
             dList = (ListView) rootView.findViewById(R.id.list);
             Txt1 = (TextView) rootView.findViewById(R.id.download_help);
@@ -479,8 +479,9 @@ public class MainActivity extends AppCompatActivity {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int pos = info.position;
             switch(item.getItemId()) {
-                case R.id.action_download:
-
+                case R.id.action_delete:
+                    File file = files.get(pos);
+                    file.delete();
                     return true;
 
                 default:
