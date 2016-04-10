@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Audio").setIcon(R.drawable.ic_mic_none_white_24dp));
-        tabLayout.addTab(tabLayout.newTab().setText("Video").setIcon(R.drawable.ic_movie_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText("Blog").setIcon(R.drawable.ic_mic_none_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText("Broadcast").setIcon(R.drawable.ic_movie_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Downloads").setIcon(R.drawable.ic_file_download_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -243,15 +243,9 @@ public class MainActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Episode e = episodes.get(i);
                     // CHANGE INTENT depending on the
-                    if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
-                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
-                        startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
-                    } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                        // Audio Array is broken
-                        // play as a service
-                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getAudioUrl()));
-                        startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
-                    }
+                    Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
+                    startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+
                     /**
                      * TODO:Have the APP GALLERY play the video
                      */
@@ -401,6 +395,127 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    public static class BlogFragment extends Fragment {
+
+        //Declaire some variables
+        public ListView bList;
+        public List<File> files;
+        ArrayList<Episode> blogPosts = new ArrayList<Episode>(20);
+
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        public BlogFragment() {
+        }
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static BlogFragment newInstance(int sectionNumber) {
+            BlogFragment fragment = new BlogFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public void populateList(ArrayList<Episode> blogs) {
+            bList.setAdapter(new EpisodeAdapter(getContext(), R.layout.row_episodes, blogs));
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            final View rootView = inflater.inflate(R.layout.fragment_blog, container, false);
+
+            bList = (ListView) rootView.findViewById(R.id.list);
+
+            registerForContextMenu(bList);
+
+            new GetBlogFeed().execute("http://www.democracynow.org/democracynow-blog.rss");
+
+
+            bList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Episode b = blogPosts.get(position);
+                    // CHANGE INTENT depending on the
+                    Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(b.getVideoUrl()));
+                    startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+                }
+            });
+
+
+
+            return rootView;
+
+        }
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            super.onCreateContextMenu(menu, v, menuInfo);
+            if (v.getId()==R.id.list) {
+                MenuInflater inflater = new MenuInflater(getContext());
+                menu.setHeaderTitle("Democracy Now!");
+                //MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.download_menu, menu);
+            }
+        }
+        @Override
+        public boolean onContextItemSelected(MenuItem item) {
+            //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            int pos = info.position;
+            switch(item.getItemId()) {
+                case R.id.action_delete:
+                    return true;
+
+                default:
+                    return super.onContextItemSelected(item);
+            }
+        }
+        private class GetBlogFeed extends AsyncTask<String, Void, Void> {
+            @Override
+            protected Void doInBackground(String... params) {
+                try {
+                    RssReader rssReader = new RssReader(params[0]);
+                    int j = 0;
+                    for(RssItem item : rssReader.getItems()){
+                        //VideoListAdapter.add(item.getTitle().substring(14));
+                        // This should just be the Episode Object (class?)
+                        Episode b = new Episode();
+                        b.setTitle(item.getTitle());
+                        b.setVideoUrl(item.getVideoUrl());
+                        b.setDescription(item.getDescription());
+                        b.setImageUrl(item.getImageUrl());
+                        b.setUrl(item.getLink());
+                        blogPosts.add(b);
+                        j++;
+                    }
+                    //if(in between the hours, add a initial episodeto the list.);
+                    //DateFormat df = DateFormat.getDateInstance();
+
+
+                    //EpisodeAdapter episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
+                } catch (Exception e) {
+                    Log.v("Error Parsing Data", e + "");
+
+                }
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                //VideoListAdapter.notifyDataSetChanged();
+                // AudioListAdapter.notifyDataSetChanged();
+                populateList(blogPosts);
+
+            }
+        }
+    }
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -546,7 +661,7 @@ public class MainActivity extends AppCompatActivity {
             //return PodcastFragment.newInstance(position + 1);
             switch(position) {
 
-                case 0: return PodcastFragment.newInstance(position + 1);
+                case 0: return BlogFragment.newInstance(position + 1);
                 case 1: return PodcastFragment.newInstance(position + 1);
                 case 2: return DownloadFragment.newInstance(position + 1);
                 default: return PodcastFragment.newInstance(position + 1);
