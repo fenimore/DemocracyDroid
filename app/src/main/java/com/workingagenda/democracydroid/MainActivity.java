@@ -432,6 +432,7 @@ public class MainActivity extends AppCompatActivity {
             Txt1 = (TextView) rootView.findViewById(R.id.download_help);
             Txt1.setText(R.string.download_help);
             btn = (Button) rootView.findViewById(R.id.clear);
+            registerForContextMenu(dList);
 
             dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
 
@@ -461,6 +462,30 @@ public class MainActivity extends AppCompatActivity {
 
             return rootView;
 
+        }
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            super.onCreateContextMenu(menu, v, menuInfo);
+            if (v.getId()==R.id.list) {
+                MenuInflater inflater = new MenuInflater(getContext());
+                menu.setHeaderTitle("Democracy Now!");
+                //MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.download_menu, menu);
+            }
+        }
+        @Override
+        public boolean onContextItemSelected(MenuItem item) {
+            //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            int pos = info.position;
+            switch(item.getItemId()) {
+                case R.id.action_download:
+
+                    return true;
+
+                default:
+                    return super.onContextItemSelected(item);
+            }
         }
         private List<File> getListFiles() {
             ArrayList<File> inFiles = new ArrayList<File>();
