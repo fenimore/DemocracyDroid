@@ -7,9 +7,9 @@
     <string name="action_back">Return</string>
     <string name="about_app">\nDemocracy Droid is in no way affiliated with Democracy Now! (they won\'t even return my emails). This application streams and/or downloads the audio or video episodes of Democracy Now! the War and Peace Report.</string>
     <string name="about_dm">Democracy Now! is a national, daily, independent, award-winning news program hosted by journalists Amy Goodman and Juan Gonzalez. Pioneering the largest public media collaboration in the U.S.\n\nDemocracy Now! is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States.</string>
-    <string name="about_instructions">Democracy Now! streams live weekdays at 8 am; the video and audio episodes are added to their feed around an hour after the end of the show (10 am).\n\nLong click an episode in order to download, share it, or view its description.\nCurrently, only videos support downloading.\n\n</string>
+    <string name="about_instructions">Democracy Now! streams live weekdays at 8 am; the video and audio episodes are added to their feed around an hour after the end of the show (10 am).\n\nLong click an episode in order to download, share it, view its description, or delete the file.\n\n</string>
     <string name="about_info">Author: Fenimore Love \nSource Code: https://github.com/polypmer/DemocracyDroid</string>
-    <string name="download_help">Long Click An Episode to Download</string>
+    <string name="download_help">Long Click An Episode to Download, Share, Read Description, and Stream (audio).</string>
     <string name="about_title">About Democracy Droid</string>
     <string name="action_site">Visit democracynow.org</string>
     <string name="action_about">About Democracy Droid!</string>

@@ -23,8 +23,4 @@ Find v.1.1 on the Play Store
         -- only stream on wifi
     - Live streaming link/notification    
     - About options menu
-    - nicer downloads button
-    - delete individual downloads
-    - refresh on swipe down
-    - fix downloading audio
 
