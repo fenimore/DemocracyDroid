@@ -46,7 +46,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.44954127">
-              <caret line="391" column="43" selection-start-line="391" selection-start-column="43" selection-end-line="391" selection-end-column="43" />
+              <caret line="391" column="0" selection-start-line="391" selection-start-column="0" selection-end-line="391" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;field#mViewPager#0;class#MainActivity#0" expanded="false" />
@@ -55,8 +55,8 @@
                 <element signature="method#onCreateContextMenu#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
                 <element signature="e#15709#15710#0" expanded="true" />
                 <element signature="e#15767#15768#0" expanded="true" />
-                <element signature="e#28836#28837#0" expanded="true" />
-                <element signature="e#28869#28870#0" expanded="true" />
+                <element signature="e#28792#28793#0" expanded="true" />
+                <element signature="e#28825#28826#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2243,12 +2243,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java</url>
-          <line>464</line>
+          <line>463</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java</url>
-          <line>463</line>
+          <line>462</line>
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
@@ -2281,8 +2281,8 @@
             <element signature="method#onCreateContextMenu#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="e#15709#15710#0" expanded="true" />
             <element signature="e#15767#15768#0" expanded="true" />
-            <element signature="e#28836#28837#0" expanded="true" />
-            <element signature="e#28869#28870#0" expanded="true" />
+            <element signature="e#28792#28793#0" expanded="true" />
+            <element signature="e#28825#28826#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2391,8 +2391,8 @@
             <element signature="method#onCreateContextMenu#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="e#15709#15710#0" expanded="true" />
             <element signature="e#15767#15768#0" expanded="true" />
-            <element signature="e#28836#28837#0" expanded="true" />
-            <element signature="e#28869#28870#0" expanded="true" />
+            <element signature="e#28792#28793#0" expanded="true" />
+            <element signature="e#28825#28826#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2655,7 +2655,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.44954127">
-          <caret line="391" column="43" selection-start-line="391" selection-start-column="43" selection-end-line="391" selection-end-column="43" />
+          <caret line="391" column="0" selection-start-line="391" selection-start-column="0" selection-end-line="391" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;field#mViewPager#0;class#MainActivity#0" expanded="false" />
@@ -2664,8 +2664,8 @@
             <element signature="method#onCreateContextMenu#0;class#PodcastFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="e#15709#15710#0" expanded="true" />
             <element signature="e#15767#15768#0" expanded="true" />
-            <element signature="e#28836#28837#0" expanded="true" />
-            <element signature="e#28869#28870#0" expanded="true" />
+            <element signature="e#28792#28793#0" expanded="true" />
+            <element signature="e#28825#28826#0" expanded="true" />
           </folding>
         </state>
       </provider>

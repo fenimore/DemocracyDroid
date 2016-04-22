@@ -389,7 +389,6 @@ public class MainActivity extends AppCompatActivity {
                     != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         0);
-                Download(url, title, desc);
             } else {
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
                 request.setDescription(desc);
