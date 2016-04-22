@@ -16,16 +16,20 @@
  */
 package com.workingagenda.democracydroid;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -308,6 +312,7 @@ public class MainActivity extends AppCompatActivity {
                     description.show();
                     return true;
                 case R.id.action_download:
+
                     Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
                     return true;
                 default:
@@ -379,25 +384,33 @@ public class MainActivity extends AppCompatActivity {
         }
         //http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
         public void Download(String url, String title, String desc){
+            if (ContextCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        0);
+                Download(url, title, desc);
+            } else {
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                request.setDescription(desc);
+                request.setTitle(title);
+                // in order for this if to run, you must use the android 3.2 to compile your app
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    request.allowScanningByMediaScanner();
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                }
+                String fileext = url.substring(url.lastIndexOf('/') + 1);
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PODCASTS, fileext);
+                //http://stackoverflow.com/questions/24427414/getsystemservices-is-undefined-when-called-in-a-fragment
 
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-            request.setDescription(desc);
-            request.setTitle(title);
-            // in order for this if to run, you must use the android 3.2 to compile your app
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                request.allowScanningByMediaScanner();
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                // get download service and enqueue file
+                DownloadManager manager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
+                manager.enqueue(request);
+
+                Toast toast = Toast.makeText(getActivity(), "Starting download of " +title, Toast.LENGTH_LONG);
+                toast.show();
             }
-            String fileext = url.substring(url.lastIndexOf('/') + 1);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PODCASTS, fileext);
-            //http://stackoverflow.com/questions/24427414/getsystemservices-is-undefined-when-called-in-a-fragment
 
-            // get download service and enqueue file
-            DownloadManager manager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
-            manager.enqueue(request);
-
-            Toast toast = Toast.makeText(getActivity(), "Starting download of " +title, Toast.LENGTH_LONG);
-            toast.show();
         }
 
     }
