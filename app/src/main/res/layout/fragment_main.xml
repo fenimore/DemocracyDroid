@@ -9,6 +9,9 @@
         android:layout_height="fill_parent"
         android:id="@+id/list"
         android:layout_marginBottom="100px">
+
+
+
     </ListView>
 
 </LinearLayout>
