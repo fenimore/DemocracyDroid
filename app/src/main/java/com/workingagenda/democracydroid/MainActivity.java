@@ -157,11 +157,14 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_refresh) {
-
             getSupportFragmentManager().getFragments();
             for(Fragment x :getSupportFragmentManager().getFragments()){
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.detach(x).attach(x).commit();
+                //FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                //ft.detach(x).attach(x).commit();
+                if (x instanceof PodcastFragment) {
+                   // ((PodcastFragment) x).populateList(((PodcastFragment) x).GetVideoFeed());
+                    ((PodcastFragment) x).refresh();
+                }
 
             }
             //finish();
@@ -214,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void populateList(ArrayList<Episode> episodes) {
+            mList.setAdapter(null);
             mList.setAdapter(new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes));
         }
         private void refresh() {
@@ -312,7 +316,6 @@ public class MainActivity extends AppCompatActivity {
                     description.show();
                     return true;
                 case R.id.action_download:
-
                     Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
                     return true;
                 default:
@@ -354,6 +357,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 //VideoListAdapter.notifyDataSetChanged();
                 // AudioListAdapter.notifyDataSetChanged();
+                Log.d("No Error Parsing Data", "Connection Populate List");
                 populateList(episodes);
 
             }
