@@ -52,8 +52,9 @@ public class EpisodeAdapter extends ArrayAdapter<Episode> {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
             v = vi.inflate(R.layout.row_episodes, null);
-            v.setLongClickable(true);
-            v.setClickable(true);
+            Log.d("Set click?", "whats the deal");
+            //v.setLongClickable(true);
+            //v.setClickable(true);
         }
 
         Episode e = getItem(position);

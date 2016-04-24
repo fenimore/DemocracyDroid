@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             super.onCreateContextMenu(menu, v, menuInfo);
-            if (v.getId()==R.id.list) {
+            if (v.getId()==android.R.id.list) {
                 MenuInflater inflater = new MenuInflater(getContext());
                 menu.setHeaderTitle("Democracy Now!");
                 //MenuInflater inflater = getMenuInflater();
@@ -529,7 +529,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             super.onCreateContextMenu(menu, v, menuInfo);
-            if (v.getId()==R.id.list) {
+            if (v.getId()==android.R.id.list) {
                 MenuInflater inflater = new MenuInflater(getContext());
                 menu.setHeaderTitle("Democracy Now!");
                 //MenuInflater inflater = getMenuInflater();
