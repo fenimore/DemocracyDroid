@@ -11,14 +11,7 @@
         android:id="@+id/list"
         android:layout_marginBottom="100px">
 
-        <LinearLayout android:id="@android:id/empty"
-            android:layout_width="fill_parent" android:layout_height="fill_parent"
-            android:gravity="center">
 
-            <TextView android:text="@string/connect_error"
-                android:layout_width="wrap_content" android:layout_height="wrap_content">
-            </TextView>
-        </LinearLayout>
     </ListView>
 
 </LinearLayout>

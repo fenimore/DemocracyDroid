@@ -200,8 +200,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Declaire some variables
-        public ListView mList;
-        public TextView mTxt;
+        private ListView mList;
+        private TextView mTxt;
+        private EpisodeAdapter episodeAdapter;
         //ArrayAdapter<String> VideoListAdapter;
 
         // Episode objects!!!
@@ -218,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
         public void populateList(ArrayList<Episode> episodes) {
             mList.setAdapter(null);
+
             mList.setAdapter(new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes));
         }
         private void refresh() {
@@ -595,6 +597,7 @@ public class MainActivity extends AppCompatActivity {
             files = getListFiles();
 
             dList = (ListView) rootView.findViewById(R.id.list);
+            //dList.setEmptyView(rootView.findViewById(android.R.id.empty));
             Txt1 = (TextView) rootView.findViewById(R.id.download_help);
             Txt1.setText(R.string.download_help);
             btn = (Button) rootView.findViewById(R.id.clear);
