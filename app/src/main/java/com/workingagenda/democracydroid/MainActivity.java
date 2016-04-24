@@ -264,21 +264,24 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            // TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            // textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
             mList = (ListView) rootView.findViewById(android.R.id.list);
             mTxt = (TextView) rootView.findViewById(android.R.id.empty);
-            mList.setEmptyView(mTxt);
+
             registerForContextMenu(mList);
+
+            mList.setEmptyView(mTxt);
 
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
             new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
 
 
 
+
             mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    registerForContextMenu(view);
                     Episode e = episodes.get(i);
                     // CHANGE INTENT depending on the
                     Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
@@ -305,7 +308,6 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         public boolean onContextItemSelected(MenuItem item) {
-            //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int pos = info.position;
             Episode e = episodes.get(pos);
