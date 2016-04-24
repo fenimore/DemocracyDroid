@@ -166,10 +166,16 @@ public class MainActivity extends AppCompatActivity {
                    // ((PodcastFragment) x).populateList(((PodcastFragment) x).GetVideoFeed());
                     ((PodcastFragment) x).refresh();
                 }
+                if (x instanceof BlogFragment) {
+                    // ((PodcastFragment) x).populateList(((PodcastFragment) x).GetVideoFeed());
+                    ((BlogFragment) x).refresh();
+                }
+                if (x instanceof DownloadFragment) {
+                    // ((PodcastFragment) x).populateList(((PodcastFragment) x).GetVideoFeed());
+                    ((DownloadFragment) x).refresh();
+                }
 
             }
-            //finish();
-            //startActivity(getIntent());
             return true;
         }
         if (id == R.id.action_donate) {
@@ -219,16 +225,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void populateList(ArrayList<Episode> episodes) {
-            episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
-            mList.setAdapter(episodeAdapter);
+            if (episodes.size() > 1){
+                episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
+                mList.setAdapter(episodeAdapter);
+            }
+            else {
+                mTxt.setText(R.string.connect_error);
+            }
+
         }
         private void refresh() {
+            mTxt.setText(R.string.connecting);
             // En fait, Je pense que on doit clear the actual data
-            episodes.clear();
-            episodeAdapter.notifyDataSetChanged();
+            if (episodes.size() > 1){
+                episodes.clear();
+                episodeAdapter.notifyDataSetChanged();
+            }
+
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
             new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
-            episodeAdapter.notifyDataSetChanged();
+
         }
 
         /**
@@ -251,7 +267,8 @@ public class MainActivity extends AppCompatActivity {
             // TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             // textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             mList = (ListView) rootView.findViewById(android.R.id.list);
-            mList.setEmptyView(rootView.findViewById(android.R.id.empty));
+            mTxt = (TextView) rootView.findViewById(android.R.id.empty);
+            mList.setEmptyView(mTxt);
             registerForContextMenu(mList);
 
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
@@ -351,14 +368,10 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("YO it's time for live", "live");
 
                     }
-                    //if(in between the hours, add a initial episodeto the list.);
-                    //DateFormat df = DateFormat.getDateInstance();
-
 
                     //EpisodeAdapter episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");
-
                 }
                 return null;
             }
@@ -367,7 +380,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 //VideoListAdapter.notifyDataSetChanged();
                 // AudioListAdapter.notifyDataSetChanged();
-                Log.d("No Error Parsing Data", "Connection Populate List");
+                Log.d("Populating list", "Connection Populate List");
                 populateList(episodes);
 
             }
@@ -430,9 +443,10 @@ public class MainActivity extends AppCompatActivity {
     public static class BlogFragment extends Fragment {
 
         //Declaire some variables
-        public ListView bList;
-        public List<File> files;
+        private ListView bList;
         ArrayList<Episode> blogPosts = new ArrayList<Episode>(20);
+        private TextView bTxt;
+        private BlogAdapter blogAdapter;
 
         /**
          * The fragment argument representing the section number for this
@@ -456,7 +470,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void populateList(ArrayList<Episode> blogs) {
-            bList.setAdapter(new BlogAdapter(getContext(), R.layout.row_episodes, blogs));
+            if (blogs.size() > 1){
+                blogAdapter = new BlogAdapter(getContext(), R.layout.row_blog, blogs);
+                bList.setAdapter(blogAdapter);
+            }
+            else {
+                bTxt.setText(R.string.connect_error);
+            }
+
+        }
+
+        private void refresh() {
+            bTxt.setText(R.string.connecting);
+            // En fait, Je pense que on doit clear the actual data
+            if (blogPosts.size() > 1){
+                blogPosts.clear();
+                blogAdapter.notifyDataSetChanged();
+            }
+
+            new GetBlogFeed().execute("http://www.democracynow.org/democracynow-blog.rss");
         }
 
         @Override
@@ -464,10 +496,10 @@ public class MainActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_blog, container, false);
 
-            bList = (ListView) rootView.findViewById(R.id.list);
-
+            bList = (ListView) rootView.findViewById(android.R.id.list);
+            bTxt = (TextView) rootView.findViewById(android.R.id.empty);
+            bList.setEmptyView(bTxt);
             registerForContextMenu(bList);
-
             new GetBlogFeed().execute("http://www.democracynow.org/democracynow-blog.rss");
 
 
@@ -691,6 +723,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             return inFiles;
+        }
+
+        private void refresh(){
+            //do nothing
+
         }
     }
 
