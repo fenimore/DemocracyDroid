@@ -218,13 +218,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void populateList(ArrayList<Episode> episodes) {
-            mList.setAdapter(null);
-
-            mList.setAdapter(new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes));
+            episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
+            mList.setAdapter(episodeAdapter);
         }
         private void refresh() {
+            // En fait, Je pense que on doit clear the actual data
+            episodes.clear();
+            episodeAdapter.notifyDataSetChanged();
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
             new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
+            episodeAdapter.notifyDataSetChanged();
         }
 
         /**
