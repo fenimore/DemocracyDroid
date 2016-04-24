@@ -66,6 +66,7 @@ import com.workingagenda.democracydroid.Feedreader.RssReader;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -333,7 +334,6 @@ public class MainActivity extends AppCompatActivity {
             protected Void doInBackground(String... params) {
                 try {
                     RssReader rssReader = new RssReader(params[0]);
-                    int j = 0;
                     for(RssItem item : rssReader.getItems()){
                         //VideoListAdapter.add(item.getTitle().substring(14));
                         // This should just be the Episode Object (class?)
@@ -344,7 +344,10 @@ public class MainActivity extends AppCompatActivity {
                         e.setImageUrl(item.getImageUrl());
                         e.setUrl(item.getLink());
                         episodes.add(e);
-                        j++;
+                    }
+                    Calendar c = Calendar.getInstance();
+                    if ( 8 == c.get(Calendar.HOUR_OF_DAY)){
+
                     }
                     //if(in between the hours, add a initial episodeto the list.);
                     //DateFormat df = DateFormat.getDateInstance();
