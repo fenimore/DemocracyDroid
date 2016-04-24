@@ -250,7 +250,8 @@ public class MainActivity extends AppCompatActivity {
             final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             // TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             // textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            mList = (ListView) rootView.findViewById(R.id.list);
+            mList = (ListView) rootView.findViewById(android.R.id.list);
+            mList.setEmptyView(rootView.findViewById(android.R.id.empty));
             registerForContextMenu(mList);
 
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
@@ -346,7 +347,8 @@ public class MainActivity extends AppCompatActivity {
                         episodes.add(e);
                     }
                     Calendar c = Calendar.getInstance();
-                    if ( 8 == c.get(Calendar.HOUR_OF_DAY)){
+                    if ( 5 == c.get(Calendar.HOUR_OF_DAY)){
+                        Log.d("YO it's time for live", "live");
 
                     }
                     //if(in between the hours, add a initial episodeto the list.);

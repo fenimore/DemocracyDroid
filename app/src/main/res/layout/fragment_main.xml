@@ -7,11 +7,18 @@
 
     <ListView android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/list"
+        android:id="@android:id/list"
         android:layout_marginBottom="100px">
 
-
-
     </ListView>
+
+    <TextView android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20px"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text= "@string/connecting"
+        android:textColor="@color/colorPrimaryDark"/>
 
 </LinearLayout>

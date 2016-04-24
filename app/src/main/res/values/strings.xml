@@ -15,4 +15,5 @@
     <string name="action_about">About Democracy Droid!</string>
     <string name="connect_error">Connection Error</string>
     <string name="no_downloads">Long Click an Episode In order to Download it</string>
+    <string name="connecting">Establishing Connection...</string>
 </resources>
