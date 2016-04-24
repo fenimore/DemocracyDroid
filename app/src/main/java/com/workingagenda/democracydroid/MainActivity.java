@@ -68,6 +68,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -365,10 +366,19 @@ public class MainActivity extends AppCompatActivity {
                         e.setUrl(item.getLink());
                         episodes.add(e);
                     }
-                    Calendar c = Calendar.getInstance();
-                    if ( 5 == c.get(Calendar.HOUR_OF_DAY)){
+                    TimeZone timeZone = TimeZone.getTimeZone("GMT-400");
+                    Calendar c = Calendar.getInstance(timeZone);
+                    String hr = String.valueOf(c.get(Calendar.HOUR_OF_DAY));
+                    Log.v("Live", hr);
+                    if ( 8 == c.get(Calendar.HOUR_OF_DAY)){
                         Log.d("YO it's time for live", "live");
-
+                        Episode live = new Episode();
+                        live.setTitle("Stream Live");
+                        live.setVideoUrl("http://www.democracynow.org");
+                        live.setDescription("Stream Live between 8 and 9 weekdays Eastern time");
+                        live.setImageUrl("https://commons.wikimedia.org/wiki/Category:Microphone_icons#/media/File:LALMike.png");
+                        live.setUrl("https://livestream.com/DemocracyNow");
+                        episodes.add(0, live);
                     }
 
                     //EpisodeAdapter episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
@@ -381,7 +391,7 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 //VideoListAdapter.notifyDataSetChanged();
-                // AudioListAdapter.notifyDataSetChanged();
+                // Aud=ioListAdapter.notifyDataSetChanged();
                 Log.d("Populating list", "Connection Populate List");
                 populateList(episodes);
 
@@ -393,6 +403,12 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     RssReader rssReader = new RssReader(params[0]);
                     int j = 0;
+                    TimeZone timeZone = TimeZone.getTimeZone("GMT-400");
+                    Calendar c = Calendar.getInstance(timeZone);
+                    if ( 14 == c.get(Calendar.HOUR_OF_DAY)){
+                        j = 1;
+                    }
+
                     for(RssItem item : rssReader.getItems()){
                         episodes.get(j).setAudioUrl(item.getVideoUrl());
                         // Audio Feed must be called before Video Feed
@@ -565,18 +581,16 @@ public class MainActivity extends AppCompatActivity {
             protected Void doInBackground(String... params) {
                 try {
                     RssReader rssReader = new RssReader(params[0]);
-                    int j = 0;
-                    for(RssItem item : rssReader.getItems()){
+                                        for(RssItem item : rssReader.getItems()){
                         //VideoListAdapter.add(item.getTitle().substring(14));
                         // This should just be the Episode Object (class?)
                         Episode b = new Episode();
-                        b.setTitle(item.getTitle());
-                        b.setVideoUrl(item.getVideoUrl());
-                        b.setDescription(item.getDescription());
-                        b.setImageUrl(item.getImageUrl());
-                        b.setUrl(item.getLink());
+                                            b.setTitle(item.getTitle());
+                                            b.setVideoUrl(item.getVideoUrl());
+                                            b.setDescription(item.getDescription());
+                                            b.setImageUrl(item.getImageUrl());
+                                            b.setUrl(item.getLink());
                         blogPosts.add(b);
-                        j++;
                     }
                     //if(in between the hours, add a initial episodeto the list.);
                     //DateFormat df = DateFormat.getDateInstance();
