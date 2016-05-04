@@ -51,7 +51,7 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.about_menu, menu);
+        //getMenuInflater().inflate(R.menu.about_menu, menu);
         return true;
     }
 
@@ -67,7 +67,7 @@ public class AboutActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_back) {
-            finish();
+            //finish();
             return true;
         }
         if (id == R.id.action_donate) {

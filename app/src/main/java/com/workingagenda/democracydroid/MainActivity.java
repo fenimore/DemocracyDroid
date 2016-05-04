@@ -211,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
         private ListView mList;
         private TextView mTxt;
         private EpisodeAdapter episodeAdapter;
+        private int LIVE_TIME = 8;
         //ArrayAdapter<String> VideoListAdapter;
 
         // Episode objects!!!
@@ -370,13 +371,13 @@ public class MainActivity extends AppCompatActivity {
                     Calendar c = Calendar.getInstance(timeZone);
                     String hr = String.valueOf(c.get(Calendar.HOUR_OF_DAY));
                     Log.v("Live", hr);
-                    if ( 8 == c.get(Calendar.HOUR_OF_DAY)){
+                    if ( LIVE_TIME == c.get(Calendar.HOUR_OF_DAY)){
                         Log.d("YO it's time for live", "live");
                         Episode live = new Episode();
                         live.setTitle("Stream Live");
-                        live.setVideoUrl("http://www.democracynow.org");
+                        live.setVideoUrl("https://livestream.com/DemocracyNow");
                         live.setDescription("Stream Live between 8 and 9 weekdays Eastern time");
-                        live.setImageUrl("https://commons.wikimedia.org/wiki/Category:Microphone_icons#/media/File:LALMike.png");
+                        live.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
                         live.setUrl("https://livestream.com/DemocracyNow");
                         episodes.add(0, live);
                     }
@@ -405,8 +406,9 @@ public class MainActivity extends AppCompatActivity {
                     int j = 0;
                     TimeZone timeZone = TimeZone.getTimeZone("GMT-400");
                     Calendar c = Calendar.getInstance(timeZone);
-                    if ( 14 == c.get(Calendar.HOUR_OF_DAY)){
+                    if ( LIVE_TIME == c.get(Calendar.HOUR_OF_DAY)){
                         j = 1;
+                        episodes.get(0).setAudioUrl("https://livestream.com/DemocracyNow");
                     }
 
                     for(RssItem item : rssReader.getItems()){
@@ -652,10 +654,10 @@ public class MainActivity extends AppCompatActivity {
 
             files = getListFiles();
 
-            dList = (ListView) rootView.findViewById(R.id.list);
-            //dList.setEmptyView(rootView.findViewById(android.R.id.empty));
+            dList = (ListView) rootView.findViewById(android.R.id.list);
             Txt1 = (TextView) rootView.findViewById(R.id.download_help);
             Txt1.setText(R.string.download_help);
+            dList.setEmptyView(Txt1);
             btn = (Button) rootView.findViewById(R.id.clear);
             btnRefresh= (Button) rootView.findViewById(R.id.refresh);
             registerForContextMenu(dList);
@@ -701,7 +703,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             super.onCreateContextMenu(menu, v, menuInfo);
-            if (v.getId()==R.id.list) {
+            if (v.getId()==android.R.id.list) {
                 MenuInflater inflater = new MenuInflater(getContext());
                 menu.setHeaderTitle("Democracy Now!");
                 //MenuInflater inflater = getMenuInflater();

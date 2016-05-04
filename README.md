@@ -23,4 +23,12 @@ Find v.1.1 on the Play Store
         -- only stream on wifi
     - Live streaming link/notification    
     - About options menu
-
+### Listviews:
+- Add download button
+- Add stream button
+- Delete/see progress of downloads
+### Settings:
+- Default Stream Secondary Stream
+- Stream only on wifi
+- Notifications (default no)
+- Open on which tab (default broadcast)

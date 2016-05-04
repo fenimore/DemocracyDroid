@@ -32,11 +32,12 @@
 
     <ListView android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/list"
+        android:id="@android:id/list"
         android:layout_marginBottom="100px">
 
 
     </ListView>
+
     <TextView
         android:id="@+id/download_help"
         android:layout_width="wrap_content"
