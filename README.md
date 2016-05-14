@@ -16,17 +16,25 @@ Find v.1.1 on the Play Store
 - SimplisticRss library Apache 2 - [ShirwaM](https://github.com/ShirwaM/Simplistic-RSS)
 - Picasso Apache 2 - http://square.github.io/picasso/
 - Democracy Now! CC BY-NC-ND 3.0 US
+- Soon, Jsoup
 
 ##TODO
-    - description broken
-    - settings
-        -- only stream on wifi
-    - Live streaming link/notification    
-    - About options menu
+- Enlarge and Crop Thumbnails
+- Add Stories Feed/Jsoup
+   - Custom Css
+   - http://www.democracynow.org/democracynow.rss
+- Parse Downloaded File Label
+- settings
+   - only stream on wifi
+- Live streaming link/notification    
+- About options menu
+- Fix Live Stream URL
+
 ### Listviews:
 - Add download button
 - Add stream button
 - Delete/see progress of downloads
+
 ### Settings:
 - Default Stream Secondary Stream
 - Stream only on wifi
