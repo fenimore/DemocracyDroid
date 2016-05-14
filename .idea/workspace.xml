@@ -10,13 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ea31f1f-0da6-41e4-815d-9ed5edebd4dc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/BlogAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/BlogAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/row_blog.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/row_blog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java" />
     </list>
     <ignored path="DemocracyDroid.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,16 +31,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="401" column="28" selection-start-line="401" selection-start-column="28" selection-end-line="401" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.5481928">
+              <caret line="419" column="66" selection-start-line="419" selection-start-column="66" selection-end-line="419" selection-end-column="66" />
               <folding>
-                <element signature="e#0#34862#0" expanded="true" />
+                <element signature="e#0#34864#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#33706#33707#0" expanded="true" />
-                <element signature="e#33739#33740#0" expanded="true" />
+                <element signature="e#33708#33709#0" expanded="true" />
+                <element signature="e#33741#33742#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -75,13 +69,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="row_blog.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="row_blog.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/row_blog.xml">
           <provider editor-type-id="android-designer">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.548495">
+            <state vertical-scroll-proportion="-4.969697">
               <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
               <folding />
             </state>
@@ -1931,10 +1925,10 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/tab_fragment_4.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/row_story.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/EpisodeAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/row_episodes.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/BlogAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/row_blog.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -2315,7 +2309,7 @@
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3983471" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3983471" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -2387,10 +2381,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="218" column="46" selection-start-line="218" selection-start-column="46" selection-end-line="218" selection-end-column="46" />
           <folding>
-            <element signature="e#0#34862#0" expanded="true" />
+            <element signature="e#0#34864#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#33706#33707#0" expanded="true" />
-            <element signature="e#33739#33740#0" expanded="true" />
+            <element signature="e#33708#33709#0" expanded="true" />
+            <element signature="e#33741#33742#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2400,10 +2394,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="143" column="33" selection-start-line="143" selection-start-column="19" selection-end-line="143" selection-end-column="33" />
           <folding>
-            <element signature="e#0#34862#0" expanded="true" />
+            <element signature="e#0#34864#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#33706#33707#0" expanded="true" />
-            <element signature="e#33739#33740#0" expanded="true" />
+            <element signature="e#33708#33709#0" expanded="true" />
+            <element signature="e#33741#33742#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2480,10 +2474,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="274" column="88" selection-start-line="274" selection-start-column="88" selection-end-line="274" selection-end-column="88" />
           <folding>
-            <element signature="e#0#34862#0" expanded="true" />
+            <element signature="e#0#34864#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#33706#33707#0" expanded="true" />
-            <element signature="e#33739#33740#0" expanded="true" />
+            <element signature="e#33708#33709#0" expanded="true" />
+            <element signature="e#33741#33742#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2545,10 +2539,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="348" column="26" selection-start-line="348" selection-start-column="26" selection-end-line="348" selection-end-column="26" />
           <folding>
-            <element signature="e#0#34862#0" expanded="true" />
+            <element signature="e#0#34864#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#33706#33707#0" expanded="true" />
-            <element signature="e#33739#33740#0" expanded="true" />
+            <element signature="e#33708#33709#0" expanded="true" />
+            <element signature="e#33741#33742#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2795,27 +2789,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="401" column="28" selection-start-line="401" selection-start-column="28" selection-end-line="401" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#34862#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#33706#33707#0" expanded="true" />
-            <element signature="e#33739#33740#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/row_blog.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.548495">
+        <state vertical-scroll-proportion="-4.969697">
           <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5481928">
+          <caret line="419" column="66" selection-start-line="419" selection-start-column="66" selection-end-line="419" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#34864#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#33708#33709#0" expanded="true" />
+            <element signature="e#33741#33742#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -417,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
                         episodes.add(0, live);
                     } else {
                         Episode todays_episode = new Episode();
-                        todays_episode.setTitle("Today's Episode");
+                        todays_episode.setTitle("Today's Broadcast");
                         todays_episode.setVideoUrl(today_video);
                         todays_episode.setAudioUrl(today_audio);
                         todays_episode.setDescription("Watch Today's broadcast (it isn't yet added to the RSS feed");
