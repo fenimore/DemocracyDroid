@@ -65,9 +65,12 @@ import com.workingagenda.democracydroid.Feedreader.RssReader;
 
 import java.io.File;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
@@ -387,17 +390,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private ArrayList<Episode> checkLiveStream(ArrayList<Episode> episodes){
+            // Make it Pretty, and NY eastern Time
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
             TimeZone timeZone = TimeZone.getTimeZone("GMT-400");
             Calendar c = Calendar.getInstance(timeZone);
+            String formattedDate = format.format(c.getTime());
+            // Some Variables fo' later
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
             int hourOfDay= c.get(Calendar.HOUR_OF_DAY);
-            Log.v("Day", String.valueOf(c.get(Calendar.DAY_OF_WEEK)));
-            if ( dayOfWeek != Calendar.SATURDAY || dayOfWeek != Calendar.SUNDAY ){
+            
+            if ( dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY ){
                 //http://publish.dvlabs.com/democracynow/video-podcast/dn2016-0513.mp4
                 String today_video = "http://publish.dvlabs.com/democracynow/video-podcast/dn"
-                        + Calendar.YEAR + "-" + Calendar.MONTH + Calendar.DAY_OF_MONTH+ ".mp4";
+                        + formattedDate + ".mp4";
                 String today_audio = "http://publish.dvlabs.com/democracynow/video-podcast/dn"
-                        + Calendar.YEAR + "-" + Calendar.MONTH + Calendar.DAY_OF_MONTH+ "-1.mp3";
+                        + formattedDate + "-1.mp3";
                 if (today_video != episodes.get(0).getVideoUrl()){
                     if ( LIVE_TIME == hourOfDay ){
                         Log.d("YO it's time for live", "stream");
