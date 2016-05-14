@@ -367,22 +367,9 @@ public class MainActivity extends AppCompatActivity {
                         e.setUrl(item.getLink());
                         episodes.add(e);
                     }
-                    TimeZone timeZone = TimeZone.getTimeZone("GMT-400");
-                    Calendar c = Calendar.getInstance(timeZone);
-                    String hr = String.valueOf(c.get(Calendar.HOUR_OF_DAY));
-                    Log.v("Live", hr);
-                    if ( LIVE_TIME == c.get(Calendar.HOUR_OF_DAY)){
-                        Log.d("YO it's time for live", "live");
-                        Episode live = new Episode();
-                        live.setTitle("Stream Live");
-                        live.setVideoUrl("https://livestream.com/DemocracyNow");
-                        live.setDescription("Stream Live between 8 and 9 weekdays Eastern time");
-                        live.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
-                        live.setUrl("https://livestream.com/DemocracyNow");
-                        episodes.add(0, live);
-                    }
+                    episodes = checkLiveStream(episodes); // and add video in link
+                    // not yet in RSS feed
 
-                    //EpisodeAdapter episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");
                 }
@@ -398,6 +385,45 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+
+        private ArrayList<Episode> checkLiveStream(ArrayList<Episode> episodes){
+            TimeZone timeZone = TimeZone.getTimeZone("GMT-400");
+            Calendar c = Calendar.getInstance(timeZone);
+            int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+            int hourOfDay= c.get(Calendar.HOUR_OF_DAY);
+            Log.v("Day", String.valueOf(c.get(Calendar.DAY_OF_WEEK)));
+            if ( dayOfWeek != Calendar.SATURDAY || dayOfWeek != Calendar.SUNDAY ){
+                //http://publish.dvlabs.com/democracynow/video-podcast/dn2016-0513.mp4
+                String today_video = "http://publish.dvlabs.com/democracynow/video-podcast/dn"
+                        + Calendar.YEAR + "-" + Calendar.MONTH + Calendar.DAY_OF_MONTH+ ".mp4";
+                String today_audio = "http://publish.dvlabs.com/democracynow/video-podcast/dn"
+                        + Calendar.YEAR + "-" + Calendar.MONTH + Calendar.DAY_OF_MONTH+ "-1.mp3";
+                if (today_video != episodes.get(0).getVideoUrl()){
+                    if ( LIVE_TIME == hourOfDay ){
+                        Log.d("YO it's time for live", "stream");
+                        Episode live = new Episode();
+                        live.setTitle("Stream Live");
+                        live.setVideoUrl("https://livestream.com/DemocracyNow/daily");
+                        live.setDescription("Stream Live between 8 and 9 weekdays Eastern time");
+                        live.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
+                        live.setUrl("https://livestream.com/DemocracyNow");
+                        episodes.add(0, live);
+                    } else {
+                        Episode todays_episode = new Episode();
+                        todays_episode.setTitle("Today's Episode");
+                        todays_episode.setVideoUrl(today_video);
+                        todays_episode.setAudioUrl(today_audio);
+                        todays_episode.setDescription("Watch Today's broadcast (it isn't yet added to the RSS feed");
+                        todays_episode.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
+                        todays_episode.setUrl("https://democracynow.org");
+                        episodes.add(0, todays_episode);
+                    }
+                }
+            }
+
+            return episodes;
+        }
+
         private class GetAudioFeed extends AsyncTask<String, Void, Void> {
             @Override
             protected Void doInBackground(String... params) {
