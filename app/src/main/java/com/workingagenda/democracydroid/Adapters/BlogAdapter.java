@@ -35,7 +35,7 @@ public class BlogAdapter extends ArrayAdapter<Episode> {
         if(v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.row_episodes, null);
+            v = vi.inflate(R.layout.row_blog, null);
         }
 
         Episode b = getItem(position);
