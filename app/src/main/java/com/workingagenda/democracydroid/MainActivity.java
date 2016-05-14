@@ -368,7 +368,7 @@ public class MainActivity extends AppCompatActivity {
                         episodes.add(e);
                     }
                     episodes = checkLiveStream(episodes); // and add video in link
-                    // not yet in RSS feed
+                                                          // not yet in RSS feed
 
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");
