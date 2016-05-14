@@ -57,6 +57,7 @@ import com.workingagenda.democracydroid.Adapters.BlogAdapter;
 import com.workingagenda.democracydroid.Adapters.DownloadsAdapter;
 import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
 import com.workingagenda.democracydroid.Adapters.PagerAdapter;
+import com.workingagenda.democracydroid.Adapters.StoryAdapter;
 import com.workingagenda.democracydroid.Helpers.DownloadsDataSave;
 import com.workingagenda.democracydroid.Objects.Download;
 import com.workingagenda.democracydroid.Objects.Episode;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private int DEFAULT_TAB = 2;
 
     //ArrayAdapter<String> AudioListAdapter;
     /**
@@ -109,10 +111,8 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(1);
+        mViewPager.setCurrentItem(DEFAULT_TAB);
         // Gather the Episode Lists
-        //final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount()); //but why is it final?
-        //mViewPager.setAdapter(pagerAdapter); This breaks it!...
         // Set up the tab and View Pager
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -649,6 +649,148 @@ public class MainActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
+
+    public static class StoryFragment extends Fragment {
+        private ListView sList;
+        ArrayList<Episode> storyPosts = new ArrayList<Episode>(20);
+        private TextView sTxt;
+        private StoryAdapter storyAdapter;
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        public StoryFragment() {
+        }
+        public static StoryFragment newInstance(int sectionNumber) {
+            StoryFragment fragment = new StoryFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public void populateList(ArrayList<Episode> stories) {
+            if (stories.size() > 1){
+                storyAdapter = new StoryAdapter(getContext(), R.layout.row_story, stories);
+                sList.setAdapter(storyAdapter);
+            }
+            else {
+                sTxt.setText(R.string.connect_error);
+            }
+
+        }
+
+        private void refresh() {
+            sTxt.setText(R.string.connecting);
+            // En fait, Je pense que on doit clear the actual data
+            if (storyPosts.size() > 1){
+                storyPosts.clear();
+                storyAdapter.notifyDataSetChanged();
+            }
+
+            new GetStoryFeed().execute("http://www.democracynow.org/democracynow-blog.rss");
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            final View rootView = inflater.inflate(R.layout.fragment_story, container, false);
+
+            sList = (ListView) rootView.findViewById(android.R.id.list);
+            sTxt = (TextView) rootView.findViewById(android.R.id.empty);
+            sList.setEmptyView(sTxt);
+            registerForContextMenu(sList);
+            new GetStoryFeed().execute("http://www.democracynow.org/democracynow.rss");
+
+
+            sList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Episode s = storyPosts.get(position);
+                    // Add Story Activity
+                    Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(s.getUrl()));
+                    startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+
+                }
+            });
+            return rootView;
+
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            super.onCreateContextMenu(menu, v, menuInfo);
+            if (v.getId()==android.R.id.list) {
+                MenuInflater inflater = new MenuInflater(getContext());
+                menu.setHeaderTitle("Democracy Now!");
+                //MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.blog_menu, menu);
+            }
+        }
+        @Override
+        public boolean onContextItemSelected(MenuItem item) {
+            //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            int pos = info.position;
+            Episode b = storyPosts.get(pos);
+            switch(item.getItemId()) {
+                case R.id.action_blog_description:
+                    AlertDialog description = new AlertDialog.Builder(getContext()).create();
+                    // Get Description and Title
+                    description.setTitle("Democracy Now! Story");
+                    description.setMessage(b.getDescription() + "\n\n" + b.getTitle());
+                    //description.setIcon(R.drawable.dm_icon_small);
+                    description.setButton("Close", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing?
+                        }
+                    });
+                    description.show();
+                    return true;
+                default:
+                    return super.onContextItemSelected(item);
+            }
+        }
+        private class GetStoryFeed extends AsyncTask<String, Void, Void> {
+            @Override
+            protected Void doInBackground(String... params) {
+                try {
+                    RssReader rssReader = new RssReader(params[0]);
+                                        for(RssItem item : rssReader.getItems()){
+                        //VideoListAdapter.add(item.getTitle().substring(14));
+                        // This should just be the Episode Object (class?)
+                        Episode b = new Episode();
+                                            b.setTitle(item.getTitle());
+                                            b.setDescription(item.getDescription());
+                                            b.setPubDate(item.getPubDate());
+                                            b.setImageUrl(item.getImageUrl());
+                                            b.setUrl(item.getLink());
+                        storyPosts.add(b);
+                    }
+                    //if(in between the hours, add a initial episodeto the list.);
+                    //DateFormat df = DateFormat.getDateInstance();
+
+
+                    //EpisodeAdapter episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
+                } catch (Exception e) {
+                    Log.v("Error Parsing Data", e + "");
+
+                }
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                //VideoListAdapter.notifyDataSetChanged();
+                // AudioListAdapter.notifyDataSetChanged();
+                populateList(storyPosts);
+
+            }
+        }
+    }
+
+
+    /**
+     * A Download fragment
+     */
     public static class DownloadFragment extends Fragment {
 
         //Declaire some variables
@@ -798,7 +940,7 @@ public class MainActivity extends AppCompatActivity {
             switch(position) {
 
                 case 0: return BlogFragment.newInstance(position + 1);
-                case 1: return PodcastFragment.newInstance(position + 1);
+                case 1: return StoryFragment.newInstance(position + 1);
                 case 2: return PodcastFragment.newInstance(position + 1);
                 case 3: return DownloadFragment.newInstance(position + 1);
                 default: return PodcastFragment.newInstance(position + 1);

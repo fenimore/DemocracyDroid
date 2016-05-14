@@ -31,6 +31,7 @@ public class RssHandler extends DefaultHandler {
     private boolean parsingTitle;
     private boolean parsingLink;
     private boolean parsingDescription;
+    private boolean parsingDate;
 
     public RssHandler() {
         //Initializes a new ArrayList that will hold all the generated RSS items.
@@ -52,6 +53,8 @@ public class RssHandler extends DefaultHandler {
             parsingTitle = true;
         else if (qName.equals("link"))
             parsingLink = true;
+        else if (qName.equals("pubDate"))
+            parsingDate = true;
         else if (qName.equals("description"))
             parsingDescription = true;
         else if (qName.equals("media:thumbnail") || qName.equals("image")) {
@@ -75,6 +78,8 @@ public class RssHandler extends DefaultHandler {
             parsingTitle = false;
         else if (qName.equals("link"))
             parsingLink = false;
+        else if (qName.equals("pubDate"))
+            parsingDate = false;
         else if (qName.equals("description"))
             parsingDescription = false;
     }
@@ -89,7 +94,8 @@ public class RssHandler extends DefaultHandler {
                 //If parsingLink is true, then that means we are inside a <link> tag so the text is the link of an item.
             else if (parsingLink)
                 currentItem.setLink(new String(ch, start, length));
-                //If parsingDescription is true, then that means we are inside a <description> tag so the text is the description of an item.
+            else if (parsingDate)
+                currentItem.setLink(new String(ch, start, length));
             else if (parsingDescription){
                 currentItem.addToDescription(new String(ch));
             }
