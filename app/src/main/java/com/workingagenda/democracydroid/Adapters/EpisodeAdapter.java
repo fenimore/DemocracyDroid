@@ -59,7 +59,7 @@ public class EpisodeAdapter extends ArrayAdapter<Episode> {
             ImageView img = (ImageView) v.findViewById(R.id.row_image);
             TextView txt = (TextView) v.findViewById(R.id.row_title);
             try {
-                Picasso.with(getContext()).load(e.getImageUrl()).into(img);
+                Picasso.with(getContext()).load(e.getImageUrl()).into(img); // TODO Change image
 
             } catch (Exception ex) {
                 Log.v("Episode Adapter", "exception");

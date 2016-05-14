@@ -40,13 +40,13 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.50301206">
-              <caret line="400" column="12" selection-start-line="400" selection-start-column="12" selection-end-line="400" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.5481928">
+              <caret line="401" column="28" selection-start-line="401" selection-start-column="28" selection-end-line="401" selection-end-column="28" />
               <folding>
-                <element signature="e#0#34874#0" expanded="true" />
+                <element signature="e#0#34862#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#33718#33719#0" expanded="true" />
-                <element signature="e#33751#33752#0" expanded="true" />
+                <element signature="e#33706#33707#0" expanded="true" />
+                <element signature="e#33739#33740#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -138,7 +138,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/EpisodeAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="61" column="64" selection-start-line="61" selection-start-column="64" selection-end-line="61" selection-end-column="64" />
+              <caret line="61" column="96" selection-start-line="61" selection-start-column="96" selection-end-line="61" selection-end-column="96" />
               <folding />
             </state>
           </provider>
@@ -2308,7 +2308,7 @@
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3983471" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3983471" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -2381,10 +2381,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="218" column="46" selection-start-line="218" selection-start-column="46" selection-end-line="218" selection-end-column="46" />
           <folding>
-            <element signature="e#0#34874#0" expanded="true" />
+            <element signature="e#0#34862#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#33718#33719#0" expanded="true" />
-            <element signature="e#33751#33752#0" expanded="true" />
+            <element signature="e#33706#33707#0" expanded="true" />
+            <element signature="e#33739#33740#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2394,10 +2394,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="143" column="33" selection-start-line="143" selection-start-column="19" selection-end-line="143" selection-end-column="33" />
           <folding>
-            <element signature="e#0#34874#0" expanded="true" />
+            <element signature="e#0#34862#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#33718#33719#0" expanded="true" />
-            <element signature="e#33751#33752#0" expanded="true" />
+            <element signature="e#33706#33707#0" expanded="true" />
+            <element signature="e#33739#33740#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2474,10 +2474,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="274" column="88" selection-start-line="274" selection-start-column="88" selection-end-line="274" selection-end-column="88" />
           <folding>
-            <element signature="e#0#34874#0" expanded="true" />
+            <element signature="e#0#34862#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#33718#33719#0" expanded="true" />
-            <element signature="e#33751#33752#0" expanded="true" />
+            <element signature="e#33706#33707#0" expanded="true" />
+            <element signature="e#33739#33740#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2539,10 +2539,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="348" column="26" selection-start-line="348" selection-start-column="26" selection-end-line="348" selection-end-column="26" />
           <folding>
-            <element signature="e#0#34874#0" expanded="true" />
+            <element signature="e#0#34862#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#33718#33719#0" expanded="true" />
-            <element signature="e#33751#33752#0" expanded="true" />
+            <element signature="e#33706#33707#0" expanded="true" />
+            <element signature="e#33739#33740#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2754,14 +2754,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/EpisodeAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="64" selection-start-line="61" selection-start-column="64" selection-end-line="61" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/StoryAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2770,15 +2762,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/EpisodeAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="61" column="96" selection-start-line="61" selection-start-column="96" selection-end-line="61" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50301206">
-          <caret line="400" column="12" selection-start-line="400" selection-start-column="12" selection-end-line="400" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.5481928">
+          <caret line="401" column="28" selection-start-line="401" selection-start-column="28" selection-end-line="401" selection-end-column="28" />
           <folding>
-            <element signature="e#0#34874#0" expanded="true" />
+            <element signature="e#0#34862#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#33718#33719#0" expanded="true" />
-            <element signature="e#33751#33752#0" expanded="true" />
+            <element signature="e#33706#33707#0" expanded="true" />
+            <element signature="e#33739#33740#0" expanded="true" />
           </folding>
         </state>
       </provider>
