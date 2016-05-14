@@ -64,13 +64,10 @@ import com.workingagenda.democracydroid.Feedreader.RssItem;
 import com.workingagenda.democracydroid.Feedreader.RssReader;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
@@ -100,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Blog").setIcon(R.drawable.ic_library_books_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText("Stories").setIcon(R.drawable.ic_library_books_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Broadcast").setIcon(R.drawable.ic_live_tv_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Downloads").setIcon(R.drawable.ic_file_download_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -801,7 +799,8 @@ public class MainActivity extends AppCompatActivity {
 
                 case 0: return BlogFragment.newInstance(position + 1);
                 case 1: return PodcastFragment.newInstance(position + 1);
-                case 2: return DownloadFragment.newInstance(position + 1);
+                case 2: return PodcastFragment.newInstance(position + 1);
+                case 3: return DownloadFragment.newInstance(position + 1);
                 default: return PodcastFragment.newInstance(position + 1);
             }
         }
@@ -809,7 +808,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
 
         @Override
@@ -821,6 +820,8 @@ public class MainActivity extends AppCompatActivity {
                     return "SECTION 2";
                 case 2:
                     return "SECTION 3";
+                case 3:
+                    return "SECTION 4";
             }
             return null;
         }
