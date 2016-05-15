@@ -32,7 +32,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private boolean DEFAULT_WIFI = false;
+    private boolean PREF_WIFI;
     //ArrayAdapter<String> AudioListAdapter;
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -99,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "2"));
-        DEFAULT_WIFI = preferences.getBoolean("wifi_preference", false);
+        PREF_WIFI = preferences.getBoolean("wifi_preference", false);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Blog").setIcon(R.drawable.ic_web_asset_white_24dp));
@@ -170,11 +169,14 @@ public class MainActivity extends AppCompatActivity {
             NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             boolean isWifi = mWifi.isConnected();
             // if shared preferences
-            if (!isWifi) {
+            Log.v("WIFI pref", String.valueOf(PREF_WIFI) );
+            if (PREF_WIFI){
+                if (!isWifi) {
                 Log.v("WIFI", "false");
                 return true;
+                }
             }
-            Log.v("WIFI", "true");
+
 
             getSupportFragmentManager().getFragments();
             for(Fragment x :getSupportFragmentManager().getFragments()){

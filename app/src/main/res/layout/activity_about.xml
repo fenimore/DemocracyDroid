@@ -31,16 +31,17 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:paddingTop="?attr/actionBarSize"
-                android:textStyle="italic"/>
+                />
             <TextView
                 android:id="@+id/about_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="13sp"
                 android:paddingTop="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp" />
+                android:layout_marginRight="5dp"
+                android:textStyle="italic" />
             <TextView
                 android:id="@+id/about_3"
                 android:layout_width="wrap_content"

@@ -15,11 +15,6 @@
         android:icon="@drawable/ic_public_white_24dp"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="200"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_donate"
         android:orderInCategory="200"
         android:title="@string/action_donate"
@@ -30,5 +25,10 @@
         android:orderInCategory="200"
         android:title="@string/action_about"
         android:icon="@drawable/ic_feedback_white_24dp"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="300"
+        android:title="@string/action_settings"
         app:showAsAction="never" />
 </menu>

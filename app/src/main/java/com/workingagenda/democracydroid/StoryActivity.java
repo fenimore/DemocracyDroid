@@ -43,6 +43,7 @@ public class StoryActivity extends AppCompatActivity {
 
             + ".donate_container {background: #333; color: #FFFFFF; width: 100%; text-align:center; display: inline-block} "
             + ".donate_prompt {width:66%}"
+
             + ".donate_button {background: #458589; "
             + "background: linear-gradient(to bottom, #458589 0%, #2A6075 100%);	"
             + "color: white;	float:right; font-weight: 400;	text-transform: uppercase;	padding: 10px 12px;	width: 90px;	margin-left: 1em;	"
@@ -142,7 +143,7 @@ public class StoryActivity extends AppCompatActivity {
 
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            String page = "<h2>" + title + "</h2><hr>"+date+"<hr>" + result;
+            String page = "<h2>" + title + "</h2><hr>"+date+"<hr>" + "Viewer Supported News: <a class='donate_button' data-width='800' data-height='590' data-ga-action='Story: Donate' href='https://democracynow.org/donate'>Donate</a><br>Donate at democracynow.org<hr>" + result;
             webview.loadData(page, "text/html", "UTF-8"); //but don't just
         }
     }
@@ -163,6 +164,7 @@ public class StoryActivity extends AppCompatActivity {
         Elements select = data.select("a");
         for(Element e:select_img){e.attr("src", e.absUrl("src"));}
         for(Element e:select){e.attr("href", e.absUrl("href"));}
+        data.getElementsByClass("donate_container").remove();
         String cont = data.toString();
         cont = CSS + cont + "</body>";
         content = cont;
