@@ -24,6 +24,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
+    private boolean DEFAULT_WIFI = false;
     //ArrayAdapter<String> AudioListAdapter;
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "2"));
+        DEFAULT_WIFI = preferences.getBoolean("wifi_preference", false);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Blog").setIcon(R.drawable.ic_web_asset_white_24dp));
@@ -163,6 +166,16 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_refresh) {
+            ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+            NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            boolean isWifi = mWifi.isConnected();
+            // if shared preferences
+            if (!isWifi) {
+                Log.v("WIFI", "false");
+                return true;
+            }
+            Log.v("WIFI", "true");
+
             getSupportFragmentManager().getFragments();
             for(Fragment x :getSupportFragmentManager().getFragments()){
                 //FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

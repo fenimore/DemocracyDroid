@@ -2,8 +2,10 @@ package com.workingagenda.democracydroid;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -38,6 +40,13 @@ public class StoryActivity extends AppCompatActivity {
             + "h1, h2 {font-weight: normal; line-height: 130%} "
             + "h1 {font-size: 170%; margin-bottom: 0.1em} "
             + "h2 {font-size: 140%} "
+
+            + ".donate_container {background: #333; color: #FFFFFF; width: 100%; text-align:center; display: inline-block} "
+            + ".donate_prompt {width:66%}"
+            + ".donate_button {background: #458589; "
+            + "background: linear-gradient(to bottom, #458589 0%, #2A6075 100%);	"
+            + "color: white;	float:right; font-weight: 400;	text-transform: uppercase;	padding: 10px 12px;	width: 90px;	margin-left: 1em;	"
+            + "text-align: center;} "
             + "a {color: #0099CC}"
             + "h1 a {color: inherit; text-decoration: none}"
             + "img {height: auto} "
@@ -52,6 +61,7 @@ public class StoryActivity extends AppCompatActivity {
             + ".button-section p.marginfix {margin: 0.5cm 0 0.5cm 0}"
             + ".button-section input, .button-section a {font-family: sans-serif-light; font-size: 100%; color: #FFFFFF; background-color:#52A7DF; text-decoration: none; border: none; border-radius:0.2cm; padding: 0.3cm} "
             + "</style><meta name='viewport' content='width=device-width'/></head><body>";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +70,8 @@ public class StoryActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setLogo(R.mipmap.ic_launcher);
-
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle extras = getIntent().getExtras();
         url = (String) extras.get("url");
         title = (String) extras.get("title");
@@ -80,7 +91,7 @@ public class StoryActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_article, menu);
+        getMenuInflater().inflate(R.menu.menu_story, menu);
         return true;
     }
 
@@ -92,18 +103,25 @@ public class StoryActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_back) {
-            finish();
-            return true;
+        if(id == android.R.id.home){
+             NavUtils.navigateUpFromSameTask(this);
+             return true;
         }
         if (id == R.id.action_share) {
             // share intent
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_SUBJECT, title);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, url + " '\n" +date);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, date + " \n\n" + url);
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
+            return true;
+        }
+        if (id == R.id.action_web) {
+            // Open Story in Browser
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
             return true;
         }
 

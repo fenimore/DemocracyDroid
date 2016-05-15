@@ -17,8 +17,10 @@
     <string name="no_downloads">Long Click an Episode In order to Download it</string>
     <string name="connecting">Establishing Connection...</string>
     <string name="setting_tab">Default Tab on Start Up</string>
-    <string name="setting_wifi">Only Load on Wifi</string>
-    <string name="summary_wifi">Stop data requests when using Mobile Data</string>
+    <string name="setting_wifi">Only Update Feed When Connected to Wifi</string>
+    <string name="summary_wifi">Only Load on Wifi</string>
+    <string name="setting_image">Don\'t Load Images</string>
+    <string name="summary_image">Stop Images from Loading</string>
     <string name="name_setting">Settings</string>
     <string-array name="Language">
         <item>English (US)</item>
