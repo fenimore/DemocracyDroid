@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Broadcast").setIcon(R.drawable.ic_live_tv_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Downloads").setIcon(R.drawable.ic_file_download_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        //Log.v("Default Tab", Integer.toString(DEFAULT_TAB));
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -113,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(2);
+        mViewPager.setCurrentItem(DEFAULT_TAB);
         // Gather the Episode Lists
         // Set up the tab and View Pager
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

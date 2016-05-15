@@ -5,8 +5,8 @@
         android:key="tab_preference"
         android:title="@string/setting_tab"
         android:summary="@string/summary_tab"
-        android:entries="@array/tabs"
-        android:entryValues="@array/tabsAlias"
+        android:entries="@array/tabsAlias"
+        android:entryValues="@array/tabs"
         />
     <CheckBoxPreference
         android:key="face_up"
