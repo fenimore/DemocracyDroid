@@ -77,7 +77,9 @@ public class DownloadsAdapter extends ArrayAdapter<File> {
             }
 
             if (txt != null) {
-                txt.setText(f.getName());
+                title = title.substring(0, title.length() - 4);
+                title = title.substring(2, title.length());
+                txt.setText(title);
             }
             if(f.getName().endsWith(".mp4")){
                 isVideo = true;

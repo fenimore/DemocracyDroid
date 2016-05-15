@@ -59,7 +59,7 @@ public class StoryAdapter extends ArrayAdapter<Episode> {
                 txt.setAllCaps(true);
                 txt.setTextColor(Color.parseColor("#670001"));
                 txt.setPadding(0, 40, 0, 0);
-                txt.setTextSize(20);
+                txt.setTextSize(17);
             }
         }
 
