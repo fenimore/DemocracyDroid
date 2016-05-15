@@ -19,6 +19,7 @@
     <string name="setting_tab">Default Tab on Start Up</string>
     <string name="setting_wifi">Only Load on Wifi</string>
     <string name="summary_wifi">Stop data requests when using Mobile Data</string>
+    <string name="name_setting">Settings</string>
     <string-array name="Language">
         <item>English (US)</item>
         <item>English (UK)</item>
