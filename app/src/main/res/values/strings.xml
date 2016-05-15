@@ -16,8 +16,7 @@
     <string name="connect_error">Connection Error</string>
     <string name="no_downloads">Long Click an Episode In order to Download it</string>
     <string name="connecting">Establishing Connection...</string>
-    <string name="summary_tab">Defaults to Broadcast Tab</string>
-    <string name="setting_tab">Home Tab</string>
+    <string name="setting_tab">Default Tab on Start Up</string>
     <string name="setting_wifi">Only Load on Wifi</string>
     <string name="summary_wifi">Stop data requests when using Mobile Data</string>
     <string-array name="Language">

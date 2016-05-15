@@ -4,7 +4,7 @@
     <ListPreference
         android:key="tab_preference"
         android:title="@string/setting_tab"
-        android:summary="@string/summary_tab"
+        android:summary="%s"
         android:entries="@array/tabsAlias"
         android:entryValues="@array/tabs"
         />
