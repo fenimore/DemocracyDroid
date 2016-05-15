@@ -95,7 +95,7 @@ public class RssHandler extends DefaultHandler {
             else if (parsingLink)
                 currentItem.setLink(new String(ch, start, length));
             else if (parsingDate)
-                currentItem.setLink(new String(ch, start, length));
+                currentItem.setPubDate(new String(ch, start, length));
             else if (parsingDescription){
                 currentItem.addToDescription(new String(ch));
             }

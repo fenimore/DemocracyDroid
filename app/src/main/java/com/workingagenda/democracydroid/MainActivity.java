@@ -700,7 +700,6 @@ public class MainActivity extends AppCompatActivity {
             registerForContextMenu(sList);
             new GetStoryFeed().execute("http://www.democracynow.org/democracynow.rss");
 
-
             sList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -763,7 +762,9 @@ public class MainActivity extends AppCompatActivity {
                                             b.setPubDate(item.getPubDate());
                                             b.setImageUrl(item.getImageUrl());
                                             b.setUrl(item.getLink());
-                        storyPosts.add(b);
+                                            storyPosts.add(b);
+                                            Log.v("Story", b.getUrl());
+
                     }
                     //if(in between the hours, add a initial episodeto the list.);
                     //DateFormat df = DateFormat.getDateInstance();

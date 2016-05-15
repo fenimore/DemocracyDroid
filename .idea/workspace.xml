@@ -13,18 +13,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ea31f1f-0da6-41e4-815d-9ed5edebd4dc" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Objects/Story.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Objects/Episode.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Objects/Episode.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Feedreader/RssHandler.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Feedreader/RssHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Feedreader/RssItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Feedreader/RssItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/StoryAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/StoryAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_story.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_story.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/row_story.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/row_story.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DemocracyDroid.iws" />
@@ -46,13 +40,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.9518073">
-              <caret line="942" column="44" selection-start-line="942" selection-start-column="44" selection-end-line="942" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="765" column="71" selection-start-line="765" selection-start-column="71" selection-end-line="765" selection-end-column="71" />
               <folding>
-                <element signature="e#0#40974#0" expanded="true" />
+                <element signature="e#0#41066#0" expanded="true" />
                 <element signature="imports" expanded="true" />
                 <element signature="e#8657#8666#0" expanded="true" />
                 <element signature="e#9274#9296#0" expanded="true" />
@@ -73,45 +67,30 @@
                 <element signature="e#28225#28234#0" expanded="true" />
                 <element signature="e#29043#29065#0" expanded="true" />
                 <element signature="e#29152#29171#0" expanded="true" />
-                <element signature="e#30102#30556#0" expanded="true" />
-                <element signature="e#30555#30556#0" expanded="true" />
-                <element signature="e#31945#32156#0" expanded="true" />
-                <element signature="e#32155#32156#0" expanded="true" />
-                <element signature="e#35510#35532#0" expanded="true" />
-                <element signature="e#35881#36503#0" expanded="true" />
-                <element signature="e#36502#36503#0" expanded="true" />
-                <element signature="e#36548#36828#0" expanded="true" />
-                <element signature="e#36827#36828#0" expanded="true" />
-                <element signature="e#36872#37296#0" expanded="true" />
-                <element signature="e#37295#37296#0" expanded="true" />
-                <element signature="e#38690#38696#0" expanded="true" />
-                <element signature="e#39682#39683#0" expanded="true" />
-                <element signature="e#39715#39716#0" expanded="true" />
+                <element signature="e#30101#30555#0" expanded="true" />
+                <element signature="e#30554#30555#0" expanded="true" />
+                <element signature="e#31944#32155#0" expanded="true" />
+                <element signature="e#32154#32155#0" expanded="true" />
+                <element signature="e#35602#35624#0" expanded="true" />
+                <element signature="e#35973#36595#0" expanded="true" />
+                <element signature="e#36594#36595#0" expanded="true" />
+                <element signature="e#36640#36920#0" expanded="true" />
+                <element signature="e#36919#36920#0" expanded="true" />
+                <element signature="e#36964#37388#0" expanded="true" />
+                <element signature="e#37387#37388#0" expanded="true" />
+                <element signature="e#38782#38788#0" expanded="true" />
+                <element signature="e#39774#39775#0" expanded="true" />
+                <element signature="e#39807#39808#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RssItem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Feedreader/RssItem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.0">
-              <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
-              <folding>
-                <element signature="e#856#857#0" expanded="true" />
-                <element signature="e#886#887#0" expanded="true" />
-                <element signature="e#932#933#0" expanded="true" />
-                <element signature="e#970#971#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RssHandler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RssHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Feedreader/RssHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-25.0">
-              <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.60227275">
+              <caret line="97" column="39" selection-start-line="97" selection-start-column="39" selection-end-line="97" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -1985,8 +1964,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/StoryAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Objects/Episode.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Feedreader/RssItem.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Feedreader/RssHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Feedreader/RssHandler.java" />
       </list>
     </option>
   </component>
@@ -2473,7 +2452,7 @@
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3983471" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.74049586" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -2488,7 +2467,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15022762" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15022762" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289256" sideWeight="0.4969651" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -2536,7 +2515,27 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java</url>
+          <line>706</line>
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java</url>
+          <line>707</line>
+          <properties />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java</url>
+          <line>708</line>
+          <properties />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="10" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -2545,7 +2544,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="218" column="46" selection-start-line="218" selection-start-column="46" selection-end-line="218" selection-end-column="46" />
           <folding>
-            <element signature="e#0#40974#0" expanded="true" />
+            <element signature="e#0#41066#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#8657#8666#0" expanded="true" />
             <element signature="e#9274#9296#0" expanded="true" />
@@ -2566,20 +2565,20 @@
             <element signature="e#28225#28234#0" expanded="true" />
             <element signature="e#29043#29065#0" expanded="true" />
             <element signature="e#29152#29171#0" expanded="true" />
-            <element signature="e#30102#30556#0" expanded="true" />
-            <element signature="e#30555#30556#0" expanded="true" />
-            <element signature="e#31945#32156#0" expanded="true" />
-            <element signature="e#32155#32156#0" expanded="true" />
-            <element signature="e#35510#35532#0" expanded="true" />
-            <element signature="e#35881#36503#0" expanded="true" />
-            <element signature="e#36502#36503#0" expanded="true" />
-            <element signature="e#36548#36828#0" expanded="true" />
-            <element signature="e#36827#36828#0" expanded="true" />
-            <element signature="e#36872#37296#0" expanded="true" />
-            <element signature="e#37295#37296#0" expanded="true" />
-            <element signature="e#38690#38696#0" expanded="true" />
-            <element signature="e#39682#39683#0" expanded="true" />
-            <element signature="e#39715#39716#0" expanded="true" />
+            <element signature="e#30101#30555#0" expanded="true" />
+            <element signature="e#30554#30555#0" expanded="true" />
+            <element signature="e#31944#32155#0" expanded="true" />
+            <element signature="e#32154#32155#0" expanded="true" />
+            <element signature="e#35602#35624#0" expanded="true" />
+            <element signature="e#35973#36595#0" expanded="true" />
+            <element signature="e#36594#36595#0" expanded="true" />
+            <element signature="e#36640#36920#0" expanded="true" />
+            <element signature="e#36919#36920#0" expanded="true" />
+            <element signature="e#36964#37388#0" expanded="true" />
+            <element signature="e#37387#37388#0" expanded="true" />
+            <element signature="e#38782#38788#0" expanded="true" />
+            <element signature="e#39774#39775#0" expanded="true" />
+            <element signature="e#39807#39808#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2589,7 +2588,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="143" column="33" selection-start-line="143" selection-start-column="19" selection-end-line="143" selection-end-column="33" />
           <folding>
-            <element signature="e#0#40974#0" expanded="true" />
+            <element signature="e#0#41066#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#8657#8666#0" expanded="true" />
             <element signature="e#9274#9296#0" expanded="true" />
@@ -2610,20 +2609,20 @@
             <element signature="e#28225#28234#0" expanded="true" />
             <element signature="e#29043#29065#0" expanded="true" />
             <element signature="e#29152#29171#0" expanded="true" />
-            <element signature="e#30102#30556#0" expanded="true" />
-            <element signature="e#30555#30556#0" expanded="true" />
-            <element signature="e#31945#32156#0" expanded="true" />
-            <element signature="e#32155#32156#0" expanded="true" />
-            <element signature="e#35510#35532#0" expanded="true" />
-            <element signature="e#35881#36503#0" expanded="true" />
-            <element signature="e#36502#36503#0" expanded="true" />
-            <element signature="e#36548#36828#0" expanded="true" />
-            <element signature="e#36827#36828#0" expanded="true" />
-            <element signature="e#36872#37296#0" expanded="true" />
-            <element signature="e#37295#37296#0" expanded="true" />
-            <element signature="e#38690#38696#0" expanded="true" />
-            <element signature="e#39682#39683#0" expanded="true" />
-            <element signature="e#39715#39716#0" expanded="true" />
+            <element signature="e#30101#30555#0" expanded="true" />
+            <element signature="e#30554#30555#0" expanded="true" />
+            <element signature="e#31944#32155#0" expanded="true" />
+            <element signature="e#32154#32155#0" expanded="true" />
+            <element signature="e#35602#35624#0" expanded="true" />
+            <element signature="e#35973#36595#0" expanded="true" />
+            <element signature="e#36594#36595#0" expanded="true" />
+            <element signature="e#36640#36920#0" expanded="true" />
+            <element signature="e#36919#36920#0" expanded="true" />
+            <element signature="e#36964#37388#0" expanded="true" />
+            <element signature="e#37387#37388#0" expanded="true" />
+            <element signature="e#38782#38788#0" expanded="true" />
+            <element signature="e#39774#39775#0" expanded="true" />
+            <element signature="e#39807#39808#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2700,7 +2699,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="274" column="88" selection-start-line="274" selection-start-column="88" selection-end-line="274" selection-end-column="88" />
           <folding>
-            <element signature="e#0#40974#0" expanded="true" />
+            <element signature="e#0#41066#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#8657#8666#0" expanded="true" />
             <element signature="e#9274#9296#0" expanded="true" />
@@ -2721,20 +2720,20 @@
             <element signature="e#28225#28234#0" expanded="true" />
             <element signature="e#29043#29065#0" expanded="true" />
             <element signature="e#29152#29171#0" expanded="true" />
-            <element signature="e#30102#30556#0" expanded="true" />
-            <element signature="e#30555#30556#0" expanded="true" />
-            <element signature="e#31945#32156#0" expanded="true" />
-            <element signature="e#32155#32156#0" expanded="true" />
-            <element signature="e#35510#35532#0" expanded="true" />
-            <element signature="e#35881#36503#0" expanded="true" />
-            <element signature="e#36502#36503#0" expanded="true" />
-            <element signature="e#36548#36828#0" expanded="true" />
-            <element signature="e#36827#36828#0" expanded="true" />
-            <element signature="e#36872#37296#0" expanded="true" />
-            <element signature="e#37295#37296#0" expanded="true" />
-            <element signature="e#38690#38696#0" expanded="true" />
-            <element signature="e#39682#39683#0" expanded="true" />
-            <element signature="e#39715#39716#0" expanded="true" />
+            <element signature="e#30101#30555#0" expanded="true" />
+            <element signature="e#30554#30555#0" expanded="true" />
+            <element signature="e#31944#32155#0" expanded="true" />
+            <element signature="e#32154#32155#0" expanded="true" />
+            <element signature="e#35602#35624#0" expanded="true" />
+            <element signature="e#35973#36595#0" expanded="true" />
+            <element signature="e#36594#36595#0" expanded="true" />
+            <element signature="e#36640#36920#0" expanded="true" />
+            <element signature="e#36919#36920#0" expanded="true" />
+            <element signature="e#36964#37388#0" expanded="true" />
+            <element signature="e#37387#37388#0" expanded="true" />
+            <element signature="e#38782#38788#0" expanded="true" />
+            <element signature="e#39774#39775#0" expanded="true" />
+            <element signature="e#39807#39808#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2796,7 +2795,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="348" column="26" selection-start-line="348" selection-start-column="26" selection-end-line="348" selection-end-column="26" />
           <folding>
-            <element signature="e#0#40974#0" expanded="true" />
+            <element signature="e#0#41066#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#8657#8666#0" expanded="true" />
             <element signature="e#9274#9296#0" expanded="true" />
@@ -2817,20 +2816,20 @@
             <element signature="e#28225#28234#0" expanded="true" />
             <element signature="e#29043#29065#0" expanded="true" />
             <element signature="e#29152#29171#0" expanded="true" />
-            <element signature="e#30102#30556#0" expanded="true" />
-            <element signature="e#30555#30556#0" expanded="true" />
-            <element signature="e#31945#32156#0" expanded="true" />
-            <element signature="e#32155#32156#0" expanded="true" />
-            <element signature="e#35510#35532#0" expanded="true" />
-            <element signature="e#35881#36503#0" expanded="true" />
-            <element signature="e#36502#36503#0" expanded="true" />
-            <element signature="e#36548#36828#0" expanded="true" />
-            <element signature="e#36827#36828#0" expanded="true" />
-            <element signature="e#36872#37296#0" expanded="true" />
-            <element signature="e#37295#37296#0" expanded="true" />
-            <element signature="e#38690#38696#0" expanded="true" />
-            <element signature="e#39682#39683#0" expanded="true" />
-            <element signature="e#39715#39716#0" expanded="true" />
+            <element signature="e#30101#30555#0" expanded="true" />
+            <element signature="e#30554#30555#0" expanded="true" />
+            <element signature="e#31944#32155#0" expanded="true" />
+            <element signature="e#32154#32155#0" expanded="true" />
+            <element signature="e#35602#35624#0" expanded="true" />
+            <element signature="e#35973#36595#0" expanded="true" />
+            <element signature="e#36594#36595#0" expanded="true" />
+            <element signature="e#36640#36920#0" expanded="true" />
+            <element signature="e#36919#36920#0" expanded="true" />
+            <element signature="e#36964#37388#0" expanded="true" />
+            <element signature="e#37387#37388#0" expanded="true" />
+            <element signature="e#38782#38788#0" expanded="true" />
+            <element signature="e#39774#39775#0" expanded="true" />
+            <element signature="e#39807#39808#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3112,7 +3111,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Feedreader/RssItem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.0">
+        <state vertical-scroll-proportion="3.6">
           <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
           <folding>
             <element signature="e#856#857#0" expanded="true" />
@@ -3123,20 +3122,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Feedreader/RssHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-25.0">
-          <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.9518073">
-          <caret line="942" column="44" selection-start-line="942" selection-start-column="44" selection-end-line="942" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="765" column="71" selection-start-line="765" selection-start-column="71" selection-end-line="765" selection-end-column="71" />
           <folding>
-            <element signature="e#0#40974#0" expanded="true" />
+            <element signature="e#0#41066#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#8657#8666#0" expanded="true" />
             <element signature="e#9274#9296#0" expanded="true" />
@@ -3157,21 +3148,29 @@
             <element signature="e#28225#28234#0" expanded="true" />
             <element signature="e#29043#29065#0" expanded="true" />
             <element signature="e#29152#29171#0" expanded="true" />
-            <element signature="e#30102#30556#0" expanded="true" />
-            <element signature="e#30555#30556#0" expanded="true" />
-            <element signature="e#31945#32156#0" expanded="true" />
-            <element signature="e#32155#32156#0" expanded="true" />
-            <element signature="e#35510#35532#0" expanded="true" />
-            <element signature="e#35881#36503#0" expanded="true" />
-            <element signature="e#36502#36503#0" expanded="true" />
-            <element signature="e#36548#36828#0" expanded="true" />
-            <element signature="e#36827#36828#0" expanded="true" />
-            <element signature="e#36872#37296#0" expanded="true" />
-            <element signature="e#37295#37296#0" expanded="true" />
-            <element signature="e#38690#38696#0" expanded="true" />
-            <element signature="e#39682#39683#0" expanded="true" />
-            <element signature="e#39715#39716#0" expanded="true" />
+            <element signature="e#30101#30555#0" expanded="true" />
+            <element signature="e#30554#30555#0" expanded="true" />
+            <element signature="e#31944#32155#0" expanded="true" />
+            <element signature="e#32154#32155#0" expanded="true" />
+            <element signature="e#35602#35624#0" expanded="true" />
+            <element signature="e#35973#36595#0" expanded="true" />
+            <element signature="e#36594#36595#0" expanded="true" />
+            <element signature="e#36640#36920#0" expanded="true" />
+            <element signature="e#36919#36920#0" expanded="true" />
+            <element signature="e#36964#37388#0" expanded="true" />
+            <element signature="e#37387#37388#0" expanded="true" />
+            <element signature="e#38782#38788#0" expanded="true" />
+            <element signature="e#39774#39775#0" expanded="true" />
+            <element signature="e#39807#39808#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Feedreader/RssHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.60227275">
+          <caret line="97" column="39" selection-start-line="97" selection-start-column="39" selection-end-line="97" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
