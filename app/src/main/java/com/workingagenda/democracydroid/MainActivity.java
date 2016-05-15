@@ -690,7 +690,7 @@ public class MainActivity extends AppCompatActivity {
                 storyAdapter.notifyDataSetChanged();
             }
 
-            new GetStoryFeed().execute("http://www.democracynow.org/democracynow-blog.rss");
+            new GetStoryFeed().execute("http://www.democracynow.org/democracynow.rss");
         }
 
         @Override
