@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
@@ -58,26 +59,13 @@ public class StoryActivity extends AppCompatActivity {
         webview = (WebView) findViewById(R.id.webview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        toolbar.setTitleTextColor(Color.BLACK);
         toolbar.setLogo(R.mipmap.ic_launcher);
-        //setContentView(R.layout.activity_article);
-        //TextView testing = (TextView) findViewById(R.id.testing);
-
-        //WebView webview = new WebView(this);
-        //setContentView(webview);
-        //webview.loadData("Loading", "text/html", "UTF-8");
-
 
         Bundle extras = getIntent().getExtras();
         url = (String) extras.get("url");
         title = (String) extras.get("title");
-        author = (String) extras.get("author");
         date = (String) extras.get("date");
-        //content = (String) extras.get("content");
-        //Log.d("content", content);
-        //webview.loadData("Loading", "text/html", "UTF-8");
-        // Author
+        Log.v("url", url);
         new RetrieveContent().execute(url);
 
 
@@ -113,7 +101,7 @@ public class StoryActivity extends AppCompatActivity {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_SUBJECT, title);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, url);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, url + " '\n" +date);
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
             return true;
@@ -123,10 +111,7 @@ public class StoryActivity extends AppCompatActivity {
     }
 
     class RetrieveContent extends AsyncTask<String, Void, String> {
-
         private Exception exception;
-
-
         protected String doInBackground(String... urls){
             try {
                 String cont = getContent(urls[0]);
@@ -139,10 +124,7 @@ public class StoryActivity extends AppCompatActivity {
 
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            //setContentView(R.layout.activity_article);
-            //webview = new WebView(getBaseContext());
-            //setContentView(webview);
-            String page = "<h2>" + title + "</h2><hr>" + result;
+            String page = "<h2>" + title + "</h2><hr>"+date+"<hr>" + result;
             webview.loadData(page, "text/html", "UTF-8"); //but don't just
         }
     }
@@ -150,18 +132,14 @@ public class StoryActivity extends AppCompatActivity {
     // Use Jsoup to get the content? This is sloppy
     private String getContent(String url) throws IOException {
         Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
-        Element data = doc.getElementsByClass("node").first();// get the third content div,
-        Elements select = data.select("img");
+        //doc.select("story_with_left_panel").first().children().first().before("<a href="+ url +">Watch the Broadcast at democracynow.org</newChild>");
+        Element data = doc.getElementsByClass("story_with_left_panel").first();// get the third content div,
+        data.getElementsByClass("left_panel").remove();
         // Change the links to absolute!! so that images work
-        for(Element e:select){
-            e.attr("src", e.absUrl("src"));
-        }
+        Elements select = data.select("img");
         select = data.select("a");
-        for(Element e:select){
-            e.attr("href", e.absUrl("href"));
-        }
-        Element info = data.getElementsByClass("submitted").first();
-        info.after("<hr>");
+        for(Element e:select){e.attr("src", e.absUrl("src"));}
+        for(Element e:select){e.attr("href", e.absUrl("href"));}
         String cont = data.toString();
         cont = CSS + cont + "</body>";
         content = cont;
