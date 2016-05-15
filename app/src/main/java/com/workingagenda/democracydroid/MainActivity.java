@@ -168,6 +168,10 @@ public class MainActivity extends AppCompatActivity {
                    // ((PodcastFragment) x).populateList(((PodcastFragment) x).GetVideoFeed());
                     ((PodcastFragment) x).refresh();
                 }
+                if (x instanceof StoryFragment) {
+                    // ((PodcastFragment) x).populateList(((PodcastFragment) x).GetVideoFeed());
+                    ((StoryFragment) x).refresh();
+                }
                 if (x instanceof BlogFragment) {
                     // ((PodcastFragment) x).populateList(((PodcastFragment) x).GetVideoFeed());
                     ((BlogFragment) x).refresh();
