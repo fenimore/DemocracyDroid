@@ -81,8 +81,7 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-    private int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "2"));
+
     //ArrayAdapter<String> AudioListAdapter;
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -96,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "2"));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Blog").setIcon(R.drawable.ic_web_asset_white_24dp));
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Broadcast").setIcon(R.drawable.ic_live_tv_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Downloads").setIcon(R.drawable.ic_file_download_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        Log.v("Default Tab", Integer.toString(DEFAULT_TAB));
+        //Log.v("Default Tab", Integer.toString(DEFAULT_TAB));
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(DEFAULT_TAB);
+        mViewPager.setCurrentItem(2);
         // Gather the Episode Lists
         // Set up the tab and View Pager
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
