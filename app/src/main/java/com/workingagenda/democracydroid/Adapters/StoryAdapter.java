@@ -57,7 +57,8 @@ public class StoryAdapter extends ArrayAdapter<Episode> {
             }
             if ( b.getTitle().startsWith("Headlines")){
                 txt.setAllCaps(true);
-                txt.setTextColor(Color.RED);
+                txt.setTextColor(Color.parseColor("#670001"));
+                txt.setPadding(0, 10, 0, 0);
             }
         }
 
