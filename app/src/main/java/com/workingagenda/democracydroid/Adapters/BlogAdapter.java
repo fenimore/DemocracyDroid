@@ -49,7 +49,7 @@ public class BlogAdapter extends ArrayAdapter<Episode> {
                     Log.v("Blog Adapter", "exception");
                 }
             } else {
-                Picasso.with(getContext()).load(R.drawable.ic_library_books_black_24dp).into(img);
+                Picasso.with(getContext()).load("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png").into(img);
             }
 
 
