@@ -705,13 +705,18 @@ public class MainActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Episode s = storyPosts.get(position);
                     // Add Story Activity
-                    Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(s.getUrl()));
-                    startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
-
+                    loadTranscript(s);
                 }
             });
             return rootView;
 
+        }
+        private void loadTranscript(Episode story) { //author does'nt work
+            Intent intent = new Intent(getContext(), StoryActivity.class);
+            intent.putExtra("url", story.getUrl()); //can't pass in article object?
+            intent.putExtra("title", story.getTitle());
+            intent.putExtra("date", story.getPubDate());
+            startActivityForResult(intent, 0); //Activity load = 0
         }
 
         @Override
