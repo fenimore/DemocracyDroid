@@ -16,4 +16,32 @@
     <string name="connect_error">Connection Error</string>
     <string name="no_downloads">Long Click an Episode In order to Download it</string>
     <string name="connecting">Establishing Connection...</string>
+    <string name="summary_tab">Defaults to Broadcast Tab</string>
+    <string name="setting_tab">Home Tab</string>
+    <string name="setting_wifi">Only Load on Wifi</string>
+    <string name="summary_wifi">Stop data requests when using Mobile Data</string>
+    <string-array name="Language">
+        <item>English (US)</item>
+        <item>English (UK)</item>
+        <item>French (France)</item>
+        <item>Spanish (Spain)</item>
+    </string-array>
+    <string-array name="languageAlias">
+        <item>"en-US"</item>
+        <item>"en-GB"</item>
+        <item>"fr-FR"</item>
+        <item>"es-ES"</item>
+    </string-array>
+    <string-array name="tabs">
+        <item>Blog</item>
+        <item>Stories</item>
+        <item>Broadcast</item>
+        <item>Downloads</item>
+    </string-array>
+    <string-array name="tabsAlias">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>

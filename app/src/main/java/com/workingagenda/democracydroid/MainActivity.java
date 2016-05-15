@@ -22,11 +22,13 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -36,7 +38,6 @@ import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,10 +57,8 @@ import android.widget.Toast;
 import com.workingagenda.democracydroid.Adapters.BlogAdapter;
 import com.workingagenda.democracydroid.Adapters.DownloadsAdapter;
 import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
-import com.workingagenda.democracydroid.Adapters.PagerAdapter;
 import com.workingagenda.democracydroid.Adapters.StoryAdapter;
-import com.workingagenda.democracydroid.Helpers.DownloadsDataSave;
-import com.workingagenda.democracydroid.Objects.Download;
+
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.Feedreader.RssItem;
 import com.workingagenda.democracydroid.Feedreader.RssReader;
@@ -82,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private int DEFAULT_TAB = 2;
-
+    private SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    private int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "2"));
     //ArrayAdapter<String> AudioListAdapter;
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -94,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Broadcast").setIcon(R.drawable.ic_live_tv_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Downloads").setIcon(R.drawable.ic_file_download_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        Log.v("Default Tab", Integer.toString(DEFAULT_TAB));
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -157,6 +158,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
         if (id == R.id.action_refresh) {

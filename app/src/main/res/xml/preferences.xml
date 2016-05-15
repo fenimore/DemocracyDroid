@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:key="tab_preference"
+        android:title="@string/setting_tab"
+        android:summary="@string/summary_tab"
+        android:entries="@array/tabs"
+        android:entryValues="@array/tabsAlias"
+        />
+    <CheckBoxPreference
+        android:key="face_up"
+        android:title="@string/setting_wifi"
+        android:summary="@string/summary_wifi"
+        android:defaultValue="false" />
+    <ListPreference
+        android:key="language_preference"
+        android:title="Language"
+        android:summary="Languages are not yet Implemented"
+        android:entries="@array/Language"
+        android:entryValues="@array/languageAlias"/>
+</PreferenceScreen>
