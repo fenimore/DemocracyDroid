@@ -54,8 +54,11 @@ public class BlogAdapter extends ArrayAdapter<Episode> {
 
 
             if (txt != null) {
-                txt.setText(b.getTitle());
-
+                if(b.getVideoUrl() != null){
+                    txt.setText(b.getTitle() + "\n    Watch Video");
+                } else{
+                    txt.setText(b.getTitle());
+                }
             }
         }
 
