@@ -1,6 +1,7 @@
 package com.workingagenda.democracydroid.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,10 @@ public class StoryAdapter extends ArrayAdapter<Episode> {
             if (txt != null) {
                 txt.setText(b.getTitle());
 
+            }
+            if ( b.getTitle().startsWith("Headlines")){
+                txt.setAllCaps(true);
+                txt.setTextColor(Color.RED);
             }
         }
 
