@@ -132,13 +132,18 @@ public class StoryActivity extends AppCompatActivity {
     // Use Jsoup to get the content? This is sloppy
     private String getContent(String url) throws IOException {
         Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
+        Element data;
         //doc.select("story_with_left_panel").first().children().first().before("<a href="+ url +">Watch the Broadcast at democracynow.org</newChild>");
-        Element data = doc.getElementsByClass("story_with_left_panel").first();// get the third content div,
-        data.getElementsByClass("left_panel").remove();
+        if (doc.getElementById("headlines") == null){
+            data = doc.getElementsByClass("story_with_left_panel").first();// get the third content div,
+            data.getElementsByClass("left_panel").remove();
+        } else {
+            data = doc.getElementById("headlines");// get the third content div,
+        }
         // Change the links to absolute!! so that images work
-        Elements select = data.select("img");
-        select = data.select("a");
-        for(Element e:select){e.attr("src", e.absUrl("src"));}
+        Elements select_img = data.select("img");
+        Elements select = data.select("a");
+        for(Element e:select_img){e.attr("src", e.absUrl("src"));}
         for(Element e:select){e.attr("href", e.absUrl("href"));}
         String cont = data.toString();
         cont = CSS + cont + "</body>";
