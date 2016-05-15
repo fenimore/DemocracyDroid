@@ -16,27 +16,29 @@ Find v.1.1 on the Play Store
 - SimplisticRss library Apache 2 - [ShirwaM](https://github.com/ShirwaM/Simplistic-RSS)
 - Picasso Apache 2 - http://square.github.io/picasso/
 - Democracy Now! CC BY-NC-ND 3.0 US
-- Soon, Jsoup
+- Jsoup MIT
 
-##TODO
-- Enlarge and Crop Thumbnails
-- Add Stories Feed/Jsoup
-   - Custom Css
-   - http://www.democracynow.org/democracynow.rss
-- Parse Downloaded File Label
+## Bugs
+- When swiping through tabs, listviews duplicate
+   - But website isn't getted 
+- When scrolling up, formats get squished and blended
+- Must restart to effect settings change
+
+## TODO
+- Stories Thumbnail
+- Blog Activity/ like Stories
+- (More) Parse Downloaded File Label
 - settings
-   - only stream on wifi
-- Live streaming link/notification    
-- About options menu
-- Fix Live Stream URL
+   - No Images
+   - Notifications
+- Fix Live Stream Link?   
 
-### Listviews:
+### Listviews TODO:
 - Add download button
 - Add stream button
 - Delete/see progress of downloads
 
-### Settings:
+### Settings TODO:
 - Default Stream Secondary Stream
-- Stream only on wifi
 - Notifications (default no)
-- Open on which tab (default broadcast)
+- Language
