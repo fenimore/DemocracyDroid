@@ -425,7 +425,9 @@ public class MainActivity extends AppCompatActivity {
                         + formattedDate + ".mp4";
                 String today_audio = "http://publish.dvlabs.com/democracynow/video-podcast/dn"
                         + formattedDate + "-1.mp3";
-                if (today_video != episodes.get(0).getVideoUrl()){
+                if (!today_video.equals(episodes.get(0).getVideoUrl())){
+                    Log.d("Today", today_video);
+                    Log.d("Latest", episodes.get(0).getVideoUrl());
                     if ( LIVE_TIME == hourOfDay ){
                         Log.d("YO it's time for live", "stream");
                         Episode live = new Episode();
