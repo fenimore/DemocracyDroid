@@ -49,8 +49,6 @@ public class StoryAdapter extends ArrayAdapter<Episode> {
                 Log.v("Blog Adapter", "exception");
             }
 
-
-
             if (txt != null) {
                 txt.setText(b.getTitle());
 

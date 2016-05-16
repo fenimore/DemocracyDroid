@@ -67,7 +67,11 @@ public class EpisodeAdapter extends ArrayAdapter<Episode> {
 
             if (txt != null) {
                 if (e.getTitle().length() > 16){
-                    txt.setText(e.getTitle().substring(14));
+                    if(e.getTitle() == "Today's Broadcast"){
+                        txt.setText(e.getTitle());
+                    } else{
+                        txt.setText(e.getTitle().substring(14));
+                    }
                 } else {
                     txt.setText(e.getTitle());
                 }
