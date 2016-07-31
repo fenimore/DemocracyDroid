@@ -41,7 +41,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         addPreferencesFromResource(R.xml.preferences);
         ListPreference tab = (ListPreference) findPreference("tab_preference");
         if(tab.getValue() == null){
-            tab.setValueIndex(2);
+            tab.setValueIndex(1);
         }
 
     }

@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
         PREF_WIFI = preferences.getBoolean("wifi_preference", false);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Blog").setIcon(R.drawable.ic_web_asset_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Stories").setIcon(R.drawable.ic_library_books_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Broadcast").setIcon(R.drawable.ic_live_tv_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Downloads").setIcon(R.drawable.ic_file_download_white_24dp));
@@ -189,10 +188,6 @@ public class MainActivity extends AppCompatActivity {
                 if (x instanceof StoryFragment) {
                     // ((PodcastFragment) x).populateList(((PodcastFragment) x).GetVideoFeed());
                     ((StoryFragment) x).refresh();
-                }
-                if (x instanceof BlogFragment) {
-                    // ((PodcastFragment) x).populateList(((PodcastFragment) x).GetVideoFeed());
-                    ((BlogFragment) x).refresh();
                 }
                 if (x instanceof DownloadFragment) {
                     // ((PodcastFragment) x).populateList(((PodcastFragment) x).GetVideoFeed());
@@ -515,161 +510,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public static class BlogFragment extends Fragment {
 
-        //Declaire some variables
-        private ListView bList;
-        ArrayList<Episode> blogPosts = new ArrayList<Episode>(20);
-        private TextView bTxt;
-        private BlogAdapter blogAdapter;
-
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public BlogFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static BlogFragment newInstance(int sectionNumber) {
-            BlogFragment fragment = new BlogFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public void populateList(ArrayList<Episode> blogs) {
-            if (blogs.size() > 1){
-                blogAdapter = new BlogAdapter(getContext(), R.layout.row_blog, blogs);
-                bList.setAdapter(blogAdapter);
-            }
-            else {
-                bTxt.setText(R.string.connect_error);
-            }
-
-        }
-
-        private void refresh() {
-            bTxt.setText(R.string.connecting);
-            // En fait, Je pense que on doit clear the actual data
-            if (blogPosts.size() > 1){
-                blogPosts.clear();
-                blogAdapter.notifyDataSetChanged();
-            }
-
-            new GetBlogFeed().execute("http://www.democracynow.org/democracynow-blog.rss");
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            final View rootView = inflater.inflate(R.layout.fragment_blog, container, false);
-
-            bList = (ListView) rootView.findViewById(android.R.id.list);
-            bTxt = (TextView) rootView.findViewById(android.R.id.empty);
-            bList.setEmptyView(bTxt);
-            registerForContextMenu(bList);
-            new GetBlogFeed().execute("http://www.democracynow.org/democracynow-blog.rss");
-
-
-            bList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Episode b = blogPosts.get(position);
-                    // CHANGE INTENT depending on the
-                    if (b.getVideoUrl() != null) {
-                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(b.getVideoUrl()));
-                        startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
-                    } else {
-                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(b.getUrl()));
-                        startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
-                    }
-                }
-            });
-
-
-
-            return rootView;
-
-        }
-
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            super.onCreateContextMenu(menu, v, menuInfo);
-            if (v.getId()==android.R.id.list) {
-                MenuInflater inflater = new MenuInflater(getContext());
-                menu.setHeaderTitle("Democracy Now!");
-                //MenuInflater inflater = getMenuInflater();
-                inflater.inflate(R.menu.blog_menu, menu);
-            }
-        }
-        @Override
-        public boolean onContextItemSelected(MenuItem item) {
-            //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
-            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            int pos = info.position;
-            Episode b = blogPosts.get(pos);
-            switch(item.getItemId()) {
-                case R.id.action_blog_description:
-                    AlertDialog description = new AlertDialog.Builder(getContext()).create();
-                    // Get Description and Title
-                    description.setTitle("Democracy Now! Blog");
-                    description.setMessage(b.getDescription() + "\n\n" + b.getTitle());
-                    //description.setIcon(R.drawable.dm_icon_small);
-                    description.setButton("Close", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // do nothing?
-                        }
-                    });
-                    description.show();
-                    return true;
-                default:
-                    return super.onContextItemSelected(item);
-            }
-        }
-        private class GetBlogFeed extends AsyncTask<String, Void, Void> {
-            @Override
-            protected Void doInBackground(String... params) {
-                try {
-                    RssReader rssReader = new RssReader(params[0]);
-                                        for(RssItem item : rssReader.getItems()){
-                        //VideoListAdapter.add(item.getTitle().substring(14));
-                        // This should just be the Episode Object (class?)
-                        Episode b = new Episode();
-                                            b.setTitle(item.getTitle());
-                                            b.setVideoUrl(item.getVideoUrl());
-                                            b.setDescription(item.getDescription());
-                                            b.setImageUrl(item.getImageUrl());
-                                            b.setUrl(item.getLink());
-                        blogPosts.add(b);
-                    }
-                    //if(in between the hours, add a initial episodeto the list.);
-                    //DateFormat df = DateFormat.getDateInstance();
-
-
-                    //EpisodeAdapter episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
-                } catch (Exception e) {
-                    Log.v("Error Parsing Data", e + "");
-
-                }
-                return null;
-            }
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                //VideoListAdapter.notifyDataSetChanged();
-                // AudioListAdapter.notifyDataSetChanged();
-                populateList(blogPosts);
-
-            }
-        }
-    }
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -969,10 +810,9 @@ public class MainActivity extends AppCompatActivity {
             //return PodcastFragment.newInstance(position + 1);
             switch(position) {
 
-                case 0: return BlogFragment.newInstance(position + 1);
-                case 1: return StoryFragment.newInstance(position + 1);
-                case 2: return PodcastFragment.newInstance(position + 1);
-                case 3: return DownloadFragment.newInstance(position + 1);
+                case 0: return StoryFragment.newInstance(position + 1);
+                case 1: return PodcastFragment.newInstance(position + 1);
+                case 2: return DownloadFragment.newInstance(position + 1);
                 default: return PodcastFragment.newInstance(position + 1);
             }
         }
@@ -992,8 +832,6 @@ public class MainActivity extends AppCompatActivity {
                     return "SECTION 2";
                 case 2:
                     return "SECTION 3";
-                case 3:
-                    return "SECTION 4";
             }
             return null;
         }
