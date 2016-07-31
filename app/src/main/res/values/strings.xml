@@ -44,4 +44,12 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="streamAlias">
+        <item>Video</item>
+        <item>Audio</item>
+    </string-array>
+    <string-array name="stream">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
 </resources>
