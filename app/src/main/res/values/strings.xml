@@ -36,7 +36,7 @@
         <item>"es-ES"</item>
     </string-array>
     <string-array name="tabsAlias">
-        <item>Stories</item>
+        <item>Transcripts</item>
         <item>Broadcast</item>
         <item>Downloads</item>
     </string-array>
