@@ -18,7 +18,7 @@
     <string name="connecting">Establishing Connection...</string>
     <string name="setting_tab">Default Tab on Start Up</string>
     <string name="setting_wifi">Only Refresh with Wifi</string>
-    <string name="summary_wifi">[bug] must restart app to take effect</string>
+    <string name="summary_wifi">Must restart app to take effect</string>
     <string name="setting_image">Don\'t Load Images</string>
     <string name="summary_image">Stop Images from Loading</string>
     <string name="name_setting">Settings</string>
