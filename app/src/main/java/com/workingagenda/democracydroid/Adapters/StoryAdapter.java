@@ -53,12 +53,14 @@ public class StoryAdapter extends ArrayAdapter<Episode> {
                 txt.setText(b.getTitle());
 
             }
-            if ( b.getTitle().startsWith("Headlines")){
-                txt.setAllCaps(true);
-                txt.setTextColor(Color.parseColor("#670001"));
-                txt.setPadding(0, 40, 0, 0);
-                txt.setTextSize(17);
-            }
+            // The position changes as listview Scrolls
+            // TODO: Find absolute position?
+            //if ( b.getTitle().startsWith("Headlines")){
+            //  txt.setAllCaps(true);
+            //  txt.setTextColor(Color.parseColor("#670001"));
+            //  txt.setPadding(0, 40, 0, 0);
+            //  txt.setTextSize(17);
+            //}
         }
 
         return v;

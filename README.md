@@ -18,11 +18,18 @@ Find v.1.1 on the Play Store
 - Democracy Now! CC BY-NC-ND 3.0 US
 - Jsoup MIT
 
+## Bug Fixes for 1.5.2
+- Unicode support for viewing Transcripts
+- Downloads list includes post-show podcasts
+- Broadcast listview doesn't cut off titles
+- Remove broken blog feed tab
+- Fix transcript 'headline' formatting confusion...
+
 ## Bugs
 - When swiping through tabs, listviews duplicate
    - But website isn't getted 
-- When scrolling up, formats get squished and blended
-- Must restart to effect settings change
+- When scrolling up, list position isn't absolute
+  - When formatting 'Headlines', it gets confused...
 
 ## TODO
 - Stories Thumbnail
