@@ -55,7 +55,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.workingagenda.democracydroid.Adapters.BlogAdapter;
 import com.workingagenda.democracydroid.Adapters.DownloadsAdapter;
 import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
 import com.workingagenda.democracydroid.Adapters.StoryAdapter;
