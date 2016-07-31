@@ -17,9 +17,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/EpisodeAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/EpisodeAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DemocracyDroid.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,20 +38,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.9555556">
-              <caret line="778" column="50" selection-start-line="778" selection-start-column="38" selection-end-line="778" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.5018868">
+              <caret line="258" column="35" selection-start-line="258" selection-start-column="35" selection-end-line="258" selection-end-column="35" />
               <folding>
-                <element signature="e#0#35602#0" expanded="true" />
+                <element signature="e#0#35637#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#14454#14665#0" expanded="true" />
-                <element signature="e#14664#14665#0" expanded="true" />
-                <element signature="e#26549#26760#0" expanded="true" />
-                <element signature="e#26759#26760#0" expanded="true" />
-                <element signature="e#31549#31973#0" expanded="true" />
-                <element signature="e#31972#31973#0" expanded="true" />
+                <element signature="e#14489#14700#0" expanded="true" />
+                <element signature="e#14699#14700#0" expanded="true" />
+                <element signature="e#26584#26795#0" expanded="true" />
+                <element signature="e#26794#26795#0" expanded="true" />
+                <element signature="e#31584#32008#0" expanded="true" />
+                <element signature="e#32007#32008#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -69,10 +67,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EpisodeAdapter.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EpisodeAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/EpisodeAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5645161">
+            <state vertical-scroll-proportion="0.0">
               <caret line="71" column="70" selection-start-line="71" selection-start-column="70" selection-end-line="71" selection-end-column="70" />
               <folding />
             </state>
@@ -1951,8 +1949,8 @@
         <option value="$PROJECT_DIR$/app/src/main/res/menu/context_menu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/StoryAdapter.java" />
         <option value="/opt/android-sdk/extras/android/m2repository/com/android/support/design/23.1.1/design-23.1.1-sources.jar!/android/support/design/widget/TabLayout.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/EpisodeAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -2565,14 +2563,14 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="348" column="26" selection-start-line="348" selection-start-column="26" selection-end-line="348" selection-end-column="26" />
           <folding>
-            <element signature="e#0#35602#0" expanded="true" />
+            <element signature="e#0#35637#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#14454#14665#0" expanded="true" />
-            <element signature="e#14664#14665#0" expanded="true" />
-            <element signature="e#26549#26760#0" expanded="true" />
-            <element signature="e#26759#26760#0" expanded="true" />
-            <element signature="e#31549#31973#0" expanded="true" />
-            <element signature="e#31972#31973#0" expanded="true" />
+            <element signature="e#14489#14700#0" expanded="true" />
+            <element signature="e#14699#14700#0" expanded="true" />
+            <element signature="e#26584#26795#0" expanded="true" />
+            <element signature="e#26794#26795#0" expanded="true" />
+            <element signature="e#31584#32008#0" expanded="true" />
+            <element signature="e#32007#32008#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3006,28 +3004,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/EpisodeAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.9555556">
-          <caret line="778" column="50" selection-start-line="778" selection-start-column="38" selection-end-line="778" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#35602#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#14454#14665#0" expanded="true" />
-            <element signature="e#14664#14665#0" expanded="true" />
-            <element signature="e#26549#26760#0" expanded="true" />
-            <element signature="e#26759#26760#0" expanded="true" />
-            <element signature="e#31549#31973#0" expanded="true" />
-            <element signature="e#31972#31973#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="71" column="70" selection-start-line="71" selection-start-column="70" selection-end-line="71" selection-end-column="70" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/Adapters/EpisodeAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/workingagenda/democracydroid/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5645161">
-          <caret line="71" column="70" selection-start-line="71" selection-start-column="70" selection-end-line="71" selection-end-column="70" />
-          <folding />
+        <state vertical-scroll-proportion="0.5018868">
+          <caret line="258" column="35" selection-start-line="258" selection-start-column="35" selection-end-line="258" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#35637#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#14489#14700#0" expanded="true" />
+            <element signature="e#14699#14700#0" expanded="true" />
+            <element signature="e#26584#26795#0" expanded="true" />
+            <element signature="e#26794#26795#0" expanded="true" />
+            <element signature="e#31584#32008#0" expanded="true" />
+            <element signature="e#32007#32008#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

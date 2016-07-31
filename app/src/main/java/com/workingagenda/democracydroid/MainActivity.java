@@ -256,11 +256,11 @@ public class MainActivity extends AppCompatActivity {
         private void refresh() {
             mTxt.setText(R.string.connecting);
             // En fait, Je pense que on doit clear the actual data
+            // TODO: Yeah, probs...
             if (episodes.size() > 1){
                 episodes.clear();
                 episodeAdapter.notifyDataSetChanged();
             }
-
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
             new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
 
