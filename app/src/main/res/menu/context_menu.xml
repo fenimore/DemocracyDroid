@@ -19,5 +19,5 @@
     <item
         android:id="@+id/action_download"
         android:orderInCategory="300"
-        android:title="Download"/>
+        android:title="Download Video"/>
 </menu>
