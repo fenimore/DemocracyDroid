@@ -22,6 +22,7 @@
     <string name="setting_image">Don\'t Load Images</string>
     <string name="summary_image">Stop Images from Loading</string>
     <string name="name_setting">Settings</string>
+    <string name="setting_stream">Default Stream on Select</string>
     <string-array name="Language">
         <item>English (US)</item>
         <item>English (UK)</item>
