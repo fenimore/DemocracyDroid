@@ -776,7 +776,7 @@ public class MainActivity extends AppCompatActivity {
             File[] files = parentDir.listFiles();
             if(files != null) { // I don't know why I need this, but otherwise it breaks
                 for (File file : files) {
-                    if(file.getName().startsWith("dn")){ // there must be a smarter way to do this
+                    if(file.getName().startsWith("dn") || file.getName().endsWith("-podcast.mp4") || file.getName().endsWith("-podcast.mp3")){ // there must be a smarter way to do this
                         if(file.getName().endsWith(".mp3") || file.getName().endsWith(".mp4")){
                             inFiles.add(file);
                         }

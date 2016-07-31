@@ -76,16 +76,19 @@ public class DownloadsAdapter extends ArrayAdapter<File> {
                 Log.v("Episode Adapter", "exception");
             }
 
-            if (txt != null) {
+            if (txt != null && title.startsWith("dn")){
                 title = title.substring(0, title.length() - 4);
                 title = title.substring(2, title.length());
                 title = title.substring(0, 7) + "-" + title.substring(7, title.length());
+                txt.setText(title);
+            } else if (txt != null) {
+                title = title.substring(0, title.length() - 12);
                 txt.setText(title);
             }
             if(f.getName().endsWith(".mp4")){
                 isVideo = true;
             }
-            if(isVideo){
+            if (isVideo) {
                 img.setImageResource(R.drawable.ic_movie_black_24dp);
             } else {
                 img.setImageResource(R.drawable.ic_mic_none_black_24dp);
