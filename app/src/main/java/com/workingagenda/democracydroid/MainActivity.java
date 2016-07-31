@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "2"));
+        int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
         PREF_WIFI = preferences.getBoolean("wifi_preference", false);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
