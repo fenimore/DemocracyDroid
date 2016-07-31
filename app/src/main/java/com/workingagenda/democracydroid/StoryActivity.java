@@ -144,7 +144,7 @@ public class StoryActivity extends AppCompatActivity {
         protected void onPostExecute(String result){
             super.onPostExecute(result);
             String page = "<h2>" + title + "</h2><hr>"+date+"<hr>" + "Viewer Supported News: <a class='donate_button' data-width='800' data-height='590' data-ga-action='Story: Donate' href='https://democracynow.org/donate'>Donate</a><br>Donate at democracynow.org<hr>" + result;
-            webview.loadData(page, "text/html", "UTF-8"); //but don't just
+            webview.loadData(page, "text/html; charset=utf-8", "UTF-8"); //but don't just
         }
     }
 
