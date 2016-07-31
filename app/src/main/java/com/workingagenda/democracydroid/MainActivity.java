@@ -710,15 +710,25 @@ public class MainActivity extends AppCompatActivity {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    for (File file : files) {
-                        Log.d("File", file.getName());
-                        // remove files
-                        file.delete();
-                    }
-                    files = getListFiles();
-                    dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
-                    Toast toast = Toast.makeText(getActivity(), "Downloads Removed", Toast.LENGTH_SHORT);
-                    toast.show();
+                    new AlertDialog.Builder(getContext()).setTitle("Delete all downloads")
+                        .setMessage("Are you sure you want to delete all episodes?\nLong click and episode to delete them individually.")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    for (File file : files) {
+                                        Log.d("File", file.getName());
+                                        // remove files
+                                        file.delete();
+                                    }
+                                    files = getListFiles();
+                                    dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
+                                    Toast toast = Toast.makeText(getActivity(), "Downloads Removed", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
+                            }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    }).setIcon(android.R.drawable.ic_dialog_alert).show();
                 }
             });
             btnRefresh.setOnClickListener(new View.OnClickListener() {

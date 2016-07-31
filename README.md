@@ -25,6 +25,9 @@ Find v.1.1 on the Play Store
 - Remove broken blog feed tab
 - Fix transcript 'headline' formatting confusion...
 
+## New Features 1.5.2 
+- Add alert dialog for clear all
+
 ## Bugs
 - When swiping through tabs, listviews duplicate
    - But website isn't getted 
