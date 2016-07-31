@@ -632,7 +632,7 @@ public class MainActivity extends AppCompatActivity {
                                             b.setImageUrl(item.getImageUrl());
                                             b.setUrl(item.getLink());
                                             storyPosts.add(b);
-                                            Log.v("Story", b.getUrl());
+
 
                     }
                     //if(in between the hours, add a initial episodeto the list.);
@@ -652,7 +652,7 @@ public class MainActivity extends AppCompatActivity {
                 //VideoListAdapter.notifyDataSetChanged();
                 // AudioListAdapter.notifyDataSetChanged();
                 populateList(storyPosts);
-
+                Log.v("Load story feed", "again?");
             }
         }
     }
