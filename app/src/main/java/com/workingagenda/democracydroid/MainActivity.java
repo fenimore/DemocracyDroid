@@ -441,7 +441,7 @@ public class MainActivity extends AppCompatActivity {
                         live.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
                         live.setUrl("https://livestream.com/DemocracyNow");
                         episodes.add(0, live);
-                    } else if ( hourOfDay > 9) {
+                    } else if ( hourOfDay > 8) {
                         Episode todays_episode = new Episode();
                         todays_episode.setTitle("Today's Broadcast");
                         todays_episode.setVideoUrl(today_video);

@@ -23,7 +23,7 @@
         <CheckBoxPreference
             android:key="image_preference"
             android:title="@string/setting_image"
-            android:summary="Not Yet Implemented"
+            android:summary="@string/img_pref_summary"
             android:defaultValue="false" />
         <ListPreference
             android:key="language_preference"

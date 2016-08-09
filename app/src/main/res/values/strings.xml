@@ -25,6 +25,7 @@
     <string name="setting_stream">Default Stream on Select</string>
     <string name="pref_category_info">Application Information</string>
     <string name="pref_category_settings">Application Settings</string>
+    <string name="img_pref_summary">Minimize data usage</string>
     <string-array name="Language">
         <item>English (US)</item>
         <item>English (UK)</item>
