@@ -52,6 +52,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -229,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
         //Declaire some variables
         private ListView mList;
         private TextView mTxt;
+        private ProgressBar mBar;
         private EpisodeAdapter episodeAdapter;
         private int LIVE_TIME = 8;
         //ArrayAdapter<String> VideoListAdapter;
@@ -251,13 +253,15 @@ public class MainActivity extends AppCompatActivity {
                 mList.setAdapter(episodeAdapter);
             }
             else {
+                mBar.setVisibility(View.GONE);
                 mTxt.setText(R.string.connect_error);
             }
 
         }
         private void refresh() {
             if (mTxt != null){
-                mTxt.setText(R.string.connecting);
+                mBar.setVisibility(View.VISIBLE);
+                //mTxt.setText(R.string.connecting);
             }
             // En fait, Je pense que on doit clear the actual data
             // TODO: Yeah, probs...
@@ -290,10 +294,11 @@ public class MainActivity extends AppCompatActivity {
 
             mList = (ListView) rootView.findViewById(android.R.id.list);
             mTxt = (TextView) rootView.findViewById(android.R.id.empty);
-
+            mBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+            mBar.setVisibility(View.GONE);
             registerForContextMenu(mList);
 
-            mList.setEmptyView(mTxt);
+            mList.setEmptyView(mBar);
 
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
 
@@ -541,6 +546,7 @@ public class MainActivity extends AppCompatActivity {
         private ListView sList;
         ArrayList<Episode> storyPosts = new ArrayList<Episode>(20);
         private TextView sTxt;
+        private ProgressBar sBar;
         private StoryAdapter storyAdapter;
         private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -560,13 +566,15 @@ public class MainActivity extends AppCompatActivity {
                 sList.setAdapter(storyAdapter);
             }
             else {
+                sBar.setVisibility(View.GONE);
                 sTxt.setText(R.string.connect_error);
             }
 
         }
 
         private void refresh() {
-            sTxt.setText(R.string.connecting);
+            sBar.setVisibility(View.VISIBLE);
+            //sTxt.setText(R.string.connecting);
             // En fait, Je pense que on doit clear the actual data
             if (storyPosts.size() > 1){
                 storyPosts.clear();
@@ -583,7 +591,9 @@ public class MainActivity extends AppCompatActivity {
 
             sList = (ListView) rootView.findViewById(android.R.id.list);
             sTxt = (TextView) rootView.findViewById(android.R.id.empty);
-            sList.setEmptyView(sTxt);
+            sBar = (ProgressBar) rootView.findViewById(R.id.sBar);
+            sBar.setVisibility(View.GONE);
+            sList.setEmptyView(sBar);
             registerForContextMenu(sList);
             new GetStoryFeed().execute("http://www.democracynow.org/democracynow.rss");
 

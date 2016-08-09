@@ -11,6 +11,19 @@
         android:layout_marginBottom="100px">
 
     </ListView>
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/progressBar"
+            android:minHeight="20dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@android:style/Widget.Holo.Light.ProgressBar.Large"/>
+    </RelativeLayout>
 
     <TextView android:id="@android:id/empty"
         android:layout_width="match_parent"
@@ -18,7 +31,9 @@
         android:layout_marginTop="40dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text= "@string/connecting"
+        android:text= ""
         android:textColor="@color/colorPrimaryDark"/>
+
+
 
 </LinearLayout>

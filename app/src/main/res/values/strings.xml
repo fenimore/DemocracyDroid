@@ -9,7 +9,7 @@
     <string name="about_dm">\nDemocracy Now! is a national, daily, independent, award-winning news program hosted by journalists Amy Goodman and Juan Gonzalez. Pioneering the largest public media collaboration in the U.S.\n\nDemocracy Now! is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States.\n\nDemocracy Droid! provides easy access to the Democracy Now Broadcast and Individual Story feed, the Live stream, and Downloads. Long-click on a broadcast to show the options.</string>
     <string name="about_instructions">Democracy Now! streams live weekdays at 8 am;\n\n</string>
     <string name="about_info">\n\nhttps://github.com/polypmer/DemocracyDroid\nFenimore Love | 2015 - 2016 GPLv3</string>
-    <string name="download_help">Long Click An Episode to Download, Share, Read Description, and Stream (audio).</string>
+    <string name="download_help">Long Click An Episode to Download, Share, Read Description, and Stream.</string>
     <string name="about_title">About Democracy Droid</string>
     <string name="action_site">Visit democracynow.org</string>
     <string name="action_about">About Democracy Droid!</string>
