@@ -1,50 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <ListPreference
-        android:key="tab_preference"
-        android:title="@string/setting_tab"
-        android:summary="%s"
-        android:entries="@array/tabsAlias"
-        android:entryValues="@array/tabs"
-        />
-    <CheckBoxPreference
-        android:key="wifi_preference"
-        android:title="@string/setting_wifi"
-        android:summary="@string/summary_wifi"
-        android:defaultValue="false" />
-    <ListPreference
-        android:key="tab_preference"
-        android:title="@string/setting_stream"
-        android:summary="Not yet Implemented"
-        android:entries="@array/streamAlias"
-        android:entryValues="@array/stream"
-        android:defaultValue="0"
-        />
-    <CheckBoxPreference
-        android:key="image_preference"
-        android:title="@string/setting_image"
-        android:summary="Not Yet Implemented"
-        android:defaultValue="false" />
-    <ListPreference
-        android:key="language_preference"
-        android:title="Language"
-        android:summary="Not yet Implemented"
-        android:entries="@array/Language"
-        android:entryValues="@array/languageAlias"/>
-    <Preference
-        android:key="pref_static_field_key0"
-        android:selectable="false"
-        android:title="Application Version"
-        android:summary="Democracy Droid! 1.5.2"/>
-    <Preference
-        android:key="pref_static_field_key1"
-        android:selectable="false"
-        android:title="Software License"
-        android:summary="GNU General Public License v3"/>
-    <Preference
-        android:key="pref_static_field_key2"
-        android:selectable="false"
-        android:title="Content License"
-        android:summary="Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States"/>
+    <PreferenceCategory android:title="@string/pref_category_settings">
+        <ListPreference
+            android:key="tab_preference"
+            android:title="@string/setting_tab"
+            android:summary="%s"
+            android:entries="@array/tabsAlias"
+            android:entryValues="@array/tabs"
+            />
+        <CheckBoxPreference
+            android:key="wifi_preference"
+            android:title="@string/setting_wifi"
+            android:summary="@string/summary_wifi"
+            android:defaultValue="false" />
+        <ListPreference
+            android:key="tab_preference"
+            android:title="@string/setting_stream"
+            android:summary="Not yet Implemented"
+            android:entries="@array/streamAlias"
+            android:entryValues="@array/stream"
+            android:defaultValue="0"
+            />
+        <CheckBoxPreference
+            android:key="image_preference"
+            android:title="@string/setting_image"
+            android:summary="Not Yet Implemented"
+            android:defaultValue="false" />
+        <ListPreference
+            android:key="language_preference"
+            android:title="Language"
+            android:summary="Not yet Implemented"
+            android:entries="@array/Language"
+            android:entryValues="@array/languageAlias"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_info">
+        <Preference
+            android:key="pref_static_field_key0"
+            android:selectable="false"
+            android:title="Application Version"
+            android:summary="Democracy Droid! 1.5.3"/>
+        <Preference
+            android:key="pref_static_field_key1"
+            android:selectable="false"
+            android:title="Software License"
+            android:summary="GNU General Public License v3"/>
+        <Preference
+            android:key="pref_static_field_key2"
+            android:selectable="false"
+            android:title="Content License"
+            android:summary="Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States"/>
+    </PreferenceCategory>
 </PreferenceScreen>

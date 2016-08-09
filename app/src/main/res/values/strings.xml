@@ -23,6 +23,8 @@
     <string name="summary_image">Stop Images from Loading</string>
     <string name="name_setting">Settings</string>
     <string name="setting_stream">Default Stream on Select</string>
+    <string name="pref_category_info">Application Information</string>
+    <string name="pref_category_settings">Application Settings</string>
     <string-array name="Language">
         <item>English (US)</item>
         <item>English (UK)</item>
