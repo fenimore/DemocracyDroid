@@ -256,7 +256,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
         private void refresh() {
-            mTxt.setText(R.string.connecting);
+            if (mTxt != null){
+                mTxt.setText(R.string.connecting);
+            }
             // En fait, Je pense que on doit clear the actual data
             // TODO: Yeah, probs...
             if (episodes.size() > 1){
@@ -481,8 +483,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     for(RssItem item : rssReader.getItems()){
-                        Log.d("Audio urls?", item.getVideoUrl());
-                        Log.d("index?", Integer.toString(j));
                         episodes.get(j).setAudioUrl(item.getVideoUrl()); // Video here means audio...?
                         // Audio Feed must be called after? Video Feed
                         // Otherewise the episodes objects wont be there
