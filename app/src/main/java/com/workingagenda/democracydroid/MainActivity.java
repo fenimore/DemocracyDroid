@@ -425,9 +425,9 @@ public class MainActivity extends AppCompatActivity {
 
             if ( dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY ){
                 //http://publish.dvlabs.com/democracynow/video-podcast/dn2016-0513.mp4
-                String today_video = "http://publish.dvlabs.com/democracynow/video-podcast/dn"
+                String today_video = "https://publish.dvlabs.com/democracynow/video-podcast/dn"
                         + formattedDate + ".mp4";
-                String today_audio = "http://publish.dvlabs.com/democracynow/video-podcast/dn"
+                String today_audio = "https://publish.dvlabs.com/democracynow/video-podcast/dn"
                         + formattedDate + "-1.mp3";
                 if (!today_video.equals(episodes.get(0).getVideoUrl())){
                     Log.d("Today", today_video);
