@@ -36,8 +36,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         addPreferencesFromResource(R.xml.preferences);
         ListPreference tab = (ListPreference) findPreference("tab_preference");
         if(tab.getValue() == null){
