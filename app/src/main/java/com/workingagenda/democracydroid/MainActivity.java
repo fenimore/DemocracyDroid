@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_refresh) {
+            item.setEnabled(false);
             ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
             NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             boolean isWifi = mWifi.isConnected();
@@ -197,6 +198,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
+            // Somehow enable this after async call...
+            item.setEnabled(true);
             return true;
         }
         if (id == R.id.action_donate) {

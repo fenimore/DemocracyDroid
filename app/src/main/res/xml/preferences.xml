@@ -6,20 +6,19 @@
             android:title="@string/setting_tab"
             android:summary="%s"
             android:entries="@array/tabsAlias"
-            android:entryValues="@array/tabs"
-            />
-        <CheckBoxPreference
-            android:key="wifi_preference"
-            android:title="@string/setting_wifi"
-            android:summary="@string/summary_wifi"
-            android:defaultValue="false" />
+            android:entryValues="@array/tabs" />
         <ListPreference
             android:key="stream_preference"
             android:title="@string/setting_stream"
             android:summary="%s"
             android:entries="@array/streamAlias"
-            android:entryValues="@array/stream"
-            />
+            android:entryValues="@array/stream" />
+        <CheckBoxPreference
+            android:key="wifi_preference"
+            android:title="@string/setting_wifi"
+            android:summary="@string/summary_wifi"
+            android:defaultValue="false" />
+
         <CheckBoxPreference
             android:key="image_preference"
             android:title="@string/setting_image"
