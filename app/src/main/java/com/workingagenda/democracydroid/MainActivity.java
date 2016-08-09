@@ -407,10 +407,8 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 //VideoListAdapter.notifyDataSetChanged();
                 // Aud=ioListAdapter.notifyDataSetChanged();
-                Log.d("Populating list", "Connection Populate List");
+                //Log.d("Populating list", "Connection Populate List");
                 new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
-                populateList(episodes);
-
             }
         }
 
@@ -461,18 +459,31 @@ public class MainActivity extends AppCompatActivity {
         private class GetAudioFeed extends AsyncTask<String, Void, Void> {
             @Override
             protected Void doInBackground(String... params) {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
+                TimeZone timeZone = TimeZone.getTimeZone("GMT-400");
+                Calendar c = Calendar.getInstance(timeZone);
+                String formattedDate = format.format(c.getTime());
+                String today_audio = "https://publish.dvlabs.com/democracynow/video-podcast/dn"
+                        + formattedDate + "-1.mp3";
+                int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+                int hourOfDay= c.get(Calendar.HOUR_OF_DAY);
                 try {
                     RssReader rssReader = new RssReader(params[0]);
                     int j = 0;
-                    TimeZone timeZone = TimeZone.getTimeZone("GMT-400");
-                    Calendar c = Calendar.getInstance(timeZone);
                     if ( LIVE_TIME == c.get(Calendar.HOUR_OF_DAY)){
                         j = 1;
                         episodes.get(0).setAudioUrl("https://livestream.com/DemocracyNow");
                     }
-
+                    if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > 8){
+                        if (!rssReader.getItems().get(0).equals(today_audio)) {
+                            j = 1;
+                            episodes.get(0).setAudioUrl(today_audio);
+                        }
+                    }
                     for(RssItem item : rssReader.getItems()){
-                        episodes.get(j).setAudioUrl(item.getVideoUrl());
+                        Log.d("Audio urls?", item.getVideoUrl());
+                        Log.d("index?", Integer.toString(j));
+                        episodes.get(j).setAudioUrl(item.getVideoUrl()); // Video here means audio...?
                         // Audio Feed must be called after? Video Feed
                         // Otherewise the episodes objects wont be there
                         j++;
@@ -487,6 +498,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
+                populateList(episodes);
             }
         }
         //http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
