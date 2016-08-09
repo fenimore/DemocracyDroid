@@ -351,6 +351,10 @@ public class MainActivity extends AppCompatActivity {
                     Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getAudioUrl()));
                     startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
                     return true;
+                case R.id.action_video:
+                    Intent x = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
+                    startActivityForResult(x, 0); //ACTIVITY_LOAD = 0?
+                    return true;
                 case R.id.action_download_audio:
                     Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
                     return true;

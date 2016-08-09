@@ -13,6 +13,10 @@
         android:orderInCategory="100"
         android:title="Stream Audio" />
     <item
+        android:id="@+id/action_video"
+        android:orderInCategory="100"
+        android:title="Stream Video" />
+    <item
         android:id="@+id/action_download_audio"
         android:orderInCategory="100"
         android:title="Download Audio" />
