@@ -4,13 +4,13 @@
         <ListPreference
             android:key="tab_preference"
             android:title="@string/setting_tab"
-            android:summary="%s"
+            android:summary="%s Tab"
             android:entries="@array/tabsAlias"
             android:entryValues="@array/tabs" />
         <ListPreference
             android:key="stream_preference"
             android:title="@string/setting_stream"
-            android:summary="%s"
+            android:summary="%s Stream"
             android:entries="@array/streamAlias"
             android:entryValues="@array/stream" />
         <CheckBoxPreference
@@ -36,7 +36,7 @@
             android:key="pref_static_field_key0"
             android:selectable="false"
             android:title="Application Version"
-            android:summary="Democracy Droid! 1.5.3"/>
+            android:summary="Democracy Droid! 1.6.0"/>
         <Preference
             android:key="pref_static_field_key1"
             android:selectable="false"
