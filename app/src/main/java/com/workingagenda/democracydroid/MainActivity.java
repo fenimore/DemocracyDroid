@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                 episodeAdapter.notifyDataSetChanged();
             }
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
-            new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
+            //new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
 
         }
 
@@ -294,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
             mList.setEmptyView(mTxt);
 
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
-            new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
+
 
             mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -408,6 +408,7 @@ public class MainActivity extends AppCompatActivity {
                 //VideoListAdapter.notifyDataSetChanged();
                 // Aud=ioListAdapter.notifyDataSetChanged();
                 Log.d("Populating list", "Connection Populate List");
+                new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
                 populateList(episodes);
 
             }
@@ -472,7 +473,7 @@ public class MainActivity extends AppCompatActivity {
 
                     for(RssItem item : rssReader.getItems()){
                         episodes.get(j).setAudioUrl(item.getVideoUrl());
-                        // Audio Feed must be called before Video Feed
+                        // Audio Feed must be called after? Video Feed
                         // Otherewise the episodes objects wont be there
                         j++;
                     }
