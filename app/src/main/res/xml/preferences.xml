@@ -14,12 +14,11 @@
             android:summary="@string/summary_wifi"
             android:defaultValue="false" />
         <ListPreference
-            android:key="tab_preference"
+            android:key="stream_preference"
             android:title="@string/setting_stream"
-            android:summary="Not yet Implemented"
+            android:summary="%s"
             android:entries="@array/streamAlias"
             android:entryValues="@array/stream"
-            android:defaultValue="0"
             />
         <CheckBoxPreference
             android:key="image_preference"

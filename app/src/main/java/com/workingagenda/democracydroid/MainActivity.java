@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private boolean PREF_WIFI;
+    private int DEFAULT_TAB;
     //ArrayAdapter<String> AudioListAdapter;
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
+        DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
         PREF_WIFI = preferences.getBoolean("wifi_preference", false);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -303,9 +304,15 @@ public class MainActivity extends AppCompatActivity {
                     registerForContextMenu(view);
                     Episode e = episodes.get(i);
                     // CHANGE INTENT depending on the
-                    Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
-                    startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
-
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                    int DEFAULT_STREAM = Integer.parseInt(preferences.getString("tab_preference", "0")); // 0=video
+                    if (DEFAULT_STREAM == 0) {
+                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
+                        startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+                    } else if (DEFAULT_STREAM == 1) {
+                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getAudioUrl()));
+                        startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+                    }
                     /**
                      * TODO:Have the APP GALLERY play the video
                      */
