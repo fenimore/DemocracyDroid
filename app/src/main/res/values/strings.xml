@@ -28,6 +28,7 @@
     <string name="pref_category_settings">Application Settings</string>
     <string name="img_pref_summary">Minimize data usage</string>
     <string name="review">Review at the Play Store</string>
+    <string name="pref_notification">Show Notifications</string>
     <string-array name="Language">
         <item>English (US)</item>
         <item>English (UK)</item>

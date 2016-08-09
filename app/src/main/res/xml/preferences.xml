@@ -24,6 +24,11 @@
             android:title="@string/setting_image"
             android:summary="@string/img_pref_summary"
             android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="notification_preference"
+            android:title="@string/pref_notification"
+            android:summary="Not yet Implemented"
+            android:defaultValue="false" />
         <ListPreference
             android:key="language_preference"
             android:title="Language"
