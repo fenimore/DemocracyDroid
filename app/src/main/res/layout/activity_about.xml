@@ -55,6 +55,11 @@
                 android:textSize="16sp"
                 android:paddingTop="5dp"
                 android:autoLink="web"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reviewButton"
+                android:text="@string/review"/>
         </LinearLayout>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>
