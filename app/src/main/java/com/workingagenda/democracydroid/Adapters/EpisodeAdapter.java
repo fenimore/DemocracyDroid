@@ -17,6 +17,8 @@
 package com.workingagenda.democracydroid.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,8 +61,11 @@ public class EpisodeAdapter extends ArrayAdapter<Episode> {
             ImageView img = (ImageView) v.findViewById(R.id.row_image);
             TextView txt = (TextView) v.findViewById(R.id.row_title);
             try {
-                Picasso.with(getContext()).load(e.getImageUrl()).into(img); // TODO Change image
-
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                boolean PREF_IMG = preferences.getBoolean("image_preference", false);
+                if (!PREF_IMG){
+                    Picasso.with(getContext()).load(e.getImageUrl()).into(img); // TODO Change image
+                }
             } catch (Exception ex) {
                 Log.v("Episode Adapter", "exception");
             }
