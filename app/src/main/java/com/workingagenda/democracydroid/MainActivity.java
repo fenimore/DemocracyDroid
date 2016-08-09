@@ -96,10 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        // Shared Preferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
         PREF_WIFI = preferences.getBoolean("wifi_preference", false);
-        Log.d("stream?", preferences.getString("tab_preference", "0"));
+        // Tab Layouts
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Transcripts").setIcon(R.drawable.ic_library_books_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Broadcast").setIcon(R.drawable.ic_live_tv_white_24dp));
@@ -295,9 +296,6 @@ public class MainActivity extends AppCompatActivity {
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
             new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
 
-
-
-
             mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -305,8 +303,8 @@ public class MainActivity extends AppCompatActivity {
                     Episode e = episodes.get(i);
                     // CHANGE INTENT depending on the
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                    int DEFAULT_STREAM = Integer.parseInt(preferences.getString("tab_preference", "0")); // 0=video
-                    Log.d("stream!!!!", preferences.getString("tab_preference", "0"));
+                    int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
+                    Log.d("stream!!!!", preferences.getString("stream_preference", "0"));
                     if (DEFAULT_STREAM == 0) {
                         Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
                         startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
