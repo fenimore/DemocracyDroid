@@ -320,8 +320,9 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
                         startActivityForResult(intent, 0); //Activity load = 0
                     } else if (DEFAULT_STREAM == 1) {
-                        Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getAudioUrl()));
-                        startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+                        Intent intent = new Intent(getContext(), MediaActivity.class);
+                        intent.putExtra("url", e.getAudioUrl()); //can't pass in article object?
+                        startActivityForResult(intent, 0); //Activity load = 0
                     }
                     /**
                      * TODO:Have the APP GALLERY play the video
