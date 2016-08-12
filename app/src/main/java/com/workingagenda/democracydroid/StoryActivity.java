@@ -33,11 +33,15 @@ public class StoryActivity extends AppCompatActivity {
     private TextView testing;
     private WebView webview;
 
+    // Data
     private String title;
     private String date;
     private String url;
     private String content;
     private String author;
+    private String video;
+    private String audio;
+
     private static final String CSS = "<head><style type='text/css'> "
             + "body {max-width: 100%; margin: 0.3cm; font-family: sans-serif-light; color: black; background-color: #f6f6f6; line-height: 150%} "
             + "* {max-width: 100%; word-break: break-word}"
@@ -111,8 +115,7 @@ public class StoryActivity extends AppCompatActivity {
         if(id == android.R.id.home){
              NavUtils.navigateUpFromSameTask(this);
              return true;
-        }
-        if (id == R.id.action_share) {
+        } else if (id == R.id.action_share) {
             // share intent
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
@@ -121,12 +124,21 @@ public class StoryActivity extends AppCompatActivity {
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
             return true;
-        }
-        if (id == R.id.action_web) {
+        } else if (id == R.id.action_web) {
             // Open Story in Browser
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             startActivity(i);
+            return true;
+        } else if (id == R.id.action_story_audio) {
+            Intent intent = new Intent(this, MediaActivity.class);
+            intent.putExtra("url", audio); //can't pass in article object?
+            startActivityForResult(intent, 0); //Activity load = 0
+            return true;
+        } else if (id == R.id.action_story_video) {
+            Intent intent = new Intent(this, MediaActivity.class);
+            intent.putExtra("url", video); //can't pass in article object?
+            startActivityForResult(intent, 0); //Activity load = 0
             return true;
         }
 
@@ -156,7 +168,12 @@ public class StoryActivity extends AppCompatActivity {
     private String getContent(String url) throws IOException {
         Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
         Element data;
-        //doc.select("story_with_left_panel").first().children().first().before("<a href="+ url +">Watch the Broadcast at democracynow.org</newChild>");
+        // Get the Individual Videos
+        Element videoElem = doc.getElementsByClass("download_video").get(0);
+        Element audioElem = doc.getElementsByClass("download_audio").get(0);
+        audio = audioElem.attr("abs:href");
+        video = videoElem.attr("abs:href");
+        // Get the Transcript URL
         if (doc.getElementById("headlines") == null){
             data = doc.getElementsByClass("story_with_left_panel").first();// get the third content div,
             data.getElementsByClass("left_panel").remove();
