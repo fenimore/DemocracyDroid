@@ -19,7 +19,7 @@ Find v.1.1 on the Play Store
 - Jsoup MIT
 
 ## Big Release
-2.0.0
+2.1.0
 
 ## Bugs
 - Can load feed multiple times
@@ -28,7 +28,7 @@ Find v.1.1 on the Play Store
 - VideoView Wont show toolbar on mediacontroller hide
 
 ## TODO
-- [IMMEDIATE] Get Individual Story Videos
+- Add listview buttons
 - [IMMEDIATE] Show toolbar when mediacontroller shows up
 - Stories Thumbnail
 - (More) Parse Downloaded File Label

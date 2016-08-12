@@ -317,12 +317,12 @@ public class MainActivity extends AppCompatActivity {
                     if (DEFAULT_STREAM == 0) {
                         Intent intent = new Intent(getContext(), MediaActivity.class);
                         intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
-                        intent.putExtra("title", e.getTitle());
+                        //intent.putExtra("title", e.getTitle());
                         startActivityForResult(intent, 0); //Activity load = 0
                     } else if (DEFAULT_STREAM == 1) {
                         Intent intent = new Intent(getContext(), MediaActivity.class);
                         intent.putExtra("url", e.getAudioUrl()); //can't pass in article object?
-                        intent.putExtra("title", e.getTitle());
+                        //intent.putExtra("title", e.getTitle());
                         startActivityForResult(intent, 0); //Activity load = 0
                     }
                     /**
