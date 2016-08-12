@@ -40,6 +40,6 @@ public class MediaActivity extends AppCompatActivity {
         mMediaController = new MediaController(this);
         mMediaController.setAnchorView(mVideoView);
         mVideoView.setMediaController(mMediaController);
-        
+
     }
 }

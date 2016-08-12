@@ -26,6 +26,7 @@ import java.io.IOException;
  */
 public class StoryActivity extends AppCompatActivity {
 
+    // TODO: Get video links from page, and offer a play option
     private TextView testing;
     private WebView webview;
 
