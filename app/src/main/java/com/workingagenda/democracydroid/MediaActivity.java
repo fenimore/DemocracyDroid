@@ -42,6 +42,25 @@ public class MediaActivity extends AppCompatActivity {
         // Views
         mMediaController = new MediaController(this);
         mVideoView = (VideoView) findViewById(R.id.media_player);
+        mVideoView.setOnTouchListener(new View.OnTouchListener() {
+            boolean flag;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_UP:
+                        if(flag) {
+                            mMediaController.hide();
+                            getSupportActionBar().hide();
+                        } else {
+                            mMediaController.show();
+                            getSupportActionBar().show();
+                        }
+                        flag = !flag;
+                        return true;
+                }
+                return false;
+            }
+        });
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();
         url = Uri.parse((String) extras.get("url"));
@@ -54,10 +73,8 @@ public class MediaActivity extends AppCompatActivity {
         }
         mVideoView.start();
         // Media Controller
-
         mMediaController.setAnchorView(mVideoView);
         mVideoView.setMediaController(mMediaController);
-
         // Hide toolbar once video starts
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
