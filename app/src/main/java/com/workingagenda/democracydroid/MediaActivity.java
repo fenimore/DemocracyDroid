@@ -19,6 +19,7 @@ public class MediaActivity extends AppCompatActivity {
     private VideoView mVideoView;
     private MediaController mMediaController;
     private Uri url; // cause all urls are uris
+    private String title;
     private Toolbar toolbar;
     // TODO: Description?
     // TODO: Date?
@@ -36,12 +37,14 @@ public class MediaActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setTitle("Democracy Now!");
+        toolbar.setTitle("Democracy Droid!");
         // Views
         mVideoView = (VideoView) findViewById(R.id.media_player);
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();
         url = Uri.parse((String) extras.get("url"));
+        //title = (String) extras.get("title"); // Doesn't work
+
         // Handle Media Playing
         mVideoView.setVideoURI(url);
         if (mMediaPosition != Integer.MIN_VALUE) {
