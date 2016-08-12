@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean PREF_WIFI;
     private int DEFAULT_TAB;
     //ArrayAdapter<String> AudioListAdapter;
+    private String actionTitle = "Democracy Droid!";
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -314,15 +315,25 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
                     Log.d("stream!!!!", preferences.getString("stream_preference", "0"));
+                    String actionTitle = "Democracy Now!";
+                    if (e.getTitle().length() > 16){
+                        if(e.getTitle() == "Today's Broadcast"){
+                            actionTitle = e.getTitle();
+                        } else if (e.getTitle().startsWith("Democracy Now!")){
+                            actionTitle = e.getTitle().substring(14);
+                        } else {
+                            actionTitle = e.getTitle();
+                        }
+                    }
                     if (DEFAULT_STREAM == 0) {
                         Intent intent = new Intent(getContext(), MediaActivity.class);
                         intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
-                        //intent.putExtra("title", e.getTitle());
+                        intent.putExtra("title", actionTitle);
                         startActivityForResult(intent, 0); //Activity load = 0
                     } else if (DEFAULT_STREAM == 1) {
                         Intent intent = new Intent(getContext(), MediaActivity.class);
                         intent.putExtra("url", e.getAudioUrl()); //can't pass in article object?
-                        //intent.putExtra("title", e.getTitle());
+                        intent.putExtra("title", actionTitle);
                         startActivityForResult(intent, 0); //Activity load = 0
                     }
                     /**

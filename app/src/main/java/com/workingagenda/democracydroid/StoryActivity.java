@@ -132,12 +132,14 @@ public class StoryActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_story_audio) {
             Intent intent = new Intent(this, MediaActivity.class);
-            intent.putExtra("url", audio); //can't pass in article object?
+            intent.putExtra("url", audio); //can't pass in article object
+            intent.putExtra("title", title);
             startActivityForResult(intent, 0); //Activity load = 0
             return true;
         } else if (id == R.id.action_story_video) {
             Intent intent = new Intent(this, MediaActivity.class);
             intent.putExtra("url", video); //can't pass in article object?
+            intent.putExtra("title", title);
             startActivityForResult(intent, 0); //Activity load = 0
             return true;
         }

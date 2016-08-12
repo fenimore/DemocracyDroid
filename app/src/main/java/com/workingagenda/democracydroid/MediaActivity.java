@@ -16,6 +16,7 @@ import android.widget.VideoView;
  */
 public class MediaActivity extends AppCompatActivity {
 
+
     private VideoView mVideoView;
     private MediaController mMediaController;
     private Uri url; // cause all urls are uris
@@ -39,12 +40,13 @@ public class MediaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("Democracy Droid!");
         // Views
+        mMediaController = new MediaController(this);
         mVideoView = (VideoView) findViewById(R.id.media_player);
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();
         url = Uri.parse((String) extras.get("url"));
-        //title = (String) extras.get("title"); // Doesn't work
-
+        title = (String) extras.get("title"); // Doesn't work
+        getSupportActionBar().setTitle(title);
         // Handle Media Playing
         mVideoView.setVideoURI(url);
         if (mMediaPosition != Integer.MIN_VALUE) {
@@ -52,7 +54,7 @@ public class MediaActivity extends AppCompatActivity {
         }
         mVideoView.start();
         // Media Controller
-        mMediaController = new MediaController(this);
+
         mMediaController.setAnchorView(mVideoView);
         mVideoView.setMediaController(mMediaController);
 
@@ -60,8 +62,6 @@ public class MediaActivity extends AppCompatActivity {
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                // Hide support bar
-                //getSupportActionBar().hide();
                 hideStatusBar();
             }
         });
