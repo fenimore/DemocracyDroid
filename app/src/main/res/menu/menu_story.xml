@@ -9,16 +9,16 @@
         app:showAsAction="always"/>
     <item
         android:id="@+id/action_story_audio"
-        android:orderInCategory="200"
+        android:orderInCategory="100"
         android:title="@string/story_audio"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:icon="@drawable/ic_mic_none_white_24dp"/>
     <item
         android:id="@+id/action_share"
-        android:orderInCategory="100"
+        android:orderInCategory="200"
         android:title="Share"
         android:icon="@drawable/ic_share_white_24dp"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_web"
         android:orderInCategory="300"
