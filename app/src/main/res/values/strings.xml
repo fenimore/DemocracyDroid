@@ -29,8 +29,9 @@
     <string name="img_pref_summary">Minimize data usage</string>
     <string name="review">Review at the Play Store</string>
     <string name="pref_notification">Show Notifications</string>
-    <string name="story_audio">Listen Story</string>
-    <string name="story_video">Watch Story</string>
+    <string name="story_audio">Listen To Story</string>
+    <string name="story_video">Watch To Story</string>
+    <string name="story_web">Open in browser</string>
     <string-array name="Language">
         <item>English (US)</item>
         <item>English (UK)</item>

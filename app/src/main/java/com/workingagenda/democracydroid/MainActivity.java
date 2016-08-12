@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         PREF_WIFI = preferences.getBoolean("wifi_preference", false);
         // Tab Layouts
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Transcripts").setIcon(R.drawable.ic_library_books_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText("Stories").setIcon(R.drawable.ic_library_books_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Broadcast").setIcon(R.drawable.ic_live_tv_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setText("Downloads").setIcon(R.drawable.ic_file_download_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -236,7 +236,6 @@ public class MainActivity extends AppCompatActivity {
         private ProgressBar mBar;
         private EpisodeAdapter episodeAdapter;
         private int LIVE_TIME = 8;
-        //ArrayAdapter<String> VideoListAdapter;
 
         // Episode objects!!!
         ArrayList<Episode> episodes = new ArrayList<Episode>(20);

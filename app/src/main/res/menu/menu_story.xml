@@ -5,7 +5,7 @@
         android:id="@+id/action_story_video"
         android:orderInCategory="100"
         android:title="@string/story_video"
-        android:icon="@drawable/ic_movie_white_24dp"
+        android:icon="@drawable/ic_play_arrow_white_24dp"
         app:showAsAction="always"/>
     <item
         android:id="@+id/action_story_audio"
@@ -22,7 +22,7 @@
     <item
         android:id="@+id/action_web"
         android:orderInCategory="300"
-        android:title="Web"
+        android:title="@string/story_web"
         android:icon="@drawable/ic_public_white_24dp"
         app:showAsAction="ifRoom"/>
 </menu>
