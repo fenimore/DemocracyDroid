@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -17,22 +19,23 @@ public class MediaActivity extends AppCompatActivity {
     private VideoView mVideoView;
     private MediaController mMediaController;
     private Uri url; // cause all urls are uris
-
+    private Toolbar toolbar;
     // TODO: Description?
     // TODO: Date?
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media);
         // Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("Democracy Now!");
         // Views
-        mVideoView = (VideoView)findViewById(R.id.media_player);
+        mVideoView = (VideoView) findViewById(R.id.media_player);
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();
         url = Uri.parse((String) extras.get("url"));
@@ -40,9 +43,20 @@ public class MediaActivity extends AppCompatActivity {
         mVideoView.setVideoURI(url);
         mVideoView.start();
         // Media Controller
-        mMediaController = new MediaController(this);
+        mMediaController = new MediaController(this){
+            @Override
+            public void show() {
+
+                getSupportActionBar().show();
+            }
+            @Override
+            public void hide() {
+                getSupportActionBar().hide();
+            }
+        };
         mMediaController.setAnchorView(mVideoView);
         mVideoView.setMediaController(mMediaController);
+
 
         // Hide toolbar once video starts
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -52,5 +66,7 @@ public class MediaActivity extends AppCompatActivity {
                 getSupportActionBar().hide();
             }
         });
+
+
     }
 }
