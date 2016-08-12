@@ -29,6 +29,7 @@ public class MediaActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setTitle("Democracy Now!");
         // Views
         mVideoView = (VideoView)findViewById(R.id.media_player);
         // Intent Get Extras
@@ -37,6 +38,9 @@ public class MediaActivity extends AppCompatActivity {
         // Handle Media Playing
         mVideoView.setVideoURI(url);
         mVideoView.start();
+        // Hide support bar
+        getSupportActionBar().hide();
+        // Media Controller
         mMediaController = new MediaController(this);
         mMediaController.setAnchorView(mVideoView);
         mVideoView.setMediaController(mMediaController);
