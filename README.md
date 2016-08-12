@@ -31,6 +31,7 @@ Find v.1.1 on the Play Store
 - Add listview buttons
 - [IMMEDIATE] Show toolbar when mediacontroller shows up
 - Stories Thumbnail
+- Add Stories downloads?
 - (More) Parse Downloaded File Label
 - settings
    - Notifications
