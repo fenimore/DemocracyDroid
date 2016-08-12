@@ -49,11 +49,13 @@ public class MediaActivity extends AppCompatActivity {
                 switch (event.getAction()){
                     case MotionEvent.ACTION_DOWN:
                         if(flag) {
+                            hideStatusBar();
                             mMediaController.hide();
-                            getSupportActionBar().hide();
+
                         } else {
-                            mMediaController.show();
                             getSupportActionBar().show();
+                            mMediaController.show(0);
+
                         }
                         flag = !flag;
                         return true;
