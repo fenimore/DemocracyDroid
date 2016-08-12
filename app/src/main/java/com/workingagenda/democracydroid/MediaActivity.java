@@ -63,7 +63,6 @@ public class MediaActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     @Override
