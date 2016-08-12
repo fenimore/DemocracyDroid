@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -106,6 +107,9 @@ public class MediaActivity extends AppCompatActivity {
                 sendIntent.putExtra(Intent.EXTRA_TEXT, url.toString());
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
+                return true;
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
                 return true;
             default:
                 return true;
