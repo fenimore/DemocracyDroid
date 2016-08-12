@@ -60,7 +60,8 @@ public class MediaActivity extends AppCompatActivity {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 // Hide support bar
-                getSupportActionBar().hide();
+                //getSupportActionBar().hide();
+                hideStatusBar();
             }
         });
 
@@ -73,4 +74,13 @@ public class MediaActivity extends AppCompatActivity {
         mMediaPosition = mVideoView.getCurrentPosition();
         outState.putInt("pos", mMediaPosition);
     }
+    // BTW this is only for Android 4.1 and UP?
+    private void hideStatusBar() {
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+        getSupportActionBar().hide();
+    }
 }
+
+
