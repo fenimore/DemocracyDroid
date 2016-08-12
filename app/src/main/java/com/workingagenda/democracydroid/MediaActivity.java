@@ -22,11 +22,15 @@ public class MediaActivity extends AppCompatActivity {
     private Toolbar toolbar;
     // TODO: Description?
     // TODO: Date?
+    private int mMediaPosition;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null){
+            mMediaPosition = savedInstanceState.getInt("pos");
+        }
         setContentView(R.layout.activity_media);
         // Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -41,19 +45,12 @@ public class MediaActivity extends AppCompatActivity {
         url = Uri.parse((String) extras.get("url"));
         // Handle Media Playing
         mVideoView.setVideoURI(url);
+        if (mMediaPosition != Integer.MIN_VALUE) {
+            mVideoView.seekTo(mMediaPosition);
+        }
         mVideoView.start();
         // Media Controller
-        mMediaController = new MediaController(this){
-            @Override
-            public void show() {
-
-                getSupportActionBar().show();
-            }
-            @Override
-            public void hide() {
-                getSupportActionBar().hide();
-            }
-        };
+        mMediaController = new MediaController(this);
         mMediaController.setAnchorView(mVideoView);
         mVideoView.setMediaController(mMediaController);
 
@@ -68,5 +65,12 @@ public class MediaActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mMediaPosition = mVideoView.getCurrentPosition();
+        outState.putInt("pos", mMediaPosition);
     }
 }
