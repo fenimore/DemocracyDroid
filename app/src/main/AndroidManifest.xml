@@ -45,6 +45,16 @@
                   android:value="com.workingagenda.democracydroid.MainActivity" />
         </activity>
         <activity
+            android:name=".MediaActivity"
+            android:label="@string/app_name"
+            android:icon="@drawable/appicon"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.workingagenda.democracydroid.MainActivity" />
+        </activity>
+        <activity
             android:name=".SettingsActivity"
             android:label="@string/name_setting"
             android:icon="@drawable/appicon"
