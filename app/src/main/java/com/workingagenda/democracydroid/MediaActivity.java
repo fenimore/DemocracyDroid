@@ -1,5 +1,6 @@
 package com.workingagenda.democracydroid;
 
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -38,12 +39,18 @@ public class MediaActivity extends AppCompatActivity {
         // Handle Media Playing
         mVideoView.setVideoURI(url);
         mVideoView.start();
-        // Hide support bar
-        getSupportActionBar().hide();
         // Media Controller
         mMediaController = new MediaController(this);
         mMediaController.setAnchorView(mVideoView);
         mVideoView.setMediaController(mMediaController);
 
+        // Hide toolbar once video starts
+        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                // Hide support bar
+                getSupportActionBar().hide();
+            }
+        });
     }
 }
