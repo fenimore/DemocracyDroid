@@ -484,8 +484,9 @@ public class MainActivity extends AppCompatActivity {
                         j = 1;
                         episodes.get(0).setAudioUrl("https://livestream.com/DemocracyNow");
                     }
+                    //Log.d("Todays", )
                     if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > 8){
-                        if (!rssReader.getItems().get(0).equals(today_audio)) {
+                        if (!rssReader.getItems().get(0).getVideoUrl().equals(today_audio)) {
                             j = 1;
                             episodes.get(0).setAudioUrl(today_audio);
                         }
