@@ -807,9 +807,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     File f = files.get(position);
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.fromFile(f), "*/*");
-                    startActivity(intent);
+                    Intent y = new Intent(getContext(), MediaActivity.class);
+                    y.putExtra("url", Uri.fromFile(f).toString()); //can't pass in article object?
+                    y.putExtra("title", f.getName());
+                    startActivityForResult(y, 0); //Activity load = 0
                 }
             });
 
@@ -833,14 +834,17 @@ public class MainActivity extends AppCompatActivity {
             //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int pos = info.position;
+            File file = files.get(pos);
             switch(item.getItemId()) {
                 case R.id.action_delete:
-                    File file = files.get(pos);
                     file.delete();
                     files = getListFiles();
                     dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
                     return true;
-
+                case R.id.action_external_player:
+                    Intent z = new Intent(Intent.ACTION_VIEW);
+                    z.setDataAndType(Uri.fromFile(file), "*/*");
+                    startActivity(z);
                 default:
                     return super.onContextItemSelected(item);
             }
