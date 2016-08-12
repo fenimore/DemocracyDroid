@@ -5,9 +5,7 @@ Democracy Droid
 I have no affiliation with Democracy Now!
 
 ## Democracy Droid
-This program parses the [Democracy Now!](http://democracynow.org) RSS-feed and it links to the video broadcasts. The application 
-sends the intent to open the video in either the Gallery viewer (or something of its kind), VLC or Firefox (recommended), or the Browser. If you don't
-feel like compiling from the source, look in the build folder for an app-release.apk and install Democracy Droid on your phone.
+This program parses the [Democracy Now!](http://democracynow.org) RSS-feed and it streams or downloads video, audio, or individual story broadcasts. It is a fully featured app :). Look in the app folder for an app-release.apk and install Democracy Droid on your phone.
 
 Find v.1.1 on the Play Store
 
@@ -19,7 +17,7 @@ Find v.1.1 on the Play Store
 - Jsoup MIT
 
 ## Big Release
-2.1.0
+2.2.1
 
 ### New Features
 - Internal Media Player
@@ -28,18 +26,16 @@ Find v.1.1 on the Play Store
 ### Bug Fixes
 - Less reasons to crash... :S
 - Audio offset is this time fixed for real
-- Like, this time, actually really.
 
 ## Bugs
 - Can load feed multiple times
 - When scrolling up, list position isn't absolute
   - When formatting 'Headlines', it gets confused...
-- VideoView Wont show toolbar on mediacontroller hide
+- Can load, and crash stories before Jsoup does it's job.
 
 ## TODO
 - Add listview buttons
-- [IMMEDIATE] Show toolbar when mediacontroller shows up
-- Stories Thumbnail
+- ~~Stories Thumbnail~~ maybe not?
 - Add Stories downloads?
 - (More) Parse Downloaded File Label
 - settings
@@ -52,5 +48,5 @@ Find v.1.1 on the Play Store
 - Delete/see progress of downloads
 
 ### Settings TODO:
-- Notifications (default no)
+- Notifications (default none)
 - Language
