@@ -18,26 +18,23 @@ Find v.1.1 on the Play Store
 - Democracy Now! CC BY-NC-ND 3.0 US
 - Jsoup MIT
 
-## Bug Fixes for 1.6.0
-- Today's Broadcast (updating the feed before the official RSS feed does) actually works
-- Audio broadcasts are no longer offset
-
-## New Features 1.6.0
-- New Preferences have been implemented
-- A progressbar indicates loading
-- Even fewer crashes!
+## Big Release
+2.0.0
 
 ## Bugs
 - Can load feed multiple times
 - When scrolling up, list position isn't absolute
   - When formatting 'Headlines', it gets confused...
+- VideoView Wont show toolbar on mediacontroller hide
 
 ## TODO
+- [IMMEDIATE] Get Individual Story Videos
+- [IMMEDIATE] Show toolbar when mediacontroller shows up
 - Stories Thumbnail
 - (More) Parse Downloaded File Label
 - settings
    - Notifications
-- Fix Live Stream Link?   
+- Fix Live Stream Link?
 
 ### Listviews TODO:
 - Add download button
