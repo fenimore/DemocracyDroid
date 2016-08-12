@@ -24,7 +24,6 @@ public class MediaActivity extends AppCompatActivity {
     // TODO: Date?
     private int mMediaPosition;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +53,6 @@ public class MediaActivity extends AppCompatActivity {
         mMediaController.setAnchorView(mVideoView);
         mVideoView.setMediaController(mMediaController);
 
-
         // Hide toolbar once video starts
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -80,6 +78,20 @@ public class MediaActivity extends AppCompatActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         getSupportActionBar().hide();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //http://stackoverflow.com/questions/9987042/videoview-onresume-loses-buffered-portion-of-the-video
+        // TODO: Try using SharedPreferences?
+        //mVideoView.resume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //mVideoView.suspend();
     }
 }
 
