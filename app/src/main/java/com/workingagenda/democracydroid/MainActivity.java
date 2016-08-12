@@ -360,6 +360,16 @@ public class MainActivity extends AppCompatActivity {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int pos = info.position;
             Episode e = episodes.get(pos);
+            String actionTitle = "Democracy Now!";
+            if (e.getTitle().length() > 16){
+                if(e.getTitle() == "Today's Broadcast"){
+                    actionTitle = e.getTitle();
+                } else if (e.getTitle().startsWith("Democracy Now!")){
+                    actionTitle = e.getTitle().substring(14);
+                } else {
+                    actionTitle = e.getTitle();
+                }
+            }
             switch(item.getItemId()) {
                 case R.id.action_share:
                     Intent sendIntent = new Intent();
@@ -370,12 +380,16 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(sendIntent);
                     return true;
                 case R.id.action_audio:
-                    Intent y = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getAudioUrl()));
-                    startActivityForResult(y, 0); //ACTIVITY_LOAD = 0?
+                    Intent y = new Intent(getContext(), MediaActivity.class);
+                    y.putExtra("url", e.getAudioUrl()); //can't pass in article object?
+                    y.putExtra("title", actionTitle);
+                    startActivityForResult(y, 0); //Activity load = 0
                     return true;
                 case R.id.action_video:
-                    Intent x = new Intent(Intent.ACTION_VIEW, Uri.parse(e.getVideoUrl()));
-                    startActivityForResult(x, 0); //ACTIVITY_LOAD = 0?
+                    Intent x = new Intent(getContext(), MediaActivity.class);
+                    x.putExtra("url", e.getVideoUrl()); //can't pass in article object?
+                    x.putExtra("title", actionTitle);
+                    startActivityForResult(x, 0); //Activity load = 0
                     return true;
                 case R.id.action_download_audio:
                     Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
