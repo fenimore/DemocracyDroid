@@ -27,6 +27,9 @@ import java.io.IOException;
 public class StoryActivity extends AppCompatActivity {
 
     // TODO: Get video links from page, and offer a play option
+    // TODO: GO HERE:
+    // <a class="download_video" href="https://publish.dvlabs.com/democracynow/360/dn2016-0810.mp4?start=2994.0">
+    // And of course for audio... 
     private TextView testing;
     private WebView webview;
 
