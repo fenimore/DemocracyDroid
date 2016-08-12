@@ -41,7 +41,7 @@
             android:key="pref_static_field_key0"
             android:selectable="false"
             android:title="Application Version"
-            android:summary="Democracy Droid! 1.6.0"/>
+            android:summary="Democracy Droid! 2.2.1"/>
         <Preference
             android:key="pref_static_field_key1"
             android:selectable="false"
