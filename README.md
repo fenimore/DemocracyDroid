@@ -21,6 +21,15 @@ Find v.1.1 on the Play Store
 ## Big Release
 2.1.0
 
+### New Features
+- Internal Media Player
+- Watch/Listen to Individual Stories
+
+### Bug Fixes
+- Less reasons to crash... :S
+- Audio offset is this time fixed for real
+- Like, this time, actually really.
+
 ## Bugs
 - Can load feed multiple times
 - When scrolling up, list position isn't absolute

@@ -47,7 +47,7 @@ public class MediaActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()){
-                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_DOWN:
                         if(flag) {
                             mMediaController.hide();
                             getSupportActionBar().hide();
