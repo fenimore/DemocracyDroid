@@ -436,7 +436,7 @@ public class MainActivity extends AppCompatActivity {
                 //http://publish.dvlabs.com/democracynow/video-podcast/dn2016-0513.mp4
                 String today_video = "https://publish.dvlabs.com/democracynow/video-podcast/dn"
                         + formattedDate + ".mp4";
-                String today_audio = "https://publish.dvlabs.com/democracynow/video-podcast/dn"
+                String today_audio = "https://traffic.libsyn.com/democracynow/dn"
                         + formattedDate + "-1.mp3";
                 if (!today_video.equals(episodes.get(0).getVideoUrl())){
                     Log.d("Today", today_video);
@@ -473,7 +473,7 @@ public class MainActivity extends AppCompatActivity {
                 TimeZone timeZone = TimeZone.getTimeZone("GMT-400");
                 Calendar c = Calendar.getInstance(timeZone);
                 String formattedDate = format.format(c.getTime());
-                String today_audio = "https://publish.dvlabs.com/democracynow/video-podcast/dn"
+                String today_audio = "https://traffic.libsyn.com/democracynow/dn"
                         + formattedDate + "-1.mp3";
                 int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
                 int hourOfDay= c.get(Calendar.HOUR_OF_DAY);
