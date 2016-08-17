@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Shared Preferences
@@ -134,8 +133,6 @@ public class MainActivity extends AppCompatActivity {
                 mViewPager.setCurrentItem(tab.getPosition());
             }
         });
-
-
     }
 
     @Override
@@ -173,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
                 }
             }
-
             // Call Fragment refresh methods
             getSupportFragmentManager().getFragments();
             for(Fragment x :getSupportFragmentManager().getFragments()){
@@ -186,9 +182,8 @@ public class MainActivity extends AppCompatActivity {
                 if (x instanceof DownloadFragment) {
                     ((DownloadFragment) x).refresh();
                 }
-
             }
-            // Somehow enable this after async call...
+            // TODO: Somehow enable this after async call...
             item.setEnabled(true);
             return true;
         }
@@ -218,7 +213,6 @@ public class MainActivity extends AppCompatActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PodcastFragment extends Fragment {
-
 
         //Declare some variables
         private ListView mList;
@@ -250,7 +244,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         private void refresh() {
-            // En fait, Je pense que on doit clear the actual data
             if (episodes.size() > 1){
                 episodes.clear();
                 episodeAdapter.notifyDataSetChanged();
@@ -308,13 +301,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                     // Open live stream in Browser?
                     // TODO: Test if this works in MediaPlayer
-                    if (e.getVideoUrl() == "democracynow.videocdn.scaleengine.net" +
-                            "/democracynow-iphone/play/democracynow/playlist.m3u8") {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
-                        startActivity(intent);
-                        return;
-                    }
+                    //if (e.getVideoUrl() == "democracynow.videocdn.scaleengine.net" +
+                    //        "/democracynow-iphone/play/democracynow/playlist.m3u8") {
+                    //    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    //    intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
+                    //    startActivity(intent);
+                    //    return;
+                    //}
                     if (DEFAULT_STREAM == 0) {
                         Intent intent = new Intent(getContext(), MediaActivity.class);
                         intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
@@ -457,12 +450,12 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("YO it's time for live", "stream");
                         Episode live = new Episode();
                         live.setTitle("Stream Live");
-                        live.setVideoUrl("democracynow.videocdn.scaleengine.net/democracynow-iphone/" +
+                        live.setVideoUrl("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/" +
                                 "play/democracynow/playlist.m3u8");
                         live.setDescription("Stream Live between 8 and 9 weekdays Eastern time");
                         live.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/" +
                                 "Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
-                        live.setUrl("https://livestream.com/DemocracyNow");
+                        live.setUrl("http://m.democracynow.org/");
                         episodes.add(0, live);
                     } else if ( hourOfDay > 8) {
                         // Add Todays Broadcast even if RSS feed isn't updated yet
