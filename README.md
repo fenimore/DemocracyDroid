@@ -32,6 +32,7 @@ Find v.1.1 on the Play Store
 - When scrolling up, list position isn't absolute
   - When formatting 'Headlines', it gets confused...
 - Can load, and crash stories before Jsoup does it's job.
+- Live stream link is broken.. .woops
 
 ## TODO
 - Add listview buttons

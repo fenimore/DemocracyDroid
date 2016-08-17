@@ -301,6 +301,7 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
                     Log.d("stream!!!!", preferences.getString("stream_preference", "0"));
+                    // Set the Title for Toolbar
                     String actionTitle = "Democracy Now!";
                     if (e.getTitle().length() > 16){
                         if(e.getTitle() == "Today's Broadcast"){
@@ -310,6 +311,11 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             actionTitle = e.getTitle();
                         }
+                    }
+                    if (e.getVideoUrl() == "https://livestream.com/DemocracyNow/daily") {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
+                        startActivity(intent);
                     }
                     if (DEFAULT_STREAM == 0) {
                         Intent intent = new Intent(getContext(), MediaActivity.class);
@@ -487,7 +493,7 @@ public class MainActivity extends AppCompatActivity {
                     int j = 0;
                     if ( LIVE_TIME == c.get(Calendar.HOUR_OF_DAY)){
                         j = 1;
-                        episodes.get(0).setAudioUrl("https://livestream.com/DemocracyNow");
+                        episodes.get(0).setAudioUrl("https://livestream.com/DemocracyNow/daily");
                     }
                     if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > 8){
                         if (!rssReader.getItems().get(0).getVideoUrl().equals(today_audio)) {
@@ -844,7 +850,7 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PodcastFragment (defined as a static inner class below).
-            //return PodcastFragment.newInstance(position + 1);
+            // Return PodcastFragment.newInstance(position + 1);
             switch(position) {
 
                 case 0: return StoryFragment.newInstance(position + 1);
