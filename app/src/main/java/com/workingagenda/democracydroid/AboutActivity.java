@@ -26,6 +26,7 @@ public class AboutActivity extends AppCompatActivity {
     public TextView Txt3;
     public TextView Txt4;
     private Button btnRev;
+    private Button btnSrc;
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -54,6 +55,7 @@ public class AboutActivity extends AppCompatActivity {
         Txt4.setText(R.string.about_info);
 
         btnRev = (Button) findViewById(R.id.reviewButton);
+        btnSrc = (Button) findViewById(R.id.sourceButton);
 
         btnRev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +73,20 @@ public class AboutActivity extends AppCompatActivity {
                     startActivity(new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://play.google.com/store/apps/details?id=" + getBaseContext().getPackageName())));
                 }
+            }
+        });
+
+        btnSrc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://github.com/polypmer/DemocracyNow");
+                Intent goToSource = new Intent(Intent.ACTION_VIEW, uri);
+                // To count with Github backstack, After pressing back button,
+                // to taken back to our application, we need to add following flags to intent.
+                goToSource.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                startActivity(goToSource);
             }
         });
 

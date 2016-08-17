@@ -8,8 +8,8 @@
     <string name="about_app">\nDemocracy Droid is not affiliated with Democracy Now! If you like the application, I encourage you to donate at democracynow.org. This application streams and/or downloads the audio or video episodes or individual stories of Democracy Now! the War and Peace Report. It is Free and Open Source Software.</string>
     <string name="about_dm">\nDemocracy Now! is a national, daily, independent, award-winning news program hosted by journalists Amy Goodman and Juan Gonzalez. Pioneering the largest public media collaboration in the U.S.\n\nDemocracy Now! is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States.\n\nDemocracy Droid! provides easy access to the Democracy Now Broadcast and Individual Story feed, the Live stream, and Downloads. Long-click on a broadcast to show the options.</string>
     <string name="about_instructions">Democracy Now! streams live weekdays at 8 am\n\n</string>
-    <string name="about_info">\n\nhttps://github.com/polypmer/DemocracyDroid\nFenimore Love | 2015 - 2016 GPLv3\nFile
-        bugs by email or at the Issue Tracker: \nhttps://github.com/polypmer/DemocracyDroid/issues</string>
+    <string name="about_info">\n\nFenimore Love | 2015 - 2016 GPLv3\nFile
+        bugs by email or at the Issue Tracker with Source Code below.\n</string>
     <string name="download_help">Long Click An Episode to Download, Share, Read Description, and Stream. Long Click a Download to Open it in an External Player.</string>
     <string name="about_title">About Democracy Droid</string>
     <string name="action_site">Visit democracynow.org</string>
@@ -33,6 +33,10 @@
     <string name="story_video">Watch To Story</string>
     <string name="story_web">Open in browser</string>
     <string name="action_browser">Open in Browser</string>
+    <string name="source">View Source Code</string>
+    <string name="about_dm_header">About Democracy Now!</string>
+    <string name="about_dd_header">About Democracy Droid!</string>
+    <string name="about_dev_header">Developer Information</string>
     <string-array name="Language">
         <item>English (US)</item>
         <item>English (UK)</item>

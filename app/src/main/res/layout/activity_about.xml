@@ -26,12 +26,22 @@
             android:paddingBottom="70dp"
             android:layout_marginBottom="50dp">
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/about_dm_header"
+                style="?android:attr/listSeparatorTextViewStyle"/>
+            <TextView
                 android:id="@+id/about_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:paddingTop="?attr/actionBarSize"
                 />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/about_dd_header"
+                style="?android:attr/listSeparatorTextViewStyle"/>
             <TextView
                 android:id="@+id/about_2"
                 android:layout_width="wrap_content"
@@ -49,6 +59,11 @@
                 android:textSize="20sp"
                 android:paddingTop="5dp"/>
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/about_dev_header"
+                style="?android:attr/listSeparatorTextViewStyle"/>
+            <TextView
                 android:id="@+id/about_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,6 +75,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/reviewButton"
                 android:text="@string/review"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sourceButton"
+                android:text="@string/source"/>
         </LinearLayout>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>
