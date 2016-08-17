@@ -300,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
                     // CHANGE INTENT depending on the SharedPreferences
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
-                    Log.d("stream!!!!", preferences.getString("stream_preference", "0"));
+                    Log.d("Stream Preference", preferences.getString("stream_preference", "0"));
                     // Set the Title for Toolbar
                     String actionTitle = "Democracy Now!";
                     if (e.getTitle().length() > 16){
@@ -312,10 +312,13 @@ public class MainActivity extends AppCompatActivity {
                             actionTitle = e.getTitle();
                         }
                     }
-                    if (e.getVideoUrl() == "https://livestream.com/DemocracyNow/daily") {
+                    // Open live stream in Browser
+                    // But that's broken anyways, on their end
+                    if (e.getVideoUrl() == "democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8") {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
                         startActivity(intent);
+                        return;
                     }
                     if (DEFAULT_STREAM == 0) {
                         Intent intent = new Intent(getContext(), MediaActivity.class);
@@ -455,9 +458,10 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("YO it's time for live", "stream");
                         Episode live = new Episode();
                         live.setTitle("Stream Live");
-                        live.setVideoUrl("https://livestream.com/DemocracyNow/daily");
+                        live.setVideoUrl("democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8");
                         live.setDescription("Stream Live between 8 and 9 weekdays Eastern time");
-                        live.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
+                        live.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/" +
+                                "Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
                         live.setUrl("https://livestream.com/DemocracyNow");
                         episodes.add(0, live);
                     } else if ( hourOfDay > 8) {
@@ -467,7 +471,8 @@ public class MainActivity extends AppCompatActivity {
                         todays_episode.setVideoUrl(today_video);
                         todays_episode.setAudioUrl(today_audio);
                         todays_episode.setDescription("Watch Today's broadcast (it isn't yet added to the RSS feed");
-                        todays_episode.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
+                        todays_episode.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/" +
+                                "0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
                         todays_episode.setUrl("https://democracynow.org");
                         episodes.add(0, todays_episode);
                     }
@@ -493,7 +498,8 @@ public class MainActivity extends AppCompatActivity {
                     int j = 0;
                     if ( LIVE_TIME == c.get(Calendar.HOUR_OF_DAY)){
                         j = 1;
-                        episodes.get(0).setAudioUrl("https://livestream.com/DemocracyNow/daily");
+                        episodes.get(0).setAudioUrl("democracynow.videocdn.scaleengine.net/" +
+                                "democracynow-iphone/play/democracynow/playlist.m3u8");
                     }
                     if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > 8){
                         if (!rssReader.getItems().get(0).getVideoUrl().equals(today_audio)) {
