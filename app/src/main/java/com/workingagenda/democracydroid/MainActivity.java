@@ -135,14 +135,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        //fab.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View view) {
-        //        Snackbar.make(view, "Live Weekdays 8 am ET", Snackbar.LENGTH_LONG)
-        //                .setAction("Action", null).show();
-        //    }
-        //});
 
     }
 
@@ -167,11 +159,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_refresh) {
+            // Don't let user click before async tasks are done
             item.setEnabled(false);
+            // According to settings...
             ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
             NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             boolean isWifi = mWifi.isConnected();
-            // if shared preferences
+            // Only update on WIFI according to SharedPreferences
             Log.v("WIFI pref", String.valueOf(PREF_WIFI) );
             if (PREF_WIFI){
                 if (!isWifi) {
@@ -180,21 +174,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-
+            // Call Fragment refresh methods
             getSupportFragmentManager().getFragments();
             for(Fragment x :getSupportFragmentManager().getFragments()){
-                //FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                //ft.detach(x).attach(x).commit();
                 if (x instanceof PodcastFragment) {
-                   // ((PodcastFragment) x).populateList(((PodcastFragment) x).GetVideoFeed());
                     ((PodcastFragment) x).refresh();
                 }
                 if (x instanceof StoryFragment) {
-                    // ((PodcastFragment) x).populateList(((PodcastFragment) x).GetVideoFeed());
                     ((StoryFragment) x).refresh();
                 }
                 if (x instanceof DownloadFragment) {
-                    // ((PodcastFragment) x).populateList(((PodcastFragment) x).GetVideoFeed());
                     ((DownloadFragment) x).refresh();
                 }
 
@@ -231,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
     public static class PodcastFragment extends Fragment {
 
 
-        //Declaire some variables
+        //Declare some variables
         private ListView mList;
         private TextView mTxt;
         private ProgressBar mBar;
@@ -262,19 +251,16 @@ public class MainActivity extends AppCompatActivity {
 
         }
         private void refresh() {
-            if (mTxt != null){
+            if (mTxt != null){ // TODO: Take this out?
                 mBar.setVisibility(View.VISIBLE);
-                //mTxt.setText(R.string.connecting);
             }
             // En fait, Je pense que on doit clear the actual data
-            // TODO: Yeah, probs...
             if (episodes.size() > 1){
                 episodes.clear();
                 episodeAdapter.notifyDataSetChanged();
             }
+            // Call GetAudioFeed in GetVideoFeed Callback
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
-            //new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
-
         }
 
         /**
@@ -300,9 +286,9 @@ public class MainActivity extends AppCompatActivity {
             mBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
             mBar.setVisibility(View.GONE);
             registerForContextMenu(mList);
-
+            // Is this necessary?
             mList.setEmptyView(mBar);
-
+            // Callback calls GetAudioFeed
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
 
 
@@ -311,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     registerForContextMenu(view);
                     Episode e = episodes.get(i);
-                    // CHANGE INTENT depending on the
+                    // CHANGE INTENT depending on the SharedPreferences
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
                     Log.d("stream!!!!", preferences.getString("stream_preference", "0"));
@@ -328,17 +314,14 @@ public class MainActivity extends AppCompatActivity {
                     if (DEFAULT_STREAM == 0) {
                         Intent intent = new Intent(getContext(), MediaActivity.class);
                         intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
-                        intent.putExtra("title", actionTitle);
+                        intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
                         startActivityForResult(intent, 0); //Activity load = 0
                     } else if (DEFAULT_STREAM == 1) {
                         Intent intent = new Intent(getContext(), MediaActivity.class);
-                        intent.putExtra("url", e.getAudioUrl()); //can't pass in article object?
+                        intent.putExtra("url", e.getAudioUrl());
                         intent.putExtra("title", actionTitle);
                         startActivityForResult(intent, 0); //Activity load = 0
                     }
-                    /**
-                     * TODO:Have the APP GALLERY play the video
-                     */
                 }
             });
 
@@ -351,7 +334,6 @@ public class MainActivity extends AppCompatActivity {
             if (v.getId()==android.R.id.list) {
                 MenuInflater inflater = new MenuInflater(getContext());
                 menu.setHeaderTitle("Democracy Now!");
-                //MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.context_menu, menu);
             }
         }
@@ -400,7 +382,6 @@ public class MainActivity extends AppCompatActivity {
                     // Get Description and Title
                     description.setTitle("The War and Peace Report");
                     description.setMessage(e.getDescription() + "\n\n" + e.getTitle());
-                    //description.setIcon(R.drawable.dm_icon_small);
                     description.setButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // do nothing?
@@ -422,8 +403,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     RssReader rssReader = new RssReader(params[0]);
                     for(RssItem item : rssReader.getItems()){
-                        //VideoListAdapter.add(item.getTitle().substring(14));
-                        // This should just be the Episode Object (class?)
                         Episode e = new Episode();
                         e.setTitle(item.getTitle());
                         e.setVideoUrl(item.getVideoUrl());
@@ -443,9 +422,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                //VideoListAdapter.notifyDataSetChanged();
-                // Aud=ioListAdapter.notifyDataSetChanged();
-                //Log.d("Populating list", "Connection Populate List");
                 new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
             }
         }
@@ -461,7 +437,6 @@ public class MainActivity extends AppCompatActivity {
             int hourOfDay= c.get(Calendar.HOUR_OF_DAY);
 
             if ( dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY ){
-                //http://publish.dvlabs.com/democracynow/video-podcast/dn2016-0513.mp4
                 String today_video = "https://publish.dvlabs.com/democracynow/video-podcast/dn"
                         + formattedDate + ".mp4";
                 String today_audio = "https://traffic.libsyn.com/democracynow/dn"
@@ -469,6 +444,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!today_video.equals(episodes.get(0).getVideoUrl())){
                     Log.d("Today", today_video);
                     Log.d("Latest", episodes.get(0).getVideoUrl());
+                    // Live Stream
                     if ( LIVE_TIME == hourOfDay ){
                         Log.d("YO it's time for live", "stream");
                         Episode live = new Episode();
@@ -479,6 +455,7 @@ public class MainActivity extends AppCompatActivity {
                         live.setUrl("https://livestream.com/DemocracyNow");
                         episodes.add(0, live);
                     } else if ( hourOfDay > 8) {
+                        // Add Todays Broadcast even if RSS feed isn't updated yet
                         Episode todays_episode = new Episode();
                         todays_episode.setTitle("Today's Broadcast");
                         todays_episode.setVideoUrl(today_video);
@@ -512,7 +489,6 @@ public class MainActivity extends AppCompatActivity {
                         j = 1;
                         episodes.get(0).setAudioUrl("https://livestream.com/DemocracyNow");
                     }
-                    //Log.d("Todays", )
                     if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > 8){
                         if (!rssReader.getItems().get(0).getVideoUrl().equals(today_audio)) {
                             j = 1;
@@ -520,9 +496,9 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     for(RssItem item : rssReader.getItems()){
-                        episodes.get(j).setAudioUrl(item.getVideoUrl()); // Video here means audio...?
-                        // Audio Feed must be called after? Video Feed
-                        // Otherewise the episodes objects wont be there
+                        episodes.get(j).setAudioUrl(item.getVideoUrl()); // Video here means audio
+                        // Audio Feed must be called after GetVideoFeed
+                        // Otherwise the episodes objects wont be there
                         j++;
                     }
                 } catch (Exception e) {
@@ -561,7 +537,7 @@ public class MainActivity extends AppCompatActivity {
                 // get download service and enqueue file
                 DownloadManager manager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
                 manager.enqueue(request);
-
+                // TODO: Save que ID for cancel button
                 Toast toast = Toast.makeText(getActivity(), "Starting download of " +title, Toast.LENGTH_LONG);
                 toast.show();
             }
@@ -605,9 +581,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void refresh() {
-            sBar.setVisibility(View.VISIBLE);
-            //sTxt.setText(R.string.connecting);
-            // En fait, Je pense que on doit clear the actual data
+            sBar.setVisibility(View.VISIBLE); // TODO: Remove?
             if (storyPosts.size() > 1){
                 storyPosts.clear();
                 storyAdapter.notifyDataSetChanged();
@@ -654,13 +628,11 @@ public class MainActivity extends AppCompatActivity {
             if (v.getId()==android.R.id.list) {
                 MenuInflater inflater = new MenuInflater(getContext());
                 menu.setHeaderTitle("Democracy Now!");
-                //MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.blog_menu, menu);
             }
         }
         @Override
         public boolean onContextItemSelected(MenuItem item) {
-            //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int pos = info.position;
             Episode b = storyPosts.get(pos);
@@ -670,7 +642,6 @@ public class MainActivity extends AppCompatActivity {
                     // Get Description and Title
                     description.setTitle("Democracy Now! Story");
                     description.setMessage(b.getDescription() + "\n\n" + b.getTitle());
-                    //description.setIcon(R.drawable.dm_icon_small);
                     description.setButton("Close", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // do nothing?
@@ -688,8 +659,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     RssReader rssReader = new RssReader(params[0]);
                                         for(RssItem item : rssReader.getItems()){
-                        //VideoListAdapter.add(item.getTitle().substring(14));
-                        // This should just be the Episode Object (class?)
                         Episode b = new Episode();
                                             b.setTitle(item.getTitle());
                                             b.setDescription(item.getDescription());
@@ -697,14 +666,7 @@ public class MainActivity extends AppCompatActivity {
                                             b.setImageUrl(item.getImageUrl());
                                             b.setUrl(item.getLink());
                                             storyPosts.add(b);
-
-
                     }
-                    //if(in between the hours, add a initial episodeto the list.);
-                    //DateFormat df = DateFormat.getDateInstance();
-
-
-                    //EpisodeAdapter episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");
 
@@ -714,8 +676,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                //VideoListAdapter.notifyDataSetChanged();
-                // AudioListAdapter.notifyDataSetChanged();
                 populateList(storyPosts);
                 Log.v("Load story feed", "again?");
             }
@@ -728,7 +688,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public static class DownloadFragment extends Fragment {
 
-        //Declaire some variables
+        //Declare some variables
         public TextView Txt1;
         public Button btn;
         public Button btnRefresh;
@@ -825,7 +785,6 @@ public class MainActivity extends AppCompatActivity {
             if (v.getId()==android.R.id.list) {
                 MenuInflater inflater = new MenuInflater(getContext());
                 menu.setHeaderTitle("Democracy Now!");
-                //MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.download_menu, menu);
             }
         }
