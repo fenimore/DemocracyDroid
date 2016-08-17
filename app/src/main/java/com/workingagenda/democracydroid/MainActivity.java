@@ -275,12 +275,11 @@ public class MainActivity extends AppCompatActivity {
             return fragment;
         }
 
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
+            // Find View Items
             mList = (ListView) rootView.findViewById(android.R.id.list);
             mTxt = (TextView) rootView.findViewById(android.R.id.empty);
             mBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
@@ -333,10 +332,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-
-
             return rootView;
         }
+
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             super.onCreateContextMenu(menu, v, menuInfo);
@@ -346,6 +344,7 @@ public class MainActivity extends AppCompatActivity {
                 inflater.inflate(R.menu.context_menu, menu);
             }
         }
+
         @Override
         public boolean onContextItemSelected(MenuItem item) {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
@@ -427,7 +426,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     episodes = checkLiveStream(episodes); // and add video in link
                                                           // not yet in RSS feed
-
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");
                 }
@@ -438,8 +436,6 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
             }
-
-
         }
 
         private ArrayList<Episode> checkLiveStream(ArrayList<Episode> episodes){
