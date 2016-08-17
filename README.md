@@ -32,7 +32,6 @@ Find v.1.1 on the Play Store
 - When scrolling up, list position isn't absolute
   - When formatting 'Headlines', it gets confused...
 - Can load, and crash stories before Jsoup does it's job.
-- [URGENT] Downloading Today's Broadcast doesn't show up in Downloads (woops)
 
 ## TODO
 - Add listview buttons
