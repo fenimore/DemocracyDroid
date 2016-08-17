@@ -248,12 +248,8 @@ public class MainActivity extends AppCompatActivity {
                 mBar.setVisibility(View.GONE);
                 mTxt.setText(R.string.connect_error);
             }
-
         }
         private void refresh() {
-            if (mTxt != null){ // TODO: Take this out?
-                mBar.setVisibility(View.VISIBLE);
-            }
             // En fait, Je pense que on doit clear the actual data
             if (episodes.size() > 1){
                 episodes.clear();
@@ -597,12 +593,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void refresh() {
-            sBar.setVisibility(View.VISIBLE); // TODO: Remove?
             if (storyPosts.size() > 1){
                 storyPosts.clear();
                 storyAdapter.notifyDataSetChanged();
             }
-
             new GetStoryFeed().execute("http://www.democracynow.org/democracynow.rss");
         }
 

@@ -49,8 +49,6 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         String versionName = BuildConfig.VERSION_NAME;
         Preference versionPref = findPreference("pref_static_field_key0");
         versionPref.setSummary("Democracy Droid! " + versionName);
-
-
     }
 
     @TargetApi(Build.VERSION_CODES.M)
