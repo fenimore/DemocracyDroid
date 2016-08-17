@@ -24,4 +24,8 @@
         android:id="@+id/action_download"
         android:orderInCategory="300"
         android:title="Download Video"/>
+    <item
+        android:id="@+id/action_browser"
+        android:orderInCategory="400"
+        android:title="@string/action_browser"/>
 </menu>

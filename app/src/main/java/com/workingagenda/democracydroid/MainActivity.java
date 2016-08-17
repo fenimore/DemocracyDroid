@@ -291,7 +291,6 @@ public class MainActivity extends AppCompatActivity {
             // Callback calls GetAudioFeed
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
 
-
             mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -312,9 +311,10 @@ public class MainActivity extends AppCompatActivity {
                             actionTitle = e.getTitle();
                         }
                     }
-                    // Open live stream in Browser
-                    // But that's broken anyways, on their end
-                    if (e.getVideoUrl() == "democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8") {
+                    // Open live stream in Browser?
+                    // TODO: Test if this works in MediaPlayer
+                    if (e.getVideoUrl() == "democracynow.videocdn.scaleengine.net" +
+                            "/democracynow-iphone/play/democracynow/playlist.m3u8") {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
                         startActivity(intent);
@@ -401,6 +401,11 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.action_download:
                     Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
                     return true;
+                case R.id.action_browser:
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.parse(e.getUrl()), "*/*");
+                    startActivity(intent);
+                    return true;
                 default:
                     return super.onContextItemSelected(item);
             }
@@ -433,6 +438,8 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
             }
+
+
         }
 
         private ArrayList<Episode> checkLiveStream(ArrayList<Episode> episodes){
@@ -458,7 +465,8 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("YO it's time for live", "stream");
                         Episode live = new Episode();
                         live.setTitle("Stream Live");
-                        live.setVideoUrl("democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8");
+                        live.setVideoUrl("democracynow.videocdn.scaleengine.net/democracynow-iphone/" +
+                                "play/democracynow/playlist.m3u8");
                         live.setDescription("Stream Live between 8 and 9 weekdays Eastern time");
                         live.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/" +
                                 "Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
