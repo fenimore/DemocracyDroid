@@ -19,22 +19,17 @@ I have no affiliation with Democracy Now!
 - Jsoup MIT
 
 ## Latest Release
-2.2.0 (2.3.1 coming out soon, once I test it a bit)
+2.3.1
 
 ### New Features
-- Internal Media Player
-- Watch/Listen to Individual Stories
+- Watch live stream link Fixed
 
-### Bug Fixes
-- Less reasons to crash... :S
-- Audio offset is this time fixed for real
 
 ## Bugs
 - Can load feed multiple times
 - When scrolling up, list position isn't absolute
   - When formatting 'Headlines', it gets confused...
 - Can load, and crash stories before Jsoup does it's job.
-- Live stream link is broken.. .woops
 
 ## TODO
 - Add listview buttons
