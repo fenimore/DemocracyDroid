@@ -15,6 +15,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:icon="@drawable/appicon"
             android:launchMode="singleTop">
             <intent-filter>
@@ -47,6 +48,7 @@
             android:label="@string/app_name"
             android:icon="@drawable/appicon"
             android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
