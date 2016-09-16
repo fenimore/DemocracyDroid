@@ -282,7 +282,6 @@ public class MainActivity extends AppCompatActivity {
             mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    registerForContextMenu(view);
                     Episode e = episodes.get(i);
                     // CHANGE INTENT depending on the SharedPreferences
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -516,6 +515,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
+                Log.v("Load podcast feed", "again?");
                 populateList(episodes);
             }
         }

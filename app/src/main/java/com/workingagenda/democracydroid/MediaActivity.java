@@ -110,6 +110,7 @@ public class MediaActivity extends AppCompatActivity {
                 return true;
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
+                // finish(); // instead??
                 return true;
             default:
                 return true;
