@@ -515,7 +515,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                Log.v("Load podcast feed", "again?");
+                Log.v("Load podcast feed", "again");
                 populateList(episodes);
             }
         }
@@ -557,7 +557,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static class StoryFragment extends Fragment {
         private ListView sList;
-        ArrayList<Episode> storyPosts = new ArrayList<Episode>(20);
+        ArrayList<Episode> storyPosts = new ArrayList<Episode>(100);
         private TextView sTxt;
         private ProgressBar sBar;
         private StoryAdapter storyAdapter;
@@ -574,6 +574,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void populateList(ArrayList<Episode> stories) {
+            Log.v("Load story feed", String.valueOf(stories.size()));
+
             if (stories.size() > 1){
                 storyAdapter = new StoryAdapter(getContext(), R.layout.row_story, stories);
                 sList.setAdapter(storyAdapter);
@@ -659,9 +661,13 @@ public class MainActivity extends AppCompatActivity {
         private class GetStoryFeed extends AsyncTask<String, Void, Void> {
             @Override
             protected Void doInBackground(String... params) {
+                if (storyPosts.size() > 0){
+                    storyPosts = new ArrayList<Episode>(100);
+                }
+                Log.v("Story count", String.valueOf(storyPosts.size()));
                 try {
                     RssReader rssReader = new RssReader(params[0]);
-                                        for(RssItem item : rssReader.getItems()){
+                    for(RssItem item : rssReader.getItems()){
                         Episode b = new Episode();
                                             b.setTitle(item.getTitle());
                                             b.setDescription(item.getDescription());
@@ -669,7 +675,9 @@ public class MainActivity extends AppCompatActivity {
                                             b.setImageUrl(item.getImageUrl());
                                             b.setUrl(item.getLink());
                                             storyPosts.add(b);
+
                     }
+                    Log.v("Story count Two", String.valueOf(storyPosts.size()));
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");
 
@@ -680,7 +688,7 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 populateList(storyPosts);
-                Log.v("Load story feed", "again?");
+                Log.v("Load story feed", "again");
             }
         }
     }
