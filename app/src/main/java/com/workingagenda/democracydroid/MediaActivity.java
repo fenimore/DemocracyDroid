@@ -20,7 +20,6 @@ import android.widget.VideoView;
  */
 public class MediaActivity extends AppCompatActivity {
 
-
     private VideoView mVideoView;
     private MediaController mMediaController;
     private Uri url; // cause all urls are uris
@@ -29,7 +28,8 @@ public class MediaActivity extends AppCompatActivity {
     // TODO: Description?
     // TODO: Date?
     private int mMediaPosition;
-
+    private boolean flag = true; // for toggling status and mediacontroller
+    private Thread thread; // For hideStatus wait
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,27 +46,6 @@ public class MediaActivity extends AppCompatActivity {
         // Views
         mMediaController = new MediaController(this);
         mVideoView = (VideoView) findViewById(R.id.media_player);
-        mVideoView.setOnTouchListener(new View.OnTouchListener() {
-            boolean flag;
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
-                    case MotionEvent.ACTION_DOWN:
-                        if(flag) {
-                            hideStatusBar();
-                            mMediaController.hide();
-
-                        } else {
-                            getSupportActionBar().show();
-                            mMediaController.show(0);
-
-                        }
-                        flag = !flag;
-                        return true;
-                }
-                return false;
-            }
-        });
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();
         url = Uri.parse((String) extras.get("url"));
@@ -88,9 +67,24 @@ public class MediaActivity extends AppCompatActivity {
                 hideStatusBar();
             }
         });
-
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+        switch(e.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if(flag) {
+                    hideStatusBar();
+                    mMediaController.hide();
+                } else {
+                    mMediaController.show(0);
+                    getSupportActionBar().show();
+                }
+                flag = !flag;
+                return true;
+        }
+        return false;
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_media, menu);
