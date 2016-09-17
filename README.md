@@ -19,18 +19,17 @@ I have no affiliation with Democracy Now!
 - Jsoup MIT
 
 ## Latest Release
-2.4.0
+2.4.1
 
-### Bug Fixes
+### What's new
 - Rotating screen doesn't refresh video/audio stream!
 - Fix: No silly margins in download list
 - Fix: When returning to list, selected item is re-clickable
 - Fix: No more double loading story feed
 - Fix: Status bar and Media controller toggles better
+- Add: Headlines special formatting in stories tab
 
 ## Bugs
-- When scrolling up, list position isn't absolute
-  - When formatting 'Headlines', it gets confused...
 - Can load, and crash stories before Jsoup does it's job.
 
 ## TODO
@@ -40,7 +39,6 @@ I have no affiliation with Democracy Now!
 - (More) Parse Downloaded File Label
 - settings
    - Notifications
-- Fix Live Stream Link?
 
 ### Listviews TODO:
 - Add download button
