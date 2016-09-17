@@ -19,14 +19,16 @@ I have no affiliation with Democracy Now!
 - Jsoup MIT
 
 ## Latest Release
-2.3.1
+2.4.0
 
-### New Features
-- Watch live stream link Fixed
-
+### Bug Fixes
+- Rotating screen doesn't refresh video/audio stream!
+- Fix: No silly margins in download list
+- Fix: When returning to list, selected item is re-clickable
+- Fix: No more double loading story feed
+- Fix: Status bar and Media controller toggles better
 
 ## Bugs
-- Can load feed multiple times
 - When scrolling up, list position isn't absolute
   - When formatting 'Headlines', it gets confused...
 - Can load, and crash stories before Jsoup does it's job.

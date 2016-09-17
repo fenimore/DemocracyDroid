@@ -2,6 +2,7 @@ package com.workingagenda.democracydroid.Adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,11 +34,13 @@ public class StoryAdapter extends ArrayAdapter<Episode> {
     public View getView(int position, View convertView, ViewGroup parent){
         View v = convertView;
 
-        if(v == null) {
-            LayoutInflater vi;
-            vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.row_story, null);
-        }
+        //if(v == null) {
+        // Remove this thanks stack:
+        // http://stackoverflow.com/questions/10684322/listview-jumbled-on-scroll
+        LayoutInflater vi;
+        vi = LayoutInflater.from(getContext());
+        v = vi.inflate(R.layout.row_story, null);
+        //}
 
         Episode b = getItem(position);
         if (b != null) {
@@ -53,14 +56,19 @@ public class StoryAdapter extends ArrayAdapter<Episode> {
                 txt.setText(b.getTitle());
 
             }
-            // The position changes as listview Scrolls
-            // TODO: Find absolute position?
-            //if ( b.getTitle().startsWith("Headlines")){
-            //  txt.setAllCaps(true);
-            //  txt.setTextColor(Color.parseColor("#670001"));
-            //  txt.setPadding(0, 40, 0, 0);
-            //  txt.setTextSize(17);
-            //}
+
+            if ( b.getTitle().startsWith("Headlines")){
+                assert txt != null;
+                txt.setAllCaps(true);
+                txt.setTextColor(Color.WHITE);
+                v.setBackgroundColor(Color.parseColor("#670001"));
+                txt.setPadding(0, 40, 0, 0);
+                txt.setTextSize(17);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    v.setMinimumHeight(img.getMinimumHeight());
+                }
+                img.setVisibility(View.GONE);
+            }
         }
 
         return v;
