@@ -33,12 +33,16 @@ I have no affiliation with Democracy Now!
 - Can load, and crash stories before Jsoup does it's job.
 
 ## TODO
+- Better icon... right?
 - Add listview buttons
 - ~~Stories Thumbnail~~ maybe not?
 - Add Stories downloads?
 - (More) Parse Downloaded File Label
 - settings
    - Notifications
+- Make stories Headlines item a bit nicer...
+- Pull down to refresh
+	- https://developer.android.com/training/swipe/add-swipe-interface.html
 
 ### Listviews TODO:
 - Add download button
