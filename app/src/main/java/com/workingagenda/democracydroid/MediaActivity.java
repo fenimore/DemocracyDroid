@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -48,12 +49,14 @@ public class MediaActivity extends AppCompatActivity {
         // Views
         mMediaController = new MediaController(this);
         mVideoView = (VideoView) findViewById(R.id.media_player);
+        mVideoView.requestFocus();
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();
         url = Uri.parse((String) extras.get("url"));
         title = (String) extras.get("title"); // Doesn't work
         getSupportActionBar().setTitle(title);
         // Handle Media Playing
+
         mVideoView.setVideoURI(url);
         if (mMediaPosition != Integer.MIN_VALUE) {
             mVideoView.seekTo(mMediaPosition);
@@ -63,6 +66,14 @@ public class MediaActivity extends AppCompatActivity {
         mMediaController.setAnchorView(mVideoView);
         mVideoView.setMediaController(mMediaController);
         // Hide toolbar once video starts
+
+        mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                Log.d("Video Error:", String.valueOf(what) + String.valueOf(mp.getCurrentPosition()));
+                return false;
+            }
+        });
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
@@ -70,6 +81,7 @@ public class MediaActivity extends AppCompatActivity {
                 mVideoView.start();
             }
         });
+
     }
 
     @Override
