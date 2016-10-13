@@ -66,19 +66,14 @@ public class MediaActivity extends AppCompatActivity {
         mMediaController.setAnchorView(mVideoView);
         mVideoView.setMediaController(mMediaController);
         // Hide toolbar once video starts
-
-        mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-            @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-                Log.d("Video Error:", String.valueOf(what) + String.valueOf(mp.getCurrentPosition()));
-                return false;
-            }
-        });
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
+                //mp.start();
+                //mp.prepareAsync();
+                Log.d("Prepared!", "This isn't working as expected");
                 hideStatusBar();
-                mVideoView.start();
+                //mVideoView.start();
             }
         });
 
@@ -141,23 +136,12 @@ public class MediaActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        //http://stackoverflow.com/questions/9987042/videoview-onresume-loses-buffered-portion-of-the-video
-        // TODO: Try using SharedPreferences?
-        //mVideoView.resume();
-    }
-    @Override
     protected void onDestroy() {
         mVideoView.stopPlayback();
         super.onDestroy();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //mVideoView.suspend();
-    }
+
 }
 
 
