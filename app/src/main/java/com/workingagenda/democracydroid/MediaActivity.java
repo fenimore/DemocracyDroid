@@ -59,21 +59,28 @@ public class MediaActivity extends AppCompatActivity {
 
         mVideoView.setVideoURI(url);
         if (mMediaPosition != Integer.MIN_VALUE) {
+            Log.d("MediaPostion", "Data saved from instance bundle");
             mVideoView.seekTo(mMediaPosition);
         }
-        //mVideoView.start();
         // Media Controller
         mMediaController.setAnchorView(mVideoView);
         mVideoView.setMediaController(mMediaController);
+
+        mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                Log.d("ERROR", String.valueOf(mVideoView.getBufferPercentage()));
+                Log.d("MediaPlayer Error", "This is somethwere unknown");
+                return true;
+            }
+        });
         // Hide toolbar once video starts
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                //mp.start();
-                //mp.prepareAsync();
-                Log.d("Prepared!", "This isn't working as expected");
                 hideStatusBar();
-                //mVideoView.start();
+                //mp.start();
+                mVideoView.start();
             }
         });
 
