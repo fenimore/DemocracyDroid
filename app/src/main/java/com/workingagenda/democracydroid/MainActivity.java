@@ -301,23 +301,23 @@ public class MainActivity extends AppCompatActivity {
                     }
                     // Open live stream in Browser?
                     // TODO: Test if this works in MediaPlayer
-                    //if (e.getVideoUrl() == "democracynow.videocdn.scaleengine.net" +
-                    //        "/democracynow-iphone/play/democracynow/playlist.m3u8") {
-                    //    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    //    intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
-                    //    startActivity(intent);
-                    //    return;
-                    //}
+                    // TODO: Doesn't stream well in MediaPlay wtf
                     if (DEFAULT_STREAM == 0) {
-                        Intent intent = new Intent(getContext(), MediaActivity.class);
-                        intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
-                        intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
-                        startActivityForResult(intent, 0); //Activity load = 0
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
+                        startActivity(intent);
+                        //Intent intent = new Intent(getContext(), MediaActivity.class);
+                        //intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
+                        //nintent.putExtra("title", actionTitle); // Can parseable it, but not worth it
+                        //startActivityForResult(intent, 0); //Activity load = 0
                     } else if (DEFAULT_STREAM == 1) {
-                        Intent intent = new Intent(getContext(), MediaActivity.class);
-                        intent.putExtra("url", e.getAudioUrl());
-                        intent.putExtra("title", actionTitle);
-                        startActivityForResult(intent, 0); //Activity load = 0
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.parse(e.getAudioUrl()), "*/*");
+                        startActivity(intent);
+                        //Intent intent = new Intent(getContext(), MediaActivity.class);
+                        //intent.putExtra("url", e.getAudioUrl());
+                        //intent.putExtra("title", actionTitle);
+                        //startActivityForResult(intent, 0); //Activity load = 0
                     }
                 }
             });
@@ -373,14 +373,10 @@ public class MainActivity extends AppCompatActivity {
                     //x.putExtra("title", actionTitle);
                     //startActivityForResult(x, 0); //Activity load = 0
 
-                    //Intent x = new Intent(getContext(), MediaActivity.class);
-                    //x.putExtra("url", e.getVideoUrl()); //can't pass in article object?
-                    //x.putExtra("title", actionTitle);
-                    //startActivityForResult(x, 0); //Activity load = 0
-
-                    Intent x = new Intent(Intent.ACTION_VIEW);
-                    x.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
-                    startActivity(x);
+                    Intent x = new Intent(getContext(), MediaActivity.class);
+                    x.putExtra("url", e.getVideoUrl()); //can't pass in article object?
+                    x.putExtra("title", actionTitle);
+                    startActivityForResult(x, 0); //Activity load = 0
                     return true;
                 case R.id.action_download_audio:
                     Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
@@ -563,8 +559,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
         //http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
-        // TODO: THis doesn't seem to worky
-        public File DownloadAndStream(String url, String title, String desc) {
+        // TODO: THis doesn't seem to work
+        /*public File DownloadAndStream(String url, String title, String desc) {
             if (ContextCompat.checkSelfPermission(getActivity(),
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -594,7 +590,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return null;
-        }
+        }*/
 
     }
 

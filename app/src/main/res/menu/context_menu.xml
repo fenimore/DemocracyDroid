@@ -3,19 +3,19 @@
     <item
         android:id="@+id/action_share"
         android:orderInCategory="100"
-        android:title="Share" />
+        android:title="Share Link" />
     <item
         android:id="@+id/action_description"
         android:orderInCategory="100"
-        android:title="Description" />
+        android:title="Read Description" />
     <item
         android:id="@+id/action_audio"
         android:orderInCategory="100"
-        android:title="Stream Audio" />
+        android:title="Stream Audio In App" />
     <item
         android:id="@+id/action_video"
         android:orderInCategory="100"
-        android:title="Stream Video" />
+        android:title="Stream Video In App" />
     <item
         android:id="@+id/action_download_audio"
         android:orderInCategory="100"
