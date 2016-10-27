@@ -366,16 +366,21 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.action_video:
                     // Test
-                    File file = DownloadAndStream(e.getVideoUrl(), e.getTitle(), e.getDescription());
-                    Log.d("Download url",Uri.fromFile(file).toString());
-                    Intent x = new Intent(getContext(), MediaActivity.class);
-                    x.putExtra("url", Uri.fromFile(file).toString()); //can't pass in article object?
-                    x.putExtra("title", actionTitle);
-                    startActivityForResult(x, 0); //Activity load = 0
-//                    Intent x = new Intent(getContext(), MediaActivity.class);
-  //                  x.putExtra("url", e.getVideoUrl()); //can't pass in article object?
-    ///                x.putExtra("title", actionTitle);
-       //             startActivityForResult(x, 0); //Activity load = 0
+                    // TODO: Open from Downloads:
+                    //File file = DownloadAndStream(e.getVideoUrl(), e.getTitle(), e.getDescription());
+                    //Intent x = new Intent(getContext(), MediaActivity.class);
+                    //x.putExtra("url", Uri.fromFile(file).toString()); //can't pass in article object?
+                    //x.putExtra("title", actionTitle);
+                    //startActivityForResult(x, 0); //Activity load = 0
+
+                    //Intent x = new Intent(getContext(), MediaActivity.class);
+                    //x.putExtra("url", e.getVideoUrl()); //can't pass in article object?
+                    //x.putExtra("title", actionTitle);
+                    //startActivityForResult(x, 0); //Activity load = 0
+
+                    Intent x = new Intent(Intent.ACTION_VIEW);
+                    x.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
+                    startActivity(x);
                     return true;
                 case R.id.action_download_audio:
                     Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
@@ -558,6 +563,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
         //http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
+        // TODO: THis doesn't seem to worky
         public File DownloadAndStream(String url, String title, String desc) {
             if (ContextCompat.checkSelfPermission(getActivity(),
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)
