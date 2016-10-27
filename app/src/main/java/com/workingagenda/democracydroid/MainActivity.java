@@ -65,6 +65,7 @@ import com.workingagenda.democracydroid.Feedreader.RssItem;
 import com.workingagenda.democracydroid.Feedreader.RssReader;
 
 import java.io.File;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -364,10 +365,17 @@ public class MainActivity extends AppCompatActivity {
                     startActivityForResult(y, 0); //Activity load = 0
                     return true;
                 case R.id.action_video:
+                    // Test
+                    File file = DownloadAndStream(e.getVideoUrl(), e.getTitle(), e.getDescription());
+                    Log.d("Download url",Uri.fromFile(file).toString());
                     Intent x = new Intent(getContext(), MediaActivity.class);
-                    x.putExtra("url", e.getVideoUrl()); //can't pass in article object?
+                    x.putExtra("url", Uri.fromFile(file).toString()); //can't pass in article object?
                     x.putExtra("title", actionTitle);
                     startActivityForResult(x, 0); //Activity load = 0
+//                    Intent x = new Intent(getContext(), MediaActivity.class);
+  //                  x.putExtra("url", e.getVideoUrl()); //can't pass in article object?
+    ///                x.putExtra("title", actionTitle);
+       //             startActivityForResult(x, 0); //Activity load = 0
                     return true;
                 case R.id.action_download_audio:
                     Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
@@ -545,8 +553,41 @@ public class MainActivity extends AppCompatActivity {
                 // TODO: Save que ID for cancel button
                 Toast toast = Toast.makeText(getActivity(), "Starting download of " +title, Toast.LENGTH_LONG);
                 toast.show();
+                //Log.d("File name?", fileext);
             }
 
+        }
+        //http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
+        public File DownloadAndStream(String url, String title, String desc) {
+            if (ContextCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        0);
+            } else {
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                request.setDescription(desc);
+                request.setTitle(title);
+                // in order for this if to run, you must use the android 3.2 to compile your app
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    request.allowScanningByMediaScanner();
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                }
+                String fileext = url.substring(url.lastIndexOf('/') + 1);
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PODCASTS, fileext);
+                //http://stackoverflow.com/questions/24427414/getsystemservices-is-undefined-when-called-in-a-fragment
+
+                // get download service and enqueue file
+                DownloadManager manager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
+                manager.enqueue(request);
+                // TODO: Save que ID for cancel button
+                Toast toast = Toast.makeText(getActivity(), "Starting download of " +title, Toast.LENGTH_LONG);
+                toast.show();
+                return new File(Environment.getExternalStorageDirectory().toString()
+                        + File.separator + Environment.DIRECTORY_PODCASTS + File.separator + fileext);
+            }
+
+            return null;
         }
 
     }

@@ -69,9 +69,10 @@ public class MediaActivity extends AppCompatActivity {
         mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {
-                Log.d("ERROR", String.valueOf(mVideoView.getBufferPercentage()));
-                Log.d("MediaPlayer Error", "This is somethwere unknown");
-                return true;
+                Log.d("ERROR Duration", String.valueOf(mp.getDuration()));
+                Log.d("ERROR Buffer", String.valueOf(mVideoView.getBufferPercentage()));
+                Log.d("ERROR Current Postition", String.valueOf(mVideoView.getCurrentPosition()));
+                return false;
             }
         });
         // Hide toolbar once video starts
@@ -79,7 +80,7 @@ public class MediaActivity extends AppCompatActivity {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 hideStatusBar();
-                //mp.start();
+                //start();
                 mVideoView.start();
             }
         });
