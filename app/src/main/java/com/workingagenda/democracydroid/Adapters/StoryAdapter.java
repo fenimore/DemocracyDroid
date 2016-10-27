@@ -67,7 +67,7 @@ public class StoryAdapter extends ArrayAdapter<Episode> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     v.setMinimumHeight(img.getMinimumHeight());
                 }
-                img.setVisibility(View.GONE);
+                //img.setVisibility(View.GONE);
             }
         }
 
