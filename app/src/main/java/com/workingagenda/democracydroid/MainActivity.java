@@ -33,6 +33,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -222,6 +223,8 @@ public class MainActivity extends AppCompatActivity {
         private EpisodeAdapter episodeAdapter;
         private int LIVE_TIME = 8;
 
+        private SwipeRefreshLayout mySwipeRefreshLayout;
+
         // Episode objects!!!
         ArrayList<Episode> episodes = new ArrayList<Episode>(20);
         // set up custom adapter with episodes
@@ -243,8 +246,10 @@ public class MainActivity extends AppCompatActivity {
                 mBar.setVisibility(View.GONE);
                 mTxt.setText(R.string.connect_error);
             }
+            mySwipeRefreshLayout.setRefreshing(false);
         }
         private void refresh() {
+            mySwipeRefreshLayout.setRefreshing(true);
             if (episodes.size() > 1){
                 episodes.clear();
                 episodeAdapter.notifyDataSetChanged();
@@ -252,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
             // Call GetAudioFeed in GetVideoFeed Callback
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
         }
+
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -273,6 +279,8 @@ public class MainActivity extends AppCompatActivity {
             mList = (ListView) rootView.findViewById(android.R.id.list);
             mTxt = (TextView) rootView.findViewById(android.R.id.empty);
             mBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+            mySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
+
             mBar.setVisibility(View.GONE);
             registerForContextMenu(mList);
             // Is this necessary?
@@ -280,6 +288,12 @@ public class MainActivity extends AppCompatActivity {
             // Callback calls GetAudioFeed
             new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
 
+            mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    refresh();
+                }
+            });
             mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -603,8 +617,10 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Episode> storyPosts = new ArrayList<Episode>(100);
         private TextView sTxt;
         private ProgressBar sBar;
+        private SwipeRefreshLayout storySwipeRefreshLayout;
         private StoryAdapter storyAdapter;
         private static final String ARG_SECTION_NUMBER = "section_number";
+
 
         public StoryFragment() {
         }
@@ -627,10 +643,12 @@ public class MainActivity extends AppCompatActivity {
                 sBar.setVisibility(View.GONE);
                 sTxt.setText(R.string.connect_error);
             }
+            storySwipeRefreshLayout.setRefreshing(false);
 
         }
 
         private void refresh() {
+            storySwipeRefreshLayout.setRefreshing(true);
             if (storyPosts.size() > 1){
                 storyPosts.clear();
                 storyAdapter.notifyDataSetChanged();
@@ -647,6 +665,7 @@ public class MainActivity extends AppCompatActivity {
             sTxt = (TextView) rootView.findViewById(android.R.id.empty);
             sBar = (ProgressBar) rootView.findViewById(R.id.sBar);
             sBar.setVisibility(View.GONE);
+            storySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
             sList.setEmptyView(sBar);
             registerForContextMenu(sList);
             new GetStoryFeed().execute("http://www.democracynow.org/democracynow.rss");
@@ -657,6 +676,13 @@ public class MainActivity extends AppCompatActivity {
                     Episode s = storyPosts.get(position);
                     // Add Story Activity
                     loadTranscript(s);
+                }
+            });
+
+            storySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    refresh();
                 }
             });
             return rootView;
