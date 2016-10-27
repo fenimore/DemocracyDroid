@@ -862,7 +862,8 @@ public class MainActivity extends AppCompatActivity {
         }
         private List<File> getListFiles() {
             ArrayList<File> inFiles = new ArrayList<File>();
-            File parentDir = new File(Environment.getExternalStorageDirectory().toString()+"/Podcasts");
+            File parentDir = new File(Environment.getExternalStorageDirectory().toString()+
+                    File.separator + Environment.DIRECTORY_PODCASTS);
             File[] files = parentDir.listFiles();
             if(files != null) { // I don't know why I need this, but otherwise it breaks
                 for (File file : files) {
