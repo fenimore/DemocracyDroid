@@ -5,18 +5,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context=".MainActivity$StoryFragment">
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swiperefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ListView android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@android:id/list"
-            android:layout_marginBottom="100px">
+
+    <ListView android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@android:id/list"
+        android:layout_marginBottom="100px">
 
     </ListView>
-    </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView android:id="@android:id/empty"
         android:layout_width="match_parent"
