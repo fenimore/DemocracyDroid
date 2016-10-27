@@ -22,6 +22,7 @@ I have no affiliation with Democracy Now!
 2.4.2
 
 ### What's new?
+- Swipe to refresh the broadcast tab.
 - So there's a huge bug when streaming Video within the app. 
 Basically, it doesn't work after a few minutes of watching. 
 So I've made the default stream stream in the browser/video player. I hope
