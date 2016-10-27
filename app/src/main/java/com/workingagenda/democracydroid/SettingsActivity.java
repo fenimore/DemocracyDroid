@@ -2,6 +2,7 @@ package com.workingagenda.democracydroid;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +25,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.Set;
 
 /**
  * Created by fen on 5/15/16.
@@ -48,7 +52,22 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         }
         String versionName = BuildConfig.VERSION_NAME;
         Preference versionPref = findPreference("pref_static_field_key0");
+        Preference newPref = findPreference("whats_new");
         versionPref.setSummary("Democracy Droid! " + versionName);
+
+        newPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                builder.setMessage(R.string.whatsnew).setTitle("What's New").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                    }
+                });
+                builder.create().show();
+                return false;
+            }
+        });
     }
 
     @TargetApi(Build.VERSION_CODES.M)

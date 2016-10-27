@@ -37,6 +37,15 @@
     <string name="about_dm_header">About Democracy Now!</string>
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
+    <string name="whatsnew">I\'ve recently become aware of a major bug when streaming Video within
+        the app. As I am unable to fix it:
+        \n\nThe default Streaming-Video will open the stream
+        in another application (such as the browser).
+        \n\nTo watch it within the app, long click an episode
+        and select the proper option.
+        \n\nThe refresh action is still in the menu, however now one can Refresh by Swiping Down on the
+        broadcast list.
+    </string>
     <string-array name="Language">
         <item>English (US)</item>
         <item>English (UK)</item>

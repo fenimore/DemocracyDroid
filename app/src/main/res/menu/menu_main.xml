@@ -30,5 +30,6 @@
         android:id="@+id/action_settings"
         android:orderInCategory="300"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_settings_white_24dp"
+        app:showAsAction="always" />
 </menu>

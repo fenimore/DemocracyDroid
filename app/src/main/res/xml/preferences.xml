@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference
+        android:key="whats_new"
+        android:selectable="true"
+        android:title="What's New In This Version"
+        android:summary="Features and Bug Fixes (press here)"/>
     <PreferenceCategory android:title="@string/pref_category_settings">
         <ListPreference
             android:key="tab_preference"
