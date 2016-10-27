@@ -19,9 +19,16 @@ I have no affiliation with Democracy Now!
 - Jsoup MIT
 
 ## Latest Release
-2.4.1
+2.4.2
 
-### What's new
+### What's new?
+- So there's a huge bug when streaming Video within the app. 
+Basically, it doesn't work after a few minutes of watching. 
+So I've made the default stream stream in the browser/video player. I hope
+this fixes your problems!?
+
+
+### What's new in 2.4.1
 - Rotating screen doesn't refresh video/audio stream!
 - Fix: No silly margins in download list
 - Fix: When returning to list, selected item is re-clickable

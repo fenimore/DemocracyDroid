@@ -311,13 +311,13 @@ public class MainActivity extends AppCompatActivity {
                         //nintent.putExtra("title", actionTitle); // Can parseable it, but not worth it
                         //startActivityForResult(intent, 0); //Activity load = 0
                     } else if (DEFAULT_STREAM == 1) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setDataAndType(Uri.parse(e.getAudioUrl()), "*/*");
-                        startActivity(intent);
-                        //Intent intent = new Intent(getContext(), MediaActivity.class);
-                        //intent.putExtra("url", e.getAudioUrl());
-                        //intent.putExtra("title", actionTitle);
-                        //startActivityForResult(intent, 0); //Activity load = 0
+                        //Intent intent = new Intent(Intent.ACTION_VIEW);
+                        //intent.setDataAndType(Uri.parse(e.getAudioUrl()), "*/*");
+                        //startActivity(intent);
+                        Intent intent = new Intent(getContext(), MediaActivity.class);
+                        intent.putExtra("url", e.getAudioUrl());
+                        intent.putExtra("title", actionTitle);
+                        startActivityForResult(intent, 0); //Activity load = 0
                     }
                 }
             });
