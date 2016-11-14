@@ -42,8 +42,8 @@
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">I\'ve recently become aware of a major bug when streaming Video within
         the app. As I am unable to fix it I've added an option settings:
-        \n\nOne can change the default Streaming-Video will open the stream
-        in another application (such as the browser).
+        \n\nYou can change the default Streaming-Video option. By default it will open the stream
+        in this application, but if this crashes, you can change it to open externally (such as the browser).
         \n\nTo watch it within the app, long click an episode
         and select the proper option.
         \n\nThe refresh action is still in the menu, however now one can Refresh by Swiping Down on the
