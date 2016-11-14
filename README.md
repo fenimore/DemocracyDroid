@@ -38,10 +38,12 @@ this fixes your problems!?
 - Add: Headlines special formatting in stories tab
 
 ## Bugs
+- **Issues streaming Video within the application**.
 - Can load, and crash stories before Jsoup does it's job.
 
 ## TODO
-- Better icon... right?
+- Stream while downloading
+- Fix the Bugs.
 - Add listview buttons
 - ~~Stories Thumbnail~~ maybe not?
 - Add Stories downloads?
@@ -49,7 +51,7 @@ this fixes your problems!?
 - settings
    - Notifications
 - Make stories Headlines item a bit nicer...
-- Pull down to refresh
+- Pull down to refresh (For other tabs than broadcast)
 	- https://developer.android.com/training/swipe/add-swipe-interface.html
 
 ### Listviews TODO:

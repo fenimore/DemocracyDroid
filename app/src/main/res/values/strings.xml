@@ -9,7 +9,10 @@
     <string name="about_dm">Democracy Now! is a national, daily, independent, award-winning news program hosted by journalists Amy Goodman and Juan Gonzalez. Pioneering the largest public media collaboration in the U.S.\n\nDemocracy Now! is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States License.\n\nDemocracy Now! streams live weekdays at 8 am\n</string>
     <string name="about_instructions">Democracy Now! streams live weekdays at 8 am\n\n</string>
     <string name="about_info">\nFenimore Love | 2015 - 2016 GPLv3\n\nFile
-        bugs by email or at the Issue Tracker at the Source Repository below.\n</string>
+        bugs by email or at the Issue Tracker at the Source Repository below.\n\nI realize there is a pretty
+        serious bug when streaming Video within the application. I only have one device to test this on, so any
+        feedback here is greatly appreciated :).
+    </string>
     <string name="download_help">Long Click An Episode to Download, Share, Read Description, and Stream. Long Click a Download to Open it in an External Player.</string>
     <string name="about_title">About Democracy Droid</string>
     <string name="action_site">Visit democracynow.org</string>
@@ -46,6 +49,7 @@
         \n\nThe refresh action is still in the menu, however now one can Refresh by Swiping Down on the
         broadcast list.
     </string>
+    <string name="open_stream">Open Stream In Which Application</string>
     <string-array name="Language">
         <item>English (US)</item>
         <item>English (UK)</item>
@@ -73,6 +77,14 @@
         <item>Audio</item>
     </string-array>
     <string-array name="stream">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="openAlias">
+        <item>This Application</item>
+        <item>Other Application</item>
+    </string-array>
+    <string-array name="open">
         <item>0</item>
         <item>1</item>
     </string-array>
