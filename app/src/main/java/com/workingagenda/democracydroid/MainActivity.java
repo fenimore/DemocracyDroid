@@ -304,7 +304,8 @@ public class MainActivity extends AppCompatActivity {
                     // CHANGE INTENT depending on the SharedPreferences
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
-                    Log.d("Stream Preference", preferences.getString("stream_preference", "0"));
+                    int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
+                    //Log.d("Stream Preference", preferences.getString("stream_preference", "0"));
                     // Set the Title for Toolbar
                     String actionTitle = "Democracy Now!";
                     if (e.getTitle().length() > 16){
@@ -320,13 +321,16 @@ public class MainActivity extends AppCompatActivity {
                     // TODO: Test if this works in MediaPlayer
                     // TODO: Doesn't stream well in MediaPlay wtf
                     if (DEFAULT_STREAM == 0) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
-                        startActivity(intent);
-                        //Intent intent = new Intent(getContext(), MediaActivity.class);
-                        //intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
-                        //nintent.putExtra("title", actionTitle); // Can parseable it, but not worth it
-                        //startActivityForResult(intent, 0); //Activity load = 0
+                        if (DEFAULT_OPEN == 0){
+                            Intent intent = new Intent(getContext(), MediaActivity.class);
+                            intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
+                            intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
+                            startActivityForResult(intent, 0); //Activity load = 0
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
+                            startActivity(intent);
+                        }
                     } else if (DEFAULT_STREAM == 1) {
                         //Intent intent = new Intent(Intent.ACTION_VIEW);
                         //intent.setDataAndType(Uri.parse(e.getAudioUrl()), "*/*");
