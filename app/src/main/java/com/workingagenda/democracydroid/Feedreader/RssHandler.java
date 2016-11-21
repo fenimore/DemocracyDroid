@@ -47,7 +47,7 @@ public class RssHandler extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         if (qName.equals("item"))
-            currentItem = new RssItem();
+            currentItem = new RssItem(null, null, null,null,null,null);
             //this means date in DM
         else if (qName.equals("title"))
             parsingTitle = true;

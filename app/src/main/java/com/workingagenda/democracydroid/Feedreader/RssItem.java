@@ -24,6 +24,15 @@ public class RssItem {
     String videoUrl;
     String pubDate;
 
+    public RssItem(String title, String description, String link, String imageUrl, String videoUrl, String pubDate) {
+        this.title = title;
+        this.description = description;
+        this.link = link;
+        this.imageUrl = imageUrl;
+        this.videoUrl = videoUrl;
+        this.pubDate = pubDate;
+    }
+
 
     public String getPubDate() {
         return pubDate;

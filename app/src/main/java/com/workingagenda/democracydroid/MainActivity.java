@@ -257,7 +257,8 @@ public class MainActivity extends AppCompatActivity {
                 episodeAdapter.notifyDataSetChanged();
             }
             // Call GetAudioFeed in GetVideoFeed Callback
-            new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
+            //http://www.democracynow.org/podcast-video.xml
+            new GetVideoFeed().execute("https://www.democracynow.org/podcast-video.xml");
         }
 
 
@@ -288,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
             // Is this necessary?
             mList.setEmptyView(mBar);
             // Callback calls GetAudioFeed
-            new GetVideoFeed().execute("http://www.democracynow.org/podcast-video.xml");
+            new GetVideoFeed().execute("https://www.democracynow.org/podcast-video.xml");
             if (mySwipeRefreshLayout != null ) {
                 mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
@@ -452,7 +453,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                new GetAudioFeed().execute("http://www.democracynow.org/podcast.xml"); // must be called second
+                new GetAudioFeed().execute("https://www.democracynow.org/podcast.xml"); // must be called second
             }
         }
 
@@ -657,7 +658,7 @@ public class MainActivity extends AppCompatActivity {
                 storyPosts.clear();
                 storyAdapter.notifyDataSetChanged();
             }
-            new GetStoryFeed().execute("http://www.democracynow.org/democracynow.rss");
+            new GetStoryFeed().execute("https://www.democracynow.org/democracynow.rss");
         }
 
         @Override
@@ -672,7 +673,7 @@ public class MainActivity extends AppCompatActivity {
             //storySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
             sList.setEmptyView(sBar);
             registerForContextMenu(sList);
-            new GetStoryFeed().execute("http://www.democracynow.org/democracynow.rss");
+            new GetStoryFeed().execute("https://www.democracynow.org/democracynow.rss");
 
             sList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
