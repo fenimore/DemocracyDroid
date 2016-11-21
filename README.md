@@ -13,15 +13,15 @@ I have no affiliation with Democracy Now!
 
 ## License
 - Democracy Droid GPLv3
-- SimplisticRss library Apache 2 - [ShirwaM](https://github.com/ShirwaM/Simplistic-RSS)
 - Picasso Apache 2 - http://square.github.io/picasso/
 - Democracy Now! CC BY-NC-ND 3.0 US
 - Jsoup MIT
 
 ## Latest Release
-2.4.2
+2.5.0
 
 ### What's new?
+- Totally new parser, the previous version are broken.
 - Swipe to refresh the broadcast tab.
 - So there's a huge bug when streaming Video within the app. 
 Basically, it doesn't work after a few minutes of watching. 
