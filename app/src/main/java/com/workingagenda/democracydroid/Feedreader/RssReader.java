@@ -18,36 +18,22 @@ package com.workingagenda.democracydroid.Feedreader;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.util.Log;
 import android.util.Xml;
 
 import org.jsoup.Jsoup;
-import org.jsoup.helper.HttpConnection;
 import org.jsoup.nodes.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RssReader {
     private String rssUrl;
-    private URL url;
     private String nameSpace;
 
     public RssReader(String url) {
@@ -60,7 +46,6 @@ public class RssReader {
             XmlPullParser parser= Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in, null);
-            //parser.setInput(in, XmlPullPa);
             parser.nextTag();
             return readFeed(parser);
         } finally {
@@ -78,9 +63,7 @@ public class RssReader {
             String name = parser.getName();
             if (name.equals("item")) {
                 entries.add(readItem(parser));
-                //skip(parser);
             } else {
-                //continue;
                 skip(parser);
             }
         }
@@ -115,16 +98,6 @@ public class RssReader {
             else {
                 skip(parser);
             }
-            //else if (name.equals("media:thumbnail") || name.equals("image")) {
-//                if (parser.getAttributeValue(this.nameSpace, "url") != null){
-  //                  imageUrl = readImageUrl(parser);
-    //            }
-      //      }
-        //    else if (name.equals("media:content")){
-          //      if (parser.getAttributeValue(this.nameSpace, "url") != null){
-            //        videoUrl = readVideoUrl(parser);
-              //  }
-            //}
         }
         return new RssItem(title, description, link, imageUrl, videoUrl, pubDate);
     }
@@ -135,9 +108,7 @@ public class RssReader {
         result = parser.getAttributeValue(this.nameSpace, "url");
         while(parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
-                //parser.next();
                continue;
-
             }
             skip(parser);
         }
@@ -221,50 +192,12 @@ public class RssReader {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public List<RssItem> getItems() throws Exception {
-        //SAXParserFactory factory = SAXParserFactory.newInstance();
-        //SAXParser saxParser = factory.newSAXParser();
-    //    XMLReader xr = saxParser.getXMLReader();
-        //Creates a new RssHandler which will do all the parsing.
-        //RssHandler handler = new RssHandler();
-        //xr.setContentHandler(handler);
-        //InputSource inStream =new InputSource();
-        ///purl = new URL(rssUrl);
-        //HttpURLConnection httpconn = (HttpURLConnection) url.openConnection();
-        //inStream.setCharacterStream(new InputStreamReader(httpconn.getInputStream()));
-        //xr.parse(inStream);
-        //Pass SaxParser the RssHandler that was created.
-        //inStream.setEncoding(String.valueOf(Xml.Encoding.UTF_8));
-        //Log.d("Encoding", httpconn.getContentEncoding());y
-        //saxParser.parse(rssUrl, handler);
-        //saxParser.parse(inStream, handler);
-        //
-        //HttpURLConnection httpconn = (HttpURLConnection) url.openConnection();
-        //Xml.parse(url.openStream(), Xml.Encoding.UTF_8, handler);
         this.nameSpace = null;//"http://www.w3.org/2005/Atom";//null;//"http://www.w3.org/2005/Atom";
         InputStream stream =null;
         List<RssItem> items = null;
-        URL url = new URL(rssUrl);
         Document doc = Jsoup.connect(rssUrl).get();
-
-        //Log.d("JSOUP", doc.toString());
-        //HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        //conn.setReadTimeout(10000);
-        //conn.setConnectTimeout(15000);
-        //conn.setRequestMethod("GET");
-        //conn.setDoInput(true);
-        //conn.connect();
-        try {
-            //stream = conn.getInputStream();
-            //Log.d("TO STRING", conn.getResponseMessage());
-            //Log.d("TO STRING", conn.getContent().toString());
-            stream = new ByteArrayInputStream(doc.toString().getBytes(StandardCharsets.UTF_8));
-            items = getRssItems(stream);
-        } finally {
-            //if (stream != null) {
-                //stream.close();
-            //}
-        }
+        stream = new ByteArrayInputStream(doc.toString().getBytes(StandardCharsets.UTF_8));
+        items = getRssItems(stream);
          return items;
-        //return handler.getRssItemList();
     }
 }
