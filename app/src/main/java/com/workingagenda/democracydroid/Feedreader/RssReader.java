@@ -156,6 +156,7 @@ public class RssReader {
             parser.nextTag();
         }
         parser.require(XmlPullParser.END_TAG, this.nameSpace, "link");
+        result = result.trim();
         return result;
     }
 
