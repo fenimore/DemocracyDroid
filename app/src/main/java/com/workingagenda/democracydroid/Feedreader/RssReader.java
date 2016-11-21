@@ -110,8 +110,8 @@ public class RssReader {
                 description = readDescription(parser);
             else if (name.equals("media:thumbnail"))
                 imageUrl = readImageUrl(parser);
-            //else if (name.equals("media:content"))
-                //videoUrl = readVideoUrl(parser);
+            else if (name.equals("media:content"))
+                videoUrl = readVideoUrl(parser);
             else {
                 skip(parser);
             }
@@ -133,7 +133,15 @@ public class RssReader {
         parser.require(XmlPullParser.START_TAG, this.nameSpace, "media:content");
         String result = "";
         result = parser.getAttributeValue(this.nameSpace, "url");
-        //parser.nextTag();
+        while(parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() != XmlPullParser.START_TAG) {
+                //parser.next();
+               continue;
+
+            }
+            skip(parser);
+        }
+
         parser.require(XmlPullParser.END_TAG, this.nameSpace, "media:content");
         return result;
     }
