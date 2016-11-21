@@ -86,11 +86,6 @@ public class StoryActivity extends AppCompatActivity {
         date = (String) extras.get("date");
         Log.v("url", url);
         new RetrieveContent().execute(url);
-
-
-        //WebView webview = new WebView(this);
-        //setContentView(webview);
-        //webview.loadData(content, "text/html", "UTF-8"); //but don't just load the URL, but load te content div within. Yikes.
     }
 
     public interface OnTaskCompleted{
