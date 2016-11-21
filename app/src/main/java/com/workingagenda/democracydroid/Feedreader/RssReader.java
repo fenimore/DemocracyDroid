@@ -78,7 +78,9 @@ public class RssReader {
             String name = parser.getName();
             if (name.equals("item")) {
                 entries.add(readItem(parser));
+                //skip(parser);
             } else {
+                //continue;
                 skip(parser);
             }
         }
@@ -94,6 +96,9 @@ public class RssReader {
         String videoUrl = null;
         String pubDate = null;
         while(parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() != XmlPullParser.START_TAG) {
+                continue;
+            }
             String name = parser.getName();
             if (name.equals("title"))
                 title = readTitle(parser);
@@ -103,16 +108,19 @@ public class RssReader {
                 pubDate = readPubDate(parser);
             else if (name.equals("description"))
                 description = readDescription(parser);
-            else if (name.equals("media:thumbnail") || name.equals("image")) {
-                if (parser.getAttributeValue(this.nameSpace, "url") != null){
-                    imageUrl = readImageUrl(parser);
-                }
+            else {
+                skip(parser);
             }
-            else if (name.equals("media:content")){
-                if (parser.getAttributeValue(this.nameSpace, "url") != null){
-                    videoUrl = readVideoUrl(parser);
-                }
-            }
+            //else if (name.equals("media:thumbnail") || name.equals("image")) {
+//                if (parser.getAttributeValue(this.nameSpace, "url") != null){
+  //                  imageUrl = readImageUrl(parser);
+    //            }
+      //      }
+        //    else if (name.equals("media:content")){
+          //      if (parser.getAttributeValue(this.nameSpace, "url") != null){
+            //        videoUrl = readVideoUrl(parser);
+              //  }
+            //}
         }
         return new RssItem(title, description, link, imageUrl, videoUrl, pubDate);
     }
@@ -184,6 +192,9 @@ public class RssReader {
     }
 
     private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
+        if (parser.getName().equals("channel")) {
+            return;
+        }
         if (parser.getEventType() != XmlPullParser.START_TAG) {
             throw new IllegalStateException();
         }
