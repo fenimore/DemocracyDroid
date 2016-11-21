@@ -519,7 +519,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     RssReader rssReader = new RssReader(params[0]);
                     int j = 0;
-                    if ( LIVE_TIME == c.get(Calendar.HOUR_OF_DAY)){
+                    if ( LIVE_TIME == hourOfDay){
                         j = 1;
                         episodes.get(0).setAudioUrl("democracynow.videocdn.scaleengine.net/" +
                                 "democracynow-iphone/play/democracynow/playlist.m3u8");
