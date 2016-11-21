@@ -108,6 +108,10 @@ public class RssReader {
                 pubDate = readPubDate(parser);
             else if (name.equals("description"))
                 description = readDescription(parser);
+            else if (name.equals("media:thumbnail"))
+                imageUrl = readImageUrl(parser);
+            //else if (name.equals("media:content"))
+                //videoUrl = readVideoUrl(parser);
             else {
                 skip(parser);
             }
@@ -128,10 +132,8 @@ public class RssReader {
     private String readVideoUrl(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, this.nameSpace, "media:content");
         String result = "";
-        if (parser.next() == XmlPullParser.TEXT) {
-            result = parser.getAttributeValue(this.nameSpace, "url");
-            parser.nextTag();
-        }
+        result = parser.getAttributeValue(this.nameSpace, "url");
+        //parser.nextTag();
         parser.require(XmlPullParser.END_TAG, this.nameSpace, "media:content");
         return result;
     }
@@ -139,10 +141,8 @@ public class RssReader {
     private String readImageUrl(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, this.nameSpace, "media:thumbnail");
         String result = "";
-        if (parser.next() == XmlPullParser.TEXT) {
-            result = parser.getAttributeValue(this.nameSpace, "url");
-            parser.nextTag();
-        }
+        result = parser.getAttributeValue(this.nameSpace, "url");
+        parser.nextTag();
         parser.require(XmlPullParser.END_TAG, this.nameSpace, "media:thumbnail");
         return result;
     }
