@@ -460,7 +460,7 @@ public class MainActivity extends AppCompatActivity {
         private ArrayList<Episode> checkLiveStream(ArrayList<Episode> episodes){
             // Make it Pretty, and NY eastern Time
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
-            TimeZone timeZone = TimeZone.getTimeZone("GMT-400");
+            TimeZone timeZone = TimeZone.getTimeZone("GMT-500");
             Calendar c = Calendar.getInstance(timeZone);
             String formattedDate = format.format(c.getTime());
             // Some Variables fo' later
