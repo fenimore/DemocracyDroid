@@ -254,7 +254,9 @@ public class MainActivity extends AppCompatActivity {
             mySwipeRefreshLayout.setRefreshing(true);
             if (episodes.size() > 1){
                 episodes.clear();
-                episodeAdapter.notifyDataSetChanged();
+                if (episodeAdapter != null) {
+                    episodeAdapter.notifyDataSetChanged();
+                }
             }
             // Call GetAudioFeed in GetVideoFeed Callback
             //http://www.democracynow.org/podcast-video.xml
@@ -319,8 +321,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     // Open live stream in Browser?
-                    // TODO: Test if this works in MediaPlayer
-                    // TODO: Doesn't stream well in MediaPlay wtf
+                    // FIXME: Doesn't stream well in MediaPlay wtf
                     if (DEFAULT_STREAM == 0) {
                         if (DEFAULT_OPEN == 0){
                             Intent intent = new Intent(getContext(), MediaActivity.class);
@@ -576,10 +577,9 @@ public class MainActivity extends AppCompatActivity {
                 // TODO: Save que ID for cancel button
                 Toast toast = Toast.makeText(getActivity(), "Starting download of " +title, Toast.LENGTH_LONG);
                 toast.show();
-                //Log.d("File name?", fileext);
             }
-
         }
+
         //http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
         // TODO: THis doesn't seem to work
         /*public File DownloadAndStream(String url, String title, String desc) {
@@ -852,11 +852,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-
-
             return rootView;
-
         }
+
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             super.onCreateContextMenu(menu, v, menuInfo);
@@ -905,7 +903,6 @@ public class MainActivity extends AppCompatActivity {
 
         private void refresh(){
             //do nothing
-
         }
     }
 
