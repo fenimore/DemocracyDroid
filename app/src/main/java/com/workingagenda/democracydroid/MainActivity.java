@@ -656,7 +656,9 @@ public class MainActivity extends AppCompatActivity {
         private void refresh() {
             if (storyPosts.size() > 1){
                 storyPosts.clear();
-                storyAdapter.notifyDataSetChanged();
+                if (storyAdapter != null ){
+                    storyAdapter.notifyDataSetChanged();
+                }
             }
             new GetStoryFeed().execute("https://www.democracynow.org/democracynow.rss");
         }
