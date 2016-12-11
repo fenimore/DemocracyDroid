@@ -29,6 +29,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -193,13 +194,12 @@ public class RssReader {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public List<RssItem> getItems() throws Exception {
         this.nameSpace = null;//"http://www.w3.org/2005/Atom";//null;//"http://www.w3.org/2005/Atom";
         InputStream stream =null;
         List<RssItem> items = null;
         Document doc = Jsoup.connect(rssUrl).get();
-        stream = new ByteArrayInputStream(doc.toString().getBytes(StandardCharsets.UTF_8));
+        stream = new ByteArrayInputStream(doc.toString().getBytes(Charset.forName("UTF-8")));
         items = getRssItems(stream);
          return items;
     }

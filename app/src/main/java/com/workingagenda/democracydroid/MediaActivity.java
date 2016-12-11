@@ -32,12 +32,13 @@ public class MediaActivity extends AppCompatActivity {
     // TODO: Date?
     private int mMediaPosition;
     private boolean flag = true; // for toggling status and mediacontroller
-    private Thread thread; // For hideStatus wait
+    
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null){
             mMediaPosition = savedInstanceState.getInt("pos");
+            Log.d("Unbundling: ", String.valueOf(mMediaPosition));
         }
         setContentView(R.layout.activity_media);
         // Toolbar
@@ -56,12 +57,8 @@ public class MediaActivity extends AppCompatActivity {
         title = (String) extras.get("title"); // Doesn't work
         getSupportActionBar().setTitle(title);
         // Handle Media Playing
-
         mVideoView.setVideoURI(url);
-        if (mMediaPosition != Integer.MIN_VALUE) {
-            Log.d("MediaPostion", "Data saved from instance bundle");
-            mVideoView.seekTo(mMediaPosition);
-        }
+
         // Media Controller
         mMediaController.setAnchorView(mVideoView);
         mVideoView.setMediaController(mMediaController);
@@ -69,22 +66,57 @@ public class MediaActivity extends AppCompatActivity {
         mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {
-                Log.d("ERROR Duration", String.valueOf(mp.getDuration()));
+                //Log.d("ERROR Duration", String.valueOf(mp.getDuration()));
                 Log.d("ERROR Buffer", String.valueOf(mVideoView.getBufferPercentage()));
-                Log.d("ERROR Current Postition", String.valueOf(mVideoView.getCurrentPosition()));
+                Log.d("ERROR Current Position", String.valueOf(mVideoView.getCurrentPosition()));
                 return false;
             }
         });
+
         // Hide toolbar once video starts
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 hideStatusBar();
                 //start();
+                Log.d("Media", "Prepared State, to Start");
+                if (mMediaPosition != 0) {
+                    Log.d("MediaPosition", String.valueOf(mMediaPosition));
+                    mVideoView.seekTo(mMediaPosition);
+                }
                 mVideoView.start();
             }
         });
 
+    }
+
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //Log.d("Pos", String.valueOf(mMediaPosition));
+        outState.putInt("pos", mMediaPosition);
+        Log.d("Saving Inst", String.valueOf(mMediaPosition));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("Media", "onPause called");
+        mMediaPosition = mVideoView.getCurrentPosition();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("Media", "onStop called");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("Media", "onResume called");
     }
 
     @Override
@@ -129,12 +161,7 @@ public class MediaActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mMediaPosition = mVideoView.getCurrentPosition();
-        outState.putInt("pos", mMediaPosition);
-    }
+
     // BTW this is only for Android 4.1 and UP?
     private void hideStatusBar() {
         View decorView = getWindow().getDecorView();
