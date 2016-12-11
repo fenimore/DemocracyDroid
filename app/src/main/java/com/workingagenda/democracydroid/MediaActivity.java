@@ -78,8 +78,6 @@ public class MediaActivity extends AppCompatActivity {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 hideStatusBar();
-                //start();
-                Log.d("Media", "Prepared State, to Start");
                 if (mMediaPosition != 0) {
                     Log.d("MediaPosition", String.valueOf(mMediaPosition));
                     mVideoView.seekTo(mMediaPosition);
@@ -87,7 +85,6 @@ public class MediaActivity extends AppCompatActivity {
                 mVideoView.start();
             }
         });
-
     }
 
 
