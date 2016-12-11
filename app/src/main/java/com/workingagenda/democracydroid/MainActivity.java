@@ -320,8 +320,12 @@ public class MainActivity extends AppCompatActivity {
                             actionTitle = e.getTitle();
                         }
                     }
-                    // Open live stream in Browser?
+
                     // FIXME: Doesn't stream well in MediaPlay wtf
+                    // Default Stream :
+                    // 0 => Video stream 1 => Audio stream
+                    // Deafult Open:
+                    // 0 => In App / 1 => external app
                     if (DEFAULT_STREAM == 0) {
                         if (DEFAULT_OPEN == 0){
                             Intent intent = new Intent(getContext(), MediaActivity.class);
@@ -334,13 +338,16 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                     } else if (DEFAULT_STREAM == 1) {
-                        //Intent intent = new Intent(Intent.ACTION_VIEW);
-                        //intent.setDataAndType(Uri.parse(e.getAudioUrl()), "*/*");
-                        //startActivity(intent);
-                        Intent intent = new Intent(getContext(), MediaActivity.class);
-                        intent.putExtra("url", e.getAudioUrl());
-                        intent.putExtra("title", actionTitle);
-                        startActivityForResult(intent, 0); //Activity load = 0
+                        if (DEFAULT_OPEN == 0){
+                            Intent intent = new Intent(getContext(), MediaActivity.class);
+                            intent.putExtra("url", e.getAudioUrl()); //can't pass in article object?
+                            intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
+                            startActivityForResult(intent, 0); //Activity load = 0
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setDataAndType(Uri.parse(e.getAudioUrl()), "*/*");
+                            startActivity(intent);
+                        }
                     }
                 }
             });
