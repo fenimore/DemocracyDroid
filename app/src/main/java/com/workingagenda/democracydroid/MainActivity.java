@@ -304,11 +304,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Episode e = episodes.get(i);
-                    // CHANGE INTENT depending on the SharedPreferences
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
                     int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
-                    //Log.d("Stream Preference", preferences.getString("stream_preference", "0"));
+
                     // Set the Title for Toolbar
                     String actionTitle = "Democracy Now!";
                     if (e.getTitle().length() > 16){
