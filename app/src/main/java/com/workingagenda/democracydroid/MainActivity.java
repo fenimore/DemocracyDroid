@@ -522,7 +522,7 @@ public class MainActivity extends AppCompatActivity {
                     int j = 0;
                     if ( LIVE_TIME == hourOfDay){
                         j = 1;
-                        episodes.get(0).setAudioUrl("democracynow.videocdn.scaleengine.net/" +
+                        episodes.get(0).setAudioUrl("http://democracynow.videocdn.scaleengine.net/" +
                                 "democracynow-iphone/play/democracynow/playlist.m3u8");
                     }
                     if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > 8){
@@ -559,6 +559,12 @@ public class MainActivity extends AppCompatActivity {
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         0);
             } else {
+                if (url.equals("democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8")) {
+                    Toast toast = Toast.makeText(getActivity(),
+                            "You can't download the Live Stream", Toast.LENGTH_LONG);
+                    toast.show();
+                    return;
+                }
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
                 request.setDescription(desc);
                 request.setTitle(title);
