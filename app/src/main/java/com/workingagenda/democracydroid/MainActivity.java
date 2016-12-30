@@ -622,7 +622,9 @@ public class MainActivity extends AppCompatActivity {
             Log.v("Load story feed", String.valueOf(stories.size()));
 
             if (stories.size() > 1){
+                // FIXME, if stories aren't null?
                 storyAdapter = new StoryAdapter(getContext(), R.layout.row_story, stories);
+
                 sList.setAdapter(storyAdapter);
             }
             else {
@@ -654,7 +656,7 @@ public class MainActivity extends AppCompatActivity {
             sList.setEmptyView(sBar);
             registerForContextMenu(sList);
             new GetStoryFeed().execute("https://www.democracynow.org/democracynow.rss");
-
+            // FIXME null pointer here
             sList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
