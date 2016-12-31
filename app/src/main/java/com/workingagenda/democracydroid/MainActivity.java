@@ -553,8 +553,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                Log.v("Load podcast feed", "again");
-                populateList(episodes);
+                Log.v("Podcast", "Populating List");
+                if (episodes != null) {
+                    populateList(episodes);
+                }
             }
         }
         //http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
@@ -736,8 +738,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                populateList(storyPosts);
-                Log.v("Load story feed", "again");
+                if (storyPosts != null) {
+                    populateList(storyPosts);
+                }
+                Log.v("Stories", "Populating List");
             }
         }
     }
