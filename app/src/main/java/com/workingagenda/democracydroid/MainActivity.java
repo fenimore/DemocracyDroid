@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                     ((DownloadFragment) x).refresh();
                 }
             }
-            // TODO: Somehow enable this after async call...
+            // FIXME: Somehow enable this after async call...
             item.setEnabled(true);
             return true;
         }
@@ -320,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    // FIXME: Doesn't stream well in MediaPlay wtf
+                    // FIXME: Doesn't stream well in MediaPlay
                     // Default Stream :
                     // 0 => Video stream 1 => Audio stream
                     // Deafult Open:
@@ -394,14 +394,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivityForResult(y, 0); //Activity load = 0
                     return true;
                 case R.id.action_video:
-                    // Test
-                    // TODO: Open from Downloads:
-                    //File file = DownloadAndStream(e.getVideoUrl(), e.getTitle(), e.getDescription());
-                    //Intent x = new Intent(getContext(), MediaActivity.class);
-                    //x.putExtra("url", Uri.fromFile(file).toString()); //can't pass in article object?
-                    //x.putExtra("title", actionTitle);
-                    //startActivityForResult(x, 0); //Activity load = 0
-
                     Intent x = new Intent(getContext(), MediaActivity.class);
                     x.putExtra("url", e.getVideoUrl()); //can't pass in article object?
                     x.putExtra("title", actionTitle);
@@ -418,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
                     description.setMessage(e.getDescription() + "\n\n" + e.getTitle());
                     description.setButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            // do nothing?
+                            // do nothing
                         }
                     });
                     description.show();
@@ -451,7 +443,7 @@ public class MainActivity extends AppCompatActivity {
                         episodes.add(e);
                     }
                     episodes = checkLiveStream(episodes); // and add video in link
-                                                          // not yet in RSS feed
+                                                          // not yet in RSS feed ;)
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");
                 }
@@ -460,6 +452,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
+                // TODO: Swap english feed for spanish according to the settings (3.0 milestone)
+                // https://www.democracynow.org/podcast-es.xml
                 new GetAudioFeed().execute("https://www.democracynow.org/podcast.xml"); // must be called second
             }
         }
@@ -539,7 +533,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     for(RssItem item : rssReader.getItems()){
                         episodes.get(j).setAudioUrl(item.getVideoUrl()); // Video here means audio
-                        // Audio Feed must be called after GetVideoFeed
+                        // NOTE: Audio Feed must be called after GetVideoFeed
                         // Otherwise the episodes objects wont be there
                         j++;
                     }
@@ -559,7 +553,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        //http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
+
+        // FIXME: Show progress:
+        // http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
         public void Download(String url, String title, String desc){
             if (ContextCompat.checkSelfPermission(getActivity(),
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -576,7 +572,6 @@ public class MainActivity extends AppCompatActivity {
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
                 request.setDescription(desc);
                 request.setTitle(title);
-                // in order for this if to run, you must use the android 3.2 to compile your app
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                     request.allowScanningByMediaScanner();
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
@@ -605,7 +600,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Episode> storyPosts = new ArrayList<Episode>(100);
         private TextView sTxt;
         private ProgressBar sBar;
-        //private SwipeRefreshLayout storySwipeRefreshLayout;
+        // TODO: private SwipeRefreshLayout storySwipeRefreshLayout;
         private StoryAdapter storyAdapter;
         private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -624,12 +619,9 @@ public class MainActivity extends AppCompatActivity {
             Log.v("Load story feed", String.valueOf(stories.size()));
 
             if (stories.size() > 1){
-                // FIXME, if stories aren't null?
                 storyAdapter = new StoryAdapter(getContext(), R.layout.row_story, stories);
-
                 sList.setAdapter(storyAdapter);
-            }
-            else {
+            } else {
                 sBar.setVisibility(View.GONE);
                 sTxt.setText(R.string.connect_error);
             }
@@ -654,16 +646,14 @@ public class MainActivity extends AppCompatActivity {
             sTxt = (TextView) rootView.findViewById(android.R.id.empty);
             sBar = (ProgressBar) rootView.findViewById(R.id.sBar);
             sBar.setVisibility(View.GONE);
-            //storySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
+            // TODO: // storySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
             sList.setEmptyView(sBar);
             registerForContextMenu(sList);
             new GetStoryFeed().execute("https://www.democracynow.org/democracynow.rss");
-            // FIXME null pointer here
             sList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Episode s = storyPosts.get(position);
-                    // Add Story Activity
                     loadTranscript(s);
                 }
             });
@@ -700,7 +690,7 @@ public class MainActivity extends AppCompatActivity {
                     description.setMessage(b.getDescription() + "\n\n" + b.getTitle());
                     description.setButton("Close", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            // do nothing?
+                            // do nothing
                         }
                     });
                     description.show();
@@ -713,7 +703,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(String... params) {
                 if (storyPosts.size() > 0){
-                    storyPosts = new ArrayList<Episode>(100);
+                    storyPosts = new ArrayList<>(100); // NOTE: of Episode objects
                 }
                 Log.v("Story count", String.valueOf(storyPosts.size()));
                 try {
@@ -726,7 +716,6 @@ public class MainActivity extends AppCompatActivity {
                                             b.setImageUrl(item.getImageUrl());
                                             b.setUrl(item.getLink());
                                             storyPosts.add(b);
-
                     }
                     Log.v("Story count Two", String.valueOf(storyPosts.size()));
                 } catch (Exception e) {
@@ -751,8 +740,6 @@ public class MainActivity extends AppCompatActivity {
      * A Download fragment
      */
     public static class DownloadFragment extends Fragment {
-
-        //Declare some variables
         public TextView Txt1;
         public Button btn;
         public Button btnRefresh;
@@ -875,7 +862,7 @@ public class MainActivity extends AppCompatActivity {
             File parentDir = new File(Environment.getExternalStorageDirectory().toString()+
                     File.separator + Environment.DIRECTORY_PODCASTS);
             File[] files = parentDir.listFiles();
-            if(files != null) { // I don't know why I need this, but otherwise it breaks
+            if (files != null) {
                 for (File file : files) {
                     if(file.getName().startsWith("dn") || file.getName().endsWith("-podcast.mp4") || file.getName().endsWith("-podcast.mp3")){ // there must be a smarter way to do this
                         if(file.getName().endsWith(".mp3") || file.getName().endsWith(".mp4")){
