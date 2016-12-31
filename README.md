@@ -18,10 +18,14 @@ I have no affiliation with Democracy Now!
 - Jsoup MIT
 
 ## Latest Release
-2.5.0
+2.6.0
 
 
 ## Change Log
+
+### 2.6.1
+
+- Fix: null pointer reference crashing on some phones
 
 ### 2.6.0
 
@@ -44,11 +48,13 @@ I have no affiliation with Democracy Now!
 - Add: Headlines special formatting in stories tab
 
 ## Bugs
+
 - **Issues streaming Video within the application**.
 - Can load, and crash stories before Jsoup does it's job.
 
 ## Todo list:
 
+- [ ] Add Spanish Language Feed
 - [ ] Stream while downloading
 - [ ] Fix the Bugs.
 - [ ] Add listview buttons
