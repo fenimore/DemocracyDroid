@@ -32,15 +32,11 @@ public class StoryAdapter extends ArrayAdapter<Episode> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        View v = convertView;
+        View v;
 
-        //if(v == null) {
-        // Remove this thanks stack:
-        // http://stackoverflow.com/questions/10684322/listview-jumbled-on-scroll
         LayoutInflater vi;
         vi = LayoutInflater.from(getContext());
         v = vi.inflate(R.layout.row_story, null);
-        //}
 
         Episode b = getItem(position);
         if (b != null) {
@@ -49,14 +45,14 @@ public class StoryAdapter extends ArrayAdapter<Episode> {
             try {
                 Picasso.with(getContext()).load("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png").into(img); // TODO Change image
             } catch (Exception ex) {
-                Log.v("Blog Adapter", "exception");
+                Log.v("Blog Adapter", "exception" + ex.toString());
             }
 
             if (txt != null) {
                 txt.setText(b.getTitle());
-
             }
 
+            // Special formatting for headlines
             if ( b.getTitle().startsWith("Headlines")){
                 assert txt != null;
                 txt.setAllCaps(true);
@@ -67,7 +63,6 @@ public class StoryAdapter extends ArrayAdapter<Episode> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     v.setMinimumHeight(img.getMinimumHeight());
                 }
-                //img.setVisibility(View.GONE);
             }
         }
 
