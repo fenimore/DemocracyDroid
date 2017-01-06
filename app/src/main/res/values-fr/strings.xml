@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Democracy Droid</string>
+    <string name="about_dd_header">A propos Democracy Droid!</string>
+    <string name="about_dev_header">Developer</string>
+    <string name="about_dm_header">A propos Democracy Now!</string>
+    <string name="action_back">Retour</string>
+    <string name="action_refresh"></string>
+    <string name="action_settings">Parametres</string>
+</resources>
