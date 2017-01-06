@@ -1,25 +1,31 @@
 Democracy Droid
 ===============
 
-## Democracy Droid
-This program parses the [Democracy Now!](http://democracynow.org) RSS-feed and it streams or downloads video, audio, or individual story broadcasts. It is a fully featured app :). Look in the app folder for an app-release.apk and install Democracy Droid on your phone.
+## Democracy Droid!
+
+This is a [Democracy Now!](http://democracynow.org) Android app which 
+streams and manages downloads for the video and audio broadcast of Democracy Now! 
+It also streams the live-stream (at 8am Eastern) and acts as a transcript 
+reader for individual stories and headlines. It is a fully featured app :). 
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
       alt="Get it on Google Play"
       height="80">](https://play.google.com/store/apps/details?id=com.workingagenda.democracydroid)
 
 ## Disclaimer
+
 I have no affiliation with Democracy Now!
 
 ## License
+
 - Democracy Droid GPLv3
 - Picasso Apache 2 - http://square.github.io/picasso/
 - Democracy Now! CC BY-NC-ND 3.0 US
 - Jsoup MIT
 
 ## Latest Release
-2.6.0
 
+2.6.1
 
 ## Change Log
 
@@ -55,6 +61,7 @@ I have no affiliation with Democracy Now!
 ## Todo list:
 
 - [ ] Add Spanish Language Feed
+- [ ] Add empty screen for podcast feed
 - [ ] Stream while downloading
 - [ ] Fix the Bugs.
 - [ ] Add listview buttons
