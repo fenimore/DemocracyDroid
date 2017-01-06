@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
             mBar.setVisibility(View.GONE);
             registerForContextMenu(mList);
             // Is this necessary?
-            mList.setEmptyView(mBar);
+            mList.setEmptyView(mBar); // FIXME: Set to mTxt???S
             // Callback calls GetAudioFeed
             new GetVideoFeed().execute("https://www.democracynow.org/podcast-video.xml");
             if (mySwipeRefreshLayout != null ) {

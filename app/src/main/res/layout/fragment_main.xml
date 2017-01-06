@@ -38,7 +38,7 @@
         android:layout_marginTop="40dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text= ""
+        android:text= "@string/connecting"
         android:textColor="@color/colorPrimaryDark"/>
 
 
