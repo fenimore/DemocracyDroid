@@ -2,30 +2,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_share"
-        android:orderInCategory="100"
+        android:orderInCategory="600"
         android:title="Share Link" />
     <item
         android:id="@+id/action_description"
-        android:orderInCategory="100"
+        android:orderInCategory="700"
         android:title="Read Description" />
     <item
         android:id="@+id/action_audio"
-        android:orderInCategory="100"
-        android:title="Stream Audio In App" />
+        android:orderInCategory="400"
+        android:title="Open In This App" />
     <item
         android:id="@+id/action_video"
-        android:orderInCategory="100"
-        android:title="Stream Video In App" />
+        android:orderInCategory="300"
+        android:title="Open in Other App" />
     <item
         android:id="@+id/action_download_audio"
-        android:orderInCategory="100"
+        android:orderInCategory="200"
         android:title="Download Audio" />
     <item
         android:id="@+id/action_download"
-        android:orderInCategory="300"
+        android:orderInCategory="100"
         android:title="Download Video"/>
     <item
         android:id="@+id/action_browser"
-        android:orderInCategory="400"
+        android:orderInCategory="500"
         android:title="@string/action_browser"/>
 </menu>
