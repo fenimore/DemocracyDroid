@@ -11,11 +11,11 @@
     <item
         android:id="@+id/action_audio"
         android:orderInCategory="400"
-        android:title="Open In This App" />
+        android:title="Stream" />
     <item
         android:id="@+id/action_video"
         android:orderInCategory="300"
-        android:title="Open in Other App" />
+        android:title="Open Elsewhere" />
     <item
         android:id="@+id/action_download_audio"
         android:orderInCategory="200"

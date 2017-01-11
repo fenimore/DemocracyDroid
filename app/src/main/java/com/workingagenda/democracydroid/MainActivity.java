@@ -300,6 +300,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
+
             mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -360,6 +361,21 @@ public class MainActivity extends AppCompatActivity {
                 MenuInflater inflater = new MenuInflater(getContext());
                 menu.setHeaderTitle("Democracy Now!");
                 inflater.inflate(R.menu.context_menu, menu);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
+                int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
+                if (DEFAULT_STREAM == 0) {
+                    menu.getItem(3).setTitle("Stream Audio");
+                } else {
+                    menu.getItem(3).setTitle("Stream Video");
+                }
+
+                if(DEFAULT_OPEN == 0) {
+                    menu.getItem(2).setTitle("Open in Other App");
+                } else {
+                    menu.getItem(2).setTitle("Open in This App");
+                }
+
             }
         }
 
@@ -390,28 +406,54 @@ public class MainActivity extends AppCompatActivity {
                     sendIntent.setType("text/plain");
                     startActivity(sendIntent);
                     return true;
-                case R.id.action_audio: // TODO: refactor - action_thisapp
-                    if (DEFAULT_STREAM == 0) {
-                        Intent intent = new Intent(getContext(), MediaActivity.class);
-                        intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
-                        intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
-                        startActivityForResult(intent, 0); //Activity load = 0
-                    } else if (DEFAULT_STREAM == 1) {
-                        Intent intent = new Intent(getContext(), MediaActivity.class);
-                        intent.putExtra("url", e.getAudioUrl()); //can't pass in article object?
-                        intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
-                        startActivityForResult(intent, 0); //Activity load = 0
+                case R.id.action_audio: // TODO: refactor - action_otherstream
+                    if (DEFAULT_STREAM == 1) {
+                        if (DEFAULT_OPEN == 0){
+                            Intent intent = new Intent(getContext(), MediaActivity.class);
+                            intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
+                            intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
+                            startActivityForResult(intent, 0); //Activity load = 0
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
+                            startActivity(intent);
+                        }
+                    } else if (DEFAULT_STREAM == 0) {
+                        if (DEFAULT_OPEN == 0){
+                            Intent intent = new Intent(getContext(), MediaActivity.class);
+                            intent.putExtra("url", e.getAudioUrl()); //can't pass in article object?
+                            intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
+                            startActivityForResult(intent, 0); //Activity load = 0
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setDataAndType(Uri.parse(e.getAudioUrl()), "*/*");
+                            startActivity(intent);
+                        }
                     }
                     return true;
-                case R.id.action_video: // TODO: refactor - action_externalapp
+                case R.id.action_video: // TODO: refactor - action_stream-otherwise
                     if (DEFAULT_STREAM == 0) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
-                        startActivity(intent);
+                        if (DEFAULT_OPEN == 1){
+                            Intent intent = new Intent(getContext(), MediaActivity.class);
+                            intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
+                            intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
+                            startActivityForResult(intent, 0); //Activity load = 0
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
+                            startActivity(intent);
+                        }
                     } else if (DEFAULT_STREAM == 1) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setDataAndType(Uri.parse(e.getAudioUrl()), "*/*");
-                        startActivity(intent);
+                        if (DEFAULT_OPEN == 1){
+                            Intent intent = new Intent(getContext(), MediaActivity.class);
+                            intent.putExtra("url", e.getAudioUrl()); //can't pass in article object?
+                            intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
+                            startActivityForResult(intent, 0); //Activity load = 0
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setDataAndType(Uri.parse(e.getAudioUrl()), "*/*");
+                            startActivity(intent);
+                        }
                     }
                     return true;
                 case R.id.action_download_audio:
