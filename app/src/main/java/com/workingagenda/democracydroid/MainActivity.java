@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private boolean PREF_WIFI;
     private int DEFAULT_TAB;
+    private boolean PREF_FIRST_TIME;
     //ArrayAdapter<String> AudioListAdapter;
     private String actionTitle = "Democracy Droid!";
     /**
@@ -103,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
         PREF_WIFI = preferences.getBoolean("wifi_preference", false);
+        PREF_FIRST_TIME = preferences.getBoolean("first_preference", false);
+        Log.d("First time", String.valueOf((PREF_FIRST_TIME)));
         // Tab Layouts
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Stories").setIcon(R.drawable.ic_library_books_white_24dp));
@@ -135,6 +138,26 @@ public class MainActivity extends AppCompatActivity {
                 mViewPager.setCurrentItem(tab.getPosition());
             }
         });
+
+
+        // Tutorial for first time users
+        if (!PREF_FIRST_TIME) {
+            SharedPreferences.Editor edit = preferences.edit();
+            edit.putBoolean("first_preference", true);
+            edit.commit();
+            Log.d("First time", "WHat" + String.valueOf((PREF_FIRST_TIME)));
+            AlertDialog firstTime = new AlertDialog.Builder(getApplicationContext()).create();
+            // Get Description and Title
+            firstTime.setTitle("First time here?");
+            firstTime.setMessage("Long click an Episode in order to Download or Open in another" +
+                    "application.\n\n\nIf the stream won't work, change where it streams" +
+                    "in the Settings menu.");
+            firstTime.setButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            firstTime.show();
+        }
     }
 
     @Override
