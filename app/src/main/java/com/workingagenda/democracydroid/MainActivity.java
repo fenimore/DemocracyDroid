@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
         PREF_WIFI = preferences.getBoolean("wifi_preference", false);
-        PREF_FIRST_TIME = preferences.getBoolean("first_preference", false);
+        PREF_FIRST_TIME = preferences.getBoolean("first_preference", true);
         Log.d("First time", String.valueOf((PREF_FIRST_TIME)));
         // Tab Layouts
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -139,11 +139,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+/*        // FIXME NOT WORKING
         // Tutorial for first time users
-        if (!PREF_FIRST_TIME) {
+        if (PREF_FIRST_TIME) {
             SharedPreferences.Editor edit = preferences.edit();
-            edit.putBoolean("first_preference", true);
+            edit.putBoolean("first_preference", false);
             edit.commit();
             Log.d("First time", "WHat" + String.valueOf((PREF_FIRST_TIME)));
             AlertDialog firstTime = new AlertDialog.Builder(getApplicationContext()).create();
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             firstTime.show();
-        }
+        }*/
     }
 
     @Override
