@@ -9,8 +9,7 @@
     <string name="about_dm">Democracy Now! is a national, daily, independent, award-winning news program hosted by journalists Amy Goodman and Juan Gonzalez. Pioneering the largest public media collaboration in the U.S.\n\nDemocracy Now! is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States License.\n\nDemocracy Now! streams live weekdays at 8 am\n</string>
     <string name="about_instructions">Democracy Now! streams live weekdays at 8 am\n\n</string>
     <string name="about_info">\nFenimore Love | 2015 - 2016 GPLv3\n\nFile
-        bugs by email or at the Issue Tracker at the Source Repository below.\n\nI realize there is a pretty
-        serious bug when streaming Video within the application. I only have one device to test this on, so any
+        bugs by email or at the Issue Tracker at the Source Repository below.\n\n Any
         feedback here is greatly appreciated :).
     </string>
     <string name="download_help">Long Click An Episode to Download, Share, Read Description, and Stream. Long Click a Download to Open it in an External Player.</string>
@@ -41,14 +40,7 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
-        The video/audio playback will save its location when you switch to another app (like making a
-        phone call), and then restart from the paused location.
-        \n\nYou can change the default Streaming-Video option. By default it will open the stream
-        in this application, but if this crashes, you can change it to open externally (such as the browser).
-        \n\nTo watch it within the app, long click an episode
-        and select the proper option.
-        \n\nThe refresh action is still in the menu, however now one can Refresh by Swiping Down on the
-        broadcast list.
+        Streaming videos now works perfectly!
     </string>
     <string name="open_stream">Open Stream In Which Application</string>
     <string-array name="Language">

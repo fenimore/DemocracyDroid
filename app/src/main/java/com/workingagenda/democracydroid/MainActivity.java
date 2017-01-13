@@ -376,9 +376,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if(DEFAULT_OPEN == 0) {
-                    menu.getItem(2).setTitle("Open in Other App");
+                    menu.getItem(2).setTitle("Stream in Another App");
                 } else {
-                    menu.getItem(2).setTitle("Open in This App");
+                    menu.getItem(2).setTitle("Stream in This App");
                 }
 
             }
