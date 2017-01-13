@@ -47,7 +47,7 @@ public class MediaActivity extends AppCompatActivity {
     private Toolbar toolbar;
     // TODO: Description?
     // TODO: Date?
-    private long mMediaPosition; // TODO: not needed?
+    private long mMediaPosition;
     private boolean flag = true; // for toggling status and mediacontroller
     
     @Override
@@ -64,7 +64,10 @@ public class MediaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("Democracy Droid!");
+        // Call setUpPlayer in the onResume override
+    }
 
+    private void setUpPlayer() {
         // ExoPlayer Default Set Up
         //Handler mainHandler = new Handler(); // NOTE: Not needed?
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
@@ -74,7 +77,7 @@ public class MediaActivity extends AppCompatActivity {
         LoadControl loadControl = new DefaultLoadControl();
         // Create Player
         player = ExoPlayerFactory.newSimpleInstance(getApplicationContext(),
-                        trackSelector, loadControl);
+                trackSelector, loadControl);
 
         // ExoPlayer Views
         mVideoView = (SimpleExoPlayerView) findViewById(R.id.media_player);
@@ -100,6 +103,7 @@ public class MediaActivity extends AppCompatActivity {
         player.prepare(mediaSource);
     }
 
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -112,20 +116,21 @@ public class MediaActivity extends AppCompatActivity {
         super.onPause();
         Log.d("Media", "onPause called");
         mMediaPosition = player.getCurrentPosition();
-        //player.release(); // FIXME: can't restart
+        player.release();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         Log.d("Media", "onStop called");
-        //player.release(); // FIXME: can't restart
+        player.release();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Log.d("Media", "onResume called");
+        setUpPlayer();
     }
 
     @Override
@@ -179,11 +184,9 @@ public class MediaActivity extends AppCompatActivity {
     protected void onDestroy() {
         //mVideoView.stopPlayback();
         super.onDestroy();
-        Log.d("Destroy", "Do Destroy");
+        Log.d("onDestroy", "Do Destroy");
         player.release();
     }
-
-
 }
 
 
