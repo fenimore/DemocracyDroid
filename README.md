@@ -19,15 +19,21 @@ I have no affiliation with Democracy Now!
 ## License
 
 - Democracy Droid GPLv3
-- Picasso Apache 2 - http://square.github.io/picasso/
 - Democracy Now! CC BY-NC-ND 3.0 US
+- Picasso Apache 2 - http://square.github.io/picasso/
+- ExoPlayer Apache 2
 - Jsoup MIT
 
 ## Latest Release
 
-2.6.1
+2.7.0
 
 ## Change Log
+
+### 2.7.0
+
+- Fix: Streaming issue
+- Add: Listen with app in the background
 
 ### 2.6.1
 
