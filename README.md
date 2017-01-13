@@ -32,8 +32,8 @@ I have no affiliation with Democracy Now!
 
 ### 2.7.0
 
-- Fix: Streaming issue
-- Add: Listen with app in the background
+- Fix: Streaming Video works perfectly
+- New: Downloads list is reversed
 
 ### 2.6.1
 
