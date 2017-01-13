@@ -48,7 +48,7 @@ public class MediaActivity extends AppCompatActivity {
     // TODO: Description?
     // TODO: Date?
     private long mMediaPosition;
-    private boolean flag = true; // for toggling status and mediacontroller
+    private boolean flag = false; // for toggling status and mediacontroller
     
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,6 +101,7 @@ public class MediaActivity extends AppCompatActivity {
         }
         player.setPlayWhenReady(true);
         player.prepare(mediaSource);
+        hideStatusBar();
     }
 
     @Override
