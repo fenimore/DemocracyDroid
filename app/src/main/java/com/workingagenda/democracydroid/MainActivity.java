@@ -138,26 +138,6 @@ public class MainActivity extends AppCompatActivity {
                 mViewPager.setCurrentItem(tab.getPosition());
             }
         });
-
-/*        // FIXME NOT WORKING
-        // Tutorial for first time users
-        if (PREF_FIRST_TIME) {
-            SharedPreferences.Editor edit = preferences.edit();
-            edit.putBoolean("first_preference", false);
-            edit.commit();
-            Log.d("First time", "WHat" + String.valueOf((PREF_FIRST_TIME)));
-            AlertDialog firstTime = new AlertDialog.Builder(getApplicationContext()).create();
-            // Get Description and Title
-            firstTime.setTitle("First time here?");
-            firstTime.setMessage("Long click an Episode in order to Download or Open in another" +
-                    "application.\n\n\nIf the stream won't work, change where it streams" +
-                    "in the Settings menu.");
-            firstTime.setButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            });
-            firstTime.show();
-        }*/
     }
 
     @Override
