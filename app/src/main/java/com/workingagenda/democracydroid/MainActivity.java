@@ -70,6 +70,8 @@ import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -930,6 +932,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
+            Collections.reverse(inFiles);
             return inFiles;
         }
 
