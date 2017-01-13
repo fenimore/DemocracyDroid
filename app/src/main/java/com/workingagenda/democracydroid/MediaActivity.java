@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -16,14 +17,34 @@ import android.view.View;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.LoadControl;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveVideoTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
+
 /**
  * Created by fen on 8/11/16.
  */
 public class MediaActivity extends AppCompatActivity {
 
-    private VideoView mVideoView;
+    private SimpleExoPlayerView mVideoView;
     private MediaController mMediaController;
-
+    private SimpleExoPlayer player;
 
     private Uri url; // cause all urls are uris
     private String title;
@@ -47,23 +68,45 @@ public class MediaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("Democracy Droid!");
+        // ExoPlayer Default TrackSelector
+        Handler mainHandler = new Handler();
+        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+        TrackSelection.Factory videoFactory = new AdaptiveVideoTrackSelection.Factory(bandwidthMeter);
+        TrackSelector trackSelector = new DefaultTrackSelector(videoFactory);
+        // Load controls
+        LoadControl loadControl = new DefaultLoadControl();
+        // Create Player
+        player = ExoPlayerFactory.newSimpleInstance(getApplicationContext(),
+                        trackSelector, loadControl);
+
         // Views
         mMediaController = new MediaController(this);
-        mVideoView = (VideoView) findViewById(R.id.media_player);
+        mVideoView = (SimpleExoPlayerView) findViewById(R.id.media_player);
+        mVideoView.setPlayer(player);
         mVideoView.requestFocus();
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();
         url = Uri.parse((String) extras.get("url"));
         title = (String) extras.get("title"); // Doesn't work
         getSupportActionBar().setTitle(title);
+        // Set Source
+        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(),
+                Util.getUserAgent(this, "DemocracyDroid"));
+// Produces Extractor instances for parsing the media data.
+        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+
+        MediaSource mediaSource = new ExtractorMediaSource(url,
+                dataSourceFactory, extractorsFactory, null, null);
+        player.prepare(mediaSource);
+
         // Handle Media Playing
-        mVideoView.setVideoURI(url);
+        // mVideoView.setVideoURI(url);
 
         // Media Controller
-        mMediaController.setAnchorView(mVideoView);
-        mVideoView.setMediaController(mMediaController);
+        //mMediaController.setAnchorView(mVideoView);
+        //mVideoView.setMediaController(mMediaController);
 
-        mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+        /*mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {
                 //Log.d("ERROR Duration", String.valueOf(mp.getDuration()));
@@ -72,7 +115,8 @@ public class MediaActivity extends AppCompatActivity {
                 return false;
             }
         });
-
+*/
+/*
         // Hide toolbar once video starts
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -85,7 +129,9 @@ public class MediaActivity extends AppCompatActivity {
                 mVideoView.start();
             }
         });
+*/
     }
+
 
 
 
@@ -101,13 +147,16 @@ public class MediaActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d("Media", "onPause called");
-        mMediaPosition = mVideoView.getCurrentPosition();
+        //mMediaPosition = mVideoView.getCurrentPosition();
+        player.release();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         Log.d("Media", "onStop called");
+        player.release();
     }
 
     @Override
@@ -169,7 +218,8 @@ public class MediaActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        mVideoView.stopPlayback();
+        //mVideoView.stopPlayback();
+        player.release();
         super.onDestroy();
     }
 
