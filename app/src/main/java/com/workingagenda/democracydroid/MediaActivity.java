@@ -1,7 +1,6 @@
 package com.workingagenda.democracydroid;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,11 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.MediaController;
-import android.widget.VideoView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -43,15 +39,15 @@ import com.google.android.exoplayer2.util.Util;
 public class MediaActivity extends AppCompatActivity {
 
     private SimpleExoPlayerView mVideoView;
-    private MediaController mMediaController;
     private SimpleExoPlayer player;
+    private MediaSource mediaSource;
 
     private Uri url; // cause all urls are uris
     private String title;
     private Toolbar toolbar;
     // TODO: Description?
     // TODO: Date?
-    private int mMediaPosition;
+    private long mMediaPosition; // TODO: not needed?
     private boolean flag = true; // for toggling status and mediacontroller
     
     @Override
@@ -68,8 +64,9 @@ public class MediaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("Democracy Droid!");
-        // ExoPlayer Default TrackSelector
-        Handler mainHandler = new Handler();
+
+        // ExoPlayer Default Set Up
+        //Handler mainHandler = new Handler(); // NOTE: Not needed?
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelection.Factory videoFactory = new AdaptiveVideoTrackSelection.Factory(bandwidthMeter);
         TrackSelector trackSelector = new DefaultTrackSelector(videoFactory);
@@ -79,11 +76,11 @@ public class MediaActivity extends AppCompatActivity {
         player = ExoPlayerFactory.newSimpleInstance(getApplicationContext(),
                         trackSelector, loadControl);
 
-        // Views
-        mMediaController = new MediaController(this);
+        // ExoPlayer Views
         mVideoView = (SimpleExoPlayerView) findViewById(R.id.media_player);
         mVideoView.setPlayer(player);
         mVideoView.requestFocus();
+
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();
         url = Uri.parse((String) extras.get("url"));
@@ -92,54 +89,21 @@ public class MediaActivity extends AppCompatActivity {
         // Set Source
         DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(),
                 Util.getUserAgent(this, "DemocracyDroid"));
-// Produces Extractor instances for parsing the media data.
+        // Produces Extractor instances for parsing the media data.
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-
-        MediaSource mediaSource = new ExtractorMediaSource(url,
+        mediaSource = new ExtractorMediaSource(url,
                 dataSourceFactory, extractorsFactory, null, null);
+        if (mMediaPosition != 0) {
+            player.seekTo(mMediaPosition);
+        }
+        player.setPlayWhenReady(true);
         player.prepare(mediaSource);
-
-        // Handle Media Playing
-        // mVideoView.setVideoURI(url);
-
-        // Media Controller
-        //mMediaController.setAnchorView(mVideoView);
-        //mVideoView.setMediaController(mMediaController);
-
-        /*mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-            @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-                //Log.d("ERROR Duration", String.valueOf(mp.getDuration()));
-                Log.d("ERROR Buffer", String.valueOf(mVideoView.getBufferPercentage()));
-                Log.d("ERROR Current Position", String.valueOf(mVideoView.getCurrentPosition()));
-                return false;
-            }
-        });
-*/
-/*
-        // Hide toolbar once video starts
-        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                hideStatusBar();
-                if (mMediaPosition != 0) {
-                    Log.d("MediaPosition", String.valueOf(mMediaPosition));
-                    mVideoView.seekTo(mMediaPosition);
-                }
-                mVideoView.start();
-            }
-        });
-*/
     }
-
-
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //Log.d("Pos", String.valueOf(mMediaPosition));
-        outState.putInt("pos", mMediaPosition);
+        outState.putLong("pos", mMediaPosition);
         Log.d("Saving Inst", String.valueOf(mMediaPosition));
     }
 
@@ -147,16 +111,15 @@ public class MediaActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d("Media", "onPause called");
-        //mMediaPosition = mVideoView.getCurrentPosition();
-        player.release();
-
+        mMediaPosition = player.getCurrentPosition();
+        //player.release(); // FIXME: can't restart
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         Log.d("Media", "onStop called");
-        player.release();
+        //player.release(); // FIXME: can't restart
     }
 
     @Override
@@ -168,12 +131,10 @@ public class MediaActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         switch(e.getAction()) {
-            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_UP:
                 if(flag) {
                     hideStatusBar();
-                    mMediaController.hide();
                 } else {
-                    mMediaController.show(0);
                     getSupportActionBar().show();
                 }
                 flag = !flag;
@@ -200,13 +161,11 @@ public class MediaActivity extends AppCompatActivity {
                 return true;
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
-                // finish(); // instead??
                 return true;
             default:
                 return true;
         }
     }
-
 
     // BTW this is only for Android 4.1 and UP?
     private void hideStatusBar() {
@@ -219,8 +178,9 @@ public class MediaActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         //mVideoView.stopPlayback();
-        player.release();
         super.onDestroy();
+        Log.d("Destroy", "Do Destroy");
+        player.release();
     }
 
 
