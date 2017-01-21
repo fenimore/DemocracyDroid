@@ -610,6 +610,9 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 Log.v("Podcast", "Populating List");
                 if (episodes != null) {
+                    for (int i = 0; i < episodes.size(); i++){
+                        Log.d("Episode:", episodes.get(i).toString());
+                    }
                     populateList(episodes);
                 }
             }

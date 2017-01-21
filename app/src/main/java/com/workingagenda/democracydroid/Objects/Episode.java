@@ -14,6 +14,9 @@ public class Episode {
     private String pubDate;
 
 
+    public String toString() {
+        return  videoUrl + audioUrl;
+    }
 
     public String getPubDate() {
         return pubDate;
