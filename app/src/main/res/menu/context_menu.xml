@@ -9,23 +9,23 @@
         android:orderInCategory="700"
         android:title="Read Description" />
     <item
-        android:id="@+id/action_audio"
+        android:id="reverse_default_media"
         android:orderInCategory="300"
         android:title="Stream" />
     <item
-        android:id="@+id/action_video"
+        android:id="@+id/reverse_default_stream"
         android:orderInCategory="400"
         android:title="Open Elsewhere" />
     <item
-        android:id="@+id/action_download_audio"
+        android:id="@+id/audio_download"
         android:orderInCategory="200"
         android:title="Download Audio" />
     <item
-        android:id="@+id/action_download"
+        android:id="@+id/video_download"
         android:orderInCategory="100"
         android:title="Download Video"/>
     <item
-        android:id="@+id/action_browser"
+        android:id="@+id/open_browser"
         android:orderInCategory="500"
         android:title="@string/action_browser"/>
 </menu>

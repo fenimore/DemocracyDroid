@@ -66,11 +66,9 @@ import com.workingagenda.democracydroid.Feedreader.RssItem;
 import com.workingagenda.democracydroid.Feedreader.RssReader;
 
 import java.io.File;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.TimeZone;
@@ -415,57 +413,24 @@ public class MainActivity extends AppCompatActivity {
                     sendIntent.setType("text/plain");
                     startActivity(sendIntent);
                     return true;
-                case R.id.action_audio: // TODO: refactor - action_otherstream
-                    if (DEFAULT_STREAM == 1) {
-                        if (DEFAULT_OPEN == 0){
-                            Intent intent = new Intent(getContext(), MediaActivity.class);
-                            intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
-                            intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
-                            startActivityForResult(intent, 0); //Activity load = 0
-                        } else {
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
-                            startActivity(intent);
-                        }
-                    } else if (DEFAULT_STREAM == 0) {
-                        if (DEFAULT_OPEN == 0){
-                            Intent intent = new Intent(getContext(), MediaActivity.class);
-                            intent.putExtra("url", e.getAudioUrl()); //can't pass in article object?
-                            intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
-                            startActivityForResult(intent, 0); //Activity load = 0
-                        } else {
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setDataAndType(Uri.parse(e.getAudioUrl()), "*/*");
-                            startActivity(intent);
-                        }
-                    }
-                    return true;
-                case R.id.action_video: // TODO: refactor - action_stream-otherwise
+                case R.id.reverse_default_media: // TODO: refactor - action_otherstream
                     if (DEFAULT_STREAM == 0) {
-                        if (DEFAULT_OPEN == 1){
-                            Intent intent = new Intent(getContext(), MediaActivity.class);
-                            intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
-                            intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
-                            startActivityForResult(intent, 0); //Activity load = 0
-                        } else {
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
-                            startActivity(intent);
-                        }
-                    } else if (DEFAULT_STREAM == 1) {
-                        if (DEFAULT_OPEN == 1){
-                            Intent intent = new Intent(getContext(), MediaActivity.class);
-                            intent.putExtra("url", e.getAudioUrl()); //can't pass in article object?
-                            intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
-                            startActivityForResult(intent, 0); //Activity load = 0
-                        } else {
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setDataAndType(Uri.parse(e.getAudioUrl()), "*/*");
-                            startActivity(intent);
-                        }
+                        startMediaIntent(e.getAudioUrl(), DEFAULT_OPEN, actionTitle);
+                    } else {
+                        startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
                     }
                     return true;
-                case R.id.action_download_audio:
+                case R.id.reverse_default_stream: // TODO: refactor - action_stream-otherwise
+                    int reverseOpen = DEFAULT_OPEN == 0 ? 1 : 0;
+                    if (DEFAULT_STREAM == 0) {
+                        startMediaIntent(e.getVideoUrl(), reverseOpen, actionTitle);
+                    } else {
+                        startMediaIntent(e.getAudioUrl(), reverseOpen, actionTitle);
+                    }
+                    return true;
+                case R.id.audio_download:
+                    if (e.getTitle() == "Stream Live")
+                        return true;
                     Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
                     return true;
                 case R.id.action_description:
@@ -480,10 +445,12 @@ public class MainActivity extends AppCompatActivity {
                     });
                     description.show();
                     return true;
-                case R.id.action_download:
+                case R.id.video_download:
+                    if (e.getTitle() == "Stream Live")
+                        return true;
                     Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
                     return true;
-                case R.id.action_browser:
+                case R.id.open_browser:
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setDataAndType(Uri.parse(e.getUrl()), "*/*");
                     startActivity(intent);
