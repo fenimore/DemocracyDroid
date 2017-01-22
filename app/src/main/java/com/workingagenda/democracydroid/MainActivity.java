@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         private TextView mTxt;
         private ProgressBar mBar;
         private EpisodeAdapter episodeAdapter;
-        private int LIVE_TIME = 8;
+        private int LIVE_TIME = 8;// TODO: const
 
         private SwipeRefreshLayout mySwipeRefreshLayout;
 
@@ -325,21 +325,16 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     // FIXME: live streaming is broke, open in another browser
-                    if (e.getTitle() == "Stream Live"){
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
-                        startActivity(intent);
-                    }
-
+                    if (e.getTitle().equals("Stream Live"))
+                        startMediaIntent(e.getVideoUrl(), 1, e.getTitle());
                     // Default Stream :
                     // 0 => Video stream 1 => Audio stream
                     // Default Open:
                     // 0 => In App / 1 => external app
-                    if (DEFAULT_STREAM == 0) {
+                    if (DEFAULT_STREAM == 0)
                         startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
-                    } else if (DEFAULT_STREAM == 1) {
+                    if (DEFAULT_STREAM == 1)
                         startMediaIntent(e.getAudioUrl(), DEFAULT_OPEN, actionTitle);
-                    }
                 }
             });
             return rootView;
@@ -471,6 +466,7 @@ public class MainActivity extends AppCompatActivity {
         private class GetVideoFeed extends AsyncTask<String, Void, Void> {
             @Override
             protected Void doInBackground(String... params) {
+                Log.d("GetVideo", params[0]);
                 try {
                     episodes = parseVideoFeed(params[0]);
                 } catch (Exception e) {
@@ -500,7 +496,7 @@ public class MainActivity extends AppCompatActivity {
                 episodes.add(e);
             }
             return checkLiveStream(episodes); // and add video in link
-                                                  // not yet in RSS feed ;)
+                                              // not yet in RSS feed ;)
         }
 
         private ArrayList<Episode> checkLiveStream(ArrayList<Episode> episodes) {
@@ -513,18 +509,18 @@ public class MainActivity extends AppCompatActivity {
                     + formattedDate + ".mp4";
             String today_audio = "https://traffic.libsyn.com/democracynow/dn"
                     + formattedDate + "-1.mp3";
-
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
             int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
             if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY)
                 return episodes;
             if (today_video.equals(episodes.get(0).getVideoUrl()))
                 return episodes;
+            if (hourOfDay < LIVE_TIME)
+                return episodes;
             // Get the missing episode
             // TODO: test for early morning feed
             Episode episode = getUnlistedStream(hourOfDay, today_audio, today_video);
-            if (episode != null )
-                episodes.add(0, episode);
+            episodes.add(0, episode);
             return episodes;
         }
 
@@ -558,27 +554,26 @@ public class MainActivity extends AppCompatActivity {
             protected Void doInBackground(String... params) {
                 RssReader rssReader = new RssReader(params[0]);
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
-                TimeZone timeZone = TimeZone.getTimeZone("GMT-400");
+                TimeZone timeZone = TimeZone.getTimeZone("GMT-500");
                 Calendar c = Calendar.getInstance(timeZone);
                 String formattedDate = format.format(c.getTime());
                 String today_audio = "https://traffic.libsyn.com/democracynow/dn"
                         + formattedDate + "-1.mp3";
                 int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
                 int hourOfDay= c.get(Calendar.HOUR_OF_DAY);
-                ArrayList<String> audio = new ArrayList<>(episodes.size()+1);
+                ArrayList<String> audio = new ArrayList<>();
                 try {
                     for(RssItem item : rssReader.getItems())
                         audio.add(item.getVideoUrl());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                if ( LIVE_TIME == hourOfDay)
-                    episodes.get(0).setAudioUrl("http://democracynow.videocdn.scaleengine.net/" +
+                boolean valid = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > LIVE_TIME);
+                if ( hourOfDay == LIVE_TIME)
+                    audio.add(0, "http://democracynow.videocdn.scaleengine.net/" +
                             "democracynow-iphone/play/democracynow/playlist.m3u8");
-                boolean valid = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > 8);
                 if (!audio.get(0).equals(today_audio) && valid) // check rather if field is empty?
                     audio.add(0, today_audio);
-                Log.d("Aduio", audio.toString());
                 for (int i =0; i < episodes.size(); i++)
                     episodes.get(i).setAudioUrl(audio.get(i));
                 return null;
