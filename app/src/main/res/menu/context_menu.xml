@@ -3,27 +3,27 @@
     <item
         android:id="@+id/action_share"
         android:orderInCategory="600"
-        android:title="Share Link" />
+        android:title="@string/share_link" />
     <item
         android:id="@+id/action_description"
         android:orderInCategory="700"
-        android:title="Read Description" />
+        android:title="@string/read_description" />
     <item
         android:id="reverse_default_media"
         android:orderInCategory="300"
-        android:title="Stream" />
+        android:title="@string/stream" />
     <item
         android:id="@+id/reverse_default_stream"
         android:orderInCategory="400"
-        android:title="Open Elsewhere" />
+        android:title="@string/open_elsewhere" />
     <item
         android:id="@+id/audio_download"
         android:orderInCategory="200"
-        android:title="Download Audio" />
+        android:title="@string/download_audio" />
     <item
         android:id="@+id/video_download"
         android:orderInCategory="100"
-        android:title="Download Video"/>
+        android:title="@string/download_video"/>
     <item
         android:id="@+id/open_browser"
         android:orderInCategory="500"

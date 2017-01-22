@@ -428,11 +428,6 @@ public class MainActivity extends AppCompatActivity {
                         startMediaIntent(e.getAudioUrl(), reverseOpen, actionTitle);
                     }
                     return true;
-                case R.id.audio_download:
-                    if (e.getTitle() == "Stream Live")
-                        return true;
-                    Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
-                    return true;
                 case R.id.action_description:
                     AlertDialog description = new AlertDialog.Builder(getContext()).create();
                     // Get Description and Title
@@ -449,6 +444,11 @@ public class MainActivity extends AppCompatActivity {
                     if (e.getTitle() == "Stream Live")
                         return true;
                     Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
+                    return true;
+                case R.id.audio_download:
+                    if (e.getTitle() == "Stream Live")
+                        return true;
+                    Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
                     return true;
                 case R.id.open_browser:
                     Intent intent = new Intent(Intent.ACTION_VIEW);
