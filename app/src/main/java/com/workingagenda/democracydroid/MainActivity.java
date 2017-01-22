@@ -472,23 +472,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(String... params) {
                 try {
-                    RssReader rssReader = new RssReader(params[0]);
-                    for(RssItem item : rssReader.getItems()){
-                        Episode e = new Episode();
-                        e.setTitle(item.getTitle());
-                        e.setVideoUrl(item.getVideoUrl());
-                        e.setDescription(item.getDescription());
-                        e.setImageUrl(item.getImageUrl());
-                        e.setUrl(item.getLink());
-                        episodes.add(e);
-                    }
-                    episodes = checkLiveStream(episodes); // and add video in link
-                                                          // not yet in RSS feed ;)
+                    episodes = parseVideoFeed(params[0]);
                 } catch (Exception e) {
-                    Log.v("Error Parsing Data", e + "");
+                    e.printStackTrace();
                 }
                 return null;
             }
+
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
@@ -498,53 +488,76 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        private ArrayList<Episode> checkLiveStream(ArrayList<Episode> episodes){
+        private ArrayList<Episode> parseVideoFeed(String url) throws Exception {
+            RssReader rssReader = new RssReader(url);
+            for(RssItem item : rssReader.getItems()){
+                Episode e = new Episode();
+                e.setTitle(item.getTitle());
+                e.setVideoUrl(item.getVideoUrl());
+                e.setDescription(item.getDescription());
+                e.setImageUrl(item.getImageUrl());
+                e.setUrl(item.getLink());
+                episodes.add(e);
+            }
+            return checkLiveStream(episodes); // and add video in link
+                                                  // not yet in RSS feed ;)
+        }
+
+        private ArrayList<Episode> checkLiveStream(ArrayList<Episode> episodes) {
             // Make it Pretty, and NY eastern Time
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
             TimeZone timeZone = TimeZone.getTimeZone("GMT-500");
             Calendar c = Calendar.getInstance(timeZone);
             String formattedDate = format.format(c.getTime());
-            // Some Variables fo' later
+            String today_video = "https://publish.dvlabs.com/democracynow/video-podcast/dn"
+                    + formattedDate + ".mp4";
+            String today_audio = "https://traffic.libsyn.com/democracynow/dn"
+                    + formattedDate + "-1.mp3";
+
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-            int hourOfDay= c.get(Calendar.HOUR_OF_DAY);
-
-            if ( dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY ){
-                String today_video = "https://publish.dvlabs.com/democracynow/video-podcast/dn"
-                        + formattedDate + ".mp4";
-                String today_audio = "https://traffic.libsyn.com/democracynow/dn"
-                        + formattedDate + "-1.mp3";
-                if (!today_video.equals(episodes.get(0).getVideoUrl())){
-                    Log.d("Today", today_video);
-                    Log.d("Latest", episodes.get(0).getVideoUrl());
-                    // Live Stream
-                    if ( LIVE_TIME == hourOfDay ){
-                        Log.d("YO it's time for live", "stream");
-                        Episode live = new Episode();
-                        live.setTitle("Stream Live");//"Stream Live");
-                        live.setVideoUrl("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/" +
-                                "play/democracynow/playlist.m3u8");
-                        live.setDescription("Stream Live between 8 and 9 weekdays Eastern time");
-                        live.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/" +
-                                "Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
-                        live.setUrl("http://m.democracynow.org/");
-                        episodes.add(0, live);
-                    } else if ( hourOfDay > 8) {
-                        // Add Todays Broadcast even if RSS feed isn't updated yet
-                        Episode todays_episode = new Episode();
-                        todays_episode.setTitle("Today's Broadcast");
-                        todays_episode.setVideoUrl(today_video);
-                        todays_episode.setAudioUrl(today_audio);
-                        todays_episode.setDescription("Watch Today's broadcast (it isn't yet added to the RSS feed");
-                        todays_episode.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/" +
-                                "0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
-                        todays_episode.setUrl("https://democracynow.org");
-                        episodes.add(0, todays_episode);
-                    }
-                }
-            }
-
+            int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
+            if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY)
+                return episodes;
+            if (today_video.equals(episodes.get(0).getVideoUrl()))
+                return episodes;
+            // Get the missing episode
+            // TODO: test for early morning feed
+            Episode episode = getUnlistedStream(hourOfDay, today_audio, today_video);
+            if (episode != null )
+                episodes.add(0, episode);
             return episodes;
         }
+
+
+
+        private Episode getUnlistedStream(int hour, String today_audio, String today_video){
+            //Log.d("Today", today_video);//Log.d("Latest", episodes.get(0).getVideoUrl());
+            // Live Stream
+            Episode todays_episode = new Episode();
+            if ( LIVE_TIME == hour ){
+                Log.d("YO it's time for live", "stream");
+                todays_episode.setTitle("Stream Live");//"Stream Live");
+                todays_episode.setVideoUrl("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/" +
+                        "play/democracynow/playlist.m3u8");
+                todays_episode.setDescription("Stream Live between 8 and 9 weekdays Eastern time");
+                todays_episode.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/" +
+                        "Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
+                todays_episode.setUrl("http://m.democracynow.org/");
+                //episodes.add(0, live);
+            } else if ( hour > 8) {
+                // Add Todays Broadcast even if RSS feed isn't updated yet
+                todays_episode.setTitle("Today's Broadcast");
+                todays_episode.setVideoUrl(today_video);
+                todays_episode.setAudioUrl(today_audio);
+                todays_episode.setDescription("Watch Today's broadcast (it isn't yet added to the RSS feed");
+                todays_episode.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/" +
+                        "0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
+                todays_episode.setUrl("https://democracynow.org");
+            }
+            return todays_episode;
+        }
+
+
 
         private class GetAudioFeed extends AsyncTask<String, Void, Void> {
             @Override
