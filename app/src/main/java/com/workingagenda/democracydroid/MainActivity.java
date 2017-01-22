@@ -909,7 +909,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-            Collections.reverse(inFiles);
+            // Collections.reverse(inFiles);
             return inFiles;
         }
 
