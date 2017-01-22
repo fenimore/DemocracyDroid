@@ -49,6 +49,7 @@
     <string name="stream">Stream</string>
     <string name="read_description">Read Description</string>
     <string name="share_link">Share Link</string>
+    <string name="email_dev">Email the developer</string>
     <string-array name="Language">
         <item>English (US)</item>
         <item>English (UK)</item>

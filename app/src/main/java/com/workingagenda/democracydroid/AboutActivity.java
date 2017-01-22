@@ -54,6 +54,7 @@ public class AboutActivity extends AppCompatActivity {
 
         btnRev = (Button) findViewById(R.id.reviewButton);
         btnSrc = (Button) findViewById(R.id.sourceButton);
+        Button btnMail = (Button) findViewById(R.id.emailButton);
 
         btnRev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +86,20 @@ public class AboutActivity extends AppCompatActivity {
                         Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
                         Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 startActivity(goToSource);
+            }
+        });
+
+        btnMail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] addresses = new String[1];
+                addresses[0] = "exorable.ludos@gmail.com";
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("*/*");
+                intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Democracy Droid Support");
+                intent.putExtra(Intent.EXTRA_TEXT, "Hi Fenimore,");
+                startActivity(intent);
             }
         });
 

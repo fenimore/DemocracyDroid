@@ -73,6 +73,11 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/emailButton"
+                android:text="@string/email_dev"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/sourceButton"
                 android:text="@string/source"/>
         </LinearLayout>
