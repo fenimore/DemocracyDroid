@@ -71,6 +71,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
@@ -441,12 +442,12 @@ public class MainActivity extends AppCompatActivity {
                     description.show();
                     return true;
                 case R.id.video_download:
-                    if (e.getTitle() == "Stream Live")
+                    if (e.getTitle().equals("Stream Live"))
                         return true;
                     Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
                     return true;
                 case R.id.audio_download:
-                    if (e.getTitle() == "Stream Live")
+                    if (e.getTitle().equals("Stream Live"))
                         return true;
                     Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
                     return true;
@@ -512,7 +513,7 @@ public class MainActivity extends AppCompatActivity {
                     if ( LIVE_TIME == hourOfDay ){
                         Log.d("YO it's time for live", "stream");
                         Episode live = new Episode();
-                        live.setTitle("Stream Live");
+                        live.setTitle("Stream Live");//"Stream Live");
                         live.setVideoUrl("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/" +
                                 "play/democracynow/playlist.m3u8");
                         live.setDescription("Stream Live between 8 and 9 weekdays Eastern time");

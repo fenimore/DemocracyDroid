@@ -9,7 +9,7 @@
         android:orderInCategory="700"
         android:title="@string/read_description" />
     <item
-        android:id="reverse_default_media"
+        android:id="@+id/reverse_default_media"
         android:orderInCategory="300"
         android:title="@string/stream" />
     <item
