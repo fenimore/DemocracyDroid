@@ -5,8 +5,8 @@
     android:orientation="horizontal" >
     <ImageView
         android:id="@+id/row_image"
-        android:layout_height="72dp"
-        android:layout_width="wrap_content"
+        android:layout_height="73dp"
+        android:layout_width="130dp"
         android:adjustViewBounds="true"
         android:layout_marginRight="5dp" />
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
