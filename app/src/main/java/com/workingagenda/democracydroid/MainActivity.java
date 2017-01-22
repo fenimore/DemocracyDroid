@@ -528,40 +528,35 @@ public class MainActivity extends AppCompatActivity {
             return episodes;
         }
 
-
-
         private Episode getUnlistedStream(int hour, String today_audio, String today_video){
             //Log.d("Today", today_video);//Log.d("Latest", episodes.get(0).getVideoUrl());
             // Live Stream
             Episode todays_episode = new Episode();
+            todays_episode.setDescription("Stream Live between 8 and 9 weekdays Eastern time, " +
+                    "the War and Peace Report");
+            todays_episode.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/" +
+                    "Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
+            todays_episode.setUrl("http://m.democracynow.org/");
             if ( LIVE_TIME == hour ){
                 Log.d("YO it's time for live", "stream");
                 todays_episode.setTitle("Stream Live");//"Stream Live");
                 todays_episode.setVideoUrl("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/" +
                         "play/democracynow/playlist.m3u8");
-                todays_episode.setDescription("Stream Live between 8 and 9 weekdays Eastern time");
-                todays_episode.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/" +
-                        "Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
-                todays_episode.setUrl("http://m.democracynow.org/");
-                //episodes.add(0, live);
+                todays_episode.setAudioUrl("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/" +
+                        "play/democracynow/playlist.m3u8");
             } else if ( hour > 8) {
                 // Add Todays Broadcast even if RSS feed isn't updated yet
                 todays_episode.setTitle("Today's Broadcast");
                 todays_episode.setVideoUrl(today_video);
                 todays_episode.setAudioUrl(today_audio);
-                todays_episode.setDescription("Watch Today's broadcast (it isn't yet added to the RSS feed");
-                todays_episode.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/" +
-                        "0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
-                todays_episode.setUrl("https://democracynow.org");
             }
             return todays_episode;
         }
 
-
-
         private class GetAudioFeed extends AsyncTask<String, Void, Void> {
             @Override
             protected Void doInBackground(String... params) {
+                RssReader rssReader = new RssReader(params[0]);
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
                 TimeZone timeZone = TimeZone.getTimeZone("GMT-400");
                 Calendar c = Calendar.getInstance(timeZone);
@@ -570,28 +565,21 @@ public class MainActivity extends AppCompatActivity {
                         + formattedDate + "-1.mp3";
                 int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
                 int hourOfDay= c.get(Calendar.HOUR_OF_DAY);
+                ArrayList<String> audio = new ArrayList<>(episodes.size()+1);
                 try {
-                    RssReader rssReader = new RssReader(params[0]);
-                    int j = 0; // ?set the first index dynamically
-                    if ( LIVE_TIME == hourOfDay){
-                        j = 1;
-                        episodes.get(0).setAudioUrl("http://democracynow.videocdn.scaleengine.net/" +
-                                "democracynow-iphone/play/democracynow/playlist.m3u8");
-                    } else  if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > 8){
-                        if (!rssReader.getItems().get(0).getVideoUrl().equals(today_audio)) {
-                            j = 1;
-                            episodes.get(0).setAudioUrl(today_audio);
-                        }
-                    }
-                    for(RssItem item : rssReader.getItems()){
-                        episodes.get(j).setAudioUrl(item.getVideoUrl()); // Video here means audio
-                        // NOTE: Audio Feed must be called after GetVideoFeed
-                        // Otherwise the episodes objects wont be there
-                        j++;
-                    }
+                    for(RssItem item : rssReader.getItems())
+                        audio.add(item.getVideoUrl());
                 } catch (Exception e) {
-                    Log.v("Error Parsing Data", e + "");
-
+                    e.printStackTrace();
+                }
+                if ( LIVE_TIME == hourOfDay)
+                    episodes.get(0).setAudioUrl("http://democracynow.videocdn.scaleengine.net/" +
+                            "democracynow-iphone/play/democracynow/playlist.m3u8");
+                boolean notValid = (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY  || hourOfDay < 8);
+                if (!audio.get(0).equals(today_audio) && notValid) // check rather if field is empty?
+                    audio.add(0, today_audio);
+                for (int i =0; i < episodes.size()+1; i++) {
+                    episodes.get(i).setAudioUrl(audio.get(i));
                 }
                 return null;
             }
