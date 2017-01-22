@@ -326,37 +326,41 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    // FIXME: Doesn't stream well in MediaPlay
+                    // FIXME: live streaming is broke, open in another browser
+                    if (e.getTitle() == "Stream Live"){
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
+                        startActivity(intent);
+                    }
+
                     // Default Stream :
                     // 0 => Video stream 1 => Audio stream
-                    // Deafult Open:
+                    // Default Open:
                     // 0 => In App / 1 => external app
                     if (DEFAULT_STREAM == 0) {
-                        if (DEFAULT_OPEN == 0){
-                            Intent intent = new Intent(getContext(), MediaActivity.class);
-                            intent.putExtra("url", e.getVideoUrl()); //can't pass in article object?
-                            intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
-                            startActivityForResult(intent, 0); //Activity load = 0
-                        } else {
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setDataAndType(Uri.parse(e.getVideoUrl()), "*/*");
-                            startActivity(intent);
-                        }
+                        startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
                     } else if (DEFAULT_STREAM == 1) {
-                        if (DEFAULT_OPEN == 0){
-                            Intent intent = new Intent(getContext(), MediaActivity.class);
-                            intent.putExtra("url", e.getAudioUrl()); //can't pass in article object?
-                            intent.putExtra("title", actionTitle); // Can parseable it, but not worth it
-                            startActivityForResult(intent, 0); //Activity load = 0
-                        } else {
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setDataAndType(Uri.parse(e.getAudioUrl()), "*/*");
-                            startActivity(intent);
-                        }
+                        startMediaIntent(e.getAudioUrl(), DEFAULT_OPEN, actionTitle);
                     }
                 }
             });
             return rootView;
+        }
+
+        // start an activity either in this pap or another -- pass in either video
+        // or audio stream.
+        private void startMediaIntent(String url, int externalApp, String title) {
+            // pass in the URL if either audio or video (make check above)
+            if (externalApp == 0) {
+                Intent intent = new Intent(getContext(), MediaActivity.class);
+                intent.putExtra("url", url); //can't pass in article object?
+                intent.putExtra("title", title); // Can parseable it, but not worth it
+                startActivityForResult(intent, 0); //Activity load = 0
+            } else {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.parse(url), "*/*");
+                startActivity(intent);
+            }
         }
 
         @Override
@@ -580,13 +584,12 @@ public class MainActivity extends AppCompatActivity {
                 int hourOfDay= c.get(Calendar.HOUR_OF_DAY);
                 try {
                     RssReader rssReader = new RssReader(params[0]);
-                    int j = 0;
+                    int j = 0; // ?set the first index dynamically
                     if ( LIVE_TIME == hourOfDay){
                         j = 1;
                         episodes.get(0).setAudioUrl("http://democracynow.videocdn.scaleengine.net/" +
                                 "democracynow-iphone/play/democracynow/playlist.m3u8");
-                    }
-                    if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > 8){
+                    } else  if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > 8){
                         if (!rssReader.getItems().get(0).getVideoUrl().equals(today_audio)) {
                             j = 1;
                             episodes.get(0).setAudioUrl(today_audio);
