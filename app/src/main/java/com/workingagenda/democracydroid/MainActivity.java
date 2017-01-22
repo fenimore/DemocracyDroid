@@ -324,16 +324,17 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    // FIXME: live streaming is broke, open in another browser
-                    if (e.getTitle().equals("Stream Live"))
-                        startMediaIntent(e.getVideoUrl(), 1, e.getTitle());
+                    Log.d("Live", e.getVideoUrl() + String.valueOf(e.getVideoUrl().contains("m3u8")));
+
                     // Default Stream :
                     // 0 => Video stream 1 => Audio stream
                     // Default Open:
                     // 0 => In App / 1 => external app
-                    if (DEFAULT_STREAM == 0)
+                    if (e.getVideoUrl().contains("m3u8"))// FIXME: live streaming is broke, open in another browser
+                        startMediaIntent(e.getVideoUrl(), 1, e.getTitle());
+                    else if (DEFAULT_STREAM == 0)
                         startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
-                    if (DEFAULT_STREAM == 1)
+                    else if (DEFAULT_STREAM == 1)
                         startMediaIntent(e.getAudioUrl(), DEFAULT_OPEN, actionTitle);
                 }
             });
@@ -412,14 +413,15 @@ public class MainActivity extends AppCompatActivity {
                     sendIntent.setType("text/plain");
                     startActivity(sendIntent);
                     return true;
-                case R.id.reverse_default_media: // TODO: refactor - action_otherstream
-                    if (DEFAULT_STREAM == 0) {
+                case R.id.reverse_default_media:
+                    if (e.getVideoUrl().contains("m3u8"))// FIXME: live streaming is broke, open in another browser
+                        startMediaIntent(e.getAudioUrl(), 1, e.getTitle());
+                    else if (DEFAULT_STREAM == 0)
                         startMediaIntent(e.getAudioUrl(), DEFAULT_OPEN, actionTitle);
-                    } else {
+                    else
                         startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
-                    }
                     return true;
-                case R.id.reverse_default_open: // TODO: refactor - action_stream-otherwise
+                case R.id.reverse_default_open:
                     int reverseOpen = 0;
                     if (reverseOpen == DEFAULT_OPEN)
                         reverseOpen = 1;
