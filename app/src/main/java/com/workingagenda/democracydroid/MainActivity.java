@@ -575,12 +575,12 @@ public class MainActivity extends AppCompatActivity {
                 if ( LIVE_TIME == hourOfDay)
                     episodes.get(0).setAudioUrl("http://democracynow.videocdn.scaleengine.net/" +
                             "democracynow-iphone/play/democracynow/playlist.m3u8");
-                boolean notValid = (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY  || hourOfDay < 8);
-                if (!audio.get(0).equals(today_audio) && notValid) // check rather if field is empty?
+                boolean valid = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > 8);
+                if (!audio.get(0).equals(today_audio) && valid) // check rather if field is empty?
                     audio.add(0, today_audio);
-                for (int i =0; i < episodes.size()+1; i++) {
+                Log.d("Aduio", audio.toString());
+                for (int i =0; i < episodes.size(); i++)
                     episodes.get(i).setAudioUrl(audio.get(i));
-                }
                 return null;
             }
 
