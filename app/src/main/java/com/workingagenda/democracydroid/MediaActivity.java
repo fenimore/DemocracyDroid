@@ -44,6 +44,7 @@ public class MediaActivity extends AppCompatActivity {
 
     private Uri url; // cause all urls are uris
     private String title;
+    private String path;
     private Toolbar toolbar;
     // TODO: Description?
     // TODO: Date?
@@ -86,7 +87,8 @@ public class MediaActivity extends AppCompatActivity {
 
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();
-        url = Uri.parse((String) extras.get("url"));
+        path = (String) extras.get("url");
+        url = Uri.parse(path);
         title = (String) extras.get("title"); // Doesn't work
         getSupportActionBar().setTitle(title);
         // Set Source
@@ -101,7 +103,9 @@ public class MediaActivity extends AppCompatActivity {
         }
         player.setPlayWhenReady(true);
         player.prepare(mediaSource);
-        hideStatusBar();
+
+        if (!path.contains(".mp3"))
+            hideStatusBar();
     }
 
     @Override
@@ -137,11 +141,12 @@ public class MediaActivity extends AppCompatActivity {
     public boolean onTouchEvent(MotionEvent e) {
         switch(e.getAction()) {
             case MotionEvent.ACTION_UP:
-                if(flag) {
+                if (path.contains(".mp3"))
+                    return true;
+                if(flag)
                     hideStatusBar();
-                } else {
+                else
                     getSupportActionBar().show();
-                }
                 flag = !flag;
                 return true;
         }
