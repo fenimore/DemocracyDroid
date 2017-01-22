@@ -13,17 +13,17 @@
             android:entries="@array/tabsAlias"
             android:entryValues="@array/tabs" />
         <ListPreference
-            android:key="open_preference"
-            android:title="@string/open_stream"
-            android:summary="Open Stream In %s"
-            android:entries="@array/openAlias"
-            android:entryValues="@array/open" />
-        <ListPreference
             android:key="stream_preference"
             android:title="@string/setting_stream"
             android:summary="%s Stream"
             android:entries="@array/streamAlias"
             android:entryValues="@array/stream" />
+        <ListPreference
+            android:key="open_preference"
+            android:title="@string/open_stream"
+            android:summary="Open Stream In %s"
+            android:entries="@array/openAlias"
+            android:entryValues="@array/open" />
         <CheckBoxPreference
             android:key="wifi_preference"
             android:title="@string/setting_wifi"

@@ -42,7 +42,7 @@
     <string name="whatsnew">
         Streaming videos now works perfectly!
     </string>
-    <string name="open_stream">Open Stream In Which Application</string>
+    <string name="open_stream">Default Application to Play Media</string>
     <string name="download_video">Download Video</string>
     <string name="download_audio">Download Audio</string>
     <string name="open_elsewhere">Open Elsewhere</string>

@@ -71,7 +71,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
@@ -372,16 +371,18 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                 int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
                 int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
+                Log.d("Contex", menu.getItem(2).toString());
+                Log.d("Contex", menu.getItem(3).toString());
                 if (DEFAULT_STREAM == 0) {
-                    menu.getItem(3).setTitle("Stream Audio");
+                    menu.getItem(2).setTitle("Stream Audio");
                 } else {
-                    menu.getItem(3).setTitle("Stream Video");
+                    menu.getItem(2).setTitle("Stream Video");
                 }
 
                 if(DEFAULT_OPEN == 0) {
-                    menu.getItem(2).setTitle("Stream in Another App");
+                    menu.getItem(3).setTitle("Stream in Another App");
                 } else {
-                    menu.getItem(2).setTitle("Stream in This App");
+                    menu.getItem(3).setTitle("Stream in This App");
                 }
 
             }
@@ -405,6 +406,8 @@ public class MainActivity extends AppCompatActivity {
                     actionTitle = e.getTitle();
                 }
             }
+            Log.d("Itemid", String.valueOf(item.getItemId()));
+            Log.d("Itemid", String.valueOf(R.id.reverse_default_open));
             switch(item.getItemId()) {
                 case R.id.action_share:
                     Intent sendIntent = new Intent();
@@ -421,8 +424,12 @@ public class MainActivity extends AppCompatActivity {
                         startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
                     }
                     return true;
-                case R.id.reverse_default_stream: // TODO: refactor - action_stream-otherwise
-                    int reverseOpen = DEFAULT_OPEN == 0 ? 1 : 0;
+                case R.id.reverse_default_open: // TODO: refactor - action_stream-otherwise
+                    int reverseOpen = 0;
+                    if (reverseOpen == DEFAULT_OPEN)
+                        reverseOpen = 1;
+                    Log.d("Open", String.valueOf(reverseOpen));
+                    Log.d("Open", String.valueOf(DEFAULT_OPEN));
                     if (DEFAULT_STREAM == 0) {
                         startMediaIntent(e.getVideoUrl(), reverseOpen, actionTitle);
                     } else {

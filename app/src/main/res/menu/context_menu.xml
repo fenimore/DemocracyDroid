@@ -13,7 +13,7 @@
         android:orderInCategory="300"
         android:title="@string/stream" />
     <item
-        android:id="@+id/reverse_default_stream"
+        android:id="@+id/reverse_default_open"
         android:orderInCategory="400"
         android:title="@string/open_elsewhere" />
     <item
