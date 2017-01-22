@@ -26,9 +26,18 @@ I have no affiliation with Democracy Now!
 
 ## Latest Release
 
-2.7.0
+2.8.5
 
 ## Change Log
+
+### 2.8.5
+
+- Fix: Streaming Video
+- Fix: Mislabelled menu options
+- Fix: Live and audio links
+- New: Downloads list is reversed
+- New: Audio toolbar doesn't disappear
+- Add: Email button in About page
 
 ### 2.7.0
 
@@ -69,7 +78,7 @@ I have no affiliation with Democracy Now!
 - [ ] Add Spanish Language Feed
 - [ ] Add empty screen for podcast feed
 - [ ] Stream while downloading
-- [ ] Fix the Bugs.
+- [x] Fix the Bugs.
 - [ ] Add listview buttons
 - [ ] Add Stories downloads?
 - [ ] (More) Parse Downloaded File Label

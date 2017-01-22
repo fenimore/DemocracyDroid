@@ -367,20 +367,16 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                 int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
                 int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
-                Log.d("Contex", menu.getItem(2).toString());
-                Log.d("Contex", menu.getItem(3).toString());
-                if (DEFAULT_STREAM == 0) {
+
+                if (DEFAULT_STREAM == 0)
                     menu.getItem(2).setTitle("Stream Audio");
-                } else {
+                else
                     menu.getItem(2).setTitle("Stream Video");
-                }
 
-                if(DEFAULT_OPEN == 0) {
+                if(DEFAULT_OPEN == 0)
                     menu.getItem(3).setTitle("Stream in Another App");
-                } else {
+                else
                     menu.getItem(3).setTitle("Stream in This App");
-                }
-
             }
         }
 
