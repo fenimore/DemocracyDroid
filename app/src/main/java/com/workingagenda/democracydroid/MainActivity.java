@@ -178,15 +178,12 @@ public class MainActivity extends AppCompatActivity {
             // Call Fragment refresh methods
             getSupportFragmentManager().getFragments();
             for(Fragment x :getSupportFragmentManager().getFragments()){
-                if (x instanceof PodcastFragment) {
+                if (x instanceof PodcastFragment)
                     ((PodcastFragment) x).refresh();
-                }
-                if (x instanceof StoryFragment) {
+                if (x instanceof StoryFragment)
                     ((StoryFragment) x).refresh();
-                }
-                if (x instanceof DownloadFragment) {
+                if (x instanceof DownloadFragment)
                     ((DownloadFragment) x).refresh();
-                }
             }
             // FIXME: Somehow enable this after async call...
             item.setEnabled(true);
@@ -315,13 +312,12 @@ public class MainActivity extends AppCompatActivity {
                     // Set the Title for Toolbar
                     String actionTitle = "Democracy Now!";
                     if (e.getTitle().length() > 16){
-                        if(e.getTitle() == "Today's Broadcast"){
+                        if(e.getTitle() == "Today's Broadcast")
                             actionTitle = e.getTitle();
-                        } else if (e.getTitle().startsWith("Democracy Now!")){
+                        else if (e.getTitle().startsWith("Democracy Now!"))
                             actionTitle = e.getTitle().substring(14);
-                        } else {
+                        else
                             actionTitle = e.getTitle();
-                        }
                     }
 
                     Log.d("Live", e.getVideoUrl() + String.valueOf(e.getVideoUrl().contains("m3u8")));
@@ -423,11 +419,10 @@ public class MainActivity extends AppCompatActivity {
                         reverseOpen = 1;
                     Log.d("Open", String.valueOf(reverseOpen));
                     Log.d("Open", String.valueOf(DEFAULT_OPEN));
-                    if (DEFAULT_STREAM == 0) {
+                    if (DEFAULT_STREAM == 0)
                         startMediaIntent(e.getVideoUrl(), reverseOpen, actionTitle);
-                    } else {
+                    else
                         startMediaIntent(e.getAudioUrl(), reverseOpen, actionTitle);
-                    }
                     return true;
                 case R.id.action_description:
                     AlertDialog description = new AlertDialog.Builder(getContext()).create();
@@ -582,9 +577,8 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 Log.v("Podcast", "Populating List");
                 if (episodes != null) {
-                    for (int i = 0; i < episodes.size(); i++){
-                        Log.d("Episode:", episodes.get(i).toString());
-                    }
+                    for (int i = 0; i < episodes.size(); i++)
+                        Log.d("Links", episodes.get(i).toString());
                     populateList(episodes);
                 }
             }

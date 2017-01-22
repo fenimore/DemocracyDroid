@@ -80,11 +80,14 @@ public class DownloadsAdapter extends ArrayAdapter<File> {
                 title = title.substring(0, title.length() - 4);
                 title = title.substring(2, title.length());
                 title = title.substring(0, 7) + "-" + title.substring(7, title.length());
+                if (title.endsWith("-1"))
+                    title = title.substring(0, title.length()-2);
                 txt.setText(title);
             } else if (txt != null) {
                 title = title.substring(0, title.length() - 12);
                 txt.setText(title);
             }
+
             if(f.getName().endsWith(".mp4")){
                 isVideo = true;
             }
