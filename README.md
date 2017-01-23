@@ -26,11 +26,11 @@ I have no affiliation with Democracy Now!
 
 ## Latest Release
 
-2.8.5
+2.8.6
 
 ## Change Log
 
-### 2.8.5
+### 2.8.6
 
 - Fix: Streaming Video
 - Fix: Mislabelled menu options

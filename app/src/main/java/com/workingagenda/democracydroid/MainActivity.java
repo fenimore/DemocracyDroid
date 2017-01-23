@@ -498,48 +498,52 @@ public class MainActivity extends AppCompatActivity {
             TimeZone timeZone = TimeZone.getTimeZone("GMT-500");
             Calendar c = Calendar.getInstance(timeZone);
             String formattedDate = format.format(c.getTime());
-            String today_video = "https://publish.dvlabs.com/democracynow/video-podcast/dn"
+            String todayVid = "https://hot.dvlabs.com/democracynow/video-podcast/dn"
                     + formattedDate + ".mp4";
-            String today_audio = "https://traffic.libsyn.com/democracynow/dn"
+            String todayVid2 = "https://publish.dvlabs.com/democracynow/video-podcast/dn"
+                    + formattedDate + ".mp4";
+            String todayAudio = "https://traffic.libsyn.com/democracynow/dn"
                     + formattedDate + "-1.mp3";
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
             int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
             if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY)
                 return episodes;
-            if (today_video.equals(episodes.get(0).getVideoUrl()))
+            if (todayVid.equals(episodes.get(0).getVideoUrl()))
+                return episodes;
+            if (todayVid2.equals(episodes.get(0).getVideoUrl()))
                 return episodes;
             if (hourOfDay < LIVE_TIME)
                 return episodes;
             // Get the missing episode
             // TODO: test for early morning feed
-            Episode episode = getUnlistedStream(hourOfDay, today_audio, today_video);
+            Episode episode = getUnlistedStream(hourOfDay, todayAudio, todayVid);
             episodes.add(0, episode);
             return episodes;
         }
 
-        private Episode getUnlistedStream(int hour, String today_audio, String today_video){
+        private Episode getUnlistedStream(int hour, String audio, String vid){
             //Log.d("Today", today_video);//Log.d("Latest", episodes.get(0).getVideoUrl());
             // Live Stream
-            Episode todays_episode = new Episode();
-            todays_episode.setDescription("Stream Live between 8 and 9 weekdays Eastern time, " +
+            Episode todaysEpisode = new Episode();
+            todaysEpisode.setDescription("Stream Live between 8 and 9 weekdays Eastern time, " +
                     "the War and Peace Report");
-            todays_episode.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/" +
+            todaysEpisode.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/" +
                     "Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
-            todays_episode.setUrl("http://m.democracynow.org/");
+            todaysEpisode.setUrl("http://m.democracynow.org/");
             if ( LIVE_TIME == hour ){
                 Log.d("YO it's time for live", "stream");
-                todays_episode.setTitle("Stream Live");//"Stream Live");
-                todays_episode.setVideoUrl("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/" +
+                todaysEpisode.setTitle("Stream Live");//"Stream Live");
+                todaysEpisode.setVideoUrl("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/" +
                         "play/democracynow/playlist.m3u8");
-                todays_episode.setAudioUrl("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/" +
+                todaysEpisode.setAudioUrl("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/" +
                         "play/democracynow/playlist.m3u8");
             } else if ( hour > 8) {
                 // Add Todays Broadcast even if RSS feed isn't updated yet
-                todays_episode.setTitle("Today's Broadcast");
-                todays_episode.setVideoUrl(today_video);
-                todays_episode.setAudioUrl(today_audio);
+                todaysEpisode.setTitle("Today's Broadcast");
+                todaysEpisode.setVideoUrl(vid);
+                todaysEpisode.setAudioUrl(audio);
             }
-            return todays_episode;
+            return todaysEpisode;
         }
 
         private class GetAudioFeed extends AsyncTask<String, Void, Void> {
