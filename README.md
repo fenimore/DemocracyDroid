@@ -26,9 +26,13 @@ I have no affiliation with Democracy Now!
 
 ## Latest Release
 
-2.8.6
+2.8.7
 
 ## Change Log
+
+### 2.8.7
+
+- Fix: minor api change of video link
 
 ### 2.8.6
 
