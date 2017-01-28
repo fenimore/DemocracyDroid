@@ -473,7 +473,9 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 // TODO: Swap english feed for spanish according to the settings (3.0 milestone)
                 // https://www.democracynow.org/podcast-es.xml
-                new GetAudioFeed().execute("https://www.democracynow.org/podcast.xml"); // must be called second
+                // TODO: Test this fix
+                if (episodes != null)
+                    new GetAudioFeed().execute("https://www.democracynow.org/podcast.xml"); // must be called second
             }
         }
 
@@ -549,6 +551,8 @@ public class MainActivity extends AppCompatActivity {
         private class GetAudioFeed extends AsyncTask<String, Void, Void> {
             @Override
             protected Void doInBackground(String... params) {
+                if (episodes == null)
+                    return null;
                 RssReader rssReader = new RssReader(params[0]);
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
                 TimeZone timeZone = TimeZone.getTimeZone("GMT-500");
