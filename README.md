@@ -30,6 +30,10 @@ I have no affiliation with Democracy Now!
 
 ## Change Log
 
+### 2.8.8
+
+- Fix: crashes
+
 ### 2.8.7
 
 - Fix: minor api change of video link
@@ -72,13 +76,9 @@ I have no affiliation with Democracy Now!
 - Fix: Status bar and Media controller toggles better
 - Add: Headlines special formatting in stories tab
 
-## Bugs
-
-- **Issues streaming Video within the application**.
-- Can load, and crash stories before Jsoup does it's job.
-
 ## Todo list:
 
+- [ ] Use conventional android design?
 - [ ] Add Spanish Language Feed
 - [ ] Add empty screen for podcast feed
 - [ ] Stream while downloading
