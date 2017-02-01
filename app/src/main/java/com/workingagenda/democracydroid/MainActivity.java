@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
             // Don't let user click before async tasks are done
             item.setEnabled(false);
             // According to settings...
+            // FIXME: Crash on Airplane mode
             ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
             NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             boolean isWifi = mWifi.isConnected();
