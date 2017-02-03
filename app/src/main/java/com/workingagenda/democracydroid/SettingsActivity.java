@@ -75,17 +75,6 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         });
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-        String key) {
-        if (key.equals(KEY_WIFI)) {
-            Log.v("WIFI Access", "checking permissions");
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_NETWORK_STATE}, 0);
-            }
-        }
-    }
     @Override
      public boolean onOptionsItemSelected(MenuItem item) {
          switch (item.getItemId())
@@ -161,5 +150,10 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
             mDelegate = AppCompatDelegate.create(this, null);
         }
         return mDelegate;
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
     }
 }

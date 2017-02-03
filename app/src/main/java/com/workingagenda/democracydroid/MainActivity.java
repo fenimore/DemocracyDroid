@@ -31,6 +31,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -83,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private boolean PREF_WIFI;
     private int DEFAULT_TAB;
     private boolean PREF_FIRST_TIME;
     //ArrayAdapter<String> AudioListAdapter;
@@ -102,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         // Shared Preferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
-        PREF_WIFI = preferences.getBoolean("wifi_preference", false);
         PREF_FIRST_TIME = preferences.getBoolean("first_preference", true);
         Log.d("First time", String.valueOf((PREF_FIRST_TIME)));
         // Tab Layouts
@@ -162,19 +162,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_refresh) {
             // Don't let user click before async tasks are done
             item.setEnabled(false);
-            // According to settings...
-            // FIXME: Crash on Airplane mode
-            ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-            NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            boolean isWifi = mWifi.isConnected();
-            // Only update on WIFI according to SharedPreferences
-            Log.v("WIFI pref", String.valueOf(PREF_WIFI) );
-            if (PREF_WIFI){
-                if (!isWifi) {
-                Log.v("WIFI", "false");
-                return true;
-                }
-            }
             // Call Fragment refresh methods
             getSupportFragmentManager().getFragments();
             for(Fragment x :getSupportFragmentManager().getFragments()){
@@ -473,9 +460,8 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 // TODO: Swap english feed for spanish according to the settings (3.0 milestone)
                 // https://www.democracynow.org/podcast-es.xml
-                // TODO: Test this fix
-                if (episodes != null)
-                    new GetAudioFeed().execute("https://www.democracynow.org/podcast.xml"); // must be called second
+
+                new GetAudioFeed().execute("https://www.democracynow.org/podcast.xml"); // must be called second
             }
         }
 
@@ -551,8 +537,6 @@ public class MainActivity extends AppCompatActivity {
         private class GetAudioFeed extends AsyncTask<String, Void, Void> {
             @Override
             protected Void doInBackground(String... params) {
-                if (episodes == null)
-                    return null;
                 RssReader rssReader = new RssReader(params[0]);
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
                 TimeZone timeZone = TimeZone.getTimeZone("GMT-500");
@@ -569,6 +553,8 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                if (audio.size() == 0)
+                    return null;
                 boolean valid = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > LIVE_TIME);
                 if ( hourOfDay == LIVE_TIME)
                     audio.add(0, "http://democracynow.videocdn.scaleengine.net/" +
@@ -584,11 +570,9 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 Log.v("Podcast", "Populating List");
-                if (episodes != null) {
                     for (int i = 0; i < episodes.size(); i++)
                         Log.d("Links", episodes.get(i).toString());
                     populateList(episodes);
-                }
             }
         }
 
