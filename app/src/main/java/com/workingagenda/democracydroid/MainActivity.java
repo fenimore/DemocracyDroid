@@ -228,8 +228,7 @@ public class MainActivity extends AppCompatActivity {
             if (episodes.size() > 1){
                 episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
                 mList.setAdapter(episodeAdapter);
-            }
-            else {
+            } else {
                 mBar.setVisibility(View.GONE);
                 mTxt.setText(R.string.connect_error);
             }
@@ -276,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
             mBar.setVisibility(View.GONE);
             registerForContextMenu(mList);
             // Is this necessary?
-            mList.setEmptyView(mBar); // FIXME: Set to mTxt???S
+            mList.setEmptyView(mTxt); // FIXME: Set to mTxt???S
             // Callback calls GetAudioFeed
             new GetVideoFeed().execute("https://www.democracynow.org/podcast-video.xml");
             if (mySwipeRefreshLayout != null ) {
