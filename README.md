@@ -28,13 +28,13 @@ I have no affiliation with Democracy Now!
 
 ## Latest Release
 
-2.8.7
+2.8.9
 
 ## Change Log
 
-### 2.8.8
+### 2.8.9
 
-- Fix: crashes
+- Fix: crashes in airplane mode
 
 ### 2.8.7
 
@@ -82,11 +82,10 @@ I have no affiliation with Democracy Now!
 
 - [ ] Use conventional android design?
 - [ ] Add Spanish Language Feed
-- [ ] Add empty screen for podcast feed
-- [ ] Stream while downloading
+- [x] Add empty screen for podcast feed
 - [x] Fix the Bugs.
 - [ ] Add listview buttons
-- [ ] Add Stories downloads?
+- [ ] Add Stories downloads
 - [ ] (More) Parse Downloaded File Label
 - [ ] Download cancel/progress in notifications
 - [ ] settings
@@ -94,3 +93,4 @@ I have no affiliation with Democracy Now!
 - [x] Make stories Headlines item a bit nicer...
 - [x] Pull down to refresh
     - https://developer.android.com/training/swipe/add-swipe-interface.html
+- [ ] Make media player a service
