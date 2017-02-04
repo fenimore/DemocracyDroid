@@ -40,13 +40,7 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
-        Fix: Video Streaming within the App!
-        \n\n
-        Temporary Fix: Live Stream Opens in another app.
-        \n\n
-        Fix: Mislabelled menu items.
-        \n\n
-        Add: Email button in About Page
+        Fix: Crash in airplane mode
     </string>
     <string name="open_stream">Default Application to Play Media</string>
     <string name="download_video">Download Video</string>
