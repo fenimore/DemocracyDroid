@@ -14,6 +14,7 @@ reader for individual stories and headlines. It is a fully featured app :).
       alt="Get it on F-Droid"
       height="80">](https://f-droid.org/app/com.workingagenda.democracydroid)
 
+
 ## Disclaimer
 
 I have no affiliation with Democracy Now!
@@ -77,20 +78,3 @@ I have no affiliation with Democracy Now!
 - Fix: No more double loading story feed
 - Fix: Status bar and Media controller toggles better
 - Add: Headlines special formatting in stories tab
-
-## Todo list:
-
-- [ ] Use conventional android design?
-- [ ] Add Spanish Language Feed
-- [x] Add empty screen for podcast feed
-- [x] Fix the Bugs.
-- [ ] Add listview buttons
-- [ ] Add Stories downloads
-- [ ] (More) Parse Downloaded File Label
-- [ ] Download cancel/progress in notifications
-- [ ] settings
-   - [ ] Notifications
-- [x] Make stories Headlines item a bit nicer...
-- [x] Pull down to refresh
-    - https://developer.android.com/training/swipe/add-swipe-interface.html
-- [ ] Make media player a service
