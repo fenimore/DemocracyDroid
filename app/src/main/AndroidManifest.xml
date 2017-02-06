@@ -54,6 +54,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.workingagenda.democracydroid.MainActivity" />
         </activity>
+        <service android:name=".MediaService">
+
+        </service>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/name_setting"

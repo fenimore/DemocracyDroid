@@ -1,9 +1,13 @@
 package com.workingagenda.democracydroid;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.net.Uri;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -119,7 +123,8 @@ public class MediaActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d("Media", "onPause called");
-        mMediaPosition = player.getCurrentPosition();
+        // FIXME For service
+        //mMediaPosition = player.getCurrentPosition();
         player.release();
     }
 
@@ -133,8 +138,16 @@ public class MediaActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("Media", "onResume called");
-        setUpPlayer();
+        Bundle extras = getIntent().getExtras();
+        path = (String) extras.get("url");
+        title = (String) extras.get("title"); // Doesn't work
+        Intent i = new Intent(this, MediaService.class);
+        i.putExtra("url", path);
+        i.putExtra("title", title); // Can parseable it, but not worth it
+
+        //startService(i);
+        bindService(i, mConnection, BIND_AUTO_CREATE);
+        //setUpPlayer();
     }
 
     @Override
@@ -192,6 +205,25 @@ public class MediaActivity extends AppCompatActivity {
         Log.d("onDestroy", "Do Destroy");
         player.release();
     }
+
+    private void initController() {
+
+    }
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            Binder binder = (Binder) service;
+            //ServiceConnection mService = binder.getService();
+            //mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 }
 
 

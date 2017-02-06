@@ -327,6 +327,7 @@ public class MainActivity extends AppCompatActivity {
         // or audio stream.
         private void startMediaIntent(String url, int externalApp, String title) {
             // pass in the URL if either audio or video (make check above)
+            // Media Activity
             if (externalApp == 0) {
                 Intent intent = new Intent(getContext(), MediaActivity.class);
                 intent.putExtra("url", url); //can't pass in article object?
