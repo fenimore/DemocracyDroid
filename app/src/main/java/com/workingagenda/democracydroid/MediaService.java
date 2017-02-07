@@ -3,6 +3,7 @@ package com.workingagenda.democracydroid;
 import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -32,30 +33,25 @@ import com.google.android.exoplayer2.util.Util;
 
 public class MediaService extends Service {
 
+    private final IBinder binder = new LocalBinder();
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return binder;
     }
 
     @Override
     public void onCreate() {
-        // mp = newMediaplyaer
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //Bundle bundle = intent.getBundleExtra("url");
-        String path = intent.getStringExtra("url");//bundle.getString("url");
-        Log.d("URL", intent.getExtras().toString());
-        Log.d("URL", path);
-
-        Uri url = Uri.parse(path);
-        setUpPlayer(url);
         return START_STICKY;
     }
 
-    private void setUpPlayer(Uri url) {
+    public SimpleExoPlayer setUpPlayer(Uri url) {
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelection.Factory videoFactory = new AdaptiveVideoTrackSelection.Factory(bandwidthMeter);
         TrackSelector trackSelector = new DefaultTrackSelector(videoFactory);
@@ -64,7 +60,6 @@ public class MediaService extends Service {
         // Create Player
         SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(getApplicationContext(),
                 trackSelector, loadControl);
-
 
         DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(),
                 Util.getUserAgent(this, "DemocracyDroid"));
@@ -76,5 +71,16 @@ public class MediaService extends Service {
 
         player.setPlayWhenReady(true);
         player.prepare(mediaSource);
+        return player;
+    }
+
+    // TODO: startPlaying
+    // TODO: notification
+    // TODO: release on unbind
+
+    public class LocalBinder extends Binder {
+        public MediaService getService() {
+            return MediaService.this;
+        }
     }
 }

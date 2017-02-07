@@ -4,9 +4,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.net.Uri;
-import android.os.Binder;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
@@ -46,6 +44,8 @@ public class MediaActivity extends AppCompatActivity {
     private SimpleExoPlayer player;
     private MediaSource mediaSource;
 
+    //private MediaService binder;
+
     private Uri url; // cause all urls are uris
     private String title;
     private String path;
@@ -69,25 +69,6 @@ public class MediaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("Democracy Droid!");
-        // Call setUpPlayer in the onResume override
-    }
-
-    private void setUpPlayer() {
-        // ExoPlayer Default Set Up
-        //Handler mainHandler = new Handler(); // NOTE: Not needed?
-        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-        TrackSelection.Factory videoFactory = new AdaptiveVideoTrackSelection.Factory(bandwidthMeter);
-        TrackSelector trackSelector = new DefaultTrackSelector(videoFactory);
-        // Load controls
-        LoadControl loadControl = new DefaultLoadControl();
-        // Create Player
-        player = ExoPlayerFactory.newSimpleInstance(getApplicationContext(),
-                trackSelector, loadControl);
-
-        // ExoPlayer Views
-        mVideoView = (SimpleExoPlayerView) findViewById(R.id.media_player);
-        mVideoView.setPlayer(player);
-        mVideoView.requestFocus();
 
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();
@@ -95,22 +76,17 @@ public class MediaActivity extends AppCompatActivity {
         url = Uri.parse(path);
         title = (String) extras.get("title"); // Doesn't work
         getSupportActionBar().setTitle(title);
-        // Set Source
-        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(),
-                Util.getUserAgent(this, "DemocracyDroid"));
-        // Produces Extractor instances for parsing the media data.
-        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-        mediaSource = new ExtractorMediaSource(url,
-                dataSourceFactory, extractorsFactory, null, null);
-        if (mMediaPosition != 0) {
-            player.seekTo(mMediaPosition);
-        }
-        player.setPlayWhenReady(true);
-        player.prepare(mediaSource);
 
-        if (!path.contains(".mp3"))
-            hideStatusBar();
+        // Start Service
+        Intent i = new Intent(this, MediaService.class);
+        i.putExtra("url", path);
+        i.putExtra("title", title); // Can parseable it, but not worth it
+        Log.d("Service", mConnection.toString());
+        bindService(i, mConnection, BIND_AUTO_CREATE);
+        //startService(i);
+        hideStatusBar();
     }
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -123,30 +99,33 @@ public class MediaActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d("Media", "onPause called");
-        // FIXME For service
         //mMediaPosition = player.getCurrentPosition();
-        player.release();
+        //player.release();
+        //unbindService(mConnection);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         Log.d("Media", "onStop called");
+        //player.release();
+        //unbindService(mConnection);
+    }
+
+    @Override
+    protected void onDestroy() {
+        //mVideoView.stopPlayback();
+        super.onDestroy();
+        Log.d("onDestroy", "Do Destroy");
         player.release();
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        Bundle extras = getIntent().getExtras();
-        path = (String) extras.get("url");
-        title = (String) extras.get("title"); // Doesn't work
-        Intent i = new Intent(this, MediaService.class);
-        i.putExtra("url", path);
-        i.putExtra("title", title); // Can parseable it, but not worth it
-
         //startService(i);
-        bindService(i, mConnection, BIND_AUTO_CREATE);
+        //bindService(i, mConnection, BIND_AUTO_CREATE);
         //setUpPlayer();
     }
 
@@ -198,30 +177,30 @@ public class MediaActivity extends AppCompatActivity {
         getSupportActionBar().hide();
     }
 
-    @Override
-    protected void onDestroy() {
-        //mVideoView.stopPlayback();
-        super.onDestroy();
-        Log.d("onDestroy", "Do Destroy");
-        player.release();
-    }
 
-    private void initController() {
-
-    }
 
     private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
-            Binder binder = (Binder) service;
-            //ServiceConnection mService = binder.getService();
-            //mBound = true;
+            Log.d("ServiceConnection","connected");
+            MediaService.LocalBinder binder = (MediaService.LocalBinder) service;
+            MediaService mediaService = binder.getService();
+            player = mediaService.setUpPlayer(url);
+            Log.d("ServiceConnection", player.toString());
+            // ExoPlayer Views
+            mVideoView = (SimpleExoPlayerView) findViewById(R.id.media_player);
+            mVideoView.setPlayer(player);
+            mVideoView.requestFocus();
+
+            if (!path.contains(".mp3"))
+                hideStatusBar();
+
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-
+            //binder = null;
         }
     };
 }
