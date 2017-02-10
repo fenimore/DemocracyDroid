@@ -1,5 +1,7 @@
 package com.workingagenda.democracydroid;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -42,9 +44,9 @@ public class MediaActivity extends AppCompatActivity {
 
     private SimpleExoPlayerView mVideoView;
     private SimpleExoPlayer player;
-    private MediaSource mediaSource;
+    //private MediaSource mediaSource;
 
-    //private MediaService binder;
+    //private MediaService.LocalBinder binder;
 
     private Uri url; // cause all urls are uris
     private String title;
@@ -79,11 +81,8 @@ public class MediaActivity extends AppCompatActivity {
 
         // Start Service
         Intent i = new Intent(this, MediaService.class);
-        i.putExtra("url", path);
-        i.putExtra("title", title); // Can parseable it, but not worth it
         Log.d("Service", mConnection.toString());
         bindService(i, mConnection, BIND_AUTO_CREATE);
-        //startService(i);
         hideStatusBar();
     }
 
@@ -117,16 +116,16 @@ public class MediaActivity extends AppCompatActivity {
         //mVideoView.stopPlayback();
         super.onDestroy();
         Log.d("onDestroy", "Do Destroy");
-        player.release();
+        //unbindService(mConnection);
+        //stopService(new Intent(getApplicationContext(), MediaService.class));
+        unbindService(mConnection);
+        //player.release();
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        //startService(i);
-        //bindService(i, mConnection, BIND_AUTO_CREATE);
-        //setUpPlayer();
     }
 
     @Override
@@ -200,7 +199,9 @@ public class MediaActivity extends AppCompatActivity {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            Log.d("ServiceConnection", "onServiceDisconnected");
             //binder = null;
+            player.release();
         }
     };
 }
