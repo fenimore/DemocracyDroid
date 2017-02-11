@@ -40,6 +40,8 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
+        New: Play Broadcast in background while using other apps
+        \n\n
         Fix: Crash in airplane mode
     </string>
     <string name="open_stream">Default Application to Play Media</string>

@@ -98,7 +98,6 @@ public class MediaService extends Service {
         // https://possiblemobile.com/2016/03/hls-exoplayer/
         MediaSource mediaSource = new ExtractorMediaSource(url,
                 dataSourceFactory, extractorsFactory, null, null);
-
         player.setPlayWhenReady(true);
         player.prepare(mediaSource);
 

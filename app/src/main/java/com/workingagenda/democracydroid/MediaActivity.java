@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -37,6 +39,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by fen on 8/11/16.
@@ -192,10 +195,17 @@ public class MediaActivity extends AppCompatActivity {
             mVideoView = (SimpleExoPlayerView) findViewById(R.id.media_player);
             mVideoView.setPlayer(player);
             mVideoView.requestFocus();
-
-            if (!path.contains(".mp3"))
+            if (path.contains(".mp3")) {
+                ImageView artwork = (ImageView) findViewById(R.id.exo_thumbnail);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    artwork.setImageDrawable(getApplicationContext().getDrawable(R.mipmap.ic_launcher));
+                } else {
+                    artwork.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
+                }
+            } else {
+                // fullscreen for video
                 hideStatusBar();
-
+            }
         }
 
         @Override
