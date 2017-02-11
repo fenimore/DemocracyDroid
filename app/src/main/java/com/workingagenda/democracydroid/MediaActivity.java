@@ -186,7 +186,7 @@ public class MediaActivity extends AppCompatActivity {
 
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
-            Log.d("ServiceConnection","connected");
+           Log.d("ServiceConnection","connected");
             MediaService.LocalBinder binder = (MediaService.LocalBinder) service;
             MediaService mediaService = binder.getService();
             player = mediaService.setUpPlayer(url);
@@ -196,9 +196,10 @@ public class MediaActivity extends AppCompatActivity {
             mVideoView.setPlayer(player);
             mVideoView.requestFocus();
             if (path.contains(".mp3")) {
+                mVideoView.setControllerShowTimeoutMs(-1);
                 ImageView artwork = (ImageView) findViewById(R.id.exo_thumbnail);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    artwork.setImageDrawable(getApplicationContext().getDrawable(R.mipmap.ic_launcher));
+                    artwork.setImageDrawable(getApplicationContext().getDrawable(R.drawable.logo));
                 } else {
                     artwork.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
                 }
