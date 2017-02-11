@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -83,14 +84,14 @@ public class MediaActivity extends AppCompatActivity {
         Intent i = new Intent(this, MediaService.class);
         Log.d("Service", mConnection.toString());
         bindService(i, mConnection, BIND_AUTO_CREATE);
-        hideStatusBar();
+        if (!path.contains("mp3")) hideStatusBar();
     }
 
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong("pos", mMediaPosition);
+        //outState.putLong("pos", mAMediaPosition);
         Log.d("Saving Inst", String.valueOf(mMediaPosition));
     }
 
@@ -200,7 +201,6 @@ public class MediaActivity extends AppCompatActivity {
         @Override
         public void onServiceDisconnected(ComponentName name) {
             Log.d("ServiceConnection", "onServiceDisconnected");
-            //binder = null;
             player.release();
         }
     };

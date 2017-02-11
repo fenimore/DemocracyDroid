@@ -50,13 +50,16 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:parentActivityName=".MainActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTask">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.workingagenda.democracydroid.MainActivity" />
         </activity>
         <service android:name=".MediaService">
-
+            <intent-filter>
+                <action android:name=".MediaService">
+                </action>
+            </intent-filter>
         </service>
         <activity
             android:name=".SettingsActivity"
