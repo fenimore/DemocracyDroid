@@ -40,11 +40,11 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
-        New: Play Broadcast in background while using other apps
+        New: Play Broadcast in background while using other apps or with screen turned off
         \n\n
         Fix: Crash in airplane mode
-        \n\n:
-        Add: Audio Screen has an image and control panel doesn't disappear
+        \n\n
+        Add: Audio Screen has an image and control panel does not disappear
     </string>
     <string name="open_stream">Default Application to Play Media</string>
     <string name="download_video">Download Video</string>

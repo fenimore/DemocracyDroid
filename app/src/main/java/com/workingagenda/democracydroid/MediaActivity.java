@@ -50,8 +50,6 @@ public class MediaActivity extends AppCompatActivity {
     private SimpleExoPlayer player;
     //private MediaSource mediaSource;
 
-    //private MediaService.LocalBinder binder;
-
     private Uri url; // cause all urls are uris
     private String title;
     private String path;
