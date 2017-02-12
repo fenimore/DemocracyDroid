@@ -27,6 +27,8 @@ public class AboutActivity extends AppCompatActivity {
     public TextView Txt4;
     private Button btnRev;
     private Button btnSrc;
+    private Button btnMail;
+    private Button btnDon;
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -54,7 +56,8 @@ public class AboutActivity extends AppCompatActivity {
 
         btnRev = (Button) findViewById(R.id.reviewButton);
         btnSrc = (Button) findViewById(R.id.sourceButton);
-        Button btnMail = (Button) findViewById(R.id.emailButton);
+        btnDon = (Button) findViewById(R.id.btn_donate);
+        btnMail = (Button) findViewById(R.id.emailButton);
 
         btnRev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +105,20 @@ public class AboutActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnDon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://www.democracynow.org/donate");
+                Intent donateIntent = new Intent(Intent.ACTION_VIEW, uri);
+                donateIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                startActivity(donateIntent);
+            }
+        });
+
+
 
     }
     @Override

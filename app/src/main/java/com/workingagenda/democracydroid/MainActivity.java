@@ -183,6 +183,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
             return true;
         }
+        if (id == R.id.action_exclusives) {
+            String url = "https://www.democracynow.org/categories/web_exclusive";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+            return true;
+        }
         if (id == R.id.action_site) {
             String url = "http://www.democracynow.org/";
             Intent i = new Intent(Intent.ACTION_VIEW);
