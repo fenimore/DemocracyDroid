@@ -44,7 +44,7 @@
         \n\n
         Fix: Crash in airplane mode
         \n\n
-        Add: Audio Screen has an image and control panel does not disappear
+        Add: Audio Screen has an image
     </string>
     <string name="open_stream">Default Application to Play Media</string>
     <string name="download_video">Download Video</string>
