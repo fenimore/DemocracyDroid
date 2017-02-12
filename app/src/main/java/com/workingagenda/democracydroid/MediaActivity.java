@@ -193,7 +193,7 @@ public class MediaActivity extends AppCompatActivity {
             mVideoView = (SimpleExoPlayerView) findViewById(R.id.media_player);
             mVideoView.setPlayer(player);
             mVideoView.requestFocus();
-            if (path.contains(".mp3")) {
+            if (path.contains(".mp3") || path.contains("m4a")) {
                 // mVideoView.setControllerShowTimeoutMs(-1);
                 ImageView artwork = (ImageView) findViewById(R.id.exo_thumbnail);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {

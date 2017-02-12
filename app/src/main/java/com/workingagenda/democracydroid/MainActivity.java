@@ -583,12 +583,13 @@ public class MainActivity extends AppCompatActivity {
 
         // FIXME: Show progress:
         // http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
-        public void Download(String url, String title, String desc){
+        public void Download(String url, String title, String desc) {
             if (ContextCompat.checkSelfPermission(getActivity(),
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         0);
+                // TODO: catch onRequestPermissionsResult
             } else {
                 if (url.equals("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8")) {
                     Toast toast = Toast.makeText(getActivity(),
@@ -611,11 +612,10 @@ public class MainActivity extends AppCompatActivity {
                 DownloadManager manager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
                 manager.enqueue(request);
                 // TODO: Save que ID for cancel button
-                Toast toast = Toast.makeText(getActivity(), "Starting download of " +title, Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getActivity(), "Starting download of " + title, Toast.LENGTH_LONG);
                 toast.show();
             }
         }
-
     }
 
     /**

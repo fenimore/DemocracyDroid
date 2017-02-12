@@ -125,12 +125,14 @@ public class StoryActivity extends AppCompatActivity {
             startActivity(i);
             return true;
         } else if (id == R.id.action_story_audio) {
+            Log.d("StoryActivity", audio);
             Intent intent = new Intent(this, MediaActivity.class);
             intent.putExtra("url", audio); //can't pass in article object
             intent.putExtra("title", title);
             startActivityForResult(intent, 0); //Activity load = 0
             return true;
         } else if (id == R.id.action_story_video) {
+            Log.d("StoryActivity", video);
             Intent intent = new Intent(this, MediaActivity.class);
             intent.putExtra("url", video); //can't pass in article object?
             intent.putExtra("title", title);

@@ -40,6 +40,7 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
+        \n
         New: Play Broadcast in background while using other apps or with screen turned off
         \n\n
         Add: Audio Screen has an image
