@@ -29,14 +29,16 @@ I have no affiliation with Democracy Now!
 
 ## Latest Release
 
-2.9.1
+2.9.4
 
 ## Change Log
 
-### 2.9.0
+### 2.9.4
 
 - Add: Stream in Background as service
 - Add: Image for audio streaming
+- Fix: bugs with audio feed
+- Fix: transparent status bar
 
 ### 2.8.9
 
