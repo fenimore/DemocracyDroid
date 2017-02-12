@@ -28,6 +28,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="center"/>
+    <TextView
+        android:id="@+id/exo_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <com.google.android.exoplayer2.ui.SubtitleView android:id="@id/exo_subtitles"
         android:layout_width="match_parent"
