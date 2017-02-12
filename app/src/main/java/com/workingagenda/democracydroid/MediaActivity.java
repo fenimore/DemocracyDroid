@@ -199,7 +199,7 @@ public class MediaActivity extends AppCompatActivity {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     artwork.setImageDrawable(getApplicationContext().getDrawable(R.drawable.logo));
                 } else {
-                    artwork.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
+                    artwork.setImageDrawable(getResources().getDrawable(R.drawable.logo));
                 }
             } else {
                 // fullscreen for video

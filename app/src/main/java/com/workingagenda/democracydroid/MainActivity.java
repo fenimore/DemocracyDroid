@@ -282,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
                 mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
+                        mTxt.setText("");
                         refresh();
                     }
                 });
@@ -494,14 +495,10 @@ public class MainActivity extends AppCompatActivity {
                     + formattedDate + "-1.mp3";
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
             int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
-            if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY)
-                return episodes;
-            if (todayVid.equals(episodes.get(0).getVideoUrl()))
-                return episodes;
-            if (todayVid2.equals(episodes.get(0).getVideoUrl()))
-                return episodes;
-            if (hourOfDay < LIVE_TIME)
-                return episodes;
+            if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) return episodes;
+            if (todayVid.equals(episodes.get(0).getVideoUrl())) return episodes;
+            if (todayVid2.equals(episodes.get(0).getVideoUrl()))return episodes;
+            if (hourOfDay < LIVE_TIME) return episodes;
             // Get the missing episode
             // TODO: test for early morning feed
             Episode episode = getUnlistedStream(hourOfDay, todayAudio, todayVid);
@@ -556,11 +553,12 @@ public class MainActivity extends AppCompatActivity {
                 if (audio.size() == 0)
                     return null;
                 boolean valid = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > LIVE_TIME);
-                if ( hourOfDay == LIVE_TIME)
+                if ( hourOfDay == LIVE_TIME && valid) {
                     audio.add(0, "http://democracynow.videocdn.scaleengine.net/" +
                             "democracynow-iphone/play/democracynow/playlist.m3u8");
-                if (!audio.get(0).equals(today_audio) && valid) // check rather if field is empty?
+                } else if (!audio.get(0).equals(today_audio) && valid) {// check rather if field is empty?
                     audio.add(0, today_audio);
+                }
                 for (int i =0; i < episodes.size(); i++)
                     episodes.get(i).setAudioUrl(audio.get(i));
                 return null;

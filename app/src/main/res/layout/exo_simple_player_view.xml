@@ -27,8 +27,7 @@
     <ImageView android:id="@+id/exo_thumbnail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        />
+        android:scaleType="center"/>
 
     <com.google.android.exoplayer2.ui.SubtitleView android:id="@id/exo_subtitles"
         android:layout_width="match_parent"
