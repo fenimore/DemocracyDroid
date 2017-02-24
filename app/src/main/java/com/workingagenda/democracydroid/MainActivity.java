@@ -628,6 +628,7 @@ public class MainActivity extends AppCompatActivity {
         private TextView sTxt;
         private ProgressBar sBar;
         // TODO: private SwipeRefreshLayout storySwipeRefreshLayout;
+        private SwipeRefreshLayout storySwipeRefreshLayout;
         private StoryAdapter storyAdapter;
         private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -652,9 +653,13 @@ public class MainActivity extends AppCompatActivity {
                 sBar.setVisibility(View.GONE);
                 sTxt.setText(R.string.connect_error);
             }
+            if (storySwipeRefreshLayout != null){
+                storySwipeRefreshLayout.setRefreshing(false);
+            }
         }
 
         private void refresh() {
+            storySwipeRefreshLayout.setRefreshing(true);
             if (storyPosts.size() > 1){
                 storyPosts.clear();
                 if (storyAdapter != null ){
@@ -673,7 +678,7 @@ public class MainActivity extends AppCompatActivity {
             sTxt = (TextView) rootView.findViewById(android.R.id.empty);
             sBar = (ProgressBar) rootView.findViewById(R.id.sBar);
             sBar.setVisibility(View.GONE);
-            // TODO: // storySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
+            storySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
             sList.setEmptyView(sBar);
             registerForContextMenu(sList);
             new GetStoryFeed().execute("https://www.democracynow.org/democracynow.rss");
@@ -684,6 +689,16 @@ public class MainActivity extends AppCompatActivity {
                     loadTranscript(s);
                 }
             });
+
+            if (storySwipeRefreshLayout != null ) {
+                storySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        sTxt.setText("");
+                        refresh();
+                    }
+                });
+            }
             return rootView;
 
         }
