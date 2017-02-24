@@ -40,7 +40,11 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
+        ==== 2.9.5\n
+        Fix: Story feed\n\n
+        Add: Story feed swipe to refresh\n
         \n
+        ==== 2.9.4\n
         New: Play Broadcast in background while using other apps or with screen turned off
         \n\n
         Add: Audio Screen has an image

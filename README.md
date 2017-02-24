@@ -29,9 +29,14 @@ I have no affiliation with Democracy Now!
 
 ## Latest Release
 
-2.9.4
+2.9.5
 
 ## Change Log
+
+### 2.9.5
+
+- Fix: Story feed parser
+- Add: Swipe to refresh for story feed
 
 ### 2.9.4
 
