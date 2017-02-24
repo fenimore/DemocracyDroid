@@ -16,9 +16,6 @@
 
 package com.workingagenda.democracydroid.Feedreader;
 
-import android.annotation.TargetApi;
-import android.os.Build;
-import android.util.Log;
 import android.util.Xml;
 
 import org.jsoup.Jsoup;
@@ -30,7 +27,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -196,10 +192,10 @@ public class RssReader {
 
     public List<RssItem> getItems() throws Exception {
         this.nameSpace = null;//"http://www.w3.org/2005/Atom";//null;//"http://www.w3.org/2005/Atom";
-        InputStream stream =null;
-        List<RssItem> items = null;
+        InputStream stream;
+        List<RssItem> items;
         Document doc = Jsoup.connect(rssUrl).get();
-        stream = new ByteArrayInputStream(doc.toString().getBytes(Charset.forName("UTF-8")));
+        stream = new ByteArrayInputStream(doc.toString().replaceAll("&nbsp", " ").getBytes(Charset.forName("UTF-8")));
         items = getRssItems(stream);
          return items;
     }
