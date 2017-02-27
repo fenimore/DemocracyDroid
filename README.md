@@ -29,9 +29,13 @@ I have no affiliation with Democracy Now!
 
 ## Latest Release
 
-2.9.5
+2.9.6
 
 ## Change Log
+
+### 2.9.6
+
+- Fix: Crash on livestream
 
 ### 2.9.5
 

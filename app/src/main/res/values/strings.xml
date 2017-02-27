@@ -40,6 +40,8 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
+        ==== 2.9.6\n
+        Fix: Crash during live stream hours\n\n
         ==== 2.9.5\n
         Fix: Story feed\n\n
         Add: Story feed swipe to refresh\n
