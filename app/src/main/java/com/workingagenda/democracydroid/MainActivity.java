@@ -468,7 +468,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 // TODO: Swap english feed for spanish according to the settings (3.0 milestone)
                 // https://www.democracynow.org/podcast-es.xml
-
+                Log.d("Check", "Check audio");
                 new GetAudioFeed().execute("https://www.democracynow.org/podcast.xml"); // must be called second
             }
         }
@@ -559,8 +559,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (audio.size() == 0)
                     return null;
-                boolean valid = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > LIVE_TIME);
-                if ( hourOfDay == LIVE_TIME && valid) {
+                boolean valid = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > LIVE_TIME-1);
+                if (valid && hourOfDay == LIVE_TIME) {
                     audio.add(0, "http://democracynow.videocdn.scaleengine.net/" +
                             "democracynow-iphone/play/democracynow/playlist.m3u8");
                 } else if (!audio.get(0).equals(today_audio) && valid) {// check rather if field is empty?
@@ -568,6 +568,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 for (int i =0; i < episodes.size(); i++)
                     episodes.get(i).setAudioUrl(audio.get(i));
+
+                Log.d("CheckAud", String.valueOf(episodes.size()));
                 return null;
             }
 
