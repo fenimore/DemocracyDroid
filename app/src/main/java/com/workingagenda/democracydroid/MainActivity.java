@@ -627,7 +627,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static class StoryFragment extends Fragment {
         private ListView sList;
-        ArrayList<Episode> storyPosts = new ArrayList<Episode>(100);
+        ArrayList<Episode> storyPosts = new ArrayList<Episode>(128);
         private TextView sTxt;
         private ProgressBar sBar;
         // TODO: private SwipeRefreshLayout storySwipeRefreshLayout;
@@ -748,20 +748,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(String... params) {
                 if (storyPosts.size() > 0){
-                    storyPosts = new ArrayList<>(100); // NOTE: of Episode objects
+                    storyPosts = new ArrayList<>(128);
                 }
+                ArrayList<Episode> todaysStories = new ArrayList<>(16);
                 Log.v("Story count", String.valueOf(storyPosts.size()));
                 try {
                     RssReader rssReader = new RssReader(params[0]);
                     for(RssItem item : rssReader.getItems()){
                         Episode b = new Episode();
-                                            b.setTitle(item.getTitle());
-                                            b.setDescription(item.getDescription());
-                                            b.setPubDate(item.getPubDate());
-                                            b.setImageUrl(item.getImageUrl());
-                                            b.setUrl(item.getLink());
-                                            storyPosts.add(b);
+                        b.setTitle(item.getTitle());
+                        b.setDescription(item.getDescription());
+                        b.setPubDate(item.getPubDate());
+                        b.setImageUrl(item.getImageUrl());
+                        b.setUrl(item.getLink());
+                        // NOTE: Order the stories by days
+                        // with the Headlines as headers
+                        todaysStories.add(0, b);
+                        if (b.getTitle().contains("Headlines")) {
+                            storyPosts.addAll(todaysStories);
+                            todaysStories = new ArrayList<>(16);
+                        }
+
                     }
+                    storyPosts.addAll(todaysStories);
+                    Log.v("Story post", storyPosts.toString());
                     Log.v("Story count Two", String.valueOf(storyPosts.size()));
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");

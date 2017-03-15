@@ -15,7 +15,8 @@ public class Episode {
 
 
     public String toString() {
-        return  "\n" + videoUrl + "\n"+ audioUrl + " "+ title;
+        return  "\nEpisode: " + videoUrl + " " + pubDate
+                + "\n"+ audioUrl + " "+ title;
 
     }
 
