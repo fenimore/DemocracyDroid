@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void populateList(ArrayList<Episode> episodes) {
-            if (episodes.size() > 1){
+            if (episodes != null){
                 episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
                 mList.setAdapter(episodeAdapter);
             } else {
@@ -649,7 +649,7 @@ public class MainActivity extends AppCompatActivity {
         public void populateList(ArrayList<Episode> stories) {
             Log.v("Load story feed", String.valueOf(stories.size()));
 
-            if (stories.size() > 1){
+            if (stories != null){
                 storyAdapter = new StoryAdapter(getContext(), R.layout.row_story, stories);
                 sList.setAdapter(storyAdapter);
             } else {
