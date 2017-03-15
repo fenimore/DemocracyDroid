@@ -71,8 +71,10 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -87,8 +89,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private int DEFAULT_TAB;
     private boolean PREF_FIRST_TIME;
-    //ArrayAdapter<String> AudioListAdapter;
-    private String actionTitle = "Democracy Droid!";
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -491,7 +492,7 @@ public class MainActivity extends AppCompatActivity {
         private ArrayList<Episode> checkLiveStream(ArrayList<Episode> episodes) {
             // Make it Pretty, and NY eastern Time
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
-            TimeZone timeZone = TimeZone.getTimeZone("GMT-500");
+            TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
             Calendar c = Calendar.getInstance(timeZone);
             String formattedDate = format.format(c.getTime());
             String todayVid = "https://hot.dvlabs.com/democracynow/video-podcast/dn"
@@ -543,7 +544,7 @@ public class MainActivity extends AppCompatActivity {
             protected Void doInBackground(String... params) {
                 RssReader rssReader = new RssReader(params[0]);
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
-                TimeZone timeZone = TimeZone.getTimeZone("GMT-500");
+                TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
                 Calendar c = Calendar.getInstance(timeZone);
                 String formattedDate = format.format(c.getTime());
                 String today_audio = "https://traffic.libsyn.com/democracynow/dn"
