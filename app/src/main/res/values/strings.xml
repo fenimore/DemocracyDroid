@@ -40,21 +40,10 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
-        ==== 2.9.6\n
-        Fix: Crash during live stream hours\n\n
-        ==== 2.9.5\n
-        Fix: Story feed\n\n
-        Add: Story feed swipe to refresh\n
-        \n
-        ==== 2.9.4\n
-        New: Play Broadcast in background while using other apps or with screen turned off
-        \n\n
-        Add: Audio Screen has an image
-        \n\n
-        Fix: Audio stream during live-stream hour off-days
-        \n\n
-        Fix: Crash in airplane mode
-
+        ==== 2.9.7\n
+        Fix: Order stories feed by Days\n\n
+        Fix: Random crashes (I think?)\n\n
+        Fix: Daylight savings time\n\n
     </string>
     <string name="open_stream">Default Application to Play Media</string>
     <string name="download_video">Download Video</string>

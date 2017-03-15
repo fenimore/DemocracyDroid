@@ -29,9 +29,15 @@ I have no affiliation with Democracy Now!
 
 ## Latest Release
 
-2.9.6
+2.9.7
 
 ## Change Log
+
+### 2.9.7
+
+- Fix: Order stories feed by Days
+- Fix: Random crashes (I think?)
+- Fix: Daylight savings time
 
 ### 2.9.6
 
