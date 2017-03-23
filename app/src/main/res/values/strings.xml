@@ -40,10 +40,8 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
-        ==== 2.9.7\n
-        Fix: Order stories feed by Days\n\n
-        Fix: Random crashes (I think?)\n\n
-        Fix: Daylight savings time\n\n
+        ==== 2.9.8\n
+        Fix: Feed fetching crashes\n\n
     </string>
     <string name="open_stream">Default Application to Play Media</string>
     <string name="download_video">Download Video</string>

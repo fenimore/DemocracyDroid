@@ -29,9 +29,13 @@ I have no affiliation with Democracy Now!
 
 ## Latest Release
 
-2.9.7
+2.9.8
 
 ## Change Log
+
+### 2.9.8
+
+- Fix: Feed fetch crashing
 
 ### 2.9.7
 
