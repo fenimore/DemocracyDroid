@@ -469,7 +469,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 // TODO: Swap english feed for spanish according to the settings (3.0 milestone)
                 // https://www.democracynow.org/podcast-es.xml
-                Log.d("Check", "Check audio");
+                Log.v("Check", "Check audio");
                 new GetAudioFeed().execute("https://www.democracynow.org/podcast.xml"); // must be called second
             }
         }
@@ -558,8 +558,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                if (audio.size() == 0) // REMOVE this?
-                    return null;
+                Log.v("Load A/V", String.valueOf(audio.size()) +" / "+ String.valueOf(episodes.size()));
                 boolean valid = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > LIVE_TIME-1);
                 if (valid && hourOfDay == LIVE_TIME) {
                     audio.add(0, "http://democracynow.videocdn.scaleengine.net/" +
@@ -580,9 +579,9 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 Log.v("Podcast", "Populating List");
-                    for (int i = 0; i < episodes.size(); i++)
-                        Log.d("Links", episodes.get(i).toString());
-                    populateList(episodes);
+                    //for (int i = 0; i < episodes.size(); i++)
+                    //Log.d("Links", episodes.get(i).toString());
+                populateList(episodes);
             }
         }
 
@@ -743,9 +742,7 @@ public class MainActivity extends AppCompatActivity {
         private class GetStoryFeed extends AsyncTask<String, Void, Void> {
             @Override
             protected Void doInBackground(String... params) {
-                if (storyPosts.size() > 0){
-                    storyPosts = new ArrayList<>(128);
-                }
+                storyPosts = new ArrayList<>(128);
                 ArrayList<Episode> todaysStories = new ArrayList<>(16);
                 Log.v("Story count", String.valueOf(storyPosts.size()));
                 try {
@@ -766,7 +763,10 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
-                    storyPosts.addAll(todaysStories);
+                    // If todays is empty?
+                    if (!todaysStories.isEmpty()) {
+                        storyPosts.addAll(todaysStories);
+                    }
                     Log.v("Story post", storyPosts.toString());
                     Log.v("Story count Two", String.valueOf(storyPosts.size()));
                 } catch (Exception e) {
@@ -778,7 +778,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                if (storyPosts != null) {
+                if (!storyPosts.isEmpty()) {
                     populateList(storyPosts);
                 }
                 Log.v("Stories", "Populating List");
