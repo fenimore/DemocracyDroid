@@ -558,7 +558,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                if (audio.size() == 0)
+                if (audio.size() == 0) // REMOVE this?
                     return null;
                 boolean valid = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > LIVE_TIME-1);
                 if (valid && hourOfDay == LIVE_TIME) {
@@ -567,8 +567,10 @@ public class MainActivity extends AppCompatActivity {
                 } else if (!audio.get(0).equals(today_audio) && valid) {// check rather if field is empty?
                     audio.add(0, today_audio);
                 }
-                for (int i =0; i < episodes.size(); i++)
+                int SIZE = Math.min(episodes.size(), audio.size());
+                for (int i =0; i < SIZE; i++) {
                     episodes.get(i).setAudioUrl(audio.get(i));
+                }
 
                 Log.d("CheckAud", String.valueOf(episodes.size()));
                 return null;
@@ -648,14 +650,8 @@ public class MainActivity extends AppCompatActivity {
 
         public void populateList(ArrayList<Episode> stories) {
             Log.v("Load story feed", String.valueOf(stories.size()));
-
-            if (stories != null){
-                storyAdapter = new StoryAdapter(getContext(), R.layout.row_story, stories);
-                sList.setAdapter(storyAdapter);
-            } else {
-                sBar.setVisibility(View.GONE);
-                sTxt.setText(R.string.connect_error);
-            }
+            storyAdapter = new StoryAdapter(getContext(), R.layout.row_story, stories);
+            sList.setAdapter(storyAdapter);
             if (storySwipeRefreshLayout != null){
                 storySwipeRefreshLayout.setRefreshing(false);
             }

@@ -78,6 +78,7 @@ public class MediaService extends Service {
         // Create Player
         player = ExoPlayerFactory.newSimpleInstance(getApplicationContext(),
                 trackSelector, loadControl);
+
     }
 
     @Override

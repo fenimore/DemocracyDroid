@@ -22,10 +22,6 @@ import java.util.List;
  */
 public class StoryAdapter extends ArrayAdapter<Episode> {
 
-    public StoryAdapter(Context context, int textViewResourceId){
-        super(context, textViewResourceId);
-    }
-
     public StoryAdapter(Context context, int resource, List<Episode> episodes){
         super(context, resource, episodes);
     }
