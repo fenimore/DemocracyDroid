@@ -51,7 +51,7 @@
             android:title="Source Code and Issue Tracker"
             android:summary="Click to open">
             <intent android:action="android.intent.action.VIEW"
-                android:data="https://github.com/polypmer/DemocracyDroid"/>
+                android:data="https://github.com/fenimore/DemocracyDroid"/>
         </Preference>
         <Preference
             android:key="pref_static_field_key4"
