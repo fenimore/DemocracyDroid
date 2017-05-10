@@ -343,6 +343,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("title", title); // Can parseable it, but not worth it
                 startActivityForResult(intent, 0); //Activity load = 0
             } else {
+                // FIXME: SecurityException
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.parse(url), "*/*");
                 startActivity(intent);
@@ -559,6 +560,11 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Log.v("Load A/V", String.valueOf(audio.size()) +" / "+ String.valueOf(episodes.size()));
+                // FIXME: Is this the solution to IndexOutOfBounds which plagggues me?
+                if (audio.size() == 0 || episodes.size() == 0) {
+                    Log.d("AUD", "Aud count: " + audio.size() + " Epi count: " + episodes.size());
+                    return null;
+                }
                 boolean valid = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > LIVE_TIME-1);
                 if (valid && hourOfDay == LIVE_TIME) {
                     audio.add(0, "http://democracynow.videocdn.scaleengine.net/" +
