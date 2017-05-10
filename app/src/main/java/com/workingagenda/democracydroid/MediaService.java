@@ -76,6 +76,7 @@ public class MediaService extends Service {
 
     public SimpleExoPlayer setUpPlayer(Uri url) {
         String ext = url.toString().substring(url.toString().lastIndexOf("."));
+        Log.d("Extension", ext);
         if (ext.equals(".m3u8")) {
             Handler mHandler = new Handler();
             String userAgent = Util.getUserAgent(this, "DemocracyDroid");
