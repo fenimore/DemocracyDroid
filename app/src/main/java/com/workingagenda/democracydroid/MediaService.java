@@ -20,13 +20,17 @@ import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+import com.google.android.exoplayer2.source.AdaptiveMediaSourceEventListener;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
+import com.google.android.exoplayer2.source.hls.DefaultHlsDataSourceFactory;
+import com.google.android.exoplayer2.source.hls.HlsDataSourceFactory;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource;
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.AdaptiveVideoTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
@@ -70,9 +74,8 @@ public class MediaService extends Service {
     public void onCreate() {
         Log.d("MediaService", "OnCreate");
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-        TrackSelection.Factory videoFactory = new AdaptiveVideoTrackSelection.Factory(bandwidthMeter);
-        TrackSelector trackSelector = new DefaultTrackSelector(videoFactory);
         // Load controls
+        TrackSelector trackSelector = new DefaultTrackSelector();
         LoadControl loadControl = new DefaultLoadControl();
 
         // Create Player
@@ -87,18 +90,19 @@ public class MediaService extends Service {
     }
 
     public SimpleExoPlayer setUpPlayer(Uri url) {
-        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(),
-                Util.getUserAgent(this, "DemocracyDroid"));
+        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(), Util.getUserAgent(this, "DemocracyDroid"));
         // Produces Extractor instances for parsing the media data.
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+        HlsDataSourceFactory hlsDataSourceFactory = new DefaultHlsDataSourceFactory(dataSourceFactory);
         // TODO:
         // https://realm.io/news/360andev-effie-barak-switching-exoplayer-better-video-android/
         // https://github.com/google/ExoPlayer/blob/release-v2/demo/src/main/java/com/google/android/exoplayer2/demo/PlayerActivity.java#L330
         // HlsChunkSource.HlsChunkHolder
         // HlsMasterPlaylist
         // https://possiblemobile.com/2016/03/hls-exoplayer/
-        MediaSource mediaSource = new ExtractorMediaSource(url,
-                dataSourceFactory, extractorsFactory, null, null);
+        HlsMediaSource mediaSource = new HlsMediaSource(url, hlsDataSourceFactory, 3, null, null);
+        //MediaSource mediaSource = new ExtractorMediaSource(url,
+        //        dataSourceFactory, extractorsFactory, null, null);
         player.setPlayWhenReady(true);
         player.prepare(mediaSource);
 
