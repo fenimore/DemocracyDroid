@@ -559,6 +559,10 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Log.v("Load A/V", String.valueOf(audio.size()) +" / "+ String.valueOf(episodes.size()));
+                if (audio.size() == 0 || episodes.size() == 0) {
+                    Log.d("AUD", "Aud count: " + audio.size() + " Epi count: " + episodes.size());
+                    return null;
+                }
                 boolean valid = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > LIVE_TIME-1);
                 if (valid && hourOfDay == LIVE_TIME) {
                     audio.add(0, "http://democracynow.videocdn.scaleengine.net/" +
