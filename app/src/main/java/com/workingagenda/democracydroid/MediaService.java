@@ -83,12 +83,6 @@ public class MediaService extends Service {
                 Util.getUserAgent(this, "DemocracyDroid"));
         // Produces Extractor instances for parsing the media data.
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-        // TODO:
-        // https://realm.io/news/360andev-effie-barak-switching-exoplayer-better-video-android/
-        // https://github.com/google/ExoPlayer/blob/release-v2/demo/src/main/java/com/google/android/exoplayer2/demo/PlayerActivity.java#L330
-        // HlsChunkSource.HlsChunkHolder
-        // HlsMasterPlaylist
-        // https://possiblemobile.com/2016/03/hls-exoplayer/
         MediaSource mediaSource = new ExtractorMediaSource(url,
                 dataSourceFactory, extractorsFactory, null, null);
         player.setPlayWhenReady(true);
