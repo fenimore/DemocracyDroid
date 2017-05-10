@@ -21,9 +21,13 @@ import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.extractor.mp3.Mp3Extractor;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveVideoTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
@@ -62,7 +66,9 @@ public class MediaService extends Service {
     public void onCreate() {
         Log.d("MediaService", "OnCreate");
         // Load controls
-        TrackSelector trackSelector = new DefaultTrackSelector();
+        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+        TrackSelection.Factory videoFactory = new AdaptiveVideoTrackSelection.Factory(bandwidthMeter);
+        TrackSelector trackSelector = new DefaultTrackSelector(videoFactory);
         LoadControl loadControl = new DefaultLoadControl();
 
         // Create Player
