@@ -7,38 +7,26 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
-import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
-import com.google.android.exoplayer2.source.AdaptiveMediaSourceEventListener;
+import com.google.android.exoplayer2.extractor.mp3.Mp3Extractor;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.dash.DashMediaSource;
-import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
-import com.google.android.exoplayer2.source.hls.DefaultHlsDataSourceFactory;
-import com.google.android.exoplayer2.source.hls.HlsDataSourceFactory;
-import com.google.android.exoplayer2.source.hls.HlsMediaSource;
-import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource;
-import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
-import com.google.android.exoplayer2.trackselection.AdaptiveVideoTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 /**
@@ -73,7 +61,6 @@ public class MediaService extends Service {
     @Override
     public void onCreate() {
         Log.d("MediaService", "OnCreate");
-        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         // Load controls
         TrackSelector trackSelector = new DefaultTrackSelector();
         LoadControl loadControl = new DefaultLoadControl();
@@ -90,23 +77,30 @@ public class MediaService extends Service {
     }
 
     public SimpleExoPlayer setUpPlayer(Uri url) {
-        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(), Util.getUserAgent(this, "DemocracyDroid"));
-        // Produces Extractor instances for parsing the media data.
-        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-        HlsDataSourceFactory hlsDataSourceFactory = new DefaultHlsDataSourceFactory(dataSourceFactory);
-        // TODO:
-        // https://realm.io/news/360andev-effie-barak-switching-exoplayer-better-video-android/
-        // https://github.com/google/ExoPlayer/blob/release-v2/demo/src/main/java/com/google/android/exoplayer2/demo/PlayerActivity.java#L330
-        // HlsChunkSource.HlsChunkHolder
-        // HlsMasterPlaylist
-        // https://possiblemobile.com/2016/03/hls-exoplayer/
-        HlsMediaSource mediaSource = new HlsMediaSource(url, hlsDataSourceFactory, 3, null, null);
-        //MediaSource mediaSource = new ExtractorMediaSource(url,
-        //        dataSourceFactory, extractorsFactory, null, null);
-        player.setPlayWhenReady(true);
-        player.prepare(mediaSource);
+        String ext = url.toString().substring(url.toString().lastIndexOf("."));
+        if (ext.equals(".m3u8")) {
+            Handler mHandler = new Handler();
+            String userAgent = Util.getUserAgent(this, "DemocracyDroid");
+            DataSource.Factory dataSourceFactory = new DefaultHttpDataSourceFactory(
+                    userAgent, null,
+                    DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS,
+                    1800000,
+                    true);
+            MediaSource mediaSource = new ExtractorMediaSource(url,dataSourceFactory, Mp3Extractor.FACTORY,
+                    mHandler, null);
+            player.setPlayWhenReady(true);
+            player.prepare(mediaSource);
+        } else {
+            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(),
+                    Util.getUserAgent(this, "DemocracyDroid"));
+            // Produces Extractor instances for parsing the media data.
+            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+            MediaSource mediaSource = new ExtractorMediaSource(url,
+                    dataSourceFactory, extractorsFactory, null, null);
+            player.setPlayWhenReady(true);
+            player.prepare(mediaSource);
+        }
 
-        //notification//this
 		Intent notIntent = new Intent(getApplicationContext(), MediaActivity.class);
         // TODO: bundle
 		notIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
