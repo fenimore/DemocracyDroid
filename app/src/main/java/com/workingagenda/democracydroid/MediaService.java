@@ -39,14 +39,6 @@ import com.google.android.exoplayer2.util.Util;
 
 public class MediaService extends Service {
 
-    public static final int BUFFER_SEGMENT_SIZE = 16 * 1024; // Original value was 64 * 1024
-    public static final int VIDEO_BUFFER_SEGMENTS = 50; // Original value was 200
-    public static final int AUDIO_BUFFER_SEGMENTS = 20; // Original value was 54
-    public static final int BUFFER_SEGMENT_COUNT = 64; // Original value was 256
-
-    private String title;
-    private String path;
-
     private SimpleExoPlayer player;
     @Override
     public void onDestroy() {
