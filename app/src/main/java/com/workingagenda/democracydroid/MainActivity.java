@@ -90,6 +90,12 @@ public class MainActivity extends AppCompatActivity {
     private int DEFAULT_TAB;
     private boolean PREF_FIRST_TIME;
 
+    // ENUMS
+    public static final int STREAM_VIDEO = 0;
+    public static final int STREAM_AUDIO = 1;
+    public static final int OPEN_THIS_APP = 0;
+    public static final int OPEN_EXTENAL_APP = 1;
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -317,15 +323,17 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d("Live", e.getVideoUrl() + String.valueOf(e.getVideoUrl().contains("m3u8")));
 
+                    // NOTE:
                     // Default Stream :
                     // 0 => Video stream 1 => Audio stream
                     // Default Open:
                     // 0 => In App / 1 => external app
-                    if (e.getVideoUrl().contains("m3u8"))// FIXME: live streaming is broke, open in another browser
-                        startMediaIntent(e.getVideoUrl(), 1, e.getTitle());
-                    else if (DEFAULT_STREAM == 0)
+
+                    //if (e.getVideoUrl().contains("m3u8"))// FIXME: live streaming is broke, open in another browser
+                    //startMediaIntent(e.getVideoUrl(), 1, e.getTitle());
+                    if (DEFAULT_STREAM == STREAM_VIDEO)
                         startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
-                    else if (DEFAULT_STREAM == 1)
+                    else if (DEFAULT_STREAM == STREAM_AUDIO)
                         startMediaIntent(e.getAudioUrl(), DEFAULT_OPEN, actionTitle);
                 }
             });
@@ -334,10 +342,10 @@ public class MainActivity extends AppCompatActivity {
 
         // start an activity either in this pap or another -- pass in either video
         // or audio stream.
-        private void startMediaIntent(String url, int externalApp, String title) {
+        private void startMediaIntent(String url, int open, String title) {
             // pass in the URL if either audio or video (make check above)
             // Media Activity
-            if (externalApp == 0) {
+            if (open == OPEN_THIS_APP) {
                 Intent intent = new Intent(getContext(), MediaActivity.class);
                 intent.putExtra("url", url); //can't pass in article object?
                 intent.putExtra("title", title); // Can parseable it, but not worth it
