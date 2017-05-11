@@ -21,6 +21,7 @@ import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.extractor.mp3.Mp3Extractor;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveVideoTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
@@ -80,12 +81,13 @@ public class MediaService extends Service {
         if (ext.equals(".m3u8")) {
             Handler mHandler = new Handler();
             String userAgent = Util.getUserAgent(this, "DemocracyDroid");
+
             DataSource.Factory dataSourceFactory = new DefaultHttpDataSourceFactory(
                     userAgent, null,
                     DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS,
                     1800000,
                     true);
-            MediaSource mediaSource = new ExtractorMediaSource(url,dataSourceFactory, Mp3Extractor.FACTORY,
+            HlsMediaSource mediaSource = new HlsMediaSource(url, dataSourceFactory, 1800000,
                     mHandler, null);
             player.setPlayWhenReady(true);
             player.prepare(mediaSource);
