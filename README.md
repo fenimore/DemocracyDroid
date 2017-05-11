@@ -29,9 +29,14 @@ I have no affiliation with Democracy Now!
 
 ## Latest Release
 
-2.9.8
+3.0
 
 ## Change Log
+
+### 3.0
+
+- Add: Watch livestream in App!
+- Fix: Feed fetching
 
 ### 2.9.8
 
