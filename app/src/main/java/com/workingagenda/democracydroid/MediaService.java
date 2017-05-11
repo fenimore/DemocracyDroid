@@ -100,7 +100,7 @@ public class MediaService extends Service {
             player.prepare(mediaSource);
         }
         // Notification
-		Intent notIntent = new Intent(getApplicationContext(), MediaActivity.class);
+  Intent notIntent = new Intent(getApplicationContext(), MediaActivity.class);
         // TODO: bundle
 		notIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent pendInt = PendingIntent.getActivity(this, 0,
