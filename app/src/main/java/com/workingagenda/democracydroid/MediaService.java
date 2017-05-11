@@ -80,7 +80,6 @@ public class MediaService extends Service {
         if (ext.equals(".m3u8")) {
             Handler mHandler = new Handler();
             String userAgent = Util.getUserAgent(this, "DemocracyDroid");
-
             DataSource.Factory dataSourceFactory = new DefaultHttpDataSourceFactory(
                     userAgent, null,
                     DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS,
@@ -100,9 +99,8 @@ public class MediaService extends Service {
             player.setPlayWhenReady(true);
             player.prepare(mediaSource);
         }
-
-        //notification
-		Intent notIntent = new Intent(getApplicationContext(), MediaActivity.class);
+        // Notification
+  Intent notIntent = new Intent(getApplicationContext(), MediaActivity.class);
         // TODO: bundle
 		notIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent pendInt = PendingIntent.getActivity(this, 0,
@@ -140,5 +138,4 @@ public class MediaService extends Service {
             return MediaService.this;
         }
     }
-
 }
