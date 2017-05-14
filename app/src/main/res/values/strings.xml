@@ -55,6 +55,8 @@
     <string name="action_exclusives">Web Exclusives</string>
     <string name="btn_donate">Donate at DemocracyNow.org</string>
     <string name="democracy_now_the_war_and_peace_report">Democracy Now! The War and Peace Report</string>
+    <string name="setting_desc">Include Description in Broadcast</string>
+    <string name="desc_pref_summary">Add description underneath date</string>
     <string-array name="Language">
         <item>English (US)</item>
         <item>English (UK)</item>

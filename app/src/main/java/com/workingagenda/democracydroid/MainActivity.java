@@ -24,26 +24,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
-import android.provider.Settings;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -62,16 +57,14 @@ import android.widget.Toast;
 import com.workingagenda.democracydroid.Adapters.DownloadsAdapter;
 import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
 import com.workingagenda.democracydroid.Adapters.StoryAdapter;
-
-import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.Feedreader.RssItem;
 import com.workingagenda.democracydroid.Feedreader.RssReader;
+import com.workingagenda.democracydroid.Objects.Episode;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -94,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int STREAM_VIDEO = 0;
     public static final int STREAM_AUDIO = 1;
     public static final int OPEN_THIS_APP = 0;
-    public static final int OPEN_EXTENAL_APP = 1;
+    public static final int OPEN_EXTERNAL_APP = 1;
 
     /**
      * The {@link ViewPager} that will host the section contents.

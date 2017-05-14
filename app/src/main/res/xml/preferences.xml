@@ -29,6 +29,11 @@
             android:title="@string/setting_image"
             android:summary="@string/img_pref_summary"
             android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="desc_preference"
+            android:title="@string/setting_desc"
+            android:summary="@string/desc_pref_summary"
+            android:defaultValue="true" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_info">
         <Preference

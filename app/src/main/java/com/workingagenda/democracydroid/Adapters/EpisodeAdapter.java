@@ -37,6 +37,7 @@ import java.util.List;
  * Created by fen on 12/9/15.
  */
 public class EpisodeAdapter extends ArrayAdapter<Episode> {
+    private boolean PREF_DESC;
 
     public EpisodeAdapter(Context context, int textViewResourceId){
         super(context, textViewResourceId);
@@ -44,6 +45,8 @@ public class EpisodeAdapter extends ArrayAdapter<Episode> {
 
     public EpisodeAdapter(Context context, int resource, List<Episode> episodes){
         super(context, resource, episodes);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        PREF_DESC = preferences.getBoolean("desc_preference", true);
     }
 
     @Override
@@ -83,7 +86,7 @@ public class EpisodeAdapter extends ArrayAdapter<Episode> {
                     txt.setText(e.getTitle());
                 }
             }
-            if (tag != null) {
+            if (tag != null && PREF_DESC) {
                 if (e.getDescription() != null) {
                     tag.setText(e.getDescription().substring(e.getDescription().indexOf(";") + 2));
                 }
