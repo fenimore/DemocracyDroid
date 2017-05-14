@@ -54,6 +54,7 @@
     <string name="email_dev">Email the developer</string>
     <string name="action_exclusives">Web Exclusives</string>
     <string name="btn_donate">Donate at DemocracyNow.org</string>
+    <string name="democracy_now_the_war_and_peace_report">Democracy Now! The War and Peace Report</string>
     <string-array name="Language">
         <item>English (US)</item>
         <item>English (UK)</item>

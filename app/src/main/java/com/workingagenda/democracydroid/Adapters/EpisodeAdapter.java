@@ -60,6 +60,7 @@ public class EpisodeAdapter extends ArrayAdapter<Episode> {
         if (e != null) {
             ImageView img = (ImageView) v.findViewById(R.id.row_image);
             TextView txt = (TextView) v.findViewById(R.id.row_title);
+            TextView tag = (TextView) v.findViewById(R.id.row_tag);
             try {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                 boolean PREF_IMG = preferences.getBoolean("image_preference", false);
@@ -80,6 +81,11 @@ public class EpisodeAdapter extends ArrayAdapter<Episode> {
                     }
                 } else {
                     txt.setText(e.getTitle());
+                }
+            }
+            if (tag != null) {
+                if (e.getDescription() != null) {
+                    tag.setText(e.getDescription().substring(e.getDescription().indexOf(";") + 2));
                 }
             }
         }

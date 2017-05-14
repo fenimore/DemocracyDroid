@@ -542,6 +542,7 @@ public class MainActivity extends AppCompatActivity {
             } else if ( hour > 8) {
                 // Add Todays Broadcast even if RSS feed isn't updated yet
                 todaysEpisode.setTitle("Today's Broadcast");
+                todaysEpisode.setDescription("Democracy Now! The War and Peace Report");
                 todaysEpisode.setVideoUrl(vid);
                 todaysEpisode.setAudioUrl(audio);
             }
@@ -593,7 +594,7 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 Log.v("Podcast", "Populating List");
-                    //for (int i = 0; i < episodes.size(); i++)
+                //for (int i = 0; i < episodes.size(); i++)
                     //Log.d("Links", episodes.get(i).toString());
                 populateList(episodes);
             }
@@ -781,8 +782,8 @@ public class MainActivity extends AppCompatActivity {
                     if (!todaysStories.isEmpty()) {
                         storyPosts.addAll(todaysStories);
                     }
-                    Log.v("Story post", storyPosts.toString());
-                    Log.v("Story count Two", String.valueOf(storyPosts.size()));
+                    // Log.v("Story post", storyPosts.toString());
+                    // Log.v("Story count Two", String.valueOf(storyPosts.size()));
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");
 
