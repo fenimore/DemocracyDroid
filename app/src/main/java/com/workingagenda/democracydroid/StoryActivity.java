@@ -151,6 +151,7 @@ public class StoryActivity extends AppCompatActivity {
                 return cont;
             }catch (Exception e){
                 this.exception = e;
+                Log.v("Story Failure:", e.toString());
                 return null;
             }
         }
@@ -164,6 +165,9 @@ public class StoryActivity extends AppCompatActivity {
 
     // Use Jsoup to get the content? This is sloppy
     private String getContent(String url) throws IOException {
+        // DN feed starting spitting out this http://www.democracynow.org:443/2017/5/12/on_black_mamas_bail_out_day
+        // so I got to make sure the port isn't included anymore! It'll be fixed soon I bet.
+        url = url.replaceFirst(":443", "");
         Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
         Element data;
         // Get the Individual Videos
