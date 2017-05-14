@@ -29,9 +29,14 @@ I have no affiliation with Democracy Now!
 
 ## Latest Release
 
-3.0
+3.1.1
 
 ## Change Log
+
+### 3.1.1
+
+- Fix: Broken RSS feed for stories
+- Add: Description in Broadcast Feed
 
 ### 3.0
 
