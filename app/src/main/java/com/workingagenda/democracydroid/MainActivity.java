@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void populateList(ArrayList<Episode> episodes) {
-            if (episodes != null){
+            if (episodes.get(0) != null){
                 episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
                 mList.setAdapter(episodeAdapter);
             } else {
@@ -587,8 +587,6 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 Log.v("Podcast", "Populating List");
-                //for (int i = 0; i < episodes.size(); i++)
-                    //Log.d("Links", episodes.get(i).toString());
                 populateList(episodes);
             }
         }
@@ -657,8 +655,10 @@ public class MainActivity extends AppCompatActivity {
 
         public void populateList(ArrayList<Episode> stories) {
             Log.v("Load story feed", String.valueOf(stories.size()));
-            storyAdapter = new StoryAdapter(getContext(), R.layout.row_story, stories);
-            sList.setAdapter(storyAdapter);
+            if (stories.get(0) != null) {
+                storyAdapter = new StoryAdapter(getContext(), R.layout.row_story, stories);
+                sList.setAdapter(storyAdapter);
+            }
             if (storySwipeRefreshLayout != null){
                 storySwipeRefreshLayout.setRefreshing(false);
             }
