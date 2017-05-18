@@ -29,9 +29,13 @@ I have no affiliation with Democracy Now!
 
 ## Latest Release
 
-3.1.1
+3.1.2
 
 ## Change Log
+
+### 3.1.2
+
+- Fix those crashes? I think?
 
 ### 3.1.1
 
