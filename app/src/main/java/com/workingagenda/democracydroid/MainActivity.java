@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         private SwipeRefreshLayout mySwipeRefreshLayout;
 
         // Episode objects!!!
-        ArrayList<Episode> episodes = new ArrayList<Episode>(20);
+        ArrayList<Episode> episodes = new ArrayList<Episode>(32);
         // set up custom adapter with episodes
         /**
          * The fragment argument representing the section number for this
@@ -691,6 +691,7 @@ public class MainActivity extends AppCompatActivity {
             sList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (storyPosts.get(position) == null) return;
                     Episode s = storyPosts.get(position);
                     loadTranscript(s);
                 }
@@ -751,7 +752,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(String... params) {
                 storyPosts = new ArrayList<>(128);
-                ArrayList<Episode> todaysStories = new ArrayList<>(16);
+                ArrayList<Episode> todaysStories = new ArrayList<>(32);
                 Log.v("Story count", String.valueOf(storyPosts.size()));
                 try {
                     RssReader rssReader = new RssReader(params[0]);
@@ -767,7 +768,7 @@ public class MainActivity extends AppCompatActivity {
                         todaysStories.add(0, b);
                         if (b.getTitle().contains("Headlines")) {
                             storyPosts.addAll(todaysStories);
-                            todaysStories = new ArrayList<>(16);
+                            todaysStories = new ArrayList<>(32);
                         }
 
                     }
