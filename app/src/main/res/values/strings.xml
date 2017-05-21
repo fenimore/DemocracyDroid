@@ -40,12 +40,8 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
-        ==== 3.1.1\n
-        - Fix: Broken RSS feed for stories\n
-        - Add: Description in Broadcast Feed\n\n
-        ==== 3.0\n
-        Add: Watch live stream inside app!\n
-        Fix: Feed fetching crashes\n\n
+        ==== 3.2\n
+        - Big changes on the inners of this application!
     </string>
     <string name="open_stream">Default Application to Play Media</string>
     <string name="download_video">Download Video</string>

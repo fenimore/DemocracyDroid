@@ -29,9 +29,13 @@ I have no affiliation with Democracy Now!
 
 ## Latest Release
 
-3.1.2
+3.2.0
 
 ## Change Log
+
+### 3.2.0
+
+- Massive overhaul to code base
 
 ### 3.1.2
 
