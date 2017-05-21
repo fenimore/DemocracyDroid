@@ -217,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
         private EpisodeAdapter episodeAdapter;
         private ArrayList<Episode> mEpisodes;
         private int LIVE_TIME = 8;
+        private SimpleDateFormat mFormat;
+
 
         private SwipeRefreshLayout mySwipeRefreshLayout;
 
@@ -271,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
             // Callback calls GetAudioFeed
             episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, mEpisodes);
             mList.setAdapter(episodeAdapter);
+            mFormat = new SimpleDateFormat("yyyy-MMdd");
             new GetVideoFeed().execute("https://www.democracynow.org/podcast-video.xml");
             if (mySwipeRefreshLayout != null ) {
                 mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -452,11 +455,10 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(ArrayList<Episode> episodes) {
                 // TODO: Swap english feed for spanish according to the settings (3.0 milestone)
                 // https://www.democracynow.org/podcast-es.xml
-                Log.v("Check", "Check audio");
+                Log.v("GetAudio", "podcast.xml");
                 mEpisodes.clear();
                 mEpisodes.addAll(episodes);
-                episodeAdapter.notifyDataSetChanged();
-                new GetAudioFeed().execute("https://www.democracynow.org/podcast.xml"); // must be called second
+                new GetAudioFeed().execute("https://www.democracynow.org/podcast.xml"); // must be called onPostExecute
             }
         }
 
@@ -479,10 +481,9 @@ public class MainActivity extends AppCompatActivity {
 
         private ArrayList<Episode> checkLiveStream(ArrayList<Episode> epis) {
             // Make it Pretty, and NY eastern Time
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
             TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
             Calendar c = Calendar.getInstance(timeZone);
-            String formattedDate = format.format(c.getTime());
+            String formattedDate = mFormat.format(c.getTime());
             String todayVid = "https://hot.dvlabs.com/democracynow/video-podcast/dn"
                     + formattedDate + ".mp4";
             String todayVid2 = "https://publish.dvlabs.com/democracynow/video-podcast/dn"
@@ -495,8 +496,6 @@ public class MainActivity extends AppCompatActivity {
             if (todayVid.equals(epis.get(0).getVideoUrl())) return epis;
             if (todayVid2.equals(epis.get(0).getVideoUrl()))return epis;
             if (hourOfDay < LIVE_TIME) return epis;
-            // Get the missing episode
-            // TODO: test for early morning feed
             Episode episode = getUnlistedStream(hourOfDay, todayAudio, todayVid);
             epis.add(0, episode);
             return epis;
@@ -546,32 +545,28 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(List<String> audioLinks) {
-                // mBar.setVisibility(View.GONE);
-                mTxt.setText(R.string.connect_error);
+                if (audioLinks.size() < 1) {
+                    mTxt.setText(R.string.connect_error);
+                }
                 if (mySwipeRefreshLayout != null ) {
                     mySwipeRefreshLayout.setRefreshing(false);
                 }
 
                 Log.v("Podcast", "Populating List");
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
                 TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
                 Calendar c = Calendar.getInstance(timeZone);
-                String formattedDate = format.format(c.getTime());
+                String formattedDate = mFormat.format(c.getTime());
                 String today_audio = "https://traffic.libsyn.com/democracynow/dn"
                         + formattedDate + "-1.mp3";
                 int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
                 int hourOfDay= c.get(Calendar.HOUR_OF_DAY);
-                Log.v("Load A/V", String.valueOf(audioLinks.size()) +" / "+ String.valueOf(mEpisodes.size()));
+                Log.v("Count A/V", String.valueOf(audioLinks.size()) +" / "+ String.valueOf(mEpisodes.size()));
 
-                if (audioLinks.size() == 0 || mEpisodes.size() == 0) {
-                    Log.d("AUD", "Aud count: " + audioLinks.size() + " Epi count: " + mEpisodes.size());
-                    return;
-                }
-                boolean valid = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > LIVE_TIME-1);
-                if (valid && hourOfDay == LIVE_TIME) {
+                boolean onSchedule = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > LIVE_TIME-1);
+                if (onSchedule && hourOfDay == LIVE_TIME) {
                     audioLinks.add(0, "http://democracynow.videocdn.scaleengine.net/" +
                             "democracynow-iphone/play/democracynow/playlist.m3u8");
-                } else if (!audioLinks.get(0).equals(today_audio) && valid) {// check rather if field is empty?
+                } else if (onSchedule && !audioLinks.get(0).equals(today_audio)) {// check rather if field is empty?
                     audioLinks.add(0, today_audio);
                 }
                 int SIZE = Math.min(mEpisodes.size(), audioLinks.size());
@@ -579,7 +574,6 @@ public class MainActivity extends AppCompatActivity {
                     mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
                     //Log.d("Episode:", "\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl());;
                 }
-                Log.d("GetAudio", String.valueOf(mEpisodes.size()));
                 episodeAdapter.notifyDataSetChanged();
             }
         }
