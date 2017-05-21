@@ -215,12 +215,13 @@ public class MainActivity extends AppCompatActivity {
         private TextView mTxt;
         private ProgressBar mBar;
         private EpisodeAdapter episodeAdapter;
-        private int LIVE_TIME = 8;// TODO: const
+        private ArrayList<Episode> mEpisodes;
+        private int LIVE_TIME = 8;
 
         private SwipeRefreshLayout mySwipeRefreshLayout;
 
         // Episode objects!!!
-        ArrayList<Episode> episodes = new ArrayList<Episode>(32);
+
         // set up custom adapter with episodes
         /**
          * The fragment argument representing the section number for this
@@ -231,28 +232,12 @@ public class MainActivity extends AppCompatActivity {
         public PodcastFragment() {
         }
 
-        public void populateList(ArrayList<Episode> episodes) {
-            if (episodes.get(0) != null){
-                episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, episodes);
-                mList.setAdapter(episodeAdapter);
-            } else {
-                mBar.setVisibility(View.GONE);
-                mTxt.setText(R.string.connect_error);
-            }
-            if (mySwipeRefreshLayout != null ) {
-                mySwipeRefreshLayout.setRefreshing(false);
-            }
-        }
         private void refresh() {
             mySwipeRefreshLayout.setRefreshing(true);
-            if (episodes.size() > 1){
-                episodes.clear();
-                if (episodeAdapter != null) {
-                    episodeAdapter.notifyDataSetChanged();
-                }
+            if (mEpisodes.size() > 1){
+                mEpisodes.clear();
+                episodeAdapter.notifyDataSetChanged();
             }
-            // Call GetAudioFeed in GetVideoFeed Callback
-            //http://www.democracynow.org/podcast-video.xml
             new GetVideoFeed().execute("https://www.democracynow.org/podcast-video.xml");
         }
 
@@ -278,12 +263,14 @@ public class MainActivity extends AppCompatActivity {
             mTxt = (TextView) rootView.findViewById(android.R.id.empty);
             mBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
             mySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
-
+            mEpisodes = new ArrayList<Episode>();
             mBar.setVisibility(View.GONE);
             registerForContextMenu(mList);
             // Is this necessary?
-            mList.setEmptyView(mTxt); // FIXME: Set to mTxt???S
+            mList.setEmptyView(mTxt);
             // Callback calls GetAudioFeed
+            episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, mEpisodes);
+            mList.setAdapter(episodeAdapter);
             new GetVideoFeed().execute("https://www.democracynow.org/podcast-video.xml");
             if (mySwipeRefreshLayout != null ) {
                 mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -298,39 +285,33 @@ public class MainActivity extends AppCompatActivity {
             mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Episode e = episodes.get(i);
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                    int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
-                    int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
-
-                    // Set the Title for Toolbar
-                    String actionTitle = "Democracy Now!";
-                    if (e.getTitle().length() > 16){
-                        if(e.getTitle() == "Today's Broadcast")
-                            actionTitle = e.getTitle();
-                        else if (e.getTitle().startsWith("Democracy Now!"))
-                            actionTitle = e.getTitle().substring(14);
-                        else
-                            actionTitle = e.getTitle();
-                    }
-
-                    Log.d("Live", e.getVideoUrl() + String.valueOf(e.getVideoUrl().contains("m3u8")));
-
-                    // NOTE:
-                    // Default Stream :
-                    // 0 => Video stream 1 => Audio stream
-                    // Default Open:
-                    // 0 => In App / 1 => external app
-
-                    //if (e.getVideoUrl().contains("m3u8"))// FIXME: live streaming is broke, open in another browser
-                    //startMediaIntent(e.getVideoUrl(), 1, e.getTitle());
-                    if (DEFAULT_STREAM == STREAM_VIDEO)
-                        startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
-                    else if (DEFAULT_STREAM == STREAM_AUDIO)
-                        startMediaIntent(e.getAudioUrl(), DEFAULT_OPEN, actionTitle);
+                    Episode e = mEpisodes.get(i);
+                    loadEpisode(e);
                 }
             });
             return rootView;
+        }
+
+        private void loadEpisode(Episode e) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
+            int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
+            // Set the Title for Toolbar
+            String actionTitle = "Democracy Now!";
+            if (e.getTitle().length() > 16){
+                if("Today's Broadcast".equals(e.getTitle()))
+                    actionTitle = e.getTitle();
+                else if (e.getTitle().startsWith("Democracy Now!"))
+                    actionTitle = e.getTitle().substring(14);
+                else
+                    actionTitle = e.getTitle();
+            }
+
+            Log.v("Live", e.getVideoUrl() + String.valueOf(e.getVideoUrl().contains("m3u8")));
+            if (DEFAULT_STREAM == STREAM_VIDEO)
+                startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
+            else if (DEFAULT_STREAM == STREAM_AUDIO)
+                startMediaIntent(e.getAudioUrl(), DEFAULT_OPEN, actionTitle);
         }
 
         // start an activity either in this pap or another -- pass in either video
@@ -340,8 +321,8 @@ public class MainActivity extends AppCompatActivity {
             // Media Activity
             if (open == OPEN_THIS_APP) {
                 Intent intent = new Intent(getContext(), MediaActivity.class);
-                intent.putExtra("url", url); //can't pass in article object?
-                intent.putExtra("title", title); // Can parseable it, but not worth it
+                intent.putExtra("url", url);
+                intent.putExtra("title", title);
                 startActivityForResult(intent, 0); //Activity load = 0
             } else {
                 // FIXME: SecurityException
@@ -381,10 +362,10 @@ public class MainActivity extends AppCompatActivity {
             int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
             int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this ap
             int pos = info.position;
-            Episode e = episodes.get(pos);
+            Episode e = mEpisodes.get(pos);
             String actionTitle = "Democracy Now!";
             if (e.getTitle().length() > 16){
-                if(e.getTitle() == "Today's Broadcast"){
+                if("Today's Broadcast".equals(e.getTitle())){
                     actionTitle = e.getTitle();
                 } else if (e.getTitle().startsWith("Democracy Now!")){
                     actionTitle = e.getTitle().substring(14);
@@ -454,29 +435,33 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        private class GetVideoFeed extends AsyncTask<String, Void, Void> {
+        private class GetVideoFeed extends AsyncTask<String, Void, ArrayList<Episode>> {
             @Override
-            protected Void doInBackground(String... params) {
+            protected ArrayList<Episode> doInBackground(String... params) {
                 Log.d("GetVideo", params[0]);
+                ArrayList<Episode> episodes = new ArrayList<>();
                 try {
-                    episodes = parseVideoFeed(params[0]);
+                    episodes.addAll(parseVideoFeed(params[0]));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                return null;
+                return episodes;
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
+            protected void onPostExecute(ArrayList<Episode> episodes) {
                 // TODO: Swap english feed for spanish according to the settings (3.0 milestone)
                 // https://www.democracynow.org/podcast-es.xml
                 Log.v("Check", "Check audio");
+                mEpisodes.clear();
+                mEpisodes.addAll(episodes);
+                episodeAdapter.notifyDataSetChanged();
                 new GetAudioFeed().execute("https://www.democracynow.org/podcast.xml"); // must be called second
             }
         }
 
         private ArrayList<Episode> parseVideoFeed(String url) throws Exception {
+            ArrayList<Episode> epis = new ArrayList<>();
             RssReader rssReader = new RssReader(url);
             for(RssItem item : rssReader.getItems()){
                 Episode e = new Episode();
@@ -485,13 +470,14 @@ public class MainActivity extends AppCompatActivity {
                 e.setDescription(item.getDescription());
                 e.setImageUrl(item.getImageUrl());
                 e.setUrl(item.getLink());
-                episodes.add(e);
+                epis.add(e);
             }
-            return checkLiveStream(episodes); // and add video in link
-                                              // not yet in RSS feed ;)
+
+            return checkLiveStream(epis); // and add video in link
+                                          // not yet in RSS feed ;)
         }
 
-        private ArrayList<Episode> checkLiveStream(ArrayList<Episode> episodes) {
+        private ArrayList<Episode> checkLiveStream(ArrayList<Episode> epis) {
             // Make it Pretty, and NY eastern Time
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
             TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
@@ -505,15 +491,15 @@ public class MainActivity extends AppCompatActivity {
                     + formattedDate + "-1.mp3";
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
             int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
-            if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) return episodes;
-            if (todayVid.equals(episodes.get(0).getVideoUrl())) return episodes;
-            if (todayVid2.equals(episodes.get(0).getVideoUrl()))return episodes;
-            if (hourOfDay < LIVE_TIME) return episodes;
+            if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) return epis;
+            if (todayVid.equals(epis.get(0).getVideoUrl())) return epis;
+            if (todayVid2.equals(epis.get(0).getVideoUrl()))return epis;
+            if (hourOfDay < LIVE_TIME) return epis;
             // Get the missing episode
             // TODO: test for early morning feed
             Episode episode = getUnlistedStream(hourOfDay, todayAudio, todayVid);
-            episodes.add(0, episode);
-            return episodes;
+            epis.add(0, episode);
+            return epis;
         }
 
         private Episode getUnlistedStream(int hour, String audio, String vid){
@@ -542,10 +528,31 @@ public class MainActivity extends AppCompatActivity {
             return todaysEpisode;
         }
 
-        private class GetAudioFeed extends AsyncTask<String, Void, Void> {
+        private class GetAudioFeed extends AsyncTask<String, Void, List<String>> {
             @Override
-            protected Void doInBackground(String... params) {
+            protected List<String> doInBackground(String... params) {
                 RssReader rssReader = new RssReader(params[0]);
+
+                ArrayList<String> audio = new ArrayList<>();
+                try {
+                    for(RssItem item : rssReader.getItems())
+                        audio.add(item.getVideoUrl());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                return audio;
+            }
+
+            @Override
+            protected void onPostExecute(List<String> audioLinks) {
+                // mBar.setVisibility(View.GONE);
+                mTxt.setText(R.string.connect_error);
+                if (mySwipeRefreshLayout != null ) {
+                    mySwipeRefreshLayout.setRefreshing(false);
+                }
+
+                Log.v("Podcast", "Populating List");
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MMdd");
                 TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
                 Calendar c = Calendar.getInstance(timeZone);
@@ -554,40 +561,26 @@ public class MainActivity extends AppCompatActivity {
                         + formattedDate + "-1.mp3";
                 int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
                 int hourOfDay= c.get(Calendar.HOUR_OF_DAY);
-                ArrayList<String> audio = new ArrayList<>();
-                try {
-                    for(RssItem item : rssReader.getItems())
-                        audio.add(item.getVideoUrl());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Log.v("Load A/V", String.valueOf(audio.size()) +" / "+ String.valueOf(episodes.size()));
-                // FIXME: Is this the solution to IndexOutOfBounds which plagggues me?
-                if (audio.size() == 0 || episodes.size() == 0) {
-                    Log.d("AUD", "Aud count: " + audio.size() + " Epi count: " + episodes.size());
-                    return null;
+                Log.v("Load A/V", String.valueOf(audioLinks.size()) +" / "+ String.valueOf(mEpisodes.size()));
+
+                if (audioLinks.size() == 0 || mEpisodes.size() == 0) {
+                    Log.d("AUD", "Aud count: " + audioLinks.size() + " Epi count: " + mEpisodes.size());
+                    return;
                 }
                 boolean valid = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > LIVE_TIME-1);
                 if (valid && hourOfDay == LIVE_TIME) {
-                    audio.add(0, "http://democracynow.videocdn.scaleengine.net/" +
+                    audioLinks.add(0, "http://democracynow.videocdn.scaleengine.net/" +
                             "democracynow-iphone/play/democracynow/playlist.m3u8");
-                } else if (!audio.get(0).equals(today_audio) && valid) {// check rather if field is empty?
-                    audio.add(0, today_audio);
+                } else if (!audioLinks.get(0).equals(today_audio) && valid) {// check rather if field is empty?
+                    audioLinks.add(0, today_audio);
                 }
-                int SIZE = Math.min(episodes.size(), audio.size());
+                int SIZE = Math.min(mEpisodes.size(), audioLinks.size());
                 for (int i =0; i < SIZE; i++) {
-                    episodes.get(i).setAudioUrl(audio.get(i));
+                    mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
+                    //Log.d("Episode:", "\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl());;
                 }
-
-                Log.d("CheckAud", String.valueOf(episodes.size()));
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                Log.v("Podcast", "Populating List");
-                populateList(episodes);
+                Log.d("GetAudio", String.valueOf(mEpisodes.size()));
+                episodeAdapter.notifyDataSetChanged();
             }
         }
 
@@ -634,7 +627,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static class StoryFragment extends Fragment {
         private ListView sList;
-        ArrayList<Episode> storyPosts = new ArrayList<Episode>(128);
+        private ArrayList<Episode> mStories;
         private TextView sTxt;
         private ProgressBar sBar;
         // TODO: private SwipeRefreshLayout storySwipeRefreshLayout;
@@ -653,21 +646,10 @@ public class MainActivity extends AppCompatActivity {
             return fragment;
         }
 
-        public void populateList(ArrayList<Episode> stories) {
-            Log.v("Load story feed", String.valueOf(stories.size()));
-            if (stories.get(0) != null) {
-                storyAdapter = new StoryAdapter(getContext(), R.layout.row_story, stories);
-                sList.setAdapter(storyAdapter);
-            }
-            if (storySwipeRefreshLayout != null){
-                storySwipeRefreshLayout.setRefreshing(false);
-            }
-        }
-
         private void refresh() {
             storySwipeRefreshLayout.setRefreshing(true);
-            if (storyPosts.size() > 1){
-                storyPosts.clear();
+            if (mStories.size() > 1){
+                mStories.clear();
                 if (storyAdapter != null ){
                     storyAdapter.notifyDataSetChanged();
                 }
@@ -684,6 +666,9 @@ public class MainActivity extends AppCompatActivity {
             sTxt = (TextView) rootView.findViewById(android.R.id.empty);
             sBar = (ProgressBar) rootView.findViewById(R.id.sBar);
             sBar.setVisibility(View.GONE);
+            mStories = new ArrayList<>();
+            storyAdapter = new StoryAdapter(getContext(), R.layout.row_story, mStories);
+            sList.setAdapter(storyAdapter);
             storySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
             sList.setEmptyView(sBar);
             registerForContextMenu(sList);
@@ -691,8 +676,8 @@ public class MainActivity extends AppCompatActivity {
             sList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (storyPosts.get(position) == null) return;
-                    Episode s = storyPosts.get(position);
+                    if (mStories.get(position) == null) return;
+                    Episode s = mStories.get(position);
                     loadTranscript(s);
                 }
             });
@@ -730,7 +715,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onContextItemSelected(MenuItem item) {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int pos = info.position;
-            Episode b = storyPosts.get(pos);
+            Episode b = mStories.get(pos);
             switch(item.getItemId()) {
                 case R.id.action_blog_description:
                     AlertDialog description = new AlertDialog.Builder(getContext()).create();
@@ -748,12 +733,11 @@ public class MainActivity extends AppCompatActivity {
                     return super.onContextItemSelected(item);
             }
         }
-        private class GetStoryFeed extends AsyncTask<String, Void, Void> {
+        private class GetStoryFeed extends AsyncTask<String, Void, List<Episode>> {
             @Override
-            protected Void doInBackground(String... params) {
-                storyPosts = new ArrayList<>(128);
+            protected List<Episode> doInBackground(String... params) {
+                ArrayList<Episode> stories = new ArrayList<>();
                 ArrayList<Episode> todaysStories = new ArrayList<>(32);
-                Log.v("Story count", String.valueOf(storyPosts.size()));
                 try {
                     RssReader rssReader = new RssReader(params[0]);
                     for(RssItem item : rssReader.getItems()){
@@ -763,34 +747,30 @@ public class MainActivity extends AppCompatActivity {
                         b.setPubDate(item.getPubDate());
                         b.setImageUrl(item.getImageUrl());
                         b.setUrl(item.getLink());
-                        // NOTE: Order the stories by days
-                        // with the Headlines as headers
+                        // Headlines are last in Feed, sort by Headlines
                         todaysStories.add(0, b);
                         if (b.getTitle().contains("Headlines")) {
-                            storyPosts.addAll(todaysStories);
-                            todaysStories = new ArrayList<>(32);
+                            stories.addAll(todaysStories);
+                            todaysStories.clear();
                         }
-
                     }
-                    // If todays is empty?
                     if (!todaysStories.isEmpty()) {
-                        storyPosts.addAll(todaysStories);
+                        stories.addAll(todaysStories);
                     }
-                    // Log.v("Story post", storyPosts.toString());
-                    // Log.v("Story count Two", String.valueOf(storyPosts.size()));
                 } catch (Exception e) {
                     Log.v("Error Parsing Data", e + "");
 
                 }
-                return null;
+                return stories;
             }
             @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                if (!storyPosts.isEmpty()) {
-                    populateList(storyPosts);
-                }
+            protected void onPostExecute(List<Episode> stories) {
                 Log.v("Stories", "Populating List");
+                mStories.addAll(stories);
+                storyAdapter.notifyDataSetChanged();
+                if (storySwipeRefreshLayout != null){
+                    storySwipeRefreshLayout.setRefreshing(false);
+                }
             }
         }
     }
