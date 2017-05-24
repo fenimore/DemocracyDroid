@@ -292,6 +292,7 @@ public class MainActivity extends AppCompatActivity {
                     loadEpisode(e);
                 }
             });
+            
             return rootView;
         }
 
@@ -566,7 +567,7 @@ public class MainActivity extends AppCompatActivity {
                 if (onSchedule && hourOfDay == LIVE_TIME) {
                     audioLinks.add(0, "http://democracynow.videocdn.scaleengine.net/" +
                             "democracynow-iphone/play/democracynow/playlist.m3u8");
-                } else if (onSchedule && !audioLinks.get(0).equals(today_audio)) {// check rather if field is empty?
+                } else if (onSchedule && audioLinks.size() > 0 && !audioLinks.get(0).equals(today_audio)) {
                     audioLinks.add(0, today_audio);
                 }
                 int SIZE = Math.min(mEpisodes.size(), audioLinks.size());
@@ -655,7 +656,6 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_story, container, false);
-
             sList = (ListView) rootView.findViewById(android.R.id.list);
             sTxt = (TextView) rootView.findViewById(android.R.id.empty);
             sBar = (ProgressBar) rootView.findViewById(R.id.sBar);
@@ -908,7 +908,6 @@ public class MainActivity extends AppCompatActivity {
             // Collections.reverse(inFiles);
             return inFiles;
         }
-
         private void refresh(){
             //do nothing
         }
