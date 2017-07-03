@@ -16,6 +16,7 @@
 
 package com.workingagenda.democracydroid.Feedreader;
 
+import android.util.Log;
 import android.util.Xml;
 
 import org.jsoup.Jsoup;
@@ -70,12 +71,14 @@ public class RssReader {
 
     private RssItem readItem(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, this.nameSpace, "item");
+        // TODO: default not null?
         String title = null;
         String description = null;
         String link = null;
         String imageUrl = null;
         String videoUrl = null;
         String pubDate = null;
+        String contentEnc = null;
         while(parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
@@ -93,12 +96,14 @@ public class RssReader {
                 imageUrl = readImageUrl(parser);
             else if (name.equals("media:content"))
                 videoUrl = readVideoUrl(parser);
+            else if (name.equals("content:encoded"))
+                contentEnc = readContentEnc(parser);
             else {
                 skip(parser);
             }
         }
         //Log.d("Pubdate", pubDate);
-        return new RssItem(title, description, link, imageUrl, videoUrl, pubDate);
+        return new RssItem(title, description, link, imageUrl, videoUrl, pubDate, contentEnc);
     }
 
     private String readVideoUrl(XmlPullParser parser) throws IOException, XmlPullParserException {
@@ -155,6 +160,25 @@ public class RssReader {
             parser.nextTag();
         }
         parser.require(XmlPullParser.END_TAG, this.nameSpace, "link");
+        result = result.trim();
+        return result;
+    }
+
+    private String readContentEnc(XmlPullParser parser) throws IOException, XmlPullParserException {
+        parser.require(XmlPullParser.START_TAG, this.nameSpace, "content:encoded");
+        String result = "";
+        if (parser.next() == XmlPullParser.TEXT) {
+            result = parser.getText();
+            Log.d("ENCODED", result);
+            if (result.contains("src=")) {
+                Log.d("ENCODED", String.valueOf(result.indexOf("src=")));
+                Log.d("ENCODED", String.valueOf(result.indexOf("\"")));
+                result = result.substring(result.indexOf("src=") + 5 );
+                result = result.substring(0, result.indexOf("\""));
+            }
+            parser.nextTag();
+        }
+        parser.require(XmlPullParser.END_TAG, this.nameSpace, "content:encoded");
         result = result.trim();
         return result;
     }

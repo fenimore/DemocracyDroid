@@ -739,7 +739,7 @@ public class MainActivity extends AppCompatActivity {
                         b.setTitle(item.getTitle());
                         b.setDescription(item.getDescription());
                         b.setPubDate(item.getPubDate());
-                        b.setImageUrl(item.getImageUrl());
+                        b.setImageUrl(item.getContentEnc());
                         b.setUrl(item.getLink());
                         // Headlines are last in Feed, sort by Headlines
                         todaysStories.add(0, b);

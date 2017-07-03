@@ -23,14 +23,16 @@ public class RssItem {
     String imageUrl;
     String videoUrl;
     String pubDate;
+    String contentEnc;
 
-    public RssItem(String title, String description, String link, String imageUrl, String videoUrl, String pubDate) {
+    public RssItem(String title, String description, String link, String imageUrl, String videoUrl, String pubDate, String contentEnc) {
         this.title = title;
         this.description = description;
         this.link = link;
         this.imageUrl = imageUrl;
         this.videoUrl = videoUrl;
         this.pubDate = pubDate;
+        this.contentEnc = contentEnc;
     }
 
 
@@ -89,6 +91,14 @@ public class RssItem {
         } else {
             this.description.concat(addition);
         }
+    }
+
+    public String getContentEnc() {
+        return contentEnc;
+    }
+
+    public void setContentEnc(String contentEnc) {
+        this.contentEnc = contentEnc;
     }
 
     public void setTitle(String title) {

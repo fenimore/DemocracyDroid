@@ -39,23 +39,24 @@ public class StoryAdapter extends ArrayAdapter<Episode> {
             ImageView img = (ImageView) v.findViewById(R.id.row_image);
             TextView txt = (TextView) v.findViewById(R.id.row_title);
             try {
-                Picasso.with(getContext()).load("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png").into(img); // TODO Change image
+                Picasso.with(getContext()).load(b.getImageUrl()).into(img);
             } catch (Exception ex) {
-                Log.v("Blog Adapter", "exception" + ex.toString());
+                Log.v("Story Adapter", "exception" + ex.toString());
             }
 
             if (txt != null) {
                 txt.setText(b.getTitle());
             }
-
             // Special formatting for headlines
             if ( b.getTitle().startsWith("Headlines")){
+                try {
+                    Picasso.with(getContext()).load("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png").into(img); // TODO Change image
+                } catch (Exception e) {
+                    Log.v("Story Adapter", "exception" + e.toString());
+                }
                 assert txt != null;
                 txt.setAllCaps(true);
-                txt.setTextColor(Color.WHITE);
-                v.setBackgroundColor(Color.parseColor("#670001"));
-                txt.setPadding(0, 40, 0, 0);
-                txt.setTextSize(17);
+                txt.setPadding(0, 5, 0, 0);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     v.setMinimumHeight(img.getMinimumHeight());
                 }
