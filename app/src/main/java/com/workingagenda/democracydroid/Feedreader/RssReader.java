@@ -90,7 +90,7 @@ public class RssReader {
                 link = readLink(parser);
             else if (name.equals("description"))
                 description = readDescription(parser);
-            else if (name.equals("pubdate"))
+            else if (name.equals("pubDate"))
                 pubDate = readPubDate(parser);
             else if (name.equals("media:thumbnail"))
                 imageUrl = readImageUrl(parser);
@@ -102,7 +102,6 @@ public class RssReader {
                 skip(parser);
             }
         }
-        //Log.d("Pubdate", pubDate);
         return new RssItem(title, description, link, imageUrl, videoUrl, pubDate, contentEnc);
     }
 
@@ -142,13 +141,13 @@ public class RssReader {
     }
 
     private String readPubDate(XmlPullParser parser) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, this.nameSpace, "pubdate");
+        parser.require(XmlPullParser.START_TAG, this.nameSpace, "pubDate");
         String result = "";
         if (parser.next() == XmlPullParser.TEXT) {
             result = parser.getText();
             parser.nextTag();
         }
-        parser.require(XmlPullParser.END_TAG, this.nameSpace, "pubdate");
+        parser.require(XmlPullParser.END_TAG, this.nameSpace, "pubDate");
         return result;
     }
 

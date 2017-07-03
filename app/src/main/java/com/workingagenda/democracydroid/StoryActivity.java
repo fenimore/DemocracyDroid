@@ -57,6 +57,7 @@ public class StoryActivity extends AppCompatActivity {
             + "color: white;	float:right; font-weight: 400;	text-transform: uppercase;	padding: 10px 12px;	width: 90px;	margin-left: 1em;	"
             + "text-align: center;} "
             + "a {color: #0099CC}"
+            + "ul {list-style-type: none;overflow: hidden;}"
             + "h1 a {color: inherit; text-decoration: none}"
             + "img {height: auto} "
             + "pre {white-space: pre-wrap;} "
@@ -105,6 +106,9 @@ public class StoryActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if (video == null && audio == null) {
+            return super.onOptionsItemSelected(item);
+        }
         //noinspection SimplifiableIfStatement
         if(id == android.R.id.home){
              NavUtils.navigateUpFromSameTask(this);
@@ -178,7 +182,19 @@ public class StoryActivity extends AppCompatActivity {
         // Get the Transcript URL
         if (doc.getElementById("headlines") == null){
             data = doc.getElementsByClass("story_with_left_panel").first();// get the third content div,
+            data.getElementsByClass("audio_player_container").remove();
+            data.getElementsByClass("close").remove();
+            data.getElementsByClass("controls").remove();
             data.getElementsByClass("left_panel").remove();
+            data.getElementsByClass("get_cd_dvd").remove();
+            data.getElementsByClass("download_video").remove();
+            data.getElementsByClass("other_formats").remove();
+            data.getElementsByClass("download_audio").remove();
+            data.getElementsByClass("show_modal").remove();
+            data.getElementsByClass("donate_banner").remove();
+            data.getElementById("social_download_modal").remove();
+            data.getElementsByClass("share_mobile").remove();
+            data.getElementsByClass("share_counter").remove();
         } else {
             data = doc.getElementById("headlines");// get the third content div,
         }
