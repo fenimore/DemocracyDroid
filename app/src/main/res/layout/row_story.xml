@@ -6,13 +6,12 @@
     <ImageView
         android:id="@+id/row_image"
         android:layout_height="58dp"
-        android:layout_width="104dp"
-        android:layout_marginRight="5dp"/>
+        android:layout_width="104dp"/>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:paddingLeft="10dp">
+        android:paddingLeft="3dp">
         <TextView
             android:id="@+id/row_title"
             android:layout_width="wrap_content"

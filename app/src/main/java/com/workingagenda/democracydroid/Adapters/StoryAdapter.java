@@ -2,6 +2,7 @@ package com.workingagenda.democracydroid.Adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,7 +57,8 @@ public class StoryAdapter extends ArrayAdapter<Episode> {
                 }
                 assert txt != null;
                 txt.setAllCaps(true);
-                txt.setPadding(0, 5, 0, 0);
+                txt.setTypeface(txt.getTypeface(), Typeface.BOLD);
+                txt.setPadding(0, 25, 0, 0);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     v.setMinimumHeight(img.getMinimumHeight());
                 }
