@@ -35,11 +35,6 @@
             android:summary="Open Stream In %s"
             android:entries="@array/openAlias"
             android:entryValues="@array/open" />
-        <CheckBoxPreference
-            android:key="image_preference"
-            android:title="@string/setting_image"
-            android:summary="@string/img_pref_summary"
-            android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_info">
         <Preference

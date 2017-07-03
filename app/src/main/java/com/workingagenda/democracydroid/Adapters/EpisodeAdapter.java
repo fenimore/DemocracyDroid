@@ -66,9 +66,7 @@ public class EpisodeAdapter extends ArrayAdapter<Episode> {
             TextView tag = (TextView) v.findViewById(R.id.row_tag);
             try {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                boolean PREF_IMG = preferences.getBoolean("image_preference", false);
-                if (!PREF_IMG)
-                    Picasso.with(getContext()).load(e.getImageUrl()).into(img); // TODO Change image
+                Picasso.with(getContext()).load(e.getImageUrl()).into(img);
             } catch (Exception ex) {
                 Log.v("Episode Adapter", "exception");
             }

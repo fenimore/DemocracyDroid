@@ -81,7 +81,7 @@ public class AboutActivity extends AppCompatActivity {
         btnSrc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("https://github.com/polypmer/DemocracyNow");
+                Uri uri = Uri.parse("https://github.com/fenimore/DemocracyNow");
                 Intent goToSource = new Intent(Intent.ACTION_VIEW, uri);
                 // To count with Github backstack, After pressing back button,
                 // to taken back to our application, we need to add following flags to intent.
