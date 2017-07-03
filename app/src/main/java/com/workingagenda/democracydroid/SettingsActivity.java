@@ -47,6 +47,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         if(tab.getValue() == null){
             tab.setValueIndex(1);
         }
+
         final ListPreference stream = (ListPreference) findPreference("stream_preference");
         if(stream.getValue() == null){
             stream.setValueIndex(0);
