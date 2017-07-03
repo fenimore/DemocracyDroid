@@ -19,7 +19,6 @@
       android:layout_gravity="center">
 
     <!-- Video surface will be inserted as the first child of the content frame. -->
-
     <View android:id="@id/exo_shutter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,10 +32,6 @@
         android:id="@+id/exo_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <com.google.android.exoplayer2.ui.SubtitleView android:id="@id/exo_subtitles"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
   </com.google.android.exoplayer2.ui.AspectRatioFrameLayout>
 
