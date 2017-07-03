@@ -454,12 +454,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(ArrayList<Episode> episodes) {
-                // TODO: Swap english feed for spanish according to the settings (3.0 milestone)
-                // https://www.democracynow.org/podcast-es.xml
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                String feed = "https://www.democracynow.org/podcast.xml";
+                if (preferences.getBoolean("spanish_preference", false)) {
+                    feed = "https://www.democracynow.org/podcast-es.xml";
+                }
                 Log.v("GetAudio", "podcast.xml");
                 mEpisodes.clear();
                 mEpisodes.addAll(episodes);
-                new GetAudioFeed().execute("https://www.democracynow.org/podcast.xml"); // must be called onPostExecute
+
+                new GetAudioFeed().execute(feed); // must be called onPostExecute
             }
         }
 

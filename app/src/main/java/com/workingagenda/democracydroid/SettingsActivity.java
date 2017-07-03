@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -46,7 +47,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         if(tab.getValue() == null){
             tab.setValueIndex(1);
         }
-        ListPreference stream = (ListPreference) findPreference("stream_preference");
+        final ListPreference stream = (ListPreference) findPreference("stream_preference");
         if(stream.getValue() == null){
             stream.setValueIndex(0);
         }
@@ -59,6 +60,21 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         Preference versionPref = findPreference("pref_static_field_key0");
         Preference newPref = findPreference("whats_new");
         versionPref.setSummary("Democracy Droid! " + versionName);
+
+        final CheckBoxPreference spanish = (CheckBoxPreference) findPreference("spanish_preference");
+        spanish.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if (spanish.isChecked()){
+                    spanish.setChecked(false);
+                } else{
+                    stream.setValueIndex(1);
+                    spanish.setChecked(true);
+                }
+                return false;
+            }
+        });
+
 
         newPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override

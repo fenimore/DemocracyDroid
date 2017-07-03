@@ -169,10 +169,7 @@ public class RssReader {
         String result = "";
         if (parser.next() == XmlPullParser.TEXT) {
             result = parser.getText();
-            Log.d("ENCODED", result);
             if (result.contains("src=")) {
-                Log.d("ENCODED", String.valueOf(result.indexOf("src=")));
-                Log.d("ENCODED", String.valueOf(result.indexOf("\"")));
                 result = result.substring(result.indexOf("src=") + 5 );
                 result = result.substring(0, result.indexOf("\""));
             }
