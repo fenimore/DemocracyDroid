@@ -25,10 +25,10 @@ public class AboutActivity extends AppCompatActivity {
     public TextView Txt2;
     public TextView Txt3;
     public TextView Txt4;
-    private Button btnRev;
-    private Button btnSrc;
-    private Button btnMail;
-    private Button btnDon;
+    public Button btnRev;
+    public Button btnSrc;
+    public Button btnMail;
+    public Button btnDon;
     /**
      * The fragment argument representing the section number for this
      * fragment.

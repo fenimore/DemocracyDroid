@@ -19,6 +19,7 @@ package com.workingagenda.democracydroid.Adapters;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ public class EpisodeAdapter extends ArrayAdapter<Episode> {
         PREF_DESC = preferences.getBoolean("desc_preference", true);
     }
 
+    @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         View v = convertView;

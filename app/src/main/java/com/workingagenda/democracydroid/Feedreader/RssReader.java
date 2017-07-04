@@ -16,7 +16,6 @@
 
 package com.workingagenda.democracydroid.Feedreader;
 
-import android.util.Log;
 import android.util.Xml;
 
 import org.jsoup.Jsoup;
@@ -40,7 +39,7 @@ public class RssReader {
     }
 
 
-    public List getRssItems(InputStream in) throws XmlPullParserException, IOException {
+    private List getRssItems(InputStream in) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser= Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);

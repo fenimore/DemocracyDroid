@@ -17,13 +17,13 @@ package com.workingagenda.democracydroid.Feedreader;
 
 
 public class RssItem {
-    String title;
-    String description;
-    String link;
-    String imageUrl;
-    String videoUrl;
-    String pubDate;
-    String contentEnc;
+    private String title;
+    private String description;
+    private String link;
+    private String imageUrl;
+    private String videoUrl;
+    private String pubDate;
+    private String contentEnc; // story feed image_urls are stored here
 
     public RssItem(String title, String description, String link, String imageUrl, String videoUrl, String pubDate, String contentEnc) {
         this.title = title;

@@ -62,7 +62,7 @@
         <Preference
             android:key="pref_static_field_key4"
             android:title="Contributors"
-            android:summary="Fenimore Love\nDerrick Rocha">
+            android:summary="Fenimore Love">
             <intent android:action="android.intent.action.VIEW"
                 android:data="https://github.com/fenimore/DemocracyDroid/graphs/contributors"/>
         </Preference>

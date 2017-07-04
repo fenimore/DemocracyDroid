@@ -1,7 +1,6 @@
 package com.workingagenda.democracydroid.Adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.Log;
