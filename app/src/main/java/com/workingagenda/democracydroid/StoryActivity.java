@@ -26,18 +26,13 @@ import java.io.IOException;
  */
 public class StoryActivity extends AppCompatActivity {
 
-    // TODO: Get video links from page, and offer a play option
-    // TODO: GO HERE:
-    // <a class="download_video" href="https://publish.dvlabs.com/democracynow/360/dn2016-0810.mp4?start=2994.0">
-    // And of course for audio...
-    private TextView testing;
     private WebView webview;
 
     // Data
     private String title;
     private String date;
     private String url;
-    private String content;
+    // todo: image
     private String author;
     private String video;
     private String audio;
@@ -48,17 +43,15 @@ public class StoryActivity extends AppCompatActivity {
             + "h1, h2 {font-weight: normal; line-height: 130%} "
             + "h1 {font-size: 170%; margin-bottom: 0.1em} "
             + "h2 {font-size: 140%} "
-
             + ".donate_container {background: #333; color: #FFFFFF; width: 100%; text-align:center; display: inline-block} "
             + ".donate_prompt {width:66%}"
-
-            + ".donate_button {background: #458589; "
-            + "background: linear-gradient(to bottom, #458589 0%, #2A6075 100%);	"
+            + ".donate_button {background: #01afef; "
             + "color: white;	float:right; font-weight: 400;	text-transform: uppercase;	padding: 10px 12px;	width: 90px;	margin-left: 1em;	"
             + "text-align: center;} "
-            + "a {color: #0099CC}"
-            + "ul {list-style-type: none;overflow: hidden;}"
-            + "h1 a {color: inherit; text-decoration: none}"
+            + "ul > li {display: inline-block;  zoom:1;*display:inline;"
+            + "margin-right:15px;margin-left: 15px;}"
+            + "a {color: #0099CC; text-decoration: none;}"
+            + "h1 a {color: inherit;}"
             + "img {height: auto} "
             + "pre {white-space: pre-wrap;} "
             + "blockquote {border-left: thick solid #a6a6a6; background-color: #e6e6e6; margin: 0.5em 0 0.5em 0em; padding: 0.5em} "
@@ -85,7 +78,7 @@ public class StoryActivity extends AppCompatActivity {
         url = (String) extras.get("url");
         title = (String) extras.get("title");
         date = (String) extras.get("date");
-        Log.v("url", url);
+        date = date.substring(0, date.lastIndexOf("-"));
         new RetrieveContent().execute(url);
     }
 
@@ -109,7 +102,6 @@ public class StoryActivity extends AppCompatActivity {
         if (video == null && audio == null) {
             return super.onOptionsItemSelected(item);
         }
-        //noinspection SimplifiableIfStatement
         if(id == android.R.id.home){
              NavUtils.navigateUpFromSameTask(this);
              return true;
@@ -131,14 +123,14 @@ public class StoryActivity extends AppCompatActivity {
         } else if (id == R.id.action_story_audio) {
             Log.d("StoryActivity", audio);
             Intent intent = new Intent(this, MediaActivity.class);
-            intent.putExtra("url", audio); //can't pass in article object
+            intent.putExtra("url", audio);
             intent.putExtra("title", title);
             startActivityForResult(intent, 0); //Activity load = 0
             return true;
         } else if (id == R.id.action_story_video) {
             Log.d("StoryActivity", video);
             Intent intent = new Intent(this, MediaActivity.class);
-            intent.putExtra("url", video); //can't pass in article object?
+            intent.putExtra("url", video);
             intent.putExtra("title", title);
             startActivityForResult(intent, 0); //Activity load = 0
             return true;
@@ -148,13 +140,10 @@ public class StoryActivity extends AppCompatActivity {
     }
 
     class RetrieveContent extends AsyncTask<String, Void, String> {
-        private Exception exception;
         protected String doInBackground(String... urls){
             try {
-                String cont = getContent(urls[0]);
-                return cont;
+                return getContent(urls[0]);
             }catch (Exception e){
-                this.exception = e;
                 Log.v("Story Failure:", e.toString());
                 return null;
             }
@@ -162,8 +151,13 @@ public class StoryActivity extends AppCompatActivity {
 
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            String page = "<h2>" + title + "</h2><hr>"+date+"<hr>" + "Viewer Supported News: <a class='donate_button' data-width='800' data-height='590' data-ga-action='Story: Donate' href='https://democracynow.org/donate'>Donate</a><br>Donate at democracynow.org<hr>" + result;
-            webview.loadData(page, "text/html; charset=utf-8", "UTF-8"); //but don't just
+            // TODO: pass image with the Intent
+            String page = "<h2>" + title + "</h2><strong>" + date +
+                    "</strong><br><small>Viewer Supported News:</small> " +
+                    "<a class='donate_button' data-width='800' data-height='590' " +
+                    "data-ga-action='Story: Donate' href='https://democracynow.org/donate'>" +
+                    "Donate</a><br>Donate at democracynow.org<hr>" + result;
+            webview.loadData(page, "text/html; charset=utf-8", "UTF-8");
         }
     }
 
@@ -181,20 +175,10 @@ public class StoryActivity extends AppCompatActivity {
         video = videoElem.attr("abs:href");
         // Get the Transcript URL
         if (doc.getElementById("headlines") == null){
-            data = doc.getElementsByClass("story_with_left_panel").first();// get the third content div,
-            data.getElementsByClass("audio_player_container").remove();
-            data.getElementsByClass("close").remove();
-            data.getElementsByClass("controls").remove();
+            data = doc.getElementById("story_text");// .first();// get the third content div,
             data.getElementsByClass("left_panel").remove();
-            data.getElementsByClass("get_cd_dvd").remove();
-            data.getElementsByClass("download_video").remove();
-            data.getElementsByClass("other_formats").remove();
-            data.getElementsByClass("download_audio").remove();
-            data.getElementsByClass("show_modal").remove();
-            data.getElementsByClass("donate_banner").remove();
-            data.getElementById("social_download_modal").remove();
-            data.getElementsByClass("share_mobile").remove();
-            data.getElementsByClass("share_counter").remove();
+            data.getElementsByClass("hidden-xs").remove();
+            data.getElementsByClass("hidden-sm").remove();
         } else {
             data = doc.getElementById("headlines");// get the third content div,
         }
@@ -206,7 +190,6 @@ public class StoryActivity extends AppCompatActivity {
         data.getElementsByClass("donate_container").remove();
         String cont = data.toString();
         cont = CSS + cont + "</body>";
-        content = cont;
         return cont;
     }
 }
