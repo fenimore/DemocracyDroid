@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private int DEFAULT_TAB;
-    private boolean PREF_FIRST_TIME;
+    public SectionsPagerAdapter mSectionsPagerAdapter;
+    public int DEFAULT_TAB;
+    public boolean PREF_FIRST_TIME;
 
     // ENUMS
     public static final int STREAM_VIDEO = 0;
@@ -104,13 +104,20 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
         PREF_FIRST_TIME = preferences.getBoolean("first_preference", true);
+        // TODO: have splash screen for new users
         Log.d("First time", String.valueOf((PREF_FIRST_TIME)));
         // Tab Layouts
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Stories").setIcon(R.drawable.ic_library_books_white_24dp));
-        tabLayout.addTab(tabLayout.newTab().setText("Broadcast").setIcon(R.drawable.ic_live_tv_white_24dp));
-        tabLayout.addTab(tabLayout.newTab().setText("Downloads").setIcon(R.drawable.ic_file_download_white_24dp));
+        boolean spanish = preferences.getBoolean("spanish_preference", false);
+        String storyTitle = !spanish ? "Stories"  : "Noticias";
+        String broadTitle = !spanish ? "Broadcast" : "Difusiones";
+        String downTitle = !spanish ? "Downloads" : "Descargas";
+        tabLayout.addTab(tabLayout.newTab().setText(storyTitle).setIcon(R.drawable.ic_library_books_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText(broadTitle).setIcon(R.drawable.ic_live_tv_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText(downTitle).setIcon(R.drawable.ic_file_download_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -311,7 +318,6 @@ public class MainActivity extends AppCompatActivity {
                     actionTitle = e.getTitle();
             }
 
-            Log.v("Live", e.getVideoUrl() + String.valueOf(e.getVideoUrl().contains("m3u8")));
             if (DEFAULT_STREAM == STREAM_VIDEO)
                 startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
             else if (DEFAULT_STREAM == STREAM_AUDIO)
@@ -377,8 +383,7 @@ public class MainActivity extends AppCompatActivity {
                     actionTitle = e.getTitle();
                 }
             }
-            Log.d("Itemid", String.valueOf(item.getItemId()));
-            Log.d("Itemid", String.valueOf(R.id.reverse_default_open));
+
             switch(item.getItemId()) {
                 case R.id.action_share:
                     Intent sendIntent = new Intent();
@@ -400,8 +405,6 @@ public class MainActivity extends AppCompatActivity {
                     int reverseOpen = 0;
                     if (reverseOpen == DEFAULT_OPEN)
                         reverseOpen = 1;
-                    Log.d("Open", String.valueOf(reverseOpen));
-                    Log.d("Open", String.valueOf(DEFAULT_OPEN));
                     if (DEFAULT_STREAM == 0)
                         startMediaIntent(e.getVideoUrl(), reverseOpen, actionTitle);
                     else
@@ -442,7 +445,6 @@ public class MainActivity extends AppCompatActivity {
         private class GetVideoFeed extends AsyncTask<String, Void, ArrayList<Episode>> {
             @Override
             protected ArrayList<Episode> doInBackground(String... params) {
-                Log.d("GetVideo", params[0]);
                 ArrayList<Episode> episodes = new ArrayList<>();
                 try {
                     episodes.addAll(parseVideoFeed(params[0]));
@@ -454,12 +456,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(ArrayList<Episode> episodes) {
-                // TODO: Swap english feed for spanish according to the settings (3.0 milestone)
-                // https://www.democracynow.org/podcast-es.xml
-                Log.v("GetAudio", "podcast.xml");
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                String feed = "https://www.democracynow.org/podcast.xml";
+                if (preferences.getBoolean("spanish_preference", false)) {
+                    feed = "https://www.democracynow.org/podcast-es.xml";
+                }
                 mEpisodes.clear();
                 mEpisodes.addAll(episodes);
-                new GetAudioFeed().execute("https://www.democracynow.org/podcast.xml"); // must be called onPostExecute
+
+                new GetAudioFeed().execute(feed); // must be called onPostExecute
             }
         }
 
@@ -503,7 +508,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private Episode getUnlistedStream(int hour, String audio, String vid){
-            //Log.d("Today", today_video);//Log.d("Latest", episodes.get(0).getVideoUrl());
             // Live Stream
             Episode todaysEpisode = new Episode();
             todaysEpisode.setDescription("Stream Live between 8 and 9 weekdays Eastern time, " +
@@ -512,7 +516,6 @@ public class MainActivity extends AppCompatActivity {
                     "Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
             todaysEpisode.setUrl("http://m.democracynow.org/");
             if ( LIVE_TIME == hour ){
-                Log.d("YO it's time for live", "stream");
                 todaysEpisode.setTitle("Stream Live");//"Stream Live");
                 todaysEpisode.setVideoUrl("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/" +
                         "play/democracynow/playlist.m3u8");
@@ -553,7 +556,6 @@ public class MainActivity extends AppCompatActivity {
                     mySwipeRefreshLayout.setRefreshing(false);
                 }
 
-                Log.v("Podcast", "Populating List");
                 TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
                 Calendar c = Calendar.getInstance(timeZone);
                 String formattedDate = mFormat.format(c.getTime());
@@ -573,6 +575,7 @@ public class MainActivity extends AppCompatActivity {
                 int SIZE = Math.min(mEpisodes.size(), audioLinks.size());
                 for (int i =0; i < SIZE; i++) {
                     mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
+                    // FIXME: Audio has one more item than video?
                     //Log.d("Episode:", "\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl());;
                 }
                 episodeAdapter.notifyDataSetChanged();
@@ -739,7 +742,7 @@ public class MainActivity extends AppCompatActivity {
                         b.setTitle(item.getTitle());
                         b.setDescription(item.getDescription());
                         b.setPubDate(item.getPubDate());
-                        b.setImageUrl(item.getImageUrl());
+                        b.setImageUrl(item.getContentEnc());
                         b.setUrl(item.getLink());
                         // Headlines are last in Feed, sort by Headlines
                         todaysStories.add(0, b);
@@ -759,7 +762,6 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             protected void onPostExecute(List<Episode> stories) {
-                Log.v("Stories", "Populating List");
                 mStories.addAll(stories);
                 storyAdapter.notifyDataSetChanged();
                 if (storySwipeRefreshLayout != null){

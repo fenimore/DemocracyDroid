@@ -25,10 +25,10 @@ public class AboutActivity extends AppCompatActivity {
     public TextView Txt2;
     public TextView Txt3;
     public TextView Txt4;
-    private Button btnRev;
-    private Button btnSrc;
-    private Button btnMail;
-    private Button btnDon;
+    public Button btnRev;
+    public Button btnSrc;
+    public Button btnMail;
+    public Button btnDon;
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -81,7 +81,7 @@ public class AboutActivity extends AppCompatActivity {
         btnSrc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("https://github.com/polypmer/DemocracyNow");
+                Uri uri = Uri.parse("https://github.com/fenimore/DemocracyNow");
                 Intent goToSource = new Intent(Intent.ACTION_VIEW, uri);
                 // To count with Github backstack, After pressing back button,
                 // to taken back to our application, we need to add following flags to intent.

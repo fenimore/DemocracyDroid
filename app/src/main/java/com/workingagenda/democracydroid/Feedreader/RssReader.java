@@ -39,7 +39,7 @@ public class RssReader {
     }
 
 
-    public List getRssItems(InputStream in) throws XmlPullParserException, IOException {
+    private List getRssItems(InputStream in) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser= Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -70,12 +70,14 @@ public class RssReader {
 
     private RssItem readItem(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, this.nameSpace, "item");
+        // TODO: default not null?
         String title = null;
         String description = null;
         String link = null;
         String imageUrl = null;
         String videoUrl = null;
         String pubDate = null;
+        String contentEnc = null;
         while(parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
@@ -87,18 +89,19 @@ public class RssReader {
                 link = readLink(parser);
             else if (name.equals("description"))
                 description = readDescription(parser);
-            else if (name.equals("pubdate"))
+            else if (name.equals("pubDate"))
                 pubDate = readPubDate(parser);
             else if (name.equals("media:thumbnail"))
                 imageUrl = readImageUrl(parser);
             else if (name.equals("media:content"))
                 videoUrl = readVideoUrl(parser);
+            else if (name.equals("content:encoded"))
+                contentEnc = readContentEnc(parser);
             else {
                 skip(parser);
             }
         }
-        //Log.d("Pubdate", pubDate);
-        return new RssItem(title, description, link, imageUrl, videoUrl, pubDate);
+        return new RssItem(title, description, link, imageUrl, videoUrl, pubDate, contentEnc);
     }
 
     private String readVideoUrl(XmlPullParser parser) throws IOException, XmlPullParserException {
@@ -137,13 +140,13 @@ public class RssReader {
     }
 
     private String readPubDate(XmlPullParser parser) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, this.nameSpace, "pubdate");
+        parser.require(XmlPullParser.START_TAG, this.nameSpace, "pubDate");
         String result = "";
         if (parser.next() == XmlPullParser.TEXT) {
             result = parser.getText();
             parser.nextTag();
         }
-        parser.require(XmlPullParser.END_TAG, this.nameSpace, "pubdate");
+        parser.require(XmlPullParser.END_TAG, this.nameSpace, "pubDate");
         return result;
     }
 
@@ -155,6 +158,22 @@ public class RssReader {
             parser.nextTag();
         }
         parser.require(XmlPullParser.END_TAG, this.nameSpace, "link");
+        result = result.trim();
+        return result;
+    }
+
+    private String readContentEnc(XmlPullParser parser) throws IOException, XmlPullParserException {
+        parser.require(XmlPullParser.START_TAG, this.nameSpace, "content:encoded");
+        String result = "";
+        if (parser.next() == XmlPullParser.TEXT) {
+            result = parser.getText();
+            if (result.contains("src=")) {
+                result = result.substring(result.indexOf("src=") + 5 );
+                result = result.substring(0, result.indexOf("\""));
+            }
+            parser.nextTag();
+        }
+        parser.require(XmlPullParser.END_TAG, this.nameSpace, "content:encoded");
         result = result.trim();
         return result;
     }

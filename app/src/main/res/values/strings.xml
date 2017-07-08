@@ -40,9 +40,9 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
-        ==== 3.2 / 3.3\n
-        - Big changes on the inners of this application!\n
-        Hopefully it crashes less ;)
+        ==== 3.4\n
+        - Spanish language audio feed!\n
+        - Updates to the Story feed UI\n
     </string>
     <string name="open_stream">Default Application to Play Media</string>
     <string name="download_video">Download Video</string>
@@ -57,6 +57,17 @@
     <string name="democracy_now_the_war_and_peace_report">Democracy Now! The War and Peace Report</string>
     <string name="setting_desc">Include Description in Broadcast</string>
     <string name="desc_pref_summary">Add description underneath date</string>
+    <string name="setting_language">Difusión de Audio en Español</string>
+    <string name="refresh">Refresh</string>
+    <string name="description_menu_title">Description</string>
+    <string name="delete">Delete</string>
+    <string name="play_in_external_player">Play In External Player</string>
+    <string name="share">Share</string>
+    <string name="tab_1">Tab 1</string>
+    <string name="tab_2">Tab 2</string>
+    <string name="tab_3">Tab 3</string>
+    <string name="clear_all">Clear All</string>
+    <string name="democracy_now_the_war_and_peace_report_text">Democracy Now! The War and Peace Report</string>
     <string-array name="Language">
         <item>English (US)</item>
         <item>English (UK)</item>

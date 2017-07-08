@@ -6,6 +6,17 @@
         android:title="What's New In This Version"
         android:summary="Features and Bug Fixes (press here)"/>
     <PreferenceCategory android:title="@string/pref_category_settings">
+        <CheckBoxPreference
+            android:key="spanish_preference"
+            android:title="@string/setting_language"
+            android:summary="Spanish language Audio broadcast"
+            android:defaultValue="false"
+            />
+        <CheckBoxPreference
+            android:key="desc_preference"
+            android:title="@string/setting_desc"
+            android:summary="@string/desc_pref_summary"
+            android:defaultValue="true" />
         <ListPreference
             android:key="tab_preference"
             android:title="@string/setting_tab"
@@ -24,16 +35,6 @@
             android:summary="Open Stream In %s"
             android:entries="@array/openAlias"
             android:entryValues="@array/open" />
-        <CheckBoxPreference
-            android:key="image_preference"
-            android:title="@string/setting_image"
-            android:summary="@string/img_pref_summary"
-            android:defaultValue="false" />
-        <CheckBoxPreference
-            android:key="desc_preference"
-            android:title="@string/setting_desc"
-            android:summary="@string/desc_pref_summary"
-            android:defaultValue="true" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_info">
         <Preference
@@ -60,10 +61,10 @@
         </Preference>
         <Preference
             android:key="pref_static_field_key4"
-            android:title="Developer"
+            android:title="Contributors"
             android:summary="Fenimore Love">
             <intent android:action="android.intent.action.VIEW"
-                android:data="http://another.workingagenda.com"/>
+                android:data="https://github.com/fenimore/DemocracyDroid/graphs/contributors"/>
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>
