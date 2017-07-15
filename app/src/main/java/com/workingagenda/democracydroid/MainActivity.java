@@ -669,22 +669,9 @@ public class MainActivity extends AppCompatActivity {
             sBar.setVisibility(View.GONE);
             mStories = new ArrayList<>();
             storyAdapter = new StoryAdapter(getContext(), mStories);
-            GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-           /* mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    Episode episode = mStories.get(position);
-                    if (episode!= null && episode.getTitle()!=null
-                            &&episode.getTitle().startsWith("Headlines")) {
-                        return 2;
-                    }
-                    else {
-                        return 1;
-                    }
-                }
-            });*/
+            GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
             sList.setLayoutManager(layoutManager);
-            sList.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+            sList.addItemDecoration(new GridSpacingItemDecoration(1, dpToPx(4), true));
             sList.setItemAnimator(new DefaultItemAnimator());
             sList.setAdapter(storyAdapter);
             storySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
@@ -745,14 +732,14 @@ public class MainActivity extends AppCompatActivity {
                     outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
 
                     if (position < spanCount) { // top edge
-                        outRect.top = spacing;
+                       // outRect.top = spacing;
                     }
-                    outRect.bottom = spacing; // item bottom
+                   // outRect.bottom = spacing; // item bottom
                 } else {
                     outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
                     outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
                     if (position >= spanCount) {
-                        outRect.top = spacing; // item top
+                     //   outRect.top = spacing; // item top
                     }
                 }
             }
