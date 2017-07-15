@@ -3,6 +3,9 @@ package com.workingagenda.democracydroid.Adapters;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.workingagenda.democracydroid.Adapters.ViewHolders.StoryHeadlineViewHolder;
+import com.workingagenda.democracydroid.Adapters.ViewHolders.StoryViewHolder;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 
@@ -20,50 +25,52 @@ import java.util.List;
 /**
  * Created by fen on 4/10/16.
  */
-public class StoryAdapter extends ArrayAdapter<Episode> {
+public class StoryAdapter extends RecyclerView.Adapter<StoryViewHolder> {
 
-    public StoryAdapter(Context context, int resource, List<Episode> episodes){
-        super(context, resource, episodes);
+    private static final int TYPE_HEADLINE = 0;
+    private static final int TYPE_EPISODE = 1;
+    private final Context mContext;
+    private final LayoutInflater mInflator;
+    private final List<Episode> mEpisodes;
+
+    public StoryAdapter(Context context, List<Episode> episodes){
+        mContext = context;
+        mInflator = LayoutInflater.from(mContext);
+        mEpisodes = episodes;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-        View v;
-
-        LayoutInflater vi;
-        vi = LayoutInflater.from(getContext());
-        v = vi.inflate(R.layout.row_story, null);
-
-        Episode b = getItem(position);
-        if (b != null) {
-            ImageView img = (ImageView) v.findViewById(R.id.row_image);
-            TextView txt = (TextView) v.findViewById(R.id.row_title);
-            try {
-                Picasso.with(getContext()).load(b.getImageUrl()).into(img);
-            } catch (Exception ex) {
-                Log.v("Story Adapter", "exception" + ex.toString());
-            }
-
-            if (txt != null) {
-                txt.setText(b.getTitle());
-            }
-            // Special formatting for headlines
-            if ( b.getTitle().startsWith("Headlines")){
-                try {
-                    Picasso.with(getContext()).load("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png").into(img); // TODO Change image
-                } catch (Exception e) {
-                    Log.v("Story Adapter", "exception" + e.toString());
-                }
-                assert txt != null;
-                txt.setAllCaps(true);
-                txt.setTypeface(txt.getTypeface(), Typeface.BOLD);
-                txt.setPadding(0, 25, 0, 0);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    v.setMinimumHeight(img.getMinimumHeight());
-                }
-            }
+    public StoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == TYPE_EPISODE) {
+            View v = mInflator.inflate(R.layout.row_story, null);
+            StoryViewHolder viewHolder = new StoryViewHolder(v);
+            return viewHolder;
         }
+        else {
+            View v = mInflator.inflate(R.layout.row_story_headline, null);
+            StoryViewHolder viewHolder = new StoryHeadlineViewHolder(v);
+            return viewHolder;
+        }
+    }
 
-        return v;
+    @Override
+    public void onBindViewHolder(StoryViewHolder holder, int position) {
+        holder.showEpisode(mEpisodes.get(position));
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        Episode episode = mEpisodes.get(position);
+        if (episode.getTitle().startsWith("Headlines")){
+            return TYPE_HEADLINE;
+        }
+        else{
+            return TYPE_EPISODE;
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return mEpisodes.size();
     }
 }
