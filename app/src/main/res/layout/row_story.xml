@@ -15,15 +15,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/row_image"
                 android:layout_height="84dp"
                 android:layout_width="149dp"
-                android:adjustViewBounds="true"
                 android:scaleType="fitCenter"/>
 
             <ImageView
-                android:id="@+id/options"
+                android:id="@+id/row_options"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:layout_alignParentRight="true"
@@ -42,7 +41,7 @@
                 android:layout_marginRight="4dp"
                 android:maxLines="5"
                 android:textStyle="bold"
-                android:layout_toLeftOf="@id/options"
+                android:layout_toLeftOf="@id/row_options"
                 android:layout_toRightOf="@id/row_image"/>
 
         </RelativeLayout>

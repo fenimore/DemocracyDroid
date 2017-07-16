@@ -1,23 +1,12 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    tools:context=".MainActivity$PodcastFragment">
-    <TextView android:id="@android:id/empty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text= "@string/connecting"
-        android:textColor="@color/colorPrimaryDark"/>
+    android:layout_height="fill_parent">
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginBottom="50dp">
+        android:layout_height="fill_parent">
 
         <ListView android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -27,9 +16,10 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
-        android:layout_marginTop="20dp"
+        android:id="@+id/progess_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
         <ProgressBar
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
@@ -38,6 +28,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@android:style/Widget.Holo.Light.ProgressBar.Large"/>
+
+        <TextView android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text= "@string/connecting"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_below="@id/progressBar"/>
     </RelativeLayout>
 
-</LinearLayout>
+
+</RelativeLayout>

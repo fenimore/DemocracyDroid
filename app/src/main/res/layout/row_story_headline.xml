@@ -16,11 +16,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/row_image"
                 android:layout_height="84dp"
                 android:layout_width="149dp"
-                android:adjustViewBounds="true"
                 android:scaleType="fitCenter"/>
             <TextView
                 android:id="@+id/row_title"
