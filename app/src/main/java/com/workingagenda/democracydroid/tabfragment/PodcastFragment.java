@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -19,7 +20,10 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -34,8 +38,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
+import com.workingagenda.democracydroid.Adapters.GridSpacingItemDecoration;
 import com.workingagenda.democracydroid.Feedreader.RssItem;
 import com.workingagenda.democracydroid.Feedreader.RssReader;
+import com.workingagenda.democracydroid.Helpers.DpToPixelHelper;
 import com.workingagenda.democracydroid.MediaActivity;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
@@ -57,7 +63,7 @@ public class PodcastFragment extends Fragment {
     public static final int OPEN_THIS_APP = 0;
 
     //Declare some variables
-    private ListView mList;
+    private RecyclerView mList;
     private TextView mTxt;
     private RelativeLayout mProgress;
     private EpisodeAdapter episodeAdapter;
@@ -107,7 +113,7 @@ public class PodcastFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         // Find View Items
-        mList = (ListView) rootView.findViewById(android.R.id.list);
+        mList = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mTxt = (TextView) rootView.findViewById(android.R.id.empty);
         mProgress = (RelativeLayout) rootView.findViewById(R.id.progess_layout);
         mySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
@@ -115,9 +121,11 @@ public class PodcastFragment extends Fragment {
         mProgress.setVisibility(View.GONE);
         registerForContextMenu(mList);
         // Callback calls GetAudioFeed
-        episodeAdapter = new EpisodeAdapter(getContext(), R.layout.row_episodes, mEpisodes);
+        episodeAdapter = new EpisodeAdapter(getContext(), mEpisodes);
         mList.setAdapter(episodeAdapter);
-        mFormat = new SimpleDateFormat("yyyy-MMdd");
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
+        mList.setLayoutManager(layoutManager);
+        mList.addItemDecoration(new GridSpacingItemDecoration(1, DpToPixelHelper.dpToPx(4,getResources().getDisplayMetrics()), true));        mFormat = new SimpleDateFormat("yyyy-MMdd");
         new PodcastFragment.GetVideoFeed().execute("https://www.democracynow.org/podcast-video.xml");
         if (mySwipeRefreshLayout != null ) {
             mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -129,13 +137,13 @@ public class PodcastFragment extends Fragment {
             });
         }
 
-        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      /*  mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Episode e = mEpisodes.get(i);
                 loadEpisode(e);
             }
-        });
+        });*/
 
         return rootView;
     }
