@@ -4,45 +4,26 @@ package com.workingagenda.democracydroid.tabfragment;
  * Created by derrickrocha on 7/16/17.
  */
 
-import android.Manifest;
-import android.app.DownloadManager;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
 import com.workingagenda.democracydroid.Adapters.GridSpacingItemDecoration;
 import com.workingagenda.democracydroid.Feedreader.RssItem;
 import com.workingagenda.democracydroid.Feedreader.RssReader;
 import com.workingagenda.democracydroid.Helpers.DpToPixelHelper;
-import com.workingagenda.democracydroid.MediaActivity;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 
@@ -56,11 +37,6 @@ import java.util.TimeZone;
  * A placeholder fragment containing a simple view.
  */
 public class PodcastFragment extends Fragment {
-
-    // ENUMS
-    public static final int STREAM_VIDEO = 0;
-    public static final int STREAM_AUDIO = 1;
-    public static final int OPEN_THIS_APP = 0;
 
     //Declare some variables
     private RecyclerView mList;
@@ -119,7 +95,7 @@ public class PodcastFragment extends Fragment {
         mySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
         mEpisodes = new ArrayList<>();
         mProgress.setVisibility(View.GONE);
-        registerForContextMenu(mList);
+        //registerForContextMenu(mList);
         // Callback calls GetAudioFeed
         episodeAdapter = new EpisodeAdapter(getContext(), mEpisodes);
         mList.setAdapter(episodeAdapter);
@@ -137,83 +113,9 @@ public class PodcastFragment extends Fragment {
             });
         }
 
-      /*  mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Episode e = mEpisodes.get(i);
-                loadEpisode(e);
-            }
-        });*/
-
         return rootView;
     }
 
-    private void loadEpisode(Episode e) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
-        int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
-        // Set the Title for Toolbar
-        String actionTitle = "Democracy Now!";
-        if (e.getTitle().length() > 16){
-            if("Today's Broadcast".equals(e.getTitle()))
-                actionTitle = e.getTitle();
-            else if (e.getTitle().startsWith("Democracy Now!"))
-                actionTitle = e.getTitle().substring(14);
-            else
-                actionTitle = e.getTitle();
-        }
-
-        if (DEFAULT_STREAM == STREAM_VIDEO)
-            startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
-        else if (DEFAULT_STREAM == STREAM_AUDIO)
-            startMediaIntent(e.getAudioUrl(), DEFAULT_OPEN, actionTitle);
-    }
-
-    // start an activity either in this pap or another -- pass in either video
-    // or audio stream.
-    private void startMediaIntent(String url, int open, String title) {
-        // pass in the URL if either audio or video (make check above)
-        // Media Activity
-        if (open == OPEN_THIS_APP) {
-            Intent intent = new Intent(getContext(), MediaActivity.class);
-            intent.putExtra("url", url);
-            intent.putExtra("title", title);
-            startActivityForResult(intent, 0); //Activity load = 0
-        } else {
-            // FIXME: SecurityException
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.parse(url), "*/*");
-            startActivity(intent);
-        }
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        if (v.getId()==android.R.id.list) {
-            MenuInflater inflater = new MenuInflater(getContext());
-            menu.setHeaderTitle("Democracy Now!");
-            inflater.inflate(R.menu.context_menu, menu);
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-            int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
-            int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
-
-            if (DEFAULT_STREAM == 0)
-                menu.getItem(2).setTitle("Stream Audio");
-            else
-                menu.getItem(2).setTitle("Stream Video");
-
-            if(DEFAULT_OPEN == 0)
-                menu.getItem(3).setTitle("Stream in Another App");
-            else
-                menu.getItem(3).setTitle("Stream in This App");
-        }
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        return super.onContextItemSelected(item);
-    }
 
     private class GetVideoFeed extends AsyncTask<String, Void, ArrayList<Episode>> {
         @Override
@@ -355,39 +257,4 @@ public class PodcastFragment extends Fragment {
         }
     }
 
-    // FIXME: Show progress:
-    // http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
-    public void Download(String url, String title, String desc) {
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    0);
-            // TODO: catch onRequestPermissionsResult
-        } else {
-            if (url.equals("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8")) {
-                Toast toast = Toast.makeText(getActivity(),
-                        "You can't download the Live Stream", Toast.LENGTH_LONG);
-                toast.show();
-                return;
-            }
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-            request.setDescription(desc);
-            request.setTitle(title);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                request.allowScanningByMediaScanner();
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            }
-            String fileext = url.substring(url.lastIndexOf('/') + 1);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PODCASTS, fileext);
-            //http://stackoverflow.com/questions/24427414/getsystemservices-is-undefined-when-called-in-a-fragment
-
-            // get download service and enqueue file
-            DownloadManager manager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
-            manager.enqueue(request);
-            // TODO: Save que ID for cancel button
-            Toast toast = Toast.makeText(getActivity(), "Starting download of " + title, Toast.LENGTH_LONG);
-            toast.show();
-        }
-    }
 }

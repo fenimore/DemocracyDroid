@@ -294,6 +294,8 @@ public class MainActivity extends AppCompatActivity {
         public boolean onContextItemSelected(MenuItem item) {
             //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            if (info == null)
+                return super.onContextItemSelected(item);
             int pos = info.position;
             File file = files.get(pos);
             switch(item.getItemId()) {

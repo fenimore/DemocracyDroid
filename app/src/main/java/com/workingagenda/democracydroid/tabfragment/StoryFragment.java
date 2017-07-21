@@ -126,6 +126,7 @@ public class StoryFragment extends Fragment {
             }
             return stories;
         }
+
         @Override
         protected void onPostExecute(List<Episode> stories) {
             mStories.addAll(stories);

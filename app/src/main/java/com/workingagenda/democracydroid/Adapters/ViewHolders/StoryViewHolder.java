@@ -23,11 +23,10 @@ import com.workingagenda.democracydroid.StoryActivity;
 /**
  * Created by derrickrocha on 7/9/17.
  */
-public class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
+public class StoryViewHolder extends BaseStoryViewHolder {
     private final ImageView mImg;
     private final ImageView mOptions;
     private TextView mTxt;
-    private Episode mEpisode;
 
     public StoryViewHolder(final View itemView) {
         super(itemView);
@@ -38,6 +37,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     }
 
+    @Override
     public void showEpisode(final Episode episode){
         if (episode != null) {
             mEpisode = episode;
@@ -72,30 +72,4 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnC
         ((Activity)itemView.getContext()).startActivityForResult(intent, 0); //Activity load = 0
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        MenuInflater inflater = new MenuInflater(itemView.getContext());
-        menu.setHeaderTitle("Democracy Now!");
-        inflater.inflate(R.menu.blog_menu,menu);
-        menu.getItem(0).setOnMenuItemClickListener(this);
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
-        switch(menuItem.getItemId()) {
-            case R.id.action_blog_description:
-                AlertDialog description = new AlertDialog.Builder(itemView.getContext()).create();
-                // Get Description and Title
-                description.setTitle("Democracy Now! Story");
-                description.setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle());
-                description.setButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                });
-                description.show();
-                return true;
-        }
-        return false;
-    }
 }
