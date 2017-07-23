@@ -41,6 +41,7 @@ public class StoryFragment extends Fragment {
     private SwipeRefreshLayout storySwipeRefreshLayout;
     private StoryAdapter storyAdapter;
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private View mProgress;
 
 
     public StoryFragment() {
@@ -73,6 +74,7 @@ public class StoryFragment extends Fragment {
         sTxt = (TextView) rootView.findViewById(android.R.id.empty);
         sBar = (ProgressBar) rootView.findViewById(R.id.sBar);
         sBar.setVisibility(View.GONE);
+        mProgress = rootView.findViewById(R.id.progess_layout);
         mStories = new ArrayList<>();
         storyAdapter = new StoryAdapter(getContext(),mStories);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
@@ -97,6 +99,13 @@ public class StoryFragment extends Fragment {
     }
 
     private class GetStoryFeed extends AsyncTask<String, Void, List<Episode>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgress.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected List<Episode> doInBackground(String... params) {
             ArrayList<Episode> stories = new ArrayList<>();
@@ -134,6 +143,7 @@ public class StoryFragment extends Fragment {
             if (storySwipeRefreshLayout != null){
                 storySwipeRefreshLayout.setRefreshing(false);
             }
+            mProgress.setVisibility(View.GONE);
         }
     }
 

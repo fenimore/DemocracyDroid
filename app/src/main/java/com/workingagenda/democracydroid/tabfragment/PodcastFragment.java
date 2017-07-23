@@ -94,7 +94,6 @@ public class PodcastFragment extends Fragment {
         mProgress = (RelativeLayout) rootView.findViewById(R.id.progess_layout);
         mySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
         mEpisodes = new ArrayList<>();
-        mProgress.setVisibility(View.GONE);
         //registerForContextMenu(mList);
         // Callback calls GetAudioFeed
         episodeAdapter = new EpisodeAdapter(getContext(), mEpisodes);
@@ -118,6 +117,13 @@ public class PodcastFragment extends Fragment {
 
 
     private class GetVideoFeed extends AsyncTask<String, Void, ArrayList<Episode>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgress.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected ArrayList<Episode> doInBackground(String... params) {
             ArrayList<Episode> episodes = new ArrayList<>();
@@ -131,6 +137,7 @@ public class PodcastFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<Episode> episodes) {
+            mProgress.setVisibility(View.GONE);
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             String feed = "https://www.democracynow.org/podcast.xml";
             if (preferences.getBoolean("spanish_preference", false)) {
