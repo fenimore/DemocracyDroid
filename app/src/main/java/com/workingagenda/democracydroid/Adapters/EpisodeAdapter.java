@@ -17,8 +17,6 @@
 package com.workingagenda.democracydroid.Adapters;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,17 +27,11 @@ import com.workingagenda.democracydroid.R;
 
 import java.util.List;
 
-/**
- * Created by fen on 12/9/15.
- */
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeViewHolder> {
     private final LayoutInflater mInflator;
     private final List<Episode> mEpisodes;
-    private boolean PREF_DESC;
 
     public EpisodeAdapter(Context context, List<Episode> episodes){
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        PREF_DESC = preferences.getBoolean("desc_preference", true);
         mEpisodes = episodes;
         mInflator = LayoutInflater.from(context);
     }

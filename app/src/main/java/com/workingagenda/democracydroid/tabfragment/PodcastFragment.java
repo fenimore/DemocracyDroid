@@ -148,9 +148,11 @@ public class PodcastFragment extends Fragment {
         RssReader rssReader = new RssReader(url);
         for(RssItem item : rssReader.getItems()){
             Episode e = new Episode();
-            e.setTitle(item.getTitle());
+            String title = item.getTitle();
+            e.setTitle(title);
             e.setVideoUrl(item.getVideoUrl());
-            e.setDescription(item.getDescription());
+            String description = item.getDescription();
+            e.setDescription(description);
             e.setImageUrl(item.getImageUrl());
             e.setUrl(item.getLink());
             epis.add(e);

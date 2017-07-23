@@ -1,3 +1,19 @@
+/*
+ *
+ *   Copyright (C) 2014-2015 Fenimore Love
+ *
+ *   This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+ *   This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 package com.workingagenda.democracydroid.Adapters.ViewHolders;
 
 import android.Manifest;
@@ -24,8 +40,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-import com.workingagenda.democracydroid.MainApplication;
 import com.workingagenda.democracydroid.MediaActivity;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
@@ -60,30 +74,25 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
     public void showEpisode(final Episode e) {
         if (e != null) {
             mEpisode = e;
-
             try {
                 img.setImageURI(Uri.parse(e.getImageUrl()));
             } catch (Exception ex) {
                 Log.v("Episode Adapter", "exception");
             }
-
             if (txt != null) {
-                if (e.getTitle().length() > 16){
-                    if("Today's Broadcast".equals(e.getTitle())){
-                        txt.setText(e.getTitle());
-                    } else if (e.getTitle().startsWith("Democracy Now!")){
-                        txt.setText(e.getTitle().substring(14));
-                    } else {
-                        txt.setText(e.getTitle());
-                    }
-                } else {
-                    txt.setText(e.getTitle());
+                String fullTitle = e.getTitle().trim();
+                if (fullTitle.startsWith("Democracy Now!")){
+                    String title = fullTitle.substring(14).trim();
+                    txt.setText(title);
+                }
+                else {
+                    txt.setText(fullTitle);
                 }
             }
             if (tag != null && PREF_DESC) {
-                if (e.getDescription() != null) {
-                    tag.setText(e.getDescription().substring(e.getDescription().indexOf(";") + 2));
-                }
+                String description = e.getDescription().trim();
+                String tagString = description.substring(description.indexOf(";") + 1).trim();
+                tag.setText(tagString);
             }
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,15 +116,13 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
             int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
             // Set the Title for Toolbar
             String actionTitle = "Democracy Now!";
-            if (e.getTitle().length() > 16) {
-                if ("Today's Broadcast".equals(e.getTitle()))
-                    actionTitle = e.getTitle();
-                else if (e.getTitle().startsWith("Democracy Now!"))
-                    actionTitle = e.getTitle().substring(14);
+            String title = e.getTitle().trim();
+            if (title.length() > 16) {
+                if (title.startsWith("Democracy Now!"))
+                    actionTitle = title.substring(14);
                 else
-                    actionTitle = e.getTitle();
+                    actionTitle = title;
             }
-
             if (DEFAULT_STREAM == STREAM_VIDEO)
                 startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
             else if (DEFAULT_STREAM == STREAM_AUDIO)
@@ -162,9 +169,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
             menu.getItem(3).setTitle("Stream in This App");
         for (int i = 0;i<menu.size();i++){
             menu.getItem(i).setOnMenuItemClickListener(this);
-
         }
-
     }
 
 
