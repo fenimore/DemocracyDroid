@@ -1,7 +1,9 @@
 package com.workingagenda.democracydroid.Adapters.ViewHolders;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -10,6 +12,7 @@ import android.view.View;
 
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
+import com.workingagenda.democracydroid.StoryActivity;
 
 /**
  * Created by derrickrocha on 7/21/17.
@@ -48,6 +51,14 @@ public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder implem
                 return true;
         }
         return false;
+    }
+
+    protected void loadTranscript(Episode story) {
+        Intent intent = new Intent(itemView.getContext(), StoryActivity.class);
+        intent.putExtra("url", story.getUrl());
+        intent.putExtra("title", story.getTitle());
+        intent.putExtra("date", story.getPubDate());
+        ((Activity)itemView.getContext()).startActivityForResult(intent, 0); //Activity load = 0
     }
 
     public abstract void showEpisode(Episode episode);

@@ -26,7 +26,6 @@ import android.widget.TextView;
 
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
-import com.workingagenda.democracydroid.StoryActivity;
 
 /**
  * Created by derrickrocha on 7/9/17.
@@ -42,7 +41,6 @@ public class StoryViewHolder extends BaseStoryViewHolder {
         mTxt = (TextView) itemView.findViewById(R.id.row_title);
         mOptions = (ImageView)itemView.findViewById(R.id.row_options);
         itemView.setOnCreateContextMenuListener(this);
-
     }
 
     @Override
@@ -70,14 +68,6 @@ public class StoryViewHolder extends BaseStoryViewHolder {
                 }
             });
         }
-    }
-
-    private void loadTranscript(Episode story) { //author does'nt work
-        Intent intent = new Intent(itemView.getContext(), StoryActivity.class);
-        intent.putExtra("url", story.getUrl()); //can't pass in article object?
-        intent.putExtra("title", story.getTitle());
-        intent.putExtra("date", story.getPubDate());
-        ((Activity)itemView.getContext()).startActivityForResult(intent, 0); //Activity load = 0
     }
 
 }

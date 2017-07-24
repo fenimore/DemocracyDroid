@@ -33,7 +33,7 @@ public class StoryHeadlineViewHolder extends BaseStoryViewHolder {
     }
 
     @Override
-    public void showEpisode(Episode episode){
+    public void showEpisode(final Episode episode){
         if (episode != null) {
             mEpisode = episode;
             if (mTxt != null) {
@@ -48,6 +48,13 @@ public class StoryHeadlineViewHolder extends BaseStoryViewHolder {
                 @Override
                 public void onClick(View view) {
                     mOptions.showContextMenu();
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    loadTranscript(episode);
                 }
             });
         }
