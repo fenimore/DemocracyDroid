@@ -50,7 +50,7 @@
                 android:id="@+id/row_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
+                android:textColor="@android:color/darker_gray"
                 android:textSize="12sp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
