@@ -1,7 +1,5 @@
 package com.workingagenda.democracydroid.tabfragment;
 
-import android.content.res.Resources;
-import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,11 +8,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.workingagenda.democracydroid.Adapters.GridSpacingItemDecoration;
@@ -36,8 +32,6 @@ public class StoryFragment extends Fragment {
     private RecyclerView sList;
     private ArrayList<Episode> mStories;
     private TextView sTxt;
-    private ProgressBar sBar;
-    // TODO: private SwipeRefreshLayout storySwipeRefreshLayout;
     private SwipeRefreshLayout storySwipeRefreshLayout;
     private StoryAdapter storyAdapter;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -72,8 +66,6 @@ public class StoryFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_story, container, false);
         sList = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         sTxt = (TextView) rootView.findViewById(android.R.id.empty);
-        sBar = (ProgressBar) rootView.findViewById(R.id.sBar);
-        sBar.setVisibility(View.GONE);
         mProgress = rootView.findViewById(R.id.progess_layout);
         mStories = new ArrayList<>();
         storyAdapter = new StoryAdapter(getContext(),mStories);
@@ -84,7 +76,6 @@ public class StoryFragment extends Fragment {
         sList.setAdapter(storyAdapter);
         storySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
         new GetStoryFeed().execute("https://www.democracynow.org/democracynow.rss");
-
         if (storySwipeRefreshLayout != null ) {
             storySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override

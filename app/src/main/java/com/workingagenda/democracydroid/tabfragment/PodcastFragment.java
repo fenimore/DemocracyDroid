@@ -96,6 +96,7 @@ public class PodcastFragment extends Fragment {
         mEpisodes = new ArrayList<>();
         //registerForContextMenu(mList);
         // Callback calls GetAudioFeed
+
         episodeAdapter = new EpisodeAdapter(getContext(), mEpisodes);
         mList.setAdapter(episodeAdapter);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
@@ -137,7 +138,6 @@ public class PodcastFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<Episode> episodes) {
-            mProgress.setVisibility(View.GONE);
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             String feed = "https://www.democracynow.org/podcast.xml";
             if (preferences.getBoolean("spanish_preference", false)) {
@@ -262,6 +262,7 @@ public class PodcastFragment extends Fragment {
                 // FIXME: Audio has one more item than video?
                 //Log.d("Episode:", "\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl());;
             }
+            mProgress.setVisibility(View.GONE);
             episodeAdapter.notifyDataSetChanged();
         }
     }

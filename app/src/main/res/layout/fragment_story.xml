@@ -19,10 +19,9 @@
 
     <RelativeLayout
         android:id="@+id/progess_layout"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_marginTop="84dp">
         <ProgressBar
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
