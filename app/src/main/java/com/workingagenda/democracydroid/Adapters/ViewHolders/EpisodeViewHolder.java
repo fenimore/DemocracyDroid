@@ -31,6 +31,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -53,7 +54,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
     private final ImageView img;
     private final TextView tag;
     private final ImageView mOptions;
-    private boolean PREF_DESC;
     // ENUMS
     public static final int STREAM_VIDEO = 0;
     public static final int STREAM_AUDIO = 1;
@@ -65,10 +65,9 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
         img = (ImageView) itemView.findViewById(R.id.row_image);
         txt = (TextView) itemView.findViewById(R.id.row_title);
         tag = (TextView) itemView.findViewById(R.id.row_tag);
+        tag.setMaxLines(3);
         mOptions = (ImageView)itemView.findViewById(R.id.row_options);
         itemView.setOnCreateContextMenuListener(this);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
-        PREF_DESC = preferences.getBoolean("desc_preference", true);
     }
 
     public void showEpisode(final Episode e) {
@@ -89,10 +88,11 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                     txt.setText(fullTitle);
                 }
             }
-            if (tag != null && PREF_DESC) {
+            if (tag != null) {
                 String description = e.getDescription().trim();
                 String tagString = description.substring(description.indexOf(";") + 1).trim();
                 tag.setText(tagString);
+                tag.setEllipsize(TextUtils.TruncateAt.END);
             }
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -199,7 +199,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                 itemView.getContext().startActivity(sendIntent);
                 return true;
             case R.id.reverse_default_media:
-                if (mEpisode.getVideoUrl().contains("m3u8"))// FIXME: live streaming is broke, open in another browser
+                if (mEpisode.getVideoUrl().contains("m3u8"))
                     startMediaIntent(mEpisode.getAudioUrl(), 1, mEpisode.getTitle());
                 else if (DEFAULT_STREAM == 0)
                     startMediaIntent(mEpisode.getAudioUrl(), DEFAULT_OPEN, actionTitle);

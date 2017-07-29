@@ -18,9 +18,10 @@
             android:layout_height="match_parent">
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/row_image"
-                android:layout_height="98dp"
-                android:layout_width="149dp"
-                android:scaleType="fitCenter"/>
+                android:layout_height="73dp"
+                android:layout_width="130dp"
+                android:scaleType="fitCenter"
+                />
 
             <ImageView
                 android:id="@+id/row_options"

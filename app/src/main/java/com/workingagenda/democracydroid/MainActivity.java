@@ -86,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
         Log.d("First time", String.valueOf((PREF_FIRST_TIME)));
         // Tab Layouts
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        boolean spanish = preferences.getBoolean("spanish_preference", false);
+/*        boolean spanish = preferences.getBoolean("spanish_preference", false);
         String storyTitle = !spanish ? "Stories"  : "Noticias";
         String broadTitle = !spanish ? "Broadcast" : "Difusiones";
-        String downTitle = !spanish ? "Downloads" : "Descargas";
-        tabLayout.addTab(tabLayout.newTab().setText(storyTitle).setIcon(R.drawable.ic_library_books_white_24dp));
-        tabLayout.addTab(tabLayout.newTab().setText(broadTitle).setIcon(R.drawable.ic_live_tv_white_24dp));
-        tabLayout.addTab(tabLayout.newTab().setText(downTitle).setIcon(R.drawable.ic_file_download_white_24dp));
+        String downTitle = !spanish ? "Downloads" : "Descargas";*/
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_library_books_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_live_tv_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_file_download_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
