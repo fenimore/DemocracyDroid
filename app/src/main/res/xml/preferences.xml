@@ -12,11 +12,6 @@
             android:summary="Spanish language Audio broadcast"
             android:defaultValue="false"
             />
-        <CheckBoxPreference
-            android:key="desc_preference"
-            android:title="@string/setting_desc"
-            android:summary="@string/desc_pref_summary"
-            android:defaultValue="true" />
         <ListPreference
             android:key="tab_preference"
             android:title="@string/setting_tab"
@@ -62,7 +57,7 @@
         <Preference
             android:key="pref_static_field_key4"
             android:title="Contributors"
-            android:summary="Fenimore Love">
+            android:summary="Fenimore Love, Derrick Rocha">
             <intent android:action="android.intent.action.VIEW"
                 android:data="https://github.com/fenimore/DemocracyDroid/graphs/contributors"/>
         </Preference>

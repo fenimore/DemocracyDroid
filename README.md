@@ -33,3 +33,4 @@ version 3.4
 ## Contributors
 
 - @fenimore
+- @DerrickRocha
