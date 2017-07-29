@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal">
+    xmlns:fresco="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -17,52 +18,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/row_image"
-                android:layout_height="73dp"
-                android:layout_width="130dp"
-                android:scaleType="fitCenter"
-                />
+                android:id="@+id/row_headline_image"
+                android:layout_height="92dp"
+                android:layout_width="149dp"
+                fresco:actualImageScaleType="fitXY"
+                android:scaleType="fitXY"/>
 
             <ImageView
                 android:id="@+id/row_options"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:layout_alignParentRight="true"
-                android:layout_alignBottom="@id/row_image"
-                android:layout_marginBottom="4dp"
+                android:layout_alignBottom="@id/row_headline_image"
                 android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:src="@drawable/ic_more_vert_black_24dp"/>
-
-            <TextView
-                android:id="@+id/row_tag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="4dp"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_toLeftOf="@id/row_options"
-                android:layout_toRightOf="@id/row_image"
-                android:minLines="1"
-                android:maxLines="5"/>
-
             <TextView
                 android:id="@+id/row_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="italic"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="4dp"
-                android:maxLines="1"
-                android:layout_toLeftOf="@id/row_options"
-                android:layout_toRightOf="@id/row_image"
-                android:layout_alignBottom="@id/row_image"/>
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/row_headline_image"
+                android:layout_toLeftOf="@+id/row_options"/>
 
         </RelativeLayout>
 
