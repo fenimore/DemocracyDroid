@@ -49,6 +49,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeViewHolder> {
         holder.showEpisode(episode);
     }
 
+
     @Override
     public int getItemCount() {
         return mEpisodes.size();

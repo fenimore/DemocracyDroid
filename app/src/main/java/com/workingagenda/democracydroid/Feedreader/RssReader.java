@@ -136,7 +136,7 @@ public class RssReader {
             parser.nextTag();
         }
         parser.require(XmlPullParser.END_TAG, this.nameSpace, "description");
-        return result;
+        return result.trim();
     }
 
     private String readPubDate(XmlPullParser parser) throws IOException, XmlPullParserException {
