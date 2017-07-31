@@ -110,27 +110,31 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
             mDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AlertDialog description = new AlertDialog.Builder(itemView.getContext()).create();
-                    // Get Description and Title
-                    description.setTitle("Download");
-                    description.setMessage("Are you sure you want to download today's episode?");
-                    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                    builder.setTitle("Download");
+                    builder.setMessage("Are you sure you want to download today's episode?");
+                    builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (which == DialogInterface.BUTTON_NEGATIVE){
-                                return;
-                            }
-
-                            if (DEFAULT_STREAM == STREAM_VIDEO)
-                                Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
-                            else if (DEFAULT_STREAM == STREAM_AUDIO)
-                                Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
-                            else
-                                Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
+                            return;
                         }
-                    };
-                    description.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", listener);
-                    description.setButton(DialogInterface.BUTTON_POSITIVE, "Ok", listener);
-                    description.show();
+                    });
+                    builder.setNegativeButton("Audio", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
+                            return;
+                        }
+                    });
+                    builder.setPositiveButton("Video", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
+                            return;
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             }
             );

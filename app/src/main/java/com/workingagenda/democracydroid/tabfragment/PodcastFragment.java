@@ -260,7 +260,7 @@ public class PodcastFragment extends Fragment {
             for (int i =0; i < SIZE; i++) {
                 mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
                 // FIXME: Audio has one more item than video?
-                //Log.d("Episode:", "\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl());;
+                // Log.d("Episode:", "\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl());;
             }
             mProgress.setVisibility(View.GONE);
             episodeAdapter.notifyDataSetChanged();
