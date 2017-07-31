@@ -26,7 +26,7 @@ We have no affiliation with Democracy Now!
 
 ## Latest Release
 
-version 3.4
+version 3.5
 
 [Change Log](CHANGELOG.md)
 
