@@ -107,7 +107,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                     loadEpisode(e);
                 }
             });
-            Log.d("Down", "Setting");
             mDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -284,7 +283,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
     // FIXME: Show progress:
     // http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
     public void Download(String url, String title, String desc) {
-        Log.d("Down", title + url + "GET ready");
         if (ContextCompat.checkSelfPermission(itemView.getContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {

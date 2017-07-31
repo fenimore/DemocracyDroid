@@ -174,19 +174,19 @@ public class PodcastFragment extends Fragment {
         TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
         Calendar c = Calendar.getInstance(timeZone);
         String formattedDate = mFormat.format(c.getTime());
-        String todayVid = "https://hot.dvlabs.com/democracynow/video-podcast/dn"
+        String todayVid1 = "http://hot.dvlabs.com/democracynow/video-podcast/dn"
                 + formattedDate + ".mp4";
-        String todayVid2 = "https://publish.dvlabs.com/democracynow/video-podcast/dn"
+        String todayVid2 = "http://publish.dvlabs.com/democracynow/video-podcast/dn"
                 + formattedDate + ".mp4";
-        String todayAudio = "https://traffic.libsyn.com/democracynow/dn"
+        String todayAudio = "http://traffic.libsyn.com/democracynow/dn"
                 + formattedDate + "-1.mp3";
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
         if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) return epis;
-        if (todayVid.equals(epis.get(0).getVideoUrl())) return epis;
+        if (todayVid1.equals(epis.get(0).getVideoUrl())) return epis;
         if (todayVid2.equals(epis.get(0).getVideoUrl()))return epis;
         if (hourOfDay < LIVE_TIME) return epis;
-        Episode episode = getUnlistedStream(hourOfDay, todayAudio, todayVid);
+        Episode episode = getUnlistedStream(hourOfDay, todayAudio, todayVid2);
         epis.add(0, episode);
         return epis;
     }
@@ -243,7 +243,7 @@ public class PodcastFragment extends Fragment {
             TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
             Calendar c = Calendar.getInstance(timeZone);
             String formattedDate = mFormat.format(c.getTime());
-            String today_audio = "https://traffic.libsyn.com/democracynow/dn"
+            String today_audio = "http://traffic.libsyn.com/democracynow/dn"
                     + formattedDate + "-1.mp3";
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
             int hourOfDay= c.get(Calendar.HOUR_OF_DAY);
