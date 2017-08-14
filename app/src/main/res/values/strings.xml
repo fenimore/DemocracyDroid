@@ -18,7 +18,7 @@
     <string name="action_about">About Democracy Droid!</string>
     <string name="connect_error">Connection Error</string>
     <string name="no_downloads">Long Click an Episode In order to Download it</string>
-    <string name="connecting">Establishing Connection...</string>
+    <string name="connecting">Establishing Connection…</string>
     <string name="setting_tab">Default Tab on Start Up</string>
     <string name="setting_wifi">Only Refresh with Wifi</string>
     <string name="summary_wifi">Must restart app to take effect</string>
@@ -40,9 +40,8 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
-        ==== 3.4\n
-        - Spanish language audio feed!\n
-        - Updates to the Story feed UI\n
+        ==== 3.5.0\n
+        - Total UI overhaul! - thanks to Derrick Rocha! (@DerrickRocha)\n
     </string>
     <string name="open_stream">Default Application to Play Media</string>
     <string name="download_video">Download Video</string>

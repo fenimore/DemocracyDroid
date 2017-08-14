@@ -24,11 +24,20 @@
                 />
 
             <ImageView
+                android:id="@+id/row_download"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_toRightOf="@+id/row_title"
+                android:layout_alignBottom="@id/row_image"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_file_download_black_24dp"/>
+
+            <ImageView
                 android:id="@+id/row_options"
                 android:layout_width="wrap_content"
-                android:layout_height="24dp"
+                android:layout_height="32dp"
                 android:layout_alignParentRight="true"
-                android:layout_alignBottom="@id/row_image"
                 android:layout_marginBottom="4dp"
                 android:layout_marginTop="4dp"
                 android:src="@drawable/ic_more_vert_black_24dp"/>

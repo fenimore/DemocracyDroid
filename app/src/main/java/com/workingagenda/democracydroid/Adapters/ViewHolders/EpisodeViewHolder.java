@@ -19,6 +19,7 @@ package com.workingagenda.democracydroid.Adapters.ViewHolders;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,6 +29,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -45,6 +47,8 @@ import com.workingagenda.democracydroid.MediaActivity;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 
+import static android.speech.tts.TextToSpeech.Engine.DEFAULT_STREAM;
+
 /**
  * Created by derrickrocha on 7/16/17.
  */
@@ -54,20 +58,23 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
     private final ImageView img;
     private final TextView tag;
     private final ImageView mOptions;
+    private final ImageView mDownload;
     // ENUMS
     public static final int STREAM_VIDEO = 0;
     public static final int STREAM_AUDIO = 1;
     public static final int OPEN_THIS_APP = 0;
     private Episode mEpisode;
 
-    public EpisodeViewHolder(View itemView) {
+    public EpisodeViewHolder(final View itemView) {
         super(itemView);
         img = (ImageView) itemView.findViewById(R.id.row_image);
         txt = (TextView) itemView.findViewById(R.id.row_title);
         tag = (TextView) itemView.findViewById(R.id.row_tag);
         tag.setMaxLines(3);
         mOptions = (ImageView)itemView.findViewById(R.id.row_options);
+        mDownload = (ImageView)itemView.findViewById(R.id.row_download);
         itemView.setOnCreateContextMenuListener(this);
+
     }
 
     public void showEpisode(final Episode e) {
@@ -100,6 +107,37 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                     loadEpisode(e);
                 }
             });
+            mDownload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                    builder.setTitle("Download");
+                    builder.setMessage("Are you sure you want to download today's episode?");
+                    builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
+                    });
+                    builder.setNegativeButton("Audio", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
+                            return;
+                        }
+                    });
+                    builder.setPositiveButton("Video", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
+                            return;
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            }
+            );
             mOptions.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
