@@ -34,4 +34,9 @@ public class MainApplication extends Application {
         Fresco.initialize(MainApplication.this);
     }
 
+    public boolean getSpanishPreference(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        return preferences.getBoolean("spanish_preference", false);
+    }
+
 }
