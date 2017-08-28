@@ -28,6 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:layout_toRightOf="@+id/row_title"
+                android:layout_toEndOf="@id/row_title"
                 android:layout_alignBottom="@id/row_image"
                 android:layout_marginBottom="4dp"
                 android:layout_marginTop="4dp"
@@ -38,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_marginBottom="4dp"
                 android:layout_marginTop="4dp"
                 android:src="@drawable/ic_more_vert_black_24dp"/>
@@ -49,12 +51,16 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginRight="4dp"
+                android:layout_marginEnd="8dp"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:layout_toLeftOf="@id/row_options"
+                android:layout_toStartOf="@id/row_options"
                 android:layout_toRightOf="@id/row_image"
+                android:layout_toEndOf="@id/row_image"
                 android:minLines="1"
                 android:maxLines="5"/>
 
@@ -67,10 +73,14 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginRight="4dp"
+                android:layout_marginEnd="4dp"
                 android:maxLines="1"
                 android:layout_toLeftOf="@id/row_options"
+                android:layout_toStartOf="@id/row_options"
                 android:layout_toRightOf="@id/row_image"
+                android:layout_toEndOf="@id/row_image"
                 android:layout_alignBottom="@id/row_image"/>
 
         </RelativeLayout>

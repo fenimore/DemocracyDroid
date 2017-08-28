@@ -24,6 +24,7 @@ import com.workingagenda.democracydroid.Adapters.GridSpacingItemDecoration;
 import com.workingagenda.democracydroid.Feedreader.RssItem;
 import com.workingagenda.democracydroid.Feedreader.RssReader;
 import com.workingagenda.democracydroid.Helpers.DpToPixelHelper;
+import com.workingagenda.democracydroid.MainApplication;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 
@@ -37,6 +38,7 @@ import java.util.TimeZone;
  * A placeholder fragment containing a simple view.
  */
 public class PodcastFragment extends Fragment {
+
 
     //Declare some variables
     private RecyclerView mList;
