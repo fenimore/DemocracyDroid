@@ -1,4 +1,16 @@
-.idea/*
+*~
+
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+
+.idea
 
 ### Android template
 # Built application files

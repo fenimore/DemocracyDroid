@@ -1,39 +1,26 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    tools:context=".MainActivity$PodcastFragment">
-
-    <ListView android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@android:id/list"
-        android:layout_marginBottom="100px">
-
-    </ListView>
-    <RelativeLayout
-        android:layout_marginTop="20dp"
+    android:layout_height="fill_parent">
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ProgressBar
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:id="@+id/progressBar"
-            android:minHeight="20dip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/Widget.Holo.Light.ProgressBar.Large"/>
-    </RelativeLayout>
+        android:layout_height="fill_parent">
 
-    <TextView android:id="@android:id/empty"
-        android:layout_width="match_parent"
+        <android.support.v7.widget.RecyclerView android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/recycler_view">
+
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_icon"
+        android:layout_marginTop="56dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text= ""
-        android:textColor="@color/colorPrimaryDark"/>
+        android:layout_centerHorizontal="true"/>
 
 
-
-</LinearLayout>
+</RelativeLayout>

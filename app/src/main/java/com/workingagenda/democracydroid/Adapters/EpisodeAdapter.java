@@ -17,75 +17,41 @@
 package com.workingagenda.democracydroid.Adapters;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
+import com.workingagenda.democracydroid.Adapters.ViewHolders.EpisodeViewHolder;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 
 import java.util.List;
 
-/**
- * Created by fen on 12/9/15.
- */
-public class EpisodeAdapter extends ArrayAdapter<Episode> {
+public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeViewHolder> {
+    private final LayoutInflater mInflator;
+    private final List<Episode> mEpisodes;
 
-    public EpisodeAdapter(Context context, int textViewResourceId){
-        super(context, textViewResourceId);
-    }
-
-    public EpisodeAdapter(Context context, int resource, List<Episode> episodes){
-        super(context, resource, episodes);
+    public EpisodeAdapter(Context context, List<Episode> episodes){
+        mEpisodes = episodes;
+        mInflator = LayoutInflater.from(context);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-        View v = convertView;
-
-        if(v == null) {
-            LayoutInflater vi;
-            vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.row_episodes, null);
-        }
-
-        Episode e = getItem(position);
-        if (e != null) {
-            ImageView img = (ImageView) v.findViewById(R.id.row_image);
-            TextView txt = (TextView) v.findViewById(R.id.row_title);
-            try {
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                boolean PREF_IMG = preferences.getBoolean("image_preference", false);
-                if (!PREF_IMG){
-                    Picasso.with(getContext()).load(e.getImageUrl()).into(img); // TODO Change image
-                }
-            } catch (Exception ex) {
-                Log.v("Episode Adapter", "exception");
-            }
-
-            if (txt != null) {
-                if (e.getTitle().length() > 16){
-                    if(e.getTitle() == "Today's Broadcast"){
-                        txt.setText(e.getTitle());
-                    } else if (e.getTitle().startsWith("Democracy Now!")){
-                        txt.setText(e.getTitle().substring(14));
-                    } else {
-                        txt.setText(e.getTitle());
-                    }
-                } else {
-                    txt.setText(e.getTitle());
-                }
-            }
-        }
-
-        return v;
+    public EpisodeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = mInflator.inflate(R.layout.row_episodes, null);
+        EpisodeViewHolder viewHolder = new EpisodeViewHolder(v);
+        return viewHolder;
     }
 
+    @Override
+    public void onBindViewHolder(EpisodeViewHolder holder, int position) {
+        Episode episode = mEpisodes.get(position);
+        holder.showEpisode(episode);
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return mEpisodes.size();
+    }
 }

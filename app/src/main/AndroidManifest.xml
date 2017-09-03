@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
+        android:name="com.workingagenda.democracydroid.MainApplication"
         android:allowBackup="true"
         android:icon="@drawable/appicon"
         android:label="@string/app_name"
@@ -15,6 +16,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:icon="@drawable/appicon"
             android:launchMode="singleTop">
             <intent-filter>
@@ -47,11 +49,19 @@
             android:label="@string/app_name"
             android:icon="@drawable/appicon"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity">
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTask">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.workingagenda.democracydroid.MainActivity" />
         </activity>
+        <service android:name=".MediaService">
+            <intent-filter>
+                <action android:name=".MediaService">
+                </action>
+            </intent-filter>
+        </service>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/name_setting"

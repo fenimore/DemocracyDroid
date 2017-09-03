@@ -16,24 +16,25 @@
             android:drawableLeft="@drawable/ic_clear_all_black_24dp"
             android:paddingRight="20px"
             android:paddingLeft="20px"
+            style="?android:attr/buttonBarButtonStyle"
             android:id="@+id/clear"
-            android:text="Clear All"
+            android:text="@string/clear_all"
             android:layout_marginTop="10dp"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
             android:drawableLeft="@drawable/ic_refresh_black_24dp"
             android:paddingRight="20px"
             android:paddingLeft="20px"
             android:id="@+id/refresh"
-            android:text="Refresh"
+            android:text="@string/refresh"
             android:layout_marginTop="10dp"/>
     </LinearLayout>
 
     <ListView android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@android:id/list"
-        android:layout_marginBottom="100px">
+        android:id="@android:id/list">
 
 
     </ListView>

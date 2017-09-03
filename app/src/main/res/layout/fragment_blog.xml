@@ -4,13 +4,15 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".MainActivity$BlogFragment">
+    tools:context=".MainActivity$StoryFragment">
 
     <ListView android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@android:id/list"
         android:layout_marginBottom="100px">
+
     </ListView>
+
     <TextView android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

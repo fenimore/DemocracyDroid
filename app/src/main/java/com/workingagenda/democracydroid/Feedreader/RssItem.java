@@ -17,12 +17,23 @@ package com.workingagenda.democracydroid.Feedreader;
 
 
 public class RssItem {
-    String title;
-    String description;
-    String link;
-    String imageUrl;
-    String videoUrl;
-    String pubDate;
+    private String title;
+    private String description;
+    private String link;
+    private String imageUrl;
+    private String videoUrl;
+    private String pubDate;
+    private String contentEnc; // story feed image_urls are stored here
+
+    public RssItem(String title, String description, String link, String imageUrl, String videoUrl, String pubDate, String contentEnc) {
+        this.title = title;
+        this.description = description;
+        this.link = link;
+        this.imageUrl = imageUrl;
+        this.videoUrl = videoUrl;
+        this.pubDate = pubDate;
+        this.contentEnc = contentEnc;
+    }
 
 
     public String getPubDate() {
@@ -80,6 +91,14 @@ public class RssItem {
         } else {
             this.description.concat(addition);
         }
+    }
+
+    public String getContentEnc() {
+        return contentEnc;
+    }
+
+    public void setContentEnc(String contentEnc) {
+        this.contentEnc = contentEnc;
     }
 
     public void setTitle(String title) {

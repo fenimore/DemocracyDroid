@@ -17,27 +17,17 @@
 package com.workingagenda.democracydroid.Adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.workingagenda.democracydroid.R;
 
 import java.io.File;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -80,11 +70,14 @@ public class DownloadsAdapter extends ArrayAdapter<File> {
                 title = title.substring(0, title.length() - 4);
                 title = title.substring(2, title.length());
                 title = title.substring(0, 7) + "-" + title.substring(7, title.length());
+                if (title.endsWith("-1"))
+                    title = title.substring(0, title.length()-2);
                 txt.setText(title);
             } else if (txt != null) {
                 title = title.substring(0, title.length() - 12);
                 txt.setText(title);
             }
+
             if(f.getName().endsWith(".mp4")){
                 isVideo = true;
             }

@@ -1,28 +1,27 @@
 package com.workingagenda.democracydroid;
 
-import android.Manifest;
-import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 
 /**
  * Created by fen on 5/15/16.
@@ -42,26 +41,51 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         if(tab.getValue() == null){
             tab.setValueIndex(1);
         }
-        ListPreference stream = (ListPreference) findPreference("stream_preference");
+
+        final ListPreference stream = (ListPreference) findPreference("stream_preference");
         if(stream.getValue() == null){
             stream.setValueIndex(0);
         }
+
+        ListPreference open = (ListPreference) findPreference("open_preference");
+        if(open.getValue() == null){
+            open.setValueIndex(0);
+        }
         String versionName = BuildConfig.VERSION_NAME;
         Preference versionPref = findPreference("pref_static_field_key0");
+        Preference newPref = findPreference("whats_new");
         versionPref.setSummary("Democracy Droid! " + versionName);
+
+        final CheckBoxPreference spanish = (CheckBoxPreference) findPreference("spanish_preference");
+        spanish.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if (spanish.isChecked()){
+                    spanish.setChecked(false);
+                } else{
+                    stream.setValueIndex(1);
+                    spanish.setChecked(true);
+                }
+                return false;
+            }
+        });
+
+
+        newPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                builder.setMessage(R.string.whatsnew).setTitle("What's New").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                    }
+                });
+                builder.create().show();
+                return false;
+            }
+        });
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-        String key) {
-        if (key.equals(KEY_WIFI)) {
-            Log.v("WIFI Access", "checking permissions");
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_NETWORK_STATE}, 0);
-            }
-        }
-    }
     @Override
      public boolean onOptionsItemSelected(MenuItem item) {
          switch (item.getItemId())
@@ -84,6 +108,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     public void setSupportActionBar(@Nullable Toolbar toolbar) {
         getDelegate().setSupportActionBar(toolbar);
     }
+    @NonNull
     @Override
     public MenuInflater getMenuInflater() {
         return getDelegate().getMenuInflater();
@@ -137,5 +162,10 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
             mDelegate = AppCompatDelegate.create(this, null);
         }
         return mDelegate;
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
     }
 }

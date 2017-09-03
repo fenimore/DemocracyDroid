@@ -3,9 +3,9 @@
     <item
         android:id="@+id/action_delete"
         android:orderInCategory="100"
-        android:title="Delete" />
+        android:title="@string/delete" />
     <item
         android:id="@+id/action_external_player"
         android:orderInCategory="200"
-        android:title="Play In External Player"/>
+        android:title="@string/play_in_external_player"/>
 </menu>

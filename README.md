@@ -1,50 +1,36 @@
-Democracy Droid
-===============
+Democracy Droid!
+================
 
-## Democracy Droid
-This program parses the [Democracy Now!](http://democracynow.org) RSS-feed and it streams or downloads video, audio, or individual story broadcasts. It is a fully featured app :). Look in the app folder for an app-release.apk and install Democracy Droid on your phone.
+This is a [Democracy Now!](http://democracynow.org) Android app which
+streams and manages downloads for the video and audio broadcast of Democracy Now!
+It also streams the live-stream (at 8am Eastern) and collects transcripts for individual stories and headlines.
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
       alt="Get it on Google Play"
-      height="80">](https://play.google.com/store/apps/details?id=com.workingagenda.democracydroid)
-      
-## Disclaimer
-I have no affiliation with Democracy Now!
+      height="80">](https://play.google.com/store/apps/details?id=com.workingagenda.democracydroid)[<img src="https://f-droid.org/badge/get-it-on.png"
+      alt="Get it on F-Droid"
+      height="80">](https://f-droid.org/app/com.workingagenda.democracydroid)
 
-## License
+
+## Disclaimer
+
+We have no affiliation with Democracy Now!
+
+## License and Dependencies
+
 - Democracy Droid GPLv3
-- SimplisticRss library Apache 2 - [ShirwaM](https://github.com/ShirwaM/Simplistic-RSS)
-- Picasso Apache 2 - http://square.github.io/picasso/
 - Democracy Now! CC BY-NC-ND 3.0 US
-- Jsoup MIT
+- [ExoPlayer](https://github.com/google/ExoPlayer) Apache 2
+- [Jsoup](https://jsoup.org/) MIT
+- [Fresco](https://github.com/facebook/fresco) BSD-3
 
 ## Latest Release
-2.3.1
 
-### New Features
-- Watch live stream link Fixed
+version 3.5
 
+[Change Log](CHANGELOG.md)
 
-## Bugs
-- Can load feed multiple times
-- When scrolling up, list position isn't absolute
-  - When formatting 'Headlines', it gets confused...
-- Can load, and crash stories before Jsoup does it's job.
+## Contributors
 
-## TODO
-- Add listview buttons
-- ~~Stories Thumbnail~~ maybe not?
-- Add Stories downloads?
-- (More) Parse Downloaded File Label
-- settings
-   - Notifications
-- Fix Live Stream Link?
-
-### Listviews TODO:
-- Add download button
-- Add stream button
-- Delete/see progress of downloads
-
-### Settings TODO:
-- Notifications (default none)
-- Language
+- @fenimore
+- @DerrickRocha

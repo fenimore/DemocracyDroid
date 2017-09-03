@@ -26,8 +26,8 @@
             android:id="@+id/row_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:paddingTop="5dp"
-            android:text="Democracy Now! The War and Peace Report"/>
+            android:text="@string/democracy_now_the_war_and_peace_report_text"/>
     </LinearLayout>
 </LinearLayout>

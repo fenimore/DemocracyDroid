@@ -26,18 +26,13 @@ import java.io.IOException;
  */
 public class StoryActivity extends AppCompatActivity {
 
-    // TODO: Get video links from page, and offer a play option
-    // TODO: GO HERE:
-    // <a class="download_video" href="https://publish.dvlabs.com/democracynow/360/dn2016-0810.mp4?start=2994.0">
-    // And of course for audio...
-    private TextView testing;
     private WebView webview;
 
     // Data
     private String title;
     private String date;
     private String url;
-    private String content;
+    // todo: image
     private String author;
     private String video;
     private String audio;
@@ -48,16 +43,15 @@ public class StoryActivity extends AppCompatActivity {
             + "h1, h2 {font-weight: normal; line-height: 130%} "
             + "h1 {font-size: 170%; margin-bottom: 0.1em} "
             + "h2 {font-size: 140%} "
-
             + ".donate_container {background: #333; color: #FFFFFF; width: 100%; text-align:center; display: inline-block} "
             + ".donate_prompt {width:66%}"
-
-            + ".donate_button {background: #458589; "
-            + "background: linear-gradient(to bottom, #458589 0%, #2A6075 100%);	"
+            + ".donate_button {background: #01afef; "
             + "color: white;	float:right; font-weight: 400;	text-transform: uppercase;	padding: 10px 12px;	width: 90px;	margin-left: 1em;	"
             + "text-align: center;} "
-            + "a {color: #0099CC}"
-            + "h1 a {color: inherit; text-decoration: none}"
+            + "ul > li {display: inline-block;  zoom:1;*display:inline;"
+            + "margin-right:15px;margin-left: 15px;}"
+            + "a {color: #0099CC; text-decoration: none;}"
+            + "h1 a {color: inherit;}"
             + "img {height: auto} "
             + "pre {white-space: pre-wrap;} "
             + "blockquote {border-left: thick solid #a6a6a6; background-color: #e6e6e6; margin: 0.5em 0 0.5em 0em; padding: 0.5em} "
@@ -84,13 +78,8 @@ public class StoryActivity extends AppCompatActivity {
         url = (String) extras.get("url");
         title = (String) extras.get("title");
         date = (String) extras.get("date");
-        Log.v("url", url);
+        date = date.substring(0, date.lastIndexOf("-"));
         new RetrieveContent().execute(url);
-
-
-        //WebView webview = new WebView(this);
-        //setContentView(webview);
-        //webview.loadData(content, "text/html", "UTF-8"); //but don't just load the URL, but load te content div within. Yikes.
     }
 
     public interface OnTaskCompleted{
@@ -110,7 +99,9 @@ public class StoryActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        if (video == null && audio == null) {
+            return super.onOptionsItemSelected(item);
+        }
         if(id == android.R.id.home){
              NavUtils.navigateUpFromSameTask(this);
              return true;
@@ -131,13 +122,13 @@ public class StoryActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_story_audio) {
             Intent intent = new Intent(this, MediaActivity.class);
-            intent.putExtra("url", audio); //can't pass in article object
+            intent.putExtra("url", audio);
             intent.putExtra("title", title);
             startActivityForResult(intent, 0); //Activity load = 0
             return true;
         } else if (id == R.id.action_story_video) {
             Intent intent = new Intent(this, MediaActivity.class);
-            intent.putExtra("url", video); //can't pass in article object?
+            intent.putExtra("url", video);
             intent.putExtra("title", title);
             startActivityForResult(intent, 0); //Activity load = 0
             return true;
@@ -146,27 +137,32 @@ public class StoryActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    class RetrieveContent extends AsyncTask<String, Void, String> {
-        private Exception exception;
+    private class RetrieveContent extends AsyncTask<String, Void, String> {
         protected String doInBackground(String... urls){
             try {
-                String cont = getContent(urls[0]);
-                return cont;
+                return getContent(urls[0]);
             }catch (Exception e){
-                this.exception = e;
+                Log.v("Story Failure:", e.toString());
                 return null;
             }
         }
 
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            String page = "<h2>" + title + "</h2><hr>"+date+"<hr>" + "Viewer Supported News: <a class='donate_button' data-width='800' data-height='590' data-ga-action='Story: Donate' href='https://democracynow.org/donate'>Donate</a><br>Donate at democracynow.org<hr>" + result;
-            webview.loadData(page, "text/html; charset=utf-8", "UTF-8"); //but don't just
+            // TODO: pass image with the Intent
+            String page = "<h2>" + title + "</h2><strong>" + date +
+                    "</strong><br><small>Viewer Supported News:</small> " +
+                    "<a class='donate_button' data-width='800' data-height='590' " +
+                    "data-ga-action='Story: Donate' href='https://democracynow.org/donate'>" +
+                    "Donate</a><br>Donate at democracynow.org<hr>" + result;
+            webview.loadData(page, "text/html; charset=utf-8", "UTF-8");
         }
     }
 
-    // Use Jsoup to get the content? This is sloppy
     private String getContent(String url) throws IOException {
+        // DN feed starting spitting out this http://www.democracynow.org:443/2017/5/12/on_black_mamas_bail_out_day
+        // so I got to make sure the port isn't included anymore! It'll be fixed soon I bet.
+        url = url.replaceFirst(":443", "");
         Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
         Element data;
         // Get the Individual Videos
@@ -176,10 +172,12 @@ public class StoryActivity extends AppCompatActivity {
         video = videoElem.attr("abs:href");
         // Get the Transcript URL
         if (doc.getElementById("headlines") == null){
-            data = doc.getElementsByClass("story_with_left_panel").first();// get the third content div,
+            data = doc.getElementById("story_text");
             data.getElementsByClass("left_panel").remove();
+            data.getElementsByClass("hidden-xs").remove();
+            data.getElementsByClass("hidden-sm").remove();
         } else {
-            data = doc.getElementById("headlines");// get the third content div,
+            data = doc.getElementById("headlines"); // get the third content div,
         }
         // Change the links to absolute!! so that images work
         Elements select_img = data.select("img");
@@ -187,9 +185,7 @@ public class StoryActivity extends AppCompatActivity {
         for(Element e:select_img){e.attr("src", e.absUrl("src"));}
         for(Element e:select){e.attr("href", e.absUrl("href"));}
         data.getElementsByClass("donate_container").remove();
-        String cont = data.toString();
-        cont = CSS + cont + "</body>";
-        content = cont;
-        return cont;
+
+        return CSS + data.toString() + "</body>";
     }
 }

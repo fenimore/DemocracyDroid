@@ -1,40 +1,49 @@
 package com.workingagenda.democracydroid;
 
+import android.content.ComponentName;
 import android.content.Intent;
-import android.media.MediaPlayer;
+import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.MediaController;
-import android.widget.VideoView;
+import android.widget.ImageView;
+
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
 /**
  * Created by fen on 8/11/16.
  */
 public class MediaActivity extends AppCompatActivity {
 
+    private SimpleExoPlayerView mVideoView;
+    private SimpleExoPlayer player;
+    //private MediaSource mediaSource;
 
-    private VideoView mVideoView;
-    private MediaController mMediaController;
     private Uri url; // cause all urls are uris
     private String title;
+    private String path;
     private Toolbar toolbar;
     // TODO: Description?
     // TODO: Date?
-    private int mMediaPosition;
-
+    private long mMediaPosition;
+    private boolean flag = false; // for toggling status and mediacontroller
+    
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null){
             mMediaPosition = savedInstanceState.getInt("pos");
+            Log.d("Unbundling: ", String.valueOf(mMediaPosition));
         }
         setContentView(R.layout.activity_media);
         // Toolbar
@@ -43,54 +52,78 @@ public class MediaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("Democracy Droid!");
-        // Views
-        mMediaController = new MediaController(this);
-        mVideoView = (VideoView) findViewById(R.id.media_player);
-        mVideoView.setOnTouchListener(new View.OnTouchListener() {
-            boolean flag;
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
-                    case MotionEvent.ACTION_DOWN:
-                        if(flag) {
-                            hideStatusBar();
-                            mMediaController.hide();
 
-                        } else {
-                            getSupportActionBar().show();
-                            mMediaController.show(0);
-
-                        }
-                        flag = !flag;
-                        return true;
-                }
-                return false;
-            }
-        });
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();
-        url = Uri.parse((String) extras.get("url"));
+        path = (String) extras.get("url");
+        url = Uri.parse(path);
         title = (String) extras.get("title"); // Doesn't work
         getSupportActionBar().setTitle(title);
-        // Handle Media Playing
-        mVideoView.setVideoURI(url);
-        if (mMediaPosition != Integer.MIN_VALUE) {
-            mVideoView.seekTo(mMediaPosition);
-        }
-        mVideoView.start();
-        // Media Controller
-        mMediaController.setAnchorView(mVideoView);
-        mVideoView.setMediaController(mMediaController);
-        // Hide toolbar once video starts
-        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                hideStatusBar();
-            }
-        });
 
+        // Start Service
+        Intent i = new Intent(this, MediaService.class);
+        Log.d("Service", mConnection.toString());
+        bindService(i, mConnection, BIND_AUTO_CREATE);
+        if (!path.contains("mp3")) hideStatusBar();
     }
 
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //outState.putLong("pos", mAMediaPosition);
+        Log.d("Saving Inst", String.valueOf(mMediaPosition));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("Media", "onPause called");
+        //mMediaPosition = player.getCurrentPosition();
+        //player.release();
+        //unbindService(mConnection);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("Media", "onStop called");
+        //player.release();
+        //unbindService(mConnection);
+    }
+
+    @Override
+    protected void onDestroy() {
+        //mVideoView.stopPlayback();
+        super.onDestroy();
+        Log.d("onDestroy", "Do Destroy");
+        //unbindService(mConnection);
+        //stopService(new Intent(getApplicationContext(), MediaService.class));
+        unbindService(mConnection);
+        //player.release();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+        switch(e.getAction()) {
+            case MotionEvent.ACTION_UP:
+                if (path.contains(".mp3"))
+                    return true;
+                if(flag)
+                    hideStatusBar();
+                else
+                    getSupportActionBar().show();
+                flag = !flag;
+                return true;
+        }
+        return false;
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_media, menu);
@@ -116,12 +149,6 @@ public class MediaActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mMediaPosition = mVideoView.getCurrentPosition();
-        outState.putInt("pos", mMediaPosition);
-    }
     // BTW this is only for Android 4.1 and UP?
     private void hideStatusBar() {
         View decorView = getWindow().getDecorView();
@@ -130,19 +157,41 @@ public class MediaActivity extends AppCompatActivity {
         getSupportActionBar().hide();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //http://stackoverflow.com/questions/9987042/videoview-onresume-loses-buffered-portion-of-the-video
-        // TODO: Try using SharedPreferences?
-        //mVideoView.resume();
-    }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //mVideoView.suspend();
-    }
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+           Log.d("ServiceConnection","connected");
+            MediaService.LocalBinder binder = (MediaService.LocalBinder) service;
+            MediaService mediaService = binder.getService();
+            player = mediaService.setUpPlayer(url);
+            Log.d("ServiceConnection", player.toString());
+            // ExoPlayer Views
+            mVideoView = (SimpleExoPlayerView) findViewById(R.id.media_player);
+            mVideoView.setPlayer(player);
+            mVideoView.requestFocus();
+            if (path.contains(".mp3") || path.contains("m4a")) {
+                // mVideoView.setControllerShowTimeoutMs(-1);
+                ImageView artwork = (ImageView) findViewById(R.id.exo_thumbnail);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    artwork.setImageDrawable(getApplicationContext().getDrawable(R.drawable.logo));
+                } else {
+                    artwork.setImageDrawable(getResources().getDrawable(R.drawable.logo));
+                }
+            } else {
+                // fullscreen for video
+                hideStatusBar();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.d("ServiceConnection", "onServiceDisconnected");
+            player.release();
+        }
+    };
 }
 
 
