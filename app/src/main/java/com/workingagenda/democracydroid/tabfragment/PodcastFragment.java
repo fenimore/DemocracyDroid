@@ -5,6 +5,7 @@ package com.workingagenda.democracydroid.tabfragment;
  */
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
@@ -39,8 +39,7 @@ public class PodcastFragment extends Fragment {
 
     //Declare some variables
     private RecyclerView mList;
-    private TextView mTxt;
-    private RelativeLayout mProgress;
+    private View mProgress;
     private EpisodeAdapter episodeAdapter;
     private ArrayList<Episode> mEpisodes;
     private int LIVE_TIME = 8;
@@ -78,15 +77,13 @@ public class PodcastFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         mList = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        mTxt = (TextView) rootView.findViewById(android.R.id.empty);
-        mProgress = (RelativeLayout) rootView.findViewById(R.id.progess_layout);
+        mProgress = rootView.findViewById(R.id.progress_icon);
 
         mySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
         if (mySwipeRefreshLayout != null ) {
             mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    mTxt.setText("");
                     refresh();
                 }
             });
@@ -137,36 +134,38 @@ public class PodcastFragment extends Fragment {
             @Override
             public void onGetAudioFeedPostExecute(List<String> audioLinks) {
                 if (audioLinks.size() < 1) {
-                    mTxt.setText(R.string.connect_error);
+                    Snackbar.make(mProgress,R.string.connect_error,Snackbar.LENGTH_INDEFINITE).show();
                 }
-                if (mySwipeRefreshLayout != null ) {
-                    mySwipeRefreshLayout.setRefreshing(false);
-                }
+                else {
+                    if (mySwipeRefreshLayout != null) {
+                        mySwipeRefreshLayout.setRefreshing(false);
+                    }
 
-                TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
-                Calendar c = Calendar.getInstance(timeZone);
-                String formattedDate = mFormat.format(c.getTime());
-                String today_audio = "http://traffic.libsyn.com/democracynow/dn"
-                        + formattedDate + "-1.mp3";
-                int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-                int hourOfDay= c.get(Calendar.HOUR_OF_DAY);
-                Log.v("Count A/V", String.valueOf(audioLinks.size()) +" / "+ String.valueOf(mEpisodes.size()));
+                    TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
+                    Calendar c = Calendar.getInstance(timeZone);
+                    String formattedDate = mFormat.format(c.getTime());
+                    String today_audio = "http://traffic.libsyn.com/democracynow/dn"
+                            + formattedDate + "-1.mp3";
+                    int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+                    int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
+                    Log.v("Count A/V", String.valueOf(audioLinks.size()) + " / " + String.valueOf(mEpisodes.size()));
 
-                boolean onSchedule = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY  && hourOfDay > LIVE_TIME-1);
-                if (onSchedule && hourOfDay == LIVE_TIME) {
-                    audioLinks.add(0, "http://democracynow.videocdn.scaleengine.net/" +
-                            "democracynow-iphone/play/democracynow/playlist.m3u8");
-                } else if (onSchedule && audioLinks.size() > 0 && !audioLinks.get(0).equals(today_audio)) {
-                    audioLinks.add(0, today_audio);
+                    boolean onSchedule = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY && hourOfDay > LIVE_TIME - 1);
+                    if (onSchedule && hourOfDay == LIVE_TIME) {
+                        audioLinks.add(0, "http://democracynow.videocdn.scaleengine.net/" +
+                                "democracynow-iphone/play/democracynow/playlist.m3u8");
+                    } else if (onSchedule && audioLinks.size() > 0 && !audioLinks.get(0).equals(today_audio)) {
+                        audioLinks.add(0, today_audio);
+                    }
+                    int SIZE = Math.min(mEpisodes.size(), audioLinks.size());
+                    for (int i = 0; i < SIZE; i++) {
+                        mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
+                        // FIXME: Audio has one more item than video?
+                        // Log.d("Episode:", "\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl());;
+                    }
+                    mProgress.setVisibility(View.GONE);
+                    episodeAdapter.notifyDataSetChanged();
                 }
-                int SIZE = Math.min(mEpisodes.size(), audioLinks.size());
-                for (int i =0; i < SIZE; i++) {
-                    mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
-                    // FIXME: Audio has one more item than video?
-                    // Log.d("Episode:", "\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl());;
-                }
-                mProgress.setVisibility(View.GONE);
-                episodeAdapter.notifyDataSetChanged();
             }
         }).execute(feed); // must be called onPostExecute
     }

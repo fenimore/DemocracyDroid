@@ -58,7 +58,7 @@ public class StoryFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_story, container, false);
         sList = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         sTxt = (TextView) rootView.findViewById(android.R.id.empty);
-        mProgress = rootView.findViewById(R.id.progess_layout);
+        mProgress = rootView.findViewById(R.id.progress_icon);
         mStories = new ArrayList<>();
         storyAdapter = new StoryAdapter(getContext(),mStories);
         sList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -71,7 +71,6 @@ public class StoryFragment extends Fragment {
             storySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    sTxt.setText("");
                     refresh();
                 }
             });
