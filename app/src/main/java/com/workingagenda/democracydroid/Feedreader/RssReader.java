@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RssReader {
+
     private String rssUrl;
     private String nameSpace;
 
@@ -110,7 +111,7 @@ public class RssReader {
         result = parser.getAttributeValue(this.nameSpace, "url");
         while(parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
-               continue;
+                continue;
             }
             skip(parser);
         }
@@ -216,6 +217,6 @@ public class RssReader {
         Document doc = Jsoup.connect(rssUrl).get();
         stream = new ByteArrayInputStream(doc.toString().replaceAll("&nbsp", " ").getBytes(Charset.forName("UTF-8")));
         items = getRssItems(stream);
-         return items;
+        return items;
     }
 }
