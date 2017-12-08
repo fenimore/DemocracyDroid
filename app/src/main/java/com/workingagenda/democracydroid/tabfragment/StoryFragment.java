@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,7 +37,6 @@ public class StoryFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private View mProgress;
 
-
     public StoryFragment() {
     }
 
@@ -50,14 +49,7 @@ public class StoryFragment extends Fragment {
     }
 
     public void refresh() {
-        storySwipeRefreshLayout.setRefreshing(true);
-        if (mStories.size() > 1){
-            mStories.clear();
-            if (storyAdapter != null ){
-                storyAdapter.notifyDataSetChanged();
-            }
-        }
-        new GetStoryFeed().execute("https://www.democracynow.org/democracynow.rss");
+        new GetStoryFeed(false).execute("https://www.democracynow.org/democracynow.rss");
     }
 
     @Override
@@ -66,21 +58,19 @@ public class StoryFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_story, container, false);
         sList = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         sTxt = (TextView) rootView.findViewById(android.R.id.empty);
-        mProgress = rootView.findViewById(R.id.progess_layout);
+        mProgress = rootView.findViewById(R.id.progress_icon);
         mStories = new ArrayList<>();
         storyAdapter = new StoryAdapter(getContext(),mStories);
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
-        sList.setLayoutManager(layoutManager);
+        sList.setLayoutManager(new LinearLayoutManager(getActivity()));
         sList.addItemDecoration(new GridSpacingItemDecoration(1, DpToPixelHelper.dpToPx(4,getResources().getDisplayMetrics()), true));
         sList.setItemAnimator(new DefaultItemAnimator());
         sList.setAdapter(storyAdapter);
         storySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
-        new GetStoryFeed().execute("https://www.democracynow.org/democracynow.rss");
+        new GetStoryFeed(true).execute("https://www.democracynow.org/democracynow.rss");
         if (storySwipeRefreshLayout != null ) {
             storySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    sTxt.setText("");
                     refresh();
                 }
             });
@@ -91,10 +81,16 @@ public class StoryFragment extends Fragment {
 
     private class GetStoryFeed extends AsyncTask<String, Void, List<Episode>> {
 
+        private final boolean mShowLoading;
+
+        public GetStoryFeed(boolean showloading) {
+            mShowLoading = showloading;
+        }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgress.setVisibility(View.VISIBLE);
+            mProgress.setVisibility(mShowLoading ? View.VISIBLE : View.GONE);
         }
 
         @Override

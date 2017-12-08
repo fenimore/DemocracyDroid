@@ -97,8 +97,10 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
             }
             if (tag != null) {
                 String description = e.getDescription().trim();
-                String tagString = description.substring(description.indexOf(";") + 1).trim();
-                tag.setText(tagString);
+                if (description.startsWith("Headlines for ")) {
+                    description = description.substring(description.indexOf(";") + 1);
+                }
+                tag.setText(description);
                 tag.setEllipsize(TextUtils.TruncateAt.END);
             }
             itemView.setOnClickListener(new View.OnClickListener() {
