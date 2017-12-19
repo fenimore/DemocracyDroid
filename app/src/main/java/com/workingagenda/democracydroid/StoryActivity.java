@@ -1,7 +1,6 @@
 package com.workingagenda.democracydroid;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
-import android.widget.TextView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,6 +22,7 @@ import java.io.IOException;
 /**
  * Created by fen on 5/14/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class StoryActivity extends AppCompatActivity {
 
     private WebView webview;
@@ -82,9 +81,6 @@ public class StoryActivity extends AppCompatActivity {
         new RetrieveContent().execute(url);
     }
 
-    public interface OnTaskCompleted{
-        void onTaskCompleted();
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

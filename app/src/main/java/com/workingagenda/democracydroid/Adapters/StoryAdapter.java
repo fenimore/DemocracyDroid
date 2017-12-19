@@ -33,6 +33,7 @@ import java.util.List;
 /**
  * Created by fen on 4/10/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
 
     private static final int TYPE_HEADLINE = 0;
@@ -51,13 +52,11 @@ public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
     public BaseStoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_EPISODE) {
             View v = mInflator.inflate(R.layout.row_story, null);
-            StoryViewHolder viewHolder = new StoryViewHolder(v);
-            return viewHolder;
+            return new StoryViewHolder(v);
         }
         else {
             View v = mInflator.inflate(R.layout.row_story_headline, null);
-            StoryHeadlineViewHolder viewHolder = new StoryHeadlineViewHolder(v);
-            return viewHolder;
+            return new StoryHeadlineViewHolder(v);
         }
     }
 

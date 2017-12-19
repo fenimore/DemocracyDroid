@@ -40,7 +40,7 @@ public class RssReader {
     }
 
 
-    private List getRssItems(InputStream in) throws XmlPullParserException, IOException {
+    private List<RssItem> getRssItems(InputStream in) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser= Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -52,8 +52,8 @@ public class RssReader {
         }
     }
 
-    private List readFeed(XmlPullParser parser) throws IOException, XmlPullParserException {
-        List entries = new ArrayList();
+    private List<RssItem> readFeed(XmlPullParser parser) throws IOException, XmlPullParserException {
+        List<RssItem> entries = new ArrayList<>();
         parser.require(XmlPullParser.START_TAG, this.nameSpace, "rss");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG){
@@ -84,22 +84,31 @@ public class RssReader {
                 continue;
             }
             String name = parser.getName();
-            if (name.equals("title"))
-                title = readTitle(parser);
-            else if (name.equals("link"))
-                link = readLink(parser);
-            else if (name.equals("description"))
-                description = readDescription(parser);
-            else if (name.equals("pubDate"))
-                pubDate = readPubDate(parser);
-            else if (name.equals("media:thumbnail"))
-                imageUrl = readImageUrl(parser);
-            else if (name.equals("media:content"))
-                videoUrl = readVideoUrl(parser);
-            else if (name.equals("content:encoded"))
-                contentEnc = readContentEnc(parser);
-            else {
-                skip(parser);
+            switch (name) {
+                case "title":
+                    title = readTitle(parser);
+                    break;
+                case "link":
+                    link = readLink(parser);
+                    break;
+                case "description":
+                    description = readDescription(parser);
+                    break;
+                case "pubDate":
+                    pubDate = readPubDate(parser);
+                    break;
+                case "media:thumbnail":
+                    imageUrl = readImageUrl(parser);
+                    break;
+                case "media:content":
+                    videoUrl = readVideoUrl(parser);
+                    break;
+                case "content:encoded":
+                    contentEnc = readContentEnc(parser);
+                    break;
+                default:
+                    skip(parser);
+                    break;
             }
         }
         return new RssItem(title, description, link, imageUrl, videoUrl, pubDate, contentEnc);

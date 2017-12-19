@@ -37,6 +37,7 @@ import com.google.android.exoplayer2.util.Util;
  * Created by fen on 2/6/17.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class MediaService extends Service {
 
     private SimpleExoPlayer player;

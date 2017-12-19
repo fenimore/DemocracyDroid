@@ -28,6 +28,7 @@ import java.util.List;
  * Created by derrickrocha on 7/16/17.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class StoryFragment extends Fragment {
     private RecyclerView sList;
     private ArrayList<Episode> mStories;

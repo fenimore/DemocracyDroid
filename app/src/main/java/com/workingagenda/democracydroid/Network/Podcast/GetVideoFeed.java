@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * Created by derrickrocha on 8/28/17.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class GetVideoFeed extends AsyncTask<Object,Void,ArrayList<Episode>> {
 
     private final GetVideoFeedCallback mCallback;

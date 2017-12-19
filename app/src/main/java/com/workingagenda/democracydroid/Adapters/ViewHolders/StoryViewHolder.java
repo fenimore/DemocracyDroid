@@ -16,8 +16,6 @@
  */
 package com.workingagenda.democracydroid.Adapters.ViewHolders;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
@@ -27,9 +25,7 @@ import android.widget.TextView;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 
-/**
- * Created by derrickrocha on 7/9/17.
- */
+
 public class StoryViewHolder extends BaseStoryViewHolder {
     private final ImageView mImg;
     private final ImageView mOptions;
@@ -37,9 +33,9 @@ public class StoryViewHolder extends BaseStoryViewHolder {
 
     public StoryViewHolder(final View itemView) {
         super(itemView);
-        mImg = (ImageView) itemView.findViewById(R.id.row_image);
-        mTxt = (TextView) itemView.findViewById(R.id.row_title);
-        mOptions = (ImageView)itemView.findViewById(R.id.row_options);
+        mImg = itemView.findViewById(R.id.row_image);
+        mTxt = itemView.findViewById(R.id.row_title);
+        mOptions = itemView.findViewById(R.id.row_options);
         itemView.setOnCreateContextMenuListener(this);
     }
 

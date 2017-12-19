@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 /**
  * Created by fen on 5/15/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
     private AppCompatDelegate mDelegate;
     public static final String KEY_WIFI = "wifi_preference";

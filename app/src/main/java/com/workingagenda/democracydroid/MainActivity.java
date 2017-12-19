@@ -313,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         private List<File> getListFiles() {
-            ArrayList<File> inFiles = new ArrayList<File>();
+            ArrayList<File> inFiles = new ArrayList<>();
             File parentDir = new File(Environment.getExternalStorageDirectory().toString()+
                     File.separator + Environment.DIRECTORY_PODCASTS);
             File[] files = parentDir.listFiles();

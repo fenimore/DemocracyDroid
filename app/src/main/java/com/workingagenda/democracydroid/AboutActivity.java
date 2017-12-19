@@ -1,11 +1,11 @@
 package com.workingagenda.democracydroid;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,12 +18,12 @@ import android.widget.TextView;
 /**
  * Created by fen on 1/14/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class AboutActivity extends AppCompatActivity {
 
     //Declaire some variables
     public TextView Txt1; // why are these public? what?
     public TextView Txt2;
-    public TextView Txt3;
     public TextView Txt4;
     public Button btnRev;
     public Button btnSrc;
@@ -60,6 +60,7 @@ public class AboutActivity extends AppCompatActivity {
         btnMail = (Button) findViewById(R.id.emailButton);
 
         btnRev.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 Uri uri = Uri.parse("market://details?id=" + getBaseContext().getPackageName());
@@ -140,10 +141,6 @@ public class AboutActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_settings) {
-            return true;
-        }
-        if (id == R.id.action_back) {
-            //finish();
             return true;
         }
         if (id == R.id.action_donate) {

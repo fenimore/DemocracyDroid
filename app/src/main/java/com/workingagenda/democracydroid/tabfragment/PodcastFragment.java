@@ -1,9 +1,5 @@
 package com.workingagenda.democracydroid.tabfragment;
 
-/**
- * Created by derrickrocha on 7/16/17.
- */
-
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -14,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
 import com.workingagenda.democracydroid.Adapters.GridSpacingItemDecoration;
@@ -30,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -96,7 +92,7 @@ public class PodcastFragment extends Fragment {
         mList.setAdapter(episodeAdapter);
         mList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mList.addItemDecoration(new GridSpacingItemDecoration(1, DpToPixelHelper.dpToPx(4,getResources().getDisplayMetrics()), true));
-        mFormat = new SimpleDateFormat("yyyy-MMdd");
+        mFormat = new SimpleDateFormat("yyyy-MMdd", Locale.US);
         getVideoFeed(true);
 
         return rootView;
@@ -144,8 +140,7 @@ public class PodcastFragment extends Fragment {
                     TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
                     Calendar c = Calendar.getInstance(timeZone);
                     String formattedDate = mFormat.format(c.getTime());
-                    String today_audio = "http://traffic.libsyn.com/democracynow/dn"
-                            + formattedDate + "-1.mp3";
+                    String today_audio = "dn" + formattedDate;
                     int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
                     int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
                     Log.v("Count A/V", String.valueOf(audioLinks.size()) + " / " + String.valueOf(mEpisodes.size()));
@@ -154,14 +149,15 @@ public class PodcastFragment extends Fragment {
                     if (onSchedule && hourOfDay == LIVE_TIME) {
                         audioLinks.add(0, "http://democracynow.videocdn.scaleengine.net/" +
                                 "democracynow-iphone/play/democracynow/playlist.m3u8");
-                    } else if (onSchedule && audioLinks.size() > 0 && !audioLinks.get(0).equals(today_audio)) {
-                        audioLinks.add(0, today_audio);
+                    } else if (onSchedule && audioLinks.size() > 0 &&
+                            !audioLinks.get(0).contains(today_audio)) {
+                        audioLinks.add(0, "http://traffic.libsyn.com/democracynow/" + today_audio + "-1.mp3");
                     }
                     int SIZE = Math.min(mEpisodes.size(), audioLinks.size());
                     for (int i = 0; i < SIZE; i++) {
                         mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
                         // FIXME: Audio has one more item than video?
-                        // Log.d("Episode:", "\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl());;
+                        Log.d("Episode", "\n+++\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl() + "\n+++++");;
                     }
                     mProgress.setVisibility(View.GONE);
                     episodeAdapter.notifyDataSetChanged();

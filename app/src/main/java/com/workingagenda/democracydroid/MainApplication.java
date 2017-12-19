@@ -11,6 +11,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
  * Created by derrickrocha on 7/16/17.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class MainApplication extends Application {
 
 

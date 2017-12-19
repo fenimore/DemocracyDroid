@@ -1,8 +1,6 @@
 package com.workingagenda.democracydroid.Objects;
 
-/**
- * Created by fen on 1/19/16.
- */
+
 public class Download {
     private String title;
     private String path;

@@ -10,9 +10,8 @@
         android:id="@+id/not_ic" />
     <TextView
         android:layout_toRightOf="@id/not_ic"
-        android:maxLines="1"
+        android:singleLine="true"
         android:id="@+id/not_txt"
-        android:ellipsize="marquee"
         android:layout_marginLeft="7dp"
         android:layout_marginTop="10dp"
         android:marqueeRepeatLimit ="marquee_forever"
@@ -22,7 +21,6 @@
         android:layout_width="170dp"
         android:layout_height="wrap_content"/>
     <ImageButton
-        android:id="@+id/play_pause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/not_txt"

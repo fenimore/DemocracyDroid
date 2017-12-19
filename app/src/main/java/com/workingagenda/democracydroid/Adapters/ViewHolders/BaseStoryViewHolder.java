@@ -14,9 +14,7 @@ import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 import com.workingagenda.democracydroid.StoryActivity;
 
-/**
- * Created by derrickrocha on 7/21/17.
- */
+
 public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
     protected Episode mEpisode;
 

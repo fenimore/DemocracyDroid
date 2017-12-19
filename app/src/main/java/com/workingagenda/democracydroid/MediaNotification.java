@@ -9,6 +9,7 @@ import android.widget.RemoteViews;
  * Created by fen on 3/15/17.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class MediaNotification extends Notification {
     private Context ctx;
     private NotificationManager mNotMng;

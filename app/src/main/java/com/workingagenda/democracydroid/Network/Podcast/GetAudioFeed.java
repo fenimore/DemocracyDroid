@@ -8,9 +8,6 @@ import com.workingagenda.democracydroid.Feedreader.RssReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by derrickrocha on 8/28/17.
- */
 
 public class GetAudioFeed extends AsyncTask<String, Void, List<String>>{
 

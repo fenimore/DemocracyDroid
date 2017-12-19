@@ -11,6 +11,7 @@ import com.workingagenda.democracydroid.Objects.Download;
 /**
  * Created by fen on 1/20/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class DownloadsDataSave {
 
     private SQLiteDatabase database;
