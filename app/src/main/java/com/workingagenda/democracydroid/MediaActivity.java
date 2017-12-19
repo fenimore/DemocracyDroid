@@ -22,15 +22,10 @@ import android.widget.ImageView;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
-/**
- * Created by fen on 8/11/16.
- */
-@SuppressWarnings("DefaultFileTemplate")
+
 public class MediaActivity extends AppCompatActivity {
 
     private SimpleExoPlayer player;
-    //private MediaSource mediaSource;
-
     private Uri url; // cause all urls are uris
     private String title;
     private String path;
@@ -157,7 +152,7 @@ public class MediaActivity extends AppCompatActivity {
 
 
 
-    private final ServiceConnection mConnection = new ServiceConnection() {
+    private final ServiceConnection mConnection = new ServiceConnection()  {
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override

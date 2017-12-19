@@ -53,10 +53,6 @@
     <string name="tab_3">Tab 3</string>
     <string name="clear_all">Clear All</string>
     <string name="democracy_now_the_war_and_peace_report_text">Democracy Now! The War and Peace Report</string>
-    <string name="ffwd_content">Fast forward</string>
-    <string name="pause_content">Pause</string>
-    <string name="play_content">Play</string>
-    <string name="rewind_content">Rewind</string>
     <string-array name="tabsAlias">
         <item>Transcripts</item>
         <item>Broadcast</item>

@@ -16,10 +16,12 @@
  */
 package com.workingagenda.democracydroid;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,6 +31,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -327,7 +330,15 @@ public class MainActivity extends AppCompatActivity {
             return inFiles;
         }
         private void refresh(){
-            //do nothing
+            Log.d("DOWNLOAD", "Refreshed");
+            if (ContextCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED){
+                Log.d("DOWNLOAD", "Permission Granted");
+                files = getListFiles();
+                dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
+            }
+
         }
     }
 

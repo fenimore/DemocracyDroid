@@ -291,7 +291,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                     0);
             // TODO: catch onRequestPermissionsResult
         } else {
-            if (url.equals("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8")) {
+            if ("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8".equals(url)) {
                 Toast toast = Toast.makeText(itemView.getContext(),
                         "You can't download the Live Stream", Toast.LENGTH_LONG);
                 toast.show();

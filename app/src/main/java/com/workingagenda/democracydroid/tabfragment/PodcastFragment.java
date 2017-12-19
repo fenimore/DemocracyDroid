@@ -31,9 +31,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class PodcastFragment extends Fragment {
 
     private View mProgress;
@@ -44,10 +42,6 @@ public class PodcastFragment extends Fragment {
 
     private SwipeRefreshLayout mySwipeRefreshLayout;
 
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
     private static final String ARG_SECTION_NUMBER = "section_number";
     private ServerApi mServerApi;
 
@@ -153,12 +147,15 @@ public class PodcastFragment extends Fragment {
                                 "democracynow-iphone/play/democracynow/playlist.m3u8");
                     } else if (onSchedule && audioLinks.size() > 0 &&
                             !audioLinks.get(0).contains(today_audio)) {
-                        audioLinks.add(0, "http://traffic.libsyn.com/democracynow/" + today_audio + "-1.mp3");
+                        audioLinks.add(0, "http://traffic.libsyn.com/democracynow/" + today_audio + ".mp3");
                     }
                     int SIZE = Math.min(mEpisodes.size(), audioLinks.size());
                     for (int i = 0; i < SIZE; i++) {
                         mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
-                        // Log.d("Episode", "\n+++\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl() + "\n+++++");;
+                        Log.d("Episode", "Day: " + String.valueOf(dayOfWeek)
+                                + " Hour: " + String.valueOf(hourOfDay));
+                        Log.d("EpisodeVideo", mEpisodes.get(i).getVideoUrl());
+                        Log.d("EpisodeAudio", mEpisodes.get(i).getAudioUrl());
                     }
                     mProgress.setVisibility(View.GONE);
                     episodeAdapter.notifyDataSetChanged();
