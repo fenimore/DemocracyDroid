@@ -116,8 +116,7 @@ public class RssReader {
 
     private String readVideoUrl(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, this.nameSpace, "media:content");
-        String result = "";
-        result = parser.getAttributeValue(this.nameSpace, "url");
+        String result = parser.getAttributeValue(this.nameSpace, "url");
         while(parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
@@ -131,8 +130,7 @@ public class RssReader {
 
     private String readImageUrl(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, this.nameSpace, "media:thumbnail");
-        String result = "";
-        result = parser.getAttributeValue(this.nameSpace, "url");
+        String result = parser.getAttributeValue(this.nameSpace, "url");
         parser.nextTag();
         parser.require(XmlPullParser.END_TAG, this.nameSpace, "media:thumbnail");
         return result;

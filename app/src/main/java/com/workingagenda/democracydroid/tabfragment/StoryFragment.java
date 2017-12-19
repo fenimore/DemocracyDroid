@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.workingagenda.democracydroid.Adapters.GridSpacingItemDecoration;
 import com.workingagenda.democracydroid.Adapters.StoryAdapter;
@@ -63,7 +62,7 @@ public class StoryFragment extends Fragment {
         sList.addItemDecoration(new GridSpacingItemDecoration(1, DpToPixelHelper.dpToPx(4,getResources().getDisplayMetrics()), true));
         sList.setItemAnimator(new DefaultItemAnimator());
         sList.setAdapter(storyAdapter);
-        storySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
+        storySwipeRefreshLayout = rootView.findViewById(R.id.swiperefresh);
         new GetStoryFeed(true).execute("https://www.democracynow.org/democracynow.rss");
         if (storySwipeRefreshLayout != null ) {
             storySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -81,8 +80,8 @@ public class StoryFragment extends Fragment {
 
         private final boolean mShowLoading;
 
-        public GetStoryFeed(boolean showloading) {
-            mShowLoading = showloading;
+        public GetStoryFeed(boolean showLoading) {
+            mShowLoading = showLoading;
         }
 
         @Override

@@ -68,8 +68,8 @@ public class StoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
-        webview = (WebView) findViewById(R.id.webview);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        webview = findViewById(R.id.webview);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

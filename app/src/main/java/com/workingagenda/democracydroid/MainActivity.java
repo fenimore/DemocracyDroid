@@ -56,18 +56,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private int DEFAULT_TAB;
-    private boolean PREF_FIRST_TIME;
-
-    /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
@@ -76,16 +64,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Shared Preferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
-        PREF_FIRST_TIME = preferences.getBoolean("first_preference", true);
+        int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
+        boolean PREF_FIRST_TIME = preferences.getBoolean("first_preference", true);
         // TODO: have splash screen for new users
         Log.d("First time", String.valueOf((PREF_FIRST_TIME)));
         // Tab Layouts
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
 /*        boolean spanish = preferences.getBoolean("spanish_preference", false);
         String storyTitle = !spanish ? "Stories"  : "Noticias";
         String broadTitle = !spanish ? "Broadcast" : "Difusiones";
@@ -96,10 +84,18 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        /*
+      The {@link android.support.v4.view.PagerAdapter} that will provide
+      fragments for each of the sections. We use a
+      {@link FragmentPagerAdapter} derivative, which will keep every
+      loaded fragment in memory. If this becomes too memory intensive, it
+      may be best to switch to a
+      {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setOffscreenPageLimit(2);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(DEFAULT_TAB);
@@ -226,12 +222,12 @@ public class MainActivity extends AppCompatActivity {
 
             files = getListFiles();
 
-            dList = (ListView) rootView.findViewById(android.R.id.list);
-            Txt1 = (TextView) rootView.findViewById(R.id.download_help);
+            dList = rootView.findViewById(android.R.id.list);
+            Txt1 = rootView.findViewById(R.id.download_help);
             Txt1.setText(R.string.download_help);
             dList.setEmptyView(Txt1);
-            btn = (Button) rootView.findViewById(R.id.clear);
-            btnRefresh= (Button) rootView.findViewById(R.id.refresh);
+            btn = rootView.findViewById(R.id.clear);
+            btnRefresh= rootView.findViewById(R.id.refresh);
             registerForContextMenu(dList);
 
             dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));

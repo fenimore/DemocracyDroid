@@ -21,9 +21,9 @@ public class StoryHeadlineViewHolder extends BaseStoryViewHolder {
 
     public StoryHeadlineViewHolder(View itemView) {
         super(itemView);
-        mImg = (ImageView) itemView.findViewById(R.id.row_headline_image);
-        mTxt = (TextView) itemView.findViewById(R.id.row_title);
-        mOptions = (ImageView)itemView.findViewById(R.id.row_options);
+        mImg = itemView.findViewById(R.id.row_headline_image);
+        mTxt = itemView.findViewById(R.id.row_title);
+        mOptions = itemView.findViewById(R.id.row_options);
         itemView.setOnCreateContextMenuListener(this);
     }
 

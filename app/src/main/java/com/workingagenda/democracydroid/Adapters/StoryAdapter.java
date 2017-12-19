@@ -30,10 +30,7 @@ import com.workingagenda.democracydroid.R;
 
 import java.util.List;
 
-/**
- * Created by fen on 4/10/16.
- */
-@SuppressWarnings("DefaultFileTemplate")
+
 public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
 
     private static final int TYPE_HEADLINE = 0;
@@ -42,8 +39,7 @@ public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
     private final List<Episode> mEpisodes;
 
     public StoryAdapter(Context context, List<Episode> episodes){
-        Context mContext = context;
-        mInflator = LayoutInflater.from(mContext);
+        mInflator = LayoutInflater.from(context);
         mEpisodes = episodes;
     }
 

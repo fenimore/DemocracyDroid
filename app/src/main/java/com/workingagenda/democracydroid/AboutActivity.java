@@ -21,14 +21,6 @@ import android.widget.TextView;
 @SuppressWarnings("DefaultFileTemplate")
 public class AboutActivity extends AppCompatActivity {
 
-    //Declaire some variables
-    private TextView Txt1; // why are these public? what?
-    private TextView Txt2;
-    private TextView Txt4;
-    private Button btnRev;
-    private Button btnSrc;
-    private Button btnMail;
-    private Button btnDon;
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -38,7 +30,7 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.about_title);
@@ -47,17 +39,17 @@ public class AboutActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        Txt1 = (TextView) findViewById(R.id.about_1);
-        Txt1.setText(R.string.about_dm);
-        Txt2 = (TextView) findViewById(R.id.about_2);
-        Txt2.setText(R.string.about_app);
-        Txt4 = (TextView) findViewById(R.id.about_4);
-        Txt4.setText(R.string.about_info);
+        TextView txt1 = findViewById(R.id.about_1);
+        txt1.setText(R.string.about_dm);
+        TextView txt2 = findViewById(R.id.about_2);
+        txt2.setText(R.string.about_app);
+        TextView txt4 = findViewById(R.id.about_4);
+        txt4.setText(R.string.about_info);
 
-        btnRev = (Button) findViewById(R.id.reviewButton);
-        btnSrc = (Button) findViewById(R.id.sourceButton);
-        btnDon = (Button) findViewById(R.id.btn_donate);
-        btnMail = (Button) findViewById(R.id.emailButton);
+        Button btnRev = findViewById(R.id.reviewButton);
+        Button btnSrc = findViewById(R.id.sourceButton);
+        Button btnDon = findViewById(R.id.btn_donate);
+        Button btnMail = findViewById(R.id.emailButton);
 
         btnRev.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

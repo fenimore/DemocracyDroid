@@ -66,8 +66,8 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
         txt = itemView.findViewById(R.id.row_title);
         tag = itemView.findViewById(R.id.row_tag);
         tag.setMaxLines(3);
-        mOptions = (ImageView)itemView.findViewById(R.id.row_options);
-        mDownload = (ImageView)itemView.findViewById(R.id.row_download);
+        mOptions = itemView.findViewById(R.id.row_options);
+        mDownload = itemView.findViewById(R.id.row_download);
         itemView.setOnCreateContextMenuListener(this);
 
     }
@@ -112,16 +112,13 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                     builder.setMessage("Are you sure you want to download today's episode?");
                     builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            return;
-                        }
+                        public void onClick(DialogInterface dialog, int which) {}
                     });
                     builder.setNegativeButton("Audio", new DialogInterface.OnClickListener() {
                         @RequiresApi(api = Build.VERSION_CODES.M)
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
-                            return;
                         }
                     });
                     builder.setPositiveButton("Video", new DialogInterface.OnClickListener() {
@@ -129,7 +126,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
-                            return;
                         }
                     });
                     AlertDialog alert = builder.create();
