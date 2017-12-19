@@ -8,8 +8,8 @@ android {
         applicationId "com.workingagenda.democracydroid"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 37
-        versionName "3.6"
+        versionCode 38
+        versionName "3.6.1"
     }
     buildTypes {
         release {
@@ -19,8 +19,7 @@ android {
     }
 }
 
-dependencies {        //unbindService(mConnection);
-        //stopService(new Intent(getApplicationContext(), MediaService.class));
+dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:27.+'
     compile 'com.android.support:design:27.+'
