@@ -130,7 +130,7 @@ public class StoryActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class RetrieveContent extends AsyncTask<String, Void, String> {
+    private class  RetrieveContent extends AsyncTask<String, Void, String> {
         protected String doInBackground(String... urls){
             try {
                 return getContent(urls[0]);
