@@ -19,10 +19,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
-/**
- * Created by fen on 5/14/16.
- */
-@SuppressWarnings("DefaultFileTemplate")
+
 public class StoryActivity extends AppCompatActivity {
 
     private WebView webview;
@@ -31,8 +28,6 @@ public class StoryActivity extends AppCompatActivity {
     private String title;
     private String date;
     private String url;
-    // todo: image
-    private String author;
     private String video;
     private String audio;
 
@@ -74,9 +69,11 @@ public class StoryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle extras = getIntent().getExtras();
+        assert extras != null;
         url = (String) extras.get("url");
         title = (String) extras.get("title");
         date = (String) extras.get("date");
+        assert date != null;
         date = date.substring(0, date.lastIndexOf("-"));
         new RetrieveContent().execute(url);
     }

@@ -57,6 +57,7 @@ public class MediaActivity extends AppCompatActivity {
 
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();
+        assert extras != null;
         path = (String) extras.get("url");
         url = Uri.parse(path);
         title = (String) extras.get("title"); // Doesn't work

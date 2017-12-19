@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -216,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_download, container, false);
 
@@ -240,9 +241,8 @@ public class MainActivity extends AppCompatActivity {
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     for (File file : files) {
-                                        Log.d("File", file.getName());
-                                        // remove files
-                                        file.delete();
+                                        boolean delete = file.delete();
+                                        Log.d("File: ", file.getName() + String.valueOf(delete));
                                     }
                                     files = getListFiles();
                                     dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
@@ -296,7 +296,8 @@ public class MainActivity extends AppCompatActivity {
             File file = files.get(pos);
             switch(item.getItemId()) {
                 case R.id.action_delete:
-                    file.delete();
+                    boolean delete = file.delete();
+                    Log.d("File: ", file.getName() + String.valueOf(delete));
                     files = getListFiles();
                     dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
                     return true;
