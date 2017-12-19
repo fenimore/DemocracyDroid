@@ -1,6 +1,8 @@
 package com.workingagenda.democracydroid.tabfragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -115,7 +117,8 @@ public class PodcastFragment extends Fragment {
     }
 
     private void getAudioFeed() {
-        boolean hasSpanish = MainApplication.get(getActivity()).getSpanishPreference();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean hasSpanish = preferences.getBoolean("spanish_preference", false);
         String feed = "https://www.democracynow.org/podcast.xml";
         if (hasSpanish) {
             feed = "https://www.democracynow.org/podcast-es.xml";
