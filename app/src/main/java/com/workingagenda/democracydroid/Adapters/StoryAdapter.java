@@ -38,12 +38,11 @@ public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
 
     private static final int TYPE_HEADLINE = 0;
     private static final int TYPE_EPISODE = 1;
-    private final Context mContext;
     private final LayoutInflater mInflator;
     private final List<Episode> mEpisodes;
 
     public StoryAdapter(Context context, List<Episode> episodes){
-        mContext = context;
+        Context mContext = context;
         mInflator = LayoutInflater.from(mContext);
         mEpisodes = episodes;
     }

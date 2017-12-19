@@ -17,7 +17,7 @@ public class StoryHeadlineViewHolder extends BaseStoryViewHolder {
 
     private final ImageView mImg;
     private final ImageView mOptions;
-    private TextView mTxt;
+    private final TextView mTxt;
 
     public StoryHeadlineViewHolder(View itemView) {
         super(itemView);

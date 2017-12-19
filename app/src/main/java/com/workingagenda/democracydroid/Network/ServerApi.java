@@ -18,8 +18,8 @@ import java.util.TimeZone;
 @SuppressWarnings("DefaultFileTemplate")
 public class ServerApi {
 
-    private int LIVE_TIME = 8;
-    private SimpleDateFormat mFormat;
+    private final int LIVE_TIME = 8;
+    private final SimpleDateFormat mFormat;
 
     public ServerApi(){
         mFormat = new SimpleDateFormat("yyyy-MMdd", Locale.US);

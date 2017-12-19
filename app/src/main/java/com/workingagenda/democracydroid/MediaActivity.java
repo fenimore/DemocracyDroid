@@ -28,14 +28,12 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 @SuppressWarnings("DefaultFileTemplate")
 public class MediaActivity extends AppCompatActivity {
 
-    private SimpleExoPlayerView mVideoView;
     private SimpleExoPlayer player;
     //private MediaSource mediaSource;
 
     private Uri url; // cause all urls are uris
     private String title;
     private String path;
-    private Toolbar toolbar;
     // TODO: Description?
     // TODO: Date?
     private long mMediaPosition;
@@ -51,7 +49,7 @@ public class MediaActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_media);
         // Toolbar
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -158,7 +156,7 @@ public class MediaActivity extends AppCompatActivity {
 
 
 
-    private ServiceConnection mConnection = new ServiceConnection() {
+    private final ServiceConnection mConnection = new ServiceConnection() {
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override
@@ -169,7 +167,7 @@ public class MediaActivity extends AppCompatActivity {
             player = mediaService.setUpPlayer(url);
             Log.d("ServiceConnection", player.toString());
             // ExoPlayer Views
-            mVideoView = findViewById(R.id.media_player);
+            SimpleExoPlayerView mVideoView = findViewById(R.id.media_player);
             mVideoView.setPlayer(player);
             mVideoView.requestFocus();
             if (path.contains(".mp3") || path.contains("m4a")) {

@@ -22,13 +22,13 @@ import android.widget.TextView;
 public class AboutActivity extends AppCompatActivity {
 
     //Declaire some variables
-    public TextView Txt1; // why are these public? what?
-    public TextView Txt2;
-    public TextView Txt4;
-    public Button btnRev;
-    public Button btnSrc;
-    public Button btnMail;
-    public Button btnDon;
+    private TextView Txt1; // why are these public? what?
+    private TextView Txt2;
+    private TextView Txt4;
+    private Button btnRev;
+    private Button btnSrc;
+    private Button btnMail;
+    private Button btnDon;
     /**
      * The fragment argument representing the section number for this
      * fragment.

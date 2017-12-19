@@ -55,9 +55,9 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
     private final ImageView mOptions;
     private final ImageView mDownload;
     // ENUMS
-    public static final int STREAM_VIDEO = 0;
-    public static final int STREAM_AUDIO = 1;
-    public static final int OPEN_THIS_APP = 0;
+    private static final int STREAM_VIDEO = 0;
+    private static final int STREAM_AUDIO = 1;
+    private static final int OPEN_THIS_APP = 0;
     private Episode mEpisode;
 
     public EpisodeViewHolder(final View itemView) {
@@ -287,7 +287,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
     // FIXME: Show progress:
     // http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void Download(String url, String title, String desc) {
+    private void Download(String url, String title, String desc) {
         if (ContextCompat.checkSelfPermission(itemView.getContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {

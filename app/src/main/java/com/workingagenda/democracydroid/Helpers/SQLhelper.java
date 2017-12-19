@@ -9,7 +9,7 @@ import android.util.Log;
  * Created by fen on 1/20/16.
  */
 @SuppressWarnings("DefaultFileTemplate")
-public class SQLhelper extends SQLiteOpenHelper {
+class SQLhelper extends SQLiteOpenHelper {
 
     public static final String TABLE_DOWNLOADS = "downloads";
     public static final String COLUMN_ID = "_id";

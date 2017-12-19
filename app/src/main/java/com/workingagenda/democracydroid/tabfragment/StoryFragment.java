@@ -30,9 +30,7 @@ import java.util.List;
 
 @SuppressWarnings("DefaultFileTemplate")
 public class StoryFragment extends Fragment {
-    private RecyclerView sList;
     private ArrayList<Episode> mStories;
-    private TextView sTxt;
     private SwipeRefreshLayout storySwipeRefreshLayout;
     private StoryAdapter storyAdapter;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -57,8 +55,7 @@ public class StoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_story, container, false);
-        sList = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        sTxt = (TextView) rootView.findViewById(android.R.id.empty);
+        RecyclerView sList = rootView.findViewById(R.id.recycler_view);
         mProgress = rootView.findViewById(R.id.progress_icon);
         mStories = new ArrayList<>();
         storyAdapter = new StoryAdapter(getContext(),mStories);

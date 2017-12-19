@@ -16,9 +16,9 @@ import com.workingagenda.democracydroid.StoryActivity;
 
 
 public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
-    protected Episode mEpisode;
+    Episode mEpisode;
 
-    public BaseStoryViewHolder(View itemView) {
+    BaseStoryViewHolder(View itemView) {
         super(itemView);
     }
 
@@ -51,7 +51,7 @@ public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder implem
         return false;
     }
 
-    protected void loadTranscript(Episode story) {
+    void loadTranscript(Episode story) {
         Intent intent = new Intent(itemView.getContext(), StoryActivity.class);
         intent.putExtra("url", story.getUrl());
         intent.putExtra("title", story.getTitle());

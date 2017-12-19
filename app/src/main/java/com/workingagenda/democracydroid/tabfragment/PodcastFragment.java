@@ -33,12 +33,10 @@ import java.util.TimeZone;
  */
 public class PodcastFragment extends Fragment {
 
-    //Declare some variables
-    private RecyclerView mList;
     private View mProgress;
     private EpisodeAdapter episodeAdapter;
     private ArrayList<Episode> mEpisodes;
-    private int LIVE_TIME = 8;
+    private final int LIVE_TIME = 8;
     private SimpleDateFormat mFormat;
 
     private SwipeRefreshLayout mySwipeRefreshLayout;
@@ -72,10 +70,10 @@ public class PodcastFragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mList = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        RecyclerView mList = rootView.findViewById(R.id.recycler_view);
         mProgress = rootView.findViewById(R.id.progress_icon);
 
-        mySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
+        mySwipeRefreshLayout = rootView.findViewById(R.id.swiperefresh);
         if (mySwipeRefreshLayout != null ) {
             mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -156,8 +154,7 @@ public class PodcastFragment extends Fragment {
                     int SIZE = Math.min(mEpisodes.size(), audioLinks.size());
                     for (int i = 0; i < SIZE; i++) {
                         mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
-                        // FIXME: Audio has one more item than video?
-                        Log.d("Episode", "\n+++\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl() + "\n+++++");;
+                        // Log.d("Episode", "\n+++\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl() + "\n+++++");;
                     }
                     mProgress.setVisibility(View.GONE);
                     episodeAdapter.notifyDataSetChanged();

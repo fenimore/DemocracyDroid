@@ -63,9 +63,9 @@ public class MainActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    public SectionsPagerAdapter mSectionsPagerAdapter;
-    public int DEFAULT_TAB;
-    public boolean PREF_FIRST_TIME;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private int DEFAULT_TAB;
+    private boolean PREF_FIRST_TIME;
 
     /**
      * The {@link ViewPager} that will host the section contents.

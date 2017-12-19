@@ -32,7 +32,7 @@ import java.util.List;
 
 public class RssReader {
 
-    private String rssUrl;
+    private final String rssUrl;
     private String nameSpace;
 
     public RssReader(String url) {

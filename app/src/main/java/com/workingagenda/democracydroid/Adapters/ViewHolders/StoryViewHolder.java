@@ -29,7 +29,7 @@ import com.workingagenda.democracydroid.R;
 public class StoryViewHolder extends BaseStoryViewHolder {
     private final ImageView mImg;
     private final ImageView mOptions;
-    private TextView mTxt;
+    private final TextView mTxt;
 
     public StoryViewHolder(final View itemView) {
         super(itemView);
