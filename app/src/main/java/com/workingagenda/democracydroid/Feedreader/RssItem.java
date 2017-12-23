@@ -52,7 +52,7 @@ public class RssItem {
         this.test = test;
     }
 
-    String test;
+    private String test;
 
     public String getDescription() {
         return description;

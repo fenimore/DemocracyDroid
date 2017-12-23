@@ -17,7 +17,7 @@
 package com.workingagenda.democracydroid.Adapters;
 
 import android.content.Context;
-import android.util.Log;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,18 +33,16 @@ import java.util.List;
 /**
  * Created by fen on 12/9/15.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class DownloadsAdapter extends ArrayAdapter<File> {
-
-    public DownloadsAdapter(Context context, int textViewResourceId){
-        super(context, textViewResourceId);
-    }
 
     public DownloadsAdapter(Context context, int resource, List<File> files){
         super(context, resource, files);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, @NonNull ViewGroup parent){
         View v = convertView;
 
         if(v == null) {
@@ -55,16 +53,10 @@ public class DownloadsAdapter extends ArrayAdapter<File> {
 
         File f = getItem(position);
         if (f != null) {
-            ImageView img = (ImageView) v.findViewById(R.id.row_image);
-            TextView txt = (TextView) v.findViewById(R.id.row_title);
+            ImageView img = v.findViewById(R.id.row_image);
+            TextView txt = v.findViewById(R.id.row_title);
             String title = f.getName();
             Boolean isVideo = false;
-            try {
-                //Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                //img.setImageBitmap(image);
-            } catch (Exception ex) {
-                Log.v("Episode Adapter", "exception");
-            }
 
             if (txt != null && title.startsWith("dn")){
                 title = title.substring(0, title.length() - 4);

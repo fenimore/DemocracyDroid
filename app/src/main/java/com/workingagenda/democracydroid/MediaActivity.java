@@ -4,9 +4,11 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,24 +22,19 @@ import android.widget.ImageView;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
-/**
- * Created by fen on 8/11/16.
- */
+
 public class MediaActivity extends AppCompatActivity {
 
-    private SimpleExoPlayerView mVideoView;
     private SimpleExoPlayer player;
-    //private MediaSource mediaSource;
-
     private Uri url; // cause all urls are uris
     private String title;
     private String path;
-    private Toolbar toolbar;
     // TODO: Description?
     // TODO: Date?
     private long mMediaPosition;
     private boolean flag = false; // for toggling status and mediacontroller
     
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +44,7 @@ public class MediaActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_media);
         // Toolbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -55,6 +52,7 @@ public class MediaActivity extends AppCompatActivity {
 
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();
+        assert extras != null;
         path = (String) extras.get("url");
         url = Uri.parse(path);
         title = (String) extras.get("title"); // Doesn't work
@@ -71,7 +69,6 @@ public class MediaActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //outState.putLong("pos", mAMediaPosition);
         Log.d("Saving Inst", String.valueOf(mMediaPosition));
     }
 
@@ -79,9 +76,6 @@ public class MediaActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d("Media", "onPause called");
-        //mMediaPosition = player.getCurrentPosition();
-        //player.release();
-        //unbindService(mConnection);
     }
 
     @Override
@@ -97,10 +91,7 @@ public class MediaActivity extends AppCompatActivity {
         //mVideoView.stopPlayback();
         super.onDestroy();
         Log.d("onDestroy", "Do Destroy");
-        //unbindService(mConnection);
-        //stopService(new Intent(getApplicationContext(), MediaService.class));
         unbindService(mConnection);
-        //player.release();
     }
 
 
@@ -109,6 +100,7 @@ public class MediaActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         switch(e.getAction()) {
@@ -150,6 +142,7 @@ public class MediaActivity extends AppCompatActivity {
     }
 
     // BTW this is only for Android 4.1 and UP?
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void hideStatusBar() {
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -159,8 +152,9 @@ public class MediaActivity extends AppCompatActivity {
 
 
 
-    private ServiceConnection mConnection = new ServiceConnection() {
+    private final ServiceConnection mConnection = new ServiceConnection()  {
 
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
            Log.d("ServiceConnection","connected");
@@ -169,12 +163,12 @@ public class MediaActivity extends AppCompatActivity {
             player = mediaService.setUpPlayer(url);
             Log.d("ServiceConnection", player.toString());
             // ExoPlayer Views
-            mVideoView = (SimpleExoPlayerView) findViewById(R.id.media_player);
+            SimpleExoPlayerView mVideoView = findViewById(R.id.media_player);
             mVideoView.setPlayer(player);
             mVideoView.requestFocus();
             if (path.contains(".mp3") || path.contains("m4a")) {
                 // mVideoView.setControllerShowTimeoutMs(-1);
-                ImageView artwork = (ImageView) findViewById(R.id.exo_thumbnail);
+                ImageView artwork = findViewById(R.id.exo_thumbnail);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     artwork.setImageDrawable(getApplicationContext().getDrawable(R.drawable.logo));
                 } else {

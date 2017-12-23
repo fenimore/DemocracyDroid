@@ -14,13 +14,11 @@ import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 import com.workingagenda.democracydroid.StoryActivity;
 
-/**
- * Created by derrickrocha on 7/21/17.
- */
-public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
-    protected Episode mEpisode;
 
-    public BaseStoryViewHolder(View itemView) {
+public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
+    Episode mEpisode;
+
+    BaseStoryViewHolder(View itemView) {
         super(itemView);
     }
 
@@ -53,7 +51,7 @@ public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder implem
         return false;
     }
 
-    protected void loadTranscript(Episode story) {
+    void loadTranscript(Episode story) {
         Intent intent = new Intent(itemView.getContext(), StoryActivity.class);
         intent.putExtra("url", story.getUrl());
         intent.putExtra("title", story.getTitle());

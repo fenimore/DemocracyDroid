@@ -7,9 +7,6 @@ import com.workingagenda.democracydroid.Objects.Episode;
 
 import java.util.ArrayList;
 
-/**
- * Created by derrickrocha on 8/28/17.
- */
 
 public class GetVideoFeed extends AsyncTask<Object,Void,ArrayList<Episode>> {
 
@@ -17,7 +14,7 @@ public class GetVideoFeed extends AsyncTask<Object,Void,ArrayList<Episode>> {
     private final ServerApi mServerApi;
     private final boolean mShowLoading;
 
-    public GetVideoFeed(boolean showLoading,ServerApi serverApi,GetVideoFeedCallback callback){
+    public GetVideoFeed(boolean showLoading, ServerApi serverApi, GetVideoFeedCallback callback){
         mCallback = callback;
         mServerApi = serverApi;
         mShowLoading = showLoading;
@@ -31,13 +28,13 @@ public class GetVideoFeed extends AsyncTask<Object,Void,ArrayList<Episode>> {
 
     @Override
     protected ArrayList<Episode> doInBackground(Object... objects) {
-        ArrayList<Episode> epis = new ArrayList<>();
+        ArrayList<Episode> episodeList = new ArrayList<>();
         try {
-            epis = mServerApi.getVideoFeed();
+            episodeList = mServerApi.getVideoFeed();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return epis;    }
+        return episodeList;    }
 
     @Override
     protected void onPostExecute(ArrayList<Episode> result) {
