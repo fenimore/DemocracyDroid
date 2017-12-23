@@ -3,7 +3,7 @@ package com.workingagenda.democracydroid.Network.Podcast;
 import android.os.AsyncTask;
 
 import com.workingagenda.democracydroid.Network.ServerApi;
-import com.workingagenda.democracydroid.Objects.Episode;
+import com.workingagenda.democracydroid.Network.Episode;
 
 import java.util.ArrayList;
 

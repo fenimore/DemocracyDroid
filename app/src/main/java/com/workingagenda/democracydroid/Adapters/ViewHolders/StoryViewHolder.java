@@ -16,15 +16,13 @@
  */
 package com.workingagenda.democracydroid.Adapters.ViewHolders;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.workingagenda.democracydroid.Objects.Episode;
+import com.workingagenda.democracydroid.Network.Episode;
 import com.workingagenda.democracydroid.R;
 
 /**

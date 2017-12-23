@@ -10,9 +10,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.workingagenda.democracydroid.Objects.Episode;
+import com.workingagenda.democracydroid.Network.Episode;
 import com.workingagenda.democracydroid.R;
-import com.workingagenda.democracydroid.StoryActivity;
+import com.workingagenda.democracydroid.screens.story.StoryActivity;
 
 /**
  * Created by derrickrocha on 7/21/17.

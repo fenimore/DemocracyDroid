@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.workingagenda.democracydroid.Objects.Download;
+import com.workingagenda.democracydroid.Network.Download;
 
 /**
  * Created by fen on 1/20/16.

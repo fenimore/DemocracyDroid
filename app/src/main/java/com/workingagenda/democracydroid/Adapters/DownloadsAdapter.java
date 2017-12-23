@@ -35,10 +35,6 @@ import java.util.List;
  */
 public class DownloadsAdapter extends ArrayAdapter<File> {
 
-    public DownloadsAdapter(Context context, int textViewResourceId){
-        super(context, textViewResourceId);
-    }
-
     public DownloadsAdapter(Context context, int resource, List<File> files){
         super(context, resource, files);
     }
