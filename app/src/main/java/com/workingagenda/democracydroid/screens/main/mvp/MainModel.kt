@@ -22,52 +22,41 @@ class MainModel(private var mActivity:MainActivity) {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
-
-        if (id == R.id.action_settings) {
-            val intent = Intent(mActivity, SettingsActivity::class.java)
-            mActivity.startActivity(intent)
-            return true
-        }
-        if (id == R.id.action_refresh) {
-            // Don't let user click before async tasks are done
-            item.isEnabled = false
-            // Call Fragment refresh methods
-            mActivity.supportFragmentManager.fragments
-            for (x in mActivity.supportFragmentManager.fragments) {
-                (x as? PodcastFragment)?.refresh()
-                (x as? StoryFragment)?.refresh()
-                (x as? DownloadFragment)?.refresh()
+        when(id){
+            R.id.action_settings -> {
+                val intent = Intent(mActivity, SettingsActivity::class.java)
+                mActivity.startActivity(intent)
+                return true
             }
-            // FIXME: Somehow enable this after async call...
-            item.isEnabled = true
-            return true
-        }
-        if (id == R.id.action_donate) {
-            val url = "https://www.democracynow.org/donate"
-            val i = Intent(Intent.ACTION_VIEW)
-            i.data = Uri.parse(url)
-            mActivity.startActivity(i)
-            return true
-        }
-        if (id == R.id.action_exclusives) {
-            val url = "https://www.democracynow.org/categories/web_exclusive"
-            val i = Intent(Intent.ACTION_VIEW)
-            i.data = Uri.parse(url)
-            mActivity.startActivity(i)
-            return true
-        }
-        if (id == R.id.action_site) {
-            val url = "http://www.democracynow.org/"
-            val i = Intent(Intent.ACTION_VIEW)
-            i.data = Uri.parse(url)
-            mActivity.startActivity(i)
-            return true
-        }
-        if (id == R.id.action_about) {
-            val intent = Intent(mActivity, AboutActivity::class.java)
-            mActivity.startActivityForResult(intent, 0)
+            R.id.action_refresh -> {
+                // Don't let user click before async tasks are done
+                item.isEnabled = false
+                // Call Fragment refresh methods
+                mActivity.supportFragmentManager.fragments
+                for (x in mActivity.supportFragmentManager.fragments) {
+                    (x as? PodcastFragment)?.refresh()
+                    (x as? StoryFragment)?.refresh()
+                    (x as? DownloadFragment)?.refresh()
+                }
+                // FIXME: Somehow enable this after async call...
+                item.isEnabled = true
+                return true
+            }
+            R.id.action_donate -> actionViewIntent("https://www.democracynow.org/donate")
+            R.id.action_exclusives -> actionViewIntent("https://www.democracynow.org/categories/web_exclusive")
+            R.id.action_site -> actionViewIntent("http://www.democracynow.org/")
+            R.id.action_about -> {
+                val intent = Intent(mActivity, AboutActivity::class.java)
+                mActivity.startActivityForResult(intent, 0)
+            }
         }
         return true
+    }
+
+    private fun actionViewIntent(url:String) {
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        mActivity.startActivity(i)
     }
 
     fun onCreateOptionsMenu(menu: Menu): Boolean {

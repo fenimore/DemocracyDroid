@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainModel = MainModel(this)
-        val view = MainView(this, supportFragmentManager)
+        val view = MainView(this)
         setContentView(view)
         setSupportActionBar(view.getToolbar())
     }

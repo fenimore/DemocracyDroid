@@ -4,12 +4,12 @@ import android.content.Context
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.TabLayout
-import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.widget.FrameLayout
 import android.util.TypedValue
-import com.workingagenda.democracydroid.Helpers.DpToPixelHelper
+import com.workingagenda.democracydroid.util.DpToPixelHelper
 import com.workingagenda.democracydroid.R
 import com.workingagenda.democracydroid.screens.main.mvp.view.adapter.SectionsPagerAdapter
 
@@ -17,14 +17,15 @@ import com.workingagenda.democracydroid.screens.main.mvp.view.adapter.SectionsPa
 /**
  * Created by derrickrocha on 12/9/17.
  */
-class MainView(context: Context?, private val mFragmentManager: FragmentManager) : FrameLayout(context) {
+class MainView(context: Context?) : FrameLayout(context) {
+
+    private val mFragmentManager = (context as AppCompatActivity).supportFragmentManager
 
     private lateinit var mCoordinatorLayout: CoordinatorLayout
     private lateinit var mViewPager: ViewPager
     private lateinit var tabLayout: TabLayout
-
-    private var mToolbar: Toolbar? = null
-    private var appbarLayout: AppBarLayout? = null
+    private lateinit var mToolbar: Toolbar
+    private lateinit var appbarLayout: AppBarLayout
 
     private var toolbarHeight : Int = 0
 
@@ -44,9 +45,9 @@ class MainView(context: Context?, private val mFragmentManager: FragmentManager)
 
     private fun initAppbar() {
         appbarLayout = AppBarLayout(context)
-        appbarLayout!!.context.setTheme(R.style.AppTheme_AppBarOverlay)
-        appbarLayout!!.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT)
-        mCoordinatorLayout!!.addView(appbarLayout)
+        appbarLayout.context.setTheme(R.style.AppTheme_AppBarOverlay)
+        appbarLayout.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT)
+        mCoordinatorLayout.addView(appbarLayout)
     }
 
     private fun initToolbar() {
@@ -58,10 +59,10 @@ class MainView(context: Context?, private val mFragmentManager: FragmentManager)
         else
             DpToPixelHelper.dpToPx(56,resources.displayMetrics)
         val params = AppBarLayout.LayoutParams(LayoutParams.MATCH_PARENT,toolbarHeight)
-        mToolbar!!.popupTheme = R.style.AppTheme_PopupOverlay
+        mToolbar.popupTheme = R.style.AppTheme_PopupOverlay
         params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-        mToolbar!!.layoutParams = params
-        appbarLayout!!.addView(mToolbar)
+        mToolbar.layoutParams = params
+        appbarLayout.addView(mToolbar)
     }
 
     private fun initTabLayout(){
@@ -72,7 +73,7 @@ class MainView(context: Context?, private val mFragmentManager: FragmentManager)
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_file_download_white_24dp))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
-        appbarLayout!!.addView(tabLayout)
+        appbarLayout.addView(tabLayout)
     }
 
     private fun initViewPager(){
@@ -100,10 +101,6 @@ class MainView(context: Context?, private val mFragmentManager: FragmentManager)
             override fun onTabReselected(tab: TabLayout.Tab) {
             }
         })
-    }
-
-    fun moveAdapterPosition(position:Int){
-        mViewPager.currentItem = position
     }
 
     fun getToolbar(): Toolbar? = mToolbar

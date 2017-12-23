@@ -1,4 +1,4 @@
-package com.workingagenda.democracydroid.Helpers;
+package com.workingagenda.democracydroid.util;
 
 import android.content.ContentValues;
 import android.content.Context;

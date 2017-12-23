@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.workingagenda.democracydroid.Adapters.GridSpacingItemDecoration;
-import com.workingagenda.democracydroid.Helpers.DpToPixelHelper;
+import com.workingagenda.democracydroid.util.DpToPixelHelper;
 import com.workingagenda.democracydroid.MainApplication;
 import com.workingagenda.democracydroid.Network.Podcast.GetAudioFeed;
 import com.workingagenda.democracydroid.Network.Podcast.GetVideoFeed;

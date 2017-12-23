@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.workingagenda.democracydroid.Adapters.GridSpacingItemDecoration;
 import com.workingagenda.democracydroid.Feedreader.RssItem;
 import com.workingagenda.democracydroid.Feedreader.RssReader;
-import com.workingagenda.democracydroid.Helpers.DpToPixelHelper;
+import com.workingagenda.democracydroid.util.DpToPixelHelper;
 import com.workingagenda.democracydroid.Network.Episode;
 import com.workingagenda.democracydroid.R;
 
