@@ -11,7 +11,7 @@
 .externalNativeBuild
 
 .idea
-
+app/release/
 ### Android template
 # Built application files
 *.apk

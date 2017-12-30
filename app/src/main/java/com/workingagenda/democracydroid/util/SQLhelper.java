@@ -8,11 +8,11 @@ import android.util.Log;
 /**
  * Created by fen on 1/20/16.
  */
-public class SQLhelper extends SQLiteOpenHelper {
+@SuppressWarnings("DefaultFileTemplate")
+class SQLhelper extends SQLiteOpenHelper {
 
     public static final String TABLE_DOWNLOADS = "downloads";
     public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_PATH = "path";
     public static final String COLUMN_TITLE = "title";
 

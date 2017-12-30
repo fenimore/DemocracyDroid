@@ -29,6 +29,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -45,9 +46,6 @@ import com.workingagenda.democracydroid.screens.media.MediaActivity;
 import com.workingagenda.democracydroid.Network.Episode;
 import com.workingagenda.democracydroid.R;
 
-/**
- * Created by derrickrocha on 7/16/17.
- */
 public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener,MenuItem.OnMenuItemClickListener {
 
     private final TextView txt;
@@ -56,19 +54,19 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
     private final ImageView mOptions;
     private final ImageView mDownload;
     // ENUMS
-    public static final int STREAM_VIDEO = 0;
-    public static final int STREAM_AUDIO = 1;
-    public static final int OPEN_THIS_APP = 0;
+    private static final int STREAM_VIDEO = 0;
+    private static final int STREAM_AUDIO = 1;
+    private static final int OPEN_THIS_APP = 0;
     private Episode mEpisode;
 
     public EpisodeViewHolder(final View itemView) {
         super(itemView);
-        img = (ImageView) itemView.findViewById(R.id.row_image);
-        txt = (TextView) itemView.findViewById(R.id.row_title);
-        tag = (TextView) itemView.findViewById(R.id.row_tag);
+        img = itemView.findViewById(R.id.row_image);
+        txt = itemView.findViewById(R.id.row_title);
+        tag = itemView.findViewById(R.id.row_tag);
         tag.setMaxLines(3);
-        mOptions = (ImageView)itemView.findViewById(R.id.row_options);
-        mDownload = (ImageView)itemView.findViewById(R.id.row_download);
+        mOptions = itemView.findViewById(R.id.row_options);
+        mDownload = itemView.findViewById(R.id.row_download);
         itemView.setOnCreateContextMenuListener(this);
 
     }
@@ -113,22 +111,20 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                     builder.setMessage("Are you sure you want to download today's episode?");
                     builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            return;
-                        }
+                        public void onClick(DialogInterface dialog, int which) {}
                     });
                     builder.setNegativeButton("Audio", new DialogInterface.OnClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.M)
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
-                            return;
                         }
                     });
                     builder.setPositiveButton("Video", new DialogInterface.OnClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.M)
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
-                            return;
                         }
                     });
                     AlertDialog alert = builder.create();
@@ -209,6 +205,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
@@ -284,7 +281,8 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
 
     // FIXME: Show progress:
     // http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
-    public void Download(String url, String title, String desc) {
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void Download(String url, String title, String desc) {
         if (ContextCompat.checkSelfPermission(itemView.getContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -292,7 +290,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                     0);
             // TODO: catch onRequestPermissionsResult
         } else {
-            if (url.equals("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8")) {
+            if ("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8".equals(url)) {
                 Toast toast = Toast.makeText(itemView.getContext(),
                         "You can't download the Live Stream", Toast.LENGTH_LONG);
                 toast.show();
@@ -301,10 +299,9 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
             request.setDescription(desc);
             request.setTitle(title);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                request.allowScanningByMediaScanner();
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            }
+            request.allowScanningByMediaScanner();
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
             String fileext = url.substring(url.lastIndexOf('/') + 1);
             request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PODCASTS, fileext);
             //http://stackoverflow.com/questions/24427414/getsystemservices-is-undefined-when-called-in-a-fragment

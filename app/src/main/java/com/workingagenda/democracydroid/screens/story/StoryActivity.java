@@ -22,9 +22,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
-/**
- * Created by fen on 5/14/16.
- */
+
 public class StoryActivity extends AppCompatActivity {
 
     private WebView webview;
@@ -33,8 +31,6 @@ public class StoryActivity extends AppCompatActivity {
     private String title;
     private String date;
     private String url;
-    // todo: image
-    private String author;
     private String video;
     private String audio;
 
@@ -70,22 +66,21 @@ public class StoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
-        webview = (WebView) findViewById(R.id.webview);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        webview = findViewById(R.id.webview);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle extras = getIntent().getExtras();
+        assert extras != null;
         url = (String) extras.get("url");
         title = (String) extras.get("title");
         date = (String) extras.get("date");
+        assert date != null;
         date = date.substring(0, date.lastIndexOf("-"));
         new RetrieveContent().execute(url);
     }
 
-    public interface OnTaskCompleted{
-        void onTaskCompleted();
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -138,7 +133,7 @@ public class StoryActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class RetrieveContent extends AsyncTask<String, Void, String> {
+    private class  RetrieveContent extends AsyncTask<String, Void, String> {
         protected String doInBackground(String... urls){
             try {
                 return getContent(urls[0]);

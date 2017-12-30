@@ -1,13 +1,10 @@
 <resources>
     <string name="app_name">Democracy Droid</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Section: %1$d</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_donate">Donate at Democracy Now!</string>
-    <string name="action_back">Return</string>
     <string name="about_app">Democracy Droid! provides easy access to the Democracy Now Broadcast and Individual Story feed, the Live stream, and Downloads. Long-click on a broadcast to show its options.\n\nDemocracy Droid is not affiliated with Democracy Now! If you like the application, I encourage you to donate at \nhttps://democracynow.org.\nThis application is Free and Open Source Software.\n</string>
     <string name="about_dm">Democracy Now! is a national, daily, independent, award-winning news program hosted by journalists Amy Goodman and Juan Gonzalez. Pioneering the largest public media collaboration in the U.S.\n\nDemocracy Now! is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States License.\n\nDemocracy Now! streams live weekdays at 8 am\n</string>
-    <string name="about_instructions">Democracy Now! streams live weekdays at 8 am\n\n</string>
     <string name="about_info">\nFenimore Love | 2015 - 2017 GPLv3\n\nFile
         bugs by email or at the Issue Tracker at the Source Repository below.\n\n Any
         feedback here is greatly appreciated :).
@@ -17,20 +14,12 @@
     <string name="action_site">Visit democracynow.org</string>
     <string name="action_about">About Democracy Droid!</string>
     <string name="connect_error">Connection Error</string>
-    <string name="no_downloads">Long Click an Episode In order to Download it</string>
-    <string name="connecting">Establishing Connection…</string>
     <string name="setting_tab">Default Tab on Start Up</string>
-    <string name="setting_wifi">Only Refresh with Wifi</string>
-    <string name="summary_wifi">Must restart app to take effect</string>
-    <string name="setting_image">Don\'t Load Images</string>
-    <string name="summary_image">Stop Images from Loading</string>
     <string name="name_setting">Settings</string>
     <string name="setting_stream">Default Stream on Select</string>
     <string name="pref_category_info">Application Information</string>
     <string name="pref_category_settings">Application Settings</string>
-    <string name="img_pref_summary">Minimize data usage</string>
     <string name="review">Review at the Play Store</string>
-    <string name="pref_notification">Show Notifications</string>
     <string name="story_audio">Listen To Story</string>
     <string name="story_video">Watch To Story</string>
     <string name="story_web">Open in browser</string>
@@ -40,8 +29,8 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
-        ==== 3.5.0\n
-        - Total UI overhaul! - thanks to Derrick Rocha! (@DerrickRocha)\n
+        ==== 3.6\n
+        - Update backend and clean up code quality :S :D
     </string>
     <string name="open_stream">Default Application to Play Media</string>
     <string name="download_video">Download Video</string>
@@ -53,9 +42,6 @@
     <string name="email_dev">Email the developer</string>
     <string name="action_exclusives">Web Exclusives</string>
     <string name="btn_donate">Donate at DemocracyNow.org</string>
-    <string name="democracy_now_the_war_and_peace_report">Democracy Now! The War and Peace Report</string>
-    <string name="setting_desc">Include Description in Broadcast</string>
-    <string name="desc_pref_summary">Add description underneath date</string>
     <string name="setting_language">Difusión de Audio en Español</string>
     <string name="refresh">Refresh</string>
     <string name="description_menu_title">Description</string>
@@ -67,18 +53,10 @@
     <string name="tab_3">Tab 3</string>
     <string name="clear_all">Clear All</string>
     <string name="democracy_now_the_war_and_peace_report_text">Democracy Now! The War and Peace Report</string>
-    <string-array name="Language">
-        <item>English (US)</item>
-        <item>English (UK)</item>
-        <item>French (France)</item>
-        <item>Spanish (Spain)</item>
-    </string-array>
-    <string-array name="languageAlias">
-        <item>"en-US"</item>
-        <item>"en-GB"</item>
-        <item>"fr-FR"</item>
-        <item>"es-ES"</item>
-    </string-array>
+    <string name="ffwd_content">Fast forward</string>
+    <string name="pause_content">Pause</string>
+    <string name="play_content">Play</string>
+    <string name="rewind_content">Rewind</string>
     <string-array name="tabsAlias">
         <item>Transcripts</item>
         <item>Broadcast</item>

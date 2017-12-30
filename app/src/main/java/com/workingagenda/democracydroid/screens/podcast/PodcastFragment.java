@@ -1,10 +1,9 @@
 package com.workingagenda.democracydroid.screens.podcast;
 
-/**
- * Created by derrickrocha on 7/16/17.
- */
-
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -28,23 +27,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class PodcastFragment extends Fragment {
 
-    //Declare some variables
-    private RecyclerView mList;
     private View mProgress;
     private PodcastAdapter mPodcastAdapter;
     private ArrayList<Episode> mEpisodes;
-    private int LIVE_TIME = 8;
+    private final int LIVE_TIME = 8;
     private SimpleDateFormat mFormat;
 
     private SwipeRefreshLayout mySwipeRefreshLayout;
 
+    private static final String ARG_SECTION_NUMBER = "section_number";
     private ServerApi mServerApi;
 
     public void refresh() {
@@ -52,15 +49,15 @@ public class PodcastFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mList = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        RecyclerView mList = rootView.findViewById(R.id.recycler_view);
         mProgress = rootView.findViewById(R.id.progress_icon);
 
-        mySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
+        mySwipeRefreshLayout = rootView.findViewById(R.id.swiperefresh);
         if (mySwipeRefreshLayout != null ) {
             mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -77,14 +74,14 @@ public class PodcastFragment extends Fragment {
         mList.setAdapter(mPodcastAdapter);
         mList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mList.addItemDecoration(new GridSpacingItemDecoration(1, DpToPixelHelper.dpToPx(4,getResources().getDisplayMetrics()), true));
-        mFormat = new SimpleDateFormat("yyyy-MMdd");
+        mFormat = new SimpleDateFormat("yyyy-MMdd", Locale.US);
         getVideoFeed(true);
 
         return rootView;
     }
 
     private void getVideoFeed(boolean showLoading) {
-        new GetVideoFeed(showLoading,mServerApi, new GetVideoFeed.GetVideoFeedCallback() {
+        new GetVideoFeed(showLoading, mServerApi, new GetVideoFeed.GetVideoFeedCallback() {
 
             @Override
             public void onGetVideoFeedPreExecute(boolean showLoading) {
@@ -101,7 +98,8 @@ public class PodcastFragment extends Fragment {
     }
 
     private void getAudioFeed() {
-        boolean hasSpanish = MainApplication.get(getActivity()).getSpanishPreference();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean hasSpanish = preferences.getBoolean("spanish_preference", false);
         String feed = "https://www.democracynow.org/podcast.xml";
         if (hasSpanish) {
             feed = "https://www.democracynow.org/podcast-es.xml";
@@ -125,8 +123,7 @@ public class PodcastFragment extends Fragment {
                     TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
                     Calendar c = Calendar.getInstance(timeZone);
                     String formattedDate = mFormat.format(c.getTime());
-                    String today_audio = "http://traffic.libsyn.com/democracynow/dn"
-                            + formattedDate + "-1.mp3";
+                    String today_audio = "dn" + formattedDate;
                     int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
                     int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
                     Log.v("Count A/V", String.valueOf(audioLinks.size()) + " / " + String.valueOf(mEpisodes.size()));
@@ -135,14 +132,17 @@ public class PodcastFragment extends Fragment {
                     if (onSchedule && hourOfDay == LIVE_TIME) {
                         audioLinks.add(0, "http://democracynow.videocdn.scaleengine.net/" +
                                 "democracynow-iphone/play/democracynow/playlist.m3u8");
-                    } else if (onSchedule && audioLinks.size() > 0 && !audioLinks.get(0).equals(today_audio)) {
-                        audioLinks.add(0, today_audio);
+                    } else if (onSchedule && audioLinks.size() > 0 &&
+                            !audioLinks.get(0).contains(today_audio)) {
+                        audioLinks.add(0, "http://traffic.libsyn.com/democracynow/" + today_audio + ".mp3");
                     }
                     int SIZE = Math.min(mEpisodes.size(), audioLinks.size());
                     for (int i = 0; i < SIZE; i++) {
                         mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
-                        // FIXME: Audio has one more item than video?
-                        // Log.d("Episode:", "\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl());;
+                        Log.d("Episode", "Day: " + String.valueOf(dayOfWeek)
+                                + " Hour: " + String.valueOf(hourOfDay));
+                        Log.d("EpisodeVideo", mEpisodes.get(i).getVideoUrl());
+                        Log.d("EpisodeAudio", mEpisodes.get(i).getAudioUrl());
                     }
                     mProgress.setVisibility(View.GONE);
                     mPodcastAdapter.notifyDataSetChanged();

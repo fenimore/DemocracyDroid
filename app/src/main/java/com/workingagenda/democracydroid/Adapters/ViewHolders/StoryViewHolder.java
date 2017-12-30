@@ -25,19 +25,17 @@ import android.widget.TextView;
 import com.workingagenda.democracydroid.Network.Episode;
 import com.workingagenda.democracydroid.R;
 
-/**
- * Created by derrickrocha on 7/9/17.
- */
+
 public class StoryViewHolder extends BaseStoryViewHolder {
     private final ImageView mImg;
     private final ImageView mOptions;
-    private TextView mTxt;
+    private final TextView mTxt;
 
     public StoryViewHolder(final View itemView) {
         super(itemView);
-        mImg = (ImageView) itemView.findViewById(R.id.row_image);
-        mTxt = (TextView) itemView.findViewById(R.id.row_title);
-        mOptions = (ImageView)itemView.findViewById(R.id.row_options);
+        mImg = itemView.findViewById(R.id.row_image);
+        mTxt = itemView.findViewById(R.id.row_title);
+        mOptions = itemView.findViewById(R.id.row_options);
         itemView.setOnCreateContextMenuListener(this);
     }
 

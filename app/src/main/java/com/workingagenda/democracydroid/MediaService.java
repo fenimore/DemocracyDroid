@@ -11,19 +11,25 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
+import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
@@ -33,10 +39,7 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.workingagenda.democracydroid.screens.media.MediaActivity;
-
-/**
- * Created by fen on 2/6/17.
- */
+import com.google.android.exoplayer2.Player.EventListener;
 
 public class MediaService extends Service {
 
@@ -120,6 +123,46 @@ public class MediaService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             not = builder.build();
         }
+        player.addListener(new EventListener() {
+            @Override
+            public void onTimelineChanged(Timeline timeline, Object manifest) {}
+            @Override
+            public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {}
+            @Override
+            public void onLoadingChanged(boolean isLoading) {}
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {}
+            @Override
+            public void onRepeatModeChanged(int repeatMode) {}
+            @Override
+            public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {}
+            @Override
+            public void onPlayerError(ExoPlaybackException error) {
+                String TAG = "ExoError";
+                switch (error.type) {
+                    case ExoPlaybackException.TYPE_SOURCE:
+                        Log.e(TAG, "TYPE_SOURCE: " + error.getSourceException().getMessage());
+                        int duration = Toast.LENGTH_LONG;
+                        Toast toast = Toast.makeText(getApplicationContext(), "Episode isn't available yet! Try again in a few minutes.", duration);
+                        toast.show();
+                        player.release();
+                        break;
+                    case ExoPlaybackException.TYPE_RENDERER:
+                        Log.e(TAG, "TYPE_RENDERER: " + error.getRendererException().getMessage());
+                        break;
+                    case ExoPlaybackException.TYPE_UNEXPECTED:
+                        Log.e(TAG, "TYPE_UNEXPECTED: " + error.getUnexpectedException().getMessage());
+                        break;
+                }
+            }
+            @Override
+            public void onPositionDiscontinuity(int reason) {}
+            @Override
+            public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {}
+            @Override
+            public void onSeekProcessed() {}
+        });
+
         startForeground(1333, not);
         return player;
     }

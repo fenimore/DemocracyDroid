@@ -30,20 +30,16 @@ import com.workingagenda.democracydroid.R;
 
 import java.util.List;
 
-/**
- * Created by fen on 4/10/16.
- */
+
 public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
 
     private static final int TYPE_HEADLINE = 0;
     private static final int TYPE_EPISODE = 1;
-    private final Context mContext;
     private final LayoutInflater mInflator;
     private final List<Episode> mEpisodes;
 
     public StoryAdapter(Context context, List<Episode> episodes){
-        mContext = context;
-        mInflator = LayoutInflater.from(mContext);
+        mInflator = LayoutInflater.from(context);
         mEpisodes = episodes;
     }
 
@@ -51,13 +47,11 @@ public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
     public BaseStoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_EPISODE) {
             View v = mInflator.inflate(R.layout.row_story, null);
-            StoryViewHolder viewHolder = new StoryViewHolder(v);
-            return viewHolder;
+            return new StoryViewHolder(v);
         }
         else {
             View v = mInflator.inflate(R.layout.row_story_headline, null);
-            StoryHeadlineViewHolder viewHolder = new StoryHeadlineViewHolder(v);
-            return viewHolder;
+            return new StoryHeadlineViewHolder(v);
         }
     }
 

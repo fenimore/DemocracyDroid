@@ -39,8 +39,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<EpisodeViewHolder> {
     @Override
     public EpisodeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = mInflator.inflate(R.layout.row_episodes, null);
-        EpisodeViewHolder viewHolder = new EpisodeViewHolder(v);
-        return viewHolder;
+        return new EpisodeViewHolder(v);
     }
 
     @Override
