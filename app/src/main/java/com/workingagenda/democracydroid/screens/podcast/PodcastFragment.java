@@ -1,4 +1,4 @@
-package com.workingagenda.democracydroid.tabfragment;
+package com.workingagenda.democracydroid.screens.podcast;
 
 /**
  * Created by derrickrocha on 7/16/17.
@@ -14,16 +14,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
 import com.workingagenda.democracydroid.Adapters.GridSpacingItemDecoration;
-import com.workingagenda.democracydroid.Helpers.DpToPixelHelper;
+import com.workingagenda.democracydroid.util.DpToPixelHelper;
 import com.workingagenda.democracydroid.MainApplication;
 import com.workingagenda.democracydroid.Network.Podcast.GetAudioFeed;
 import com.workingagenda.democracydroid.Network.Podcast.GetVideoFeed;
 import com.workingagenda.democracydroid.Network.ServerApi;
-import com.workingagenda.democracydroid.Objects.Episode;
+import com.workingagenda.democracydroid.Network.Episode;
 import com.workingagenda.democracydroid.R;
 
 import java.text.SimpleDateFormat;
@@ -40,34 +38,17 @@ public class PodcastFragment extends Fragment {
     //Declare some variables
     private RecyclerView mList;
     private View mProgress;
-    private EpisodeAdapter episodeAdapter;
+    private PodcastAdapter mPodcastAdapter;
     private ArrayList<Episode> mEpisodes;
     private int LIVE_TIME = 8;
     private SimpleDateFormat mFormat;
 
     private SwipeRefreshLayout mySwipeRefreshLayout;
 
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
-    private static final String ARG_SECTION_NUMBER = "section_number";
     private ServerApi mServerApi;
 
     public void refresh() {
         getVideoFeed(false);
-    }
-
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
-    public static PodcastFragment newInstance(int sectionNumber) {
-        PodcastFragment fragment = new PodcastFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -92,8 +73,8 @@ public class PodcastFragment extends Fragment {
         mEpisodes = new ArrayList<>();
         mServerApi = new ServerApi();
 
-        episodeAdapter = new EpisodeAdapter(getContext(), mEpisodes);
-        mList.setAdapter(episodeAdapter);
+        mPodcastAdapter = new PodcastAdapter(getContext(), mEpisodes);
+        mList.setAdapter(mPodcastAdapter);
         mList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mList.addItemDecoration(new GridSpacingItemDecoration(1, DpToPixelHelper.dpToPx(4,getResources().getDisplayMetrics()), true));
         mFormat = new SimpleDateFormat("yyyy-MMdd");
@@ -164,7 +145,7 @@ public class PodcastFragment extends Fragment {
                         // Log.d("Episode:", "\n" + mEpisodes.get(i).getAudioUrl()+ "\n"+ mEpisodes.get(i).getVideoUrl());;
                     }
                     mProgress.setVisibility(View.GONE);
-                    episodeAdapter.notifyDataSetChanged();
+                    mPodcastAdapter.notifyDataSetChanged();
                 }
             }
         }).execute(feed); // must be called onPostExecute
@@ -173,7 +154,7 @@ public class PodcastFragment extends Fragment {
     private void showEpisodes(ArrayList<Episode> episodes) {
         mEpisodes.clear();
         mEpisodes.addAll(episodes);
-        episodeAdapter.notifyDataSetChanged();
+        mPodcastAdapter.notifyDataSetChanged();
     }
 
 }

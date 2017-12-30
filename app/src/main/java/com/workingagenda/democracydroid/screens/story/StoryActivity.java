@@ -1,7 +1,6 @@
-package com.workingagenda.democracydroid;
+package com.workingagenda.democracydroid.screens.story;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,7 +11,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
-import android.widget.TextView;
+
+import com.workingagenda.democracydroid.R;
+import com.workingagenda.democracydroid.screens.media.MediaActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

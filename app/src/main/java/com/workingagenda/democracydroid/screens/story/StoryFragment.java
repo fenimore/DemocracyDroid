@@ -1,4 +1,4 @@
-package com.workingagenda.democracydroid.tabfragment;
+package com.workingagenda.democracydroid.screens.story;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,11 +14,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.workingagenda.democracydroid.Adapters.GridSpacingItemDecoration;
-import com.workingagenda.democracydroid.Adapters.StoryAdapter;
 import com.workingagenda.democracydroid.Feedreader.RssItem;
 import com.workingagenda.democracydroid.Feedreader.RssReader;
-import com.workingagenda.democracydroid.Helpers.DpToPixelHelper;
-import com.workingagenda.democracydroid.Objects.Episode;
+import com.workingagenda.democracydroid.util.DpToPixelHelper;
+import com.workingagenda.democracydroid.Network.Episode;
 import com.workingagenda.democracydroid.R;
 
 import java.util.ArrayList;
@@ -34,19 +33,7 @@ public class StoryFragment extends Fragment {
     private TextView sTxt;
     private SwipeRefreshLayout storySwipeRefreshLayout;
     private StoryAdapter storyAdapter;
-    private static final String ARG_SECTION_NUMBER = "section_number";
     private View mProgress;
-
-    public StoryFragment() {
-    }
-
-    public static StoryFragment newInstance(int sectionNumber) {
-        StoryFragment fragment = new StoryFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public void refresh() {
         new GetStoryFeed(false).execute("https://www.democracynow.org/democracynow.rss");

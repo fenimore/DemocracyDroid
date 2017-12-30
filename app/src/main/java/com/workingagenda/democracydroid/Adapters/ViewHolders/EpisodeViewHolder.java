@@ -19,7 +19,6 @@ package com.workingagenda.democracydroid.Adapters.ViewHolders;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,7 +28,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -43,11 +41,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.workingagenda.democracydroid.MediaActivity;
-import com.workingagenda.democracydroid.Objects.Episode;
+import com.workingagenda.democracydroid.screens.media.MediaActivity;
+import com.workingagenda.democracydroid.Network.Episode;
 import com.workingagenda.democracydroid.R;
-
-import static android.speech.tts.TextToSpeech.Engine.DEFAULT_STREAM;
 
 /**
  * Created by derrickrocha on 7/16/17.
@@ -97,8 +93,10 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
             }
             if (tag != null) {
                 String description = e.getDescription().trim();
-                String tagString = description.substring(description.indexOf(";") + 1).trim();
-                tag.setText(tagString);
+                if (description.startsWith("Headlines for ")) {
+                    description = description.substring(description.indexOf(";") + 1);
+                }
+                tag.setText(description);
                 tag.setEllipsize(TextUtils.TruncateAt.END);
             }
             itemView.setOnClickListener(new View.OnClickListener() {

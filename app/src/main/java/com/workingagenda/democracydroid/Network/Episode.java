@@ -1,4 +1,4 @@
-package com.workingagenda.democracydroid.Objects;
+package com.workingagenda.democracydroid.Network;
 
 /**
  * Created by fen on 12/9/15.

@@ -13,8 +13,6 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 
 public class MainApplication extends Application {
 
-
-
     public static MainApplication get(Activity activity){
         return (MainApplication) activity.getApplication();
     }
@@ -29,5 +27,4 @@ public class MainApplication extends Application {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         return preferences.getBoolean("spanish_preference", false);
     }
-
 }

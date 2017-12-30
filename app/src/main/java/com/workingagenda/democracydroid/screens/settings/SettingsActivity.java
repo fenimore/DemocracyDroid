@@ -1,4 +1,4 @@
-package com.workingagenda.democracydroid;
+package com.workingagenda.democracydroid.screens.settings;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -21,6 +21,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.workingagenda.democracydroid.BuildConfig;
+import com.workingagenda.democracydroid.R;
 
 
 /**

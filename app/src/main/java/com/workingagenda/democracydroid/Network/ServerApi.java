@@ -2,7 +2,6 @@ package com.workingagenda.democracydroid.Network;
 
 import com.workingagenda.democracydroid.Feedreader.RssItem;
 import com.workingagenda.democracydroid.Feedreader.RssReader;
-import com.workingagenda.democracydroid.Objects.Episode;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

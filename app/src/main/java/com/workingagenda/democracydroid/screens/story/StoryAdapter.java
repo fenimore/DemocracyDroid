@@ -14,7 +14,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.workingagenda.democracydroid.Adapters;
+package com.workingagenda.democracydroid.screens.story;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 import com.workingagenda.democracydroid.Adapters.ViewHolders.BaseStoryViewHolder;
 import com.workingagenda.democracydroid.Adapters.ViewHolders.StoryHeadlineViewHolder;
 import com.workingagenda.democracydroid.Adapters.ViewHolders.StoryViewHolder;
-import com.workingagenda.democracydroid.Objects.Episode;
+import com.workingagenda.democracydroid.Network.Episode;
 import com.workingagenda.democracydroid.R;
 
 import java.util.List;

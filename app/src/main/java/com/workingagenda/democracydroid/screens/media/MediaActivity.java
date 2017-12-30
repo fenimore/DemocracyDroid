@@ -1,4 +1,4 @@
-package com.workingagenda.democracydroid;
+package com.workingagenda.democracydroid.screens.media;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -19,6 +19,8 @@ import android.widget.ImageView;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.workingagenda.democracydroid.MediaService;
+import com.workingagenda.democracydroid.R;
 
 /**
  * Created by fen on 8/11/16.

@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".MainActivity$StoryFragment">
+    tools:context=".screens.main.MainActivity$StoryFragment">
 
     <ListView android:layout_width="fill_parent"
         android:layout_height="fill_parent"
