@@ -23,23 +23,22 @@ class MainView(context: Context?) : FrameLayout(context) {
 
     init {
         inflate(getContext(), R.layout.activity_main, this)
-        mToolbar = findViewById(R.id.toolbar) as Toolbar
+        mToolbar = findViewById(R.id.toolbar)
         initTabLayout()
         initViewPager()
         initAdapter()
     }
 
     private fun initTabLayout(){
-        tabLayout = findViewById(R.id.tab_layout) as TabLayout
+        tabLayout = findViewById(R.id.tab_layout)
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_library_books_white_24dp))
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_live_tv_white_24dp))
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_file_download_white_24dp))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
-
     }
 
     private fun initViewPager(){
-        mViewPager = findViewById(R.id.container) as ViewPager
+        mViewPager = findViewById(R.id.container)
         mViewPager.offscreenPageLimit = 2
         mViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
     }

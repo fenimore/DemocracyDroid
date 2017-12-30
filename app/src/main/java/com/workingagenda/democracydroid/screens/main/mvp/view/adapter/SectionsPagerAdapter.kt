@@ -20,14 +20,4 @@ import com.workingagenda.democracydroid.screens.story.StoryFragment
     }
 
     override fun getCount(): Int = 3
-
-    override fun getPageTitle(position: Int): CharSequence? {
-        when (position) {
-            0 -> return "SECTION 1"
-            1 -> return "SECTION 2"
-            2 -> return "SECTION 3"
-        }
-        return null
-    }
-
 }

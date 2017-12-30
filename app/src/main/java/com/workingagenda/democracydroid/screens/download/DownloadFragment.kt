@@ -43,18 +43,17 @@ class DownloadFragment : Fragment() {
             return inFiles
         }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val rootView = inflater!!.inflate(R.layout.fragment_download, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_download, container, false)
 
         files = listFiles
 
-        dList = rootView.findViewById(android.R.id.list) as ListView
-        Txt1 = rootView.findViewById(R.id.download_help) as TextView
+        dList = rootView.findViewById(android.R.id.list)
+        Txt1 = rootView.findViewById(R.id.download_help)
         Txt1.setText(R.string.download_help)
         dList.emptyView = Txt1
-        btn = rootView.findViewById(R.id.clear) as Button
-        btnRefresh = rootView.findViewById(R.id.refresh) as Button
+        btn = rootView.findViewById(R.id.clear)
+        btnRefresh = rootView.findViewById(R.id.refresh)
         registerForContextMenu(dList)
 
         dList.adapter = DownloadsAdapter(context, R.layout.row_download, files)
@@ -102,7 +101,7 @@ class DownloadFragment : Fragment() {
 
     override fun onContextItemSelected(item: MenuItem?): Boolean {
         //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
-        val info = item!!.menuInfo as AdapterView.AdapterContextMenuInfo ?: return super.onContextItemSelected(item)
+        val info = item?.menuInfo as AdapterView.AdapterContextMenuInfo
         val pos = info.position
         val file = files[pos]
         when (item.itemId) {

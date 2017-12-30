@@ -31,8 +31,6 @@ class MainModel(private var mActivity:MainActivity) {
             R.id.action_refresh -> {
                 // Don't let user click before async tasks are done
                 item.isEnabled = false
-                // Call Fragment refresh methods
-                mActivity.supportFragmentManager.fragments
                 for (x in mActivity.supportFragmentManager.fragments) {
                     (x as? PodcastFragment)?.refresh()
                     (x as? StoryFragment)?.refresh()
