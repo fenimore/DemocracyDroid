@@ -3,9 +3,6 @@ package com.workingagenda.democracydroid.Helpers;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-/**
- * Created by derrickrocha on 7/16/17.
- */
 
 public class DpToPixelHelper {
 

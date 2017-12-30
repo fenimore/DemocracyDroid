@@ -16,18 +16,22 @@
  */
 package com.workingagenda.democracydroid;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -56,18 +60,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    public SectionsPagerAdapter mSectionsPagerAdapter;
-    public int DEFAULT_TAB;
-    public boolean PREF_FIRST_TIME;
-
-    /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
@@ -76,30 +68,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Shared Preferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
-        PREF_FIRST_TIME = preferences.getBoolean("first_preference", true);
+        int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
+        boolean PREF_FIRST_TIME = preferences.getBoolean("first_preference", true);
         // TODO: have splash screen for new users
         Log.d("First time", String.valueOf((PREF_FIRST_TIME)));
         // Tab Layouts
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-/*        boolean spanish = preferences.getBoolean("spanish_preference", false);
-        String storyTitle = !spanish ? "Stories"  : "Noticias";
-        String broadTitle = !spanish ? "Broadcast" : "Difusiones";
-        String downTitle = !spanish ? "Downloads" : "Descargas";*/
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_library_books_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_live_tv_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_file_download_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        /*
+      The {@link android.support.v4.view.PagerAdapter} that will provide
+      fragments for each of the sections. We use a
+      {@link FragmentPagerAdapter} derivative, which will keep every
+      loaded fragment in memory. If this becomes too memory intensive, it
+      may be best to switch to a
+      {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setOffscreenPageLimit(2);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(DEFAULT_TAB);
@@ -220,18 +216,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_download, container, false);
 
             files = getListFiles();
 
-            dList = (ListView) rootView.findViewById(android.R.id.list);
-            Txt1 = (TextView) rootView.findViewById(R.id.download_help);
+            dList = rootView.findViewById(android.R.id.list);
+            Txt1 = rootView.findViewById(R.id.download_help);
             Txt1.setText(R.string.download_help);
             dList.setEmptyView(Txt1);
-            btn = (Button) rootView.findViewById(R.id.clear);
-            btnRefresh= (Button) rootView.findViewById(R.id.refresh);
+            btn = rootView.findViewById(R.id.clear);
+            btnRefresh= rootView.findViewById(R.id.refresh);
             registerForContextMenu(dList);
 
             dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
@@ -244,9 +240,8 @@ public class MainActivity extends AppCompatActivity {
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     for (File file : files) {
-                                        Log.d("File", file.getName());
-                                        // remove files
-                                        file.delete();
+                                        boolean delete = file.delete();
+                                        Log.d("File: ", file.getName() + String.valueOf(delete));
                                     }
                                     files = getListFiles();
                                     dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
@@ -300,7 +295,8 @@ public class MainActivity extends AppCompatActivity {
             File file = files.get(pos);
             switch(item.getItemId()) {
                 case R.id.action_delete:
-                    file.delete();
+                    boolean delete = file.delete();
+                    Log.d("File: ", file.getName() + String.valueOf(delete));
                     files = getListFiles();
                     dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
                     return true;
@@ -313,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         private List<File> getListFiles() {
-            ArrayList<File> inFiles = new ArrayList<File>();
+            ArrayList<File> inFiles = new ArrayList<>();
             File parentDir = new File(Environment.getExternalStorageDirectory().toString()+
                     File.separator + Environment.DIRECTORY_PODCASTS);
             File[] files = parentDir.listFiles();
@@ -330,7 +326,13 @@ public class MainActivity extends AppCompatActivity {
             return inFiles;
         }
         private void refresh(){
-            //do nothing
+            if (ContextCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED){
+                files = getListFiles();
+                dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
+            }
+
         }
     }
 

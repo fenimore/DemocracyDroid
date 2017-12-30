@@ -3,6 +3,7 @@ package com.workingagenda.democracydroid.Objects;
 /**
  * Created by fen on 12/9/15.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class Episode {
 
     private String title;

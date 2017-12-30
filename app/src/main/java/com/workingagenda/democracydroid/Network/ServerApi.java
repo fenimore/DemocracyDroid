@@ -8,19 +8,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
  * Created by derrickrocha on 8/27/17.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class ServerApi {
 
-    private int LIVE_TIME = 8;
-    private SimpleDateFormat mFormat;
+    private final int LIVE_TIME = 8;
+    private final SimpleDateFormat mFormat;
 
     public ServerApi(){
-        mFormat = new SimpleDateFormat("yyyy-MMdd");
+        mFormat = new SimpleDateFormat("yyyy-MMdd", Locale.US);
     }
 
     public ArrayList<Episode>getVideoFeed() throws Exception {

@@ -1,11 +1,11 @@
 package com.workingagenda.democracydroid;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,17 +18,9 @@ import android.widget.TextView;
 /**
  * Created by fen on 1/14/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class AboutActivity extends AppCompatActivity {
 
-    //Declaire some variables
-    public TextView Txt1; // why are these public? what?
-    public TextView Txt2;
-    public TextView Txt3;
-    public TextView Txt4;
-    public Button btnRev;
-    public Button btnSrc;
-    public Button btnMail;
-    public Button btnDon;
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -38,7 +30,7 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.about_title);
@@ -47,19 +39,20 @@ public class AboutActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        Txt1 = (TextView) findViewById(R.id.about_1);
-        Txt1.setText(R.string.about_dm);
-        Txt2 = (TextView) findViewById(R.id.about_2);
-        Txt2.setText(R.string.about_app);
-        Txt4 = (TextView) findViewById(R.id.about_4);
-        Txt4.setText(R.string.about_info);
+        TextView txt1 = findViewById(R.id.about_1);
+        txt1.setText(R.string.about_dm);
+        TextView txt2 = findViewById(R.id.about_2);
+        txt2.setText(R.string.about_app);
+        TextView txt4 = findViewById(R.id.about_4);
+        txt4.setText(R.string.about_info);
 
-        btnRev = (Button) findViewById(R.id.reviewButton);
-        btnSrc = (Button) findViewById(R.id.sourceButton);
-        btnDon = (Button) findViewById(R.id.btn_donate);
-        btnMail = (Button) findViewById(R.id.emailButton);
+        Button btnRev = findViewById(R.id.reviewButton);
+        Button btnSrc = findViewById(R.id.sourceButton);
+        Button btnDon = findViewById(R.id.btn_donate);
+        Button btnMail = findViewById(R.id.emailButton);
 
         btnRev.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 Uri uri = Uri.parse("market://details?id=" + getBaseContext().getPackageName());
@@ -140,10 +133,6 @@ public class AboutActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_settings) {
-            return true;
-        }
-        if (id == R.id.action_back) {
-            //finish();
             return true;
         }
         if (id == R.id.action_donate) {
