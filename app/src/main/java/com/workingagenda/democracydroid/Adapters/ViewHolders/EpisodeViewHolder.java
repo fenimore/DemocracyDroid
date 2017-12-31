@@ -279,8 +279,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
         return false;
     }
 
-    // FIXME: Show progress:
-    // http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void Download(String url, String title, String desc) {
         if (ContextCompat.checkSelfPermission(itemView.getContext(),

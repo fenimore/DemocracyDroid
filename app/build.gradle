@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -21,16 +22,24 @@ android {
 }
 
 dependencies {
-
+    // Android support libraries
     compile 'com.android.support:appcompat-v7:27.+'
     compile 'com.android.support:design:27.+'
     compile 'com.android.support:cardview-v7:27.+'
+    // Facebook
     compile 'com.facebook.fresco:fresco:1.3.0'
+    // Testing
     testCompile 'junit:junit:4.12'
+    // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    // Dagger
+    compile "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    // Exoplayer
     compile 'com.google.android.exoplayer:exoplayer-core:2.6.0'
     compile 'com.google.android.exoplayer:exoplayer-hls:2.6.0'
     compile 'com.google.android.exoplayer:exoplayer-ui:2.6.0'
+    // Jsoup
     compile group: 'org.jsoup', name: 'jsoup', version: '1.10.3'
 }
 repositories {
