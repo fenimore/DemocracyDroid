@@ -59,4 +59,8 @@ class MainView(context: Context?) : FrameLayout(context) {
     }
 
     fun getToolbar(): Toolbar? = mToolbar
+
+    fun moveTabPosition(tabPreference: Int) {
+        mViewPager.currentItem = tabPreference
+    }
 }

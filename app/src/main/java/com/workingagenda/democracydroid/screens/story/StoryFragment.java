@@ -51,7 +51,6 @@ public class StoryFragment extends Fragment {
         sList.setItemAnimator(new DefaultItemAnimator());
         sList.setAdapter(storyAdapter);
         storySwipeRefreshLayout = rootView.findViewById(R.id.swiperefresh);
-        new GetStoryFeed(true).execute("https://www.democracynow.org/democracynow.rss");
         if (storySwipeRefreshLayout != null ) {
             storySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -60,6 +59,8 @@ public class StoryFragment extends Fragment {
                 }
             });
         }
+        new GetStoryFeed(true).execute("https://www.democracynow.org/democracynow.rss");
+
         return rootView;
 
     }
@@ -102,7 +103,7 @@ public class StoryFragment extends Fragment {
                     stories.addAll(todaysStories);
                 }
             } catch (Exception e) {
-                Log.v("Error Parsing Data", e + "");
+                e.printStackTrace();
 
             }
             return stories;

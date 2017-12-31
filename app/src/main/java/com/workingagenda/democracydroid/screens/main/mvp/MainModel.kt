@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.view.Menu
 import android.view.MenuItem
+import com.workingagenda.democracydroid.MainApplication
 import com.workingagenda.democracydroid.R
 import com.workingagenda.democracydroid.screens.about.AboutActivity
 import com.workingagenda.democracydroid.screens.download.DownloadFragment
@@ -11,6 +12,7 @@ import com.workingagenda.democracydroid.screens.main.MainActivity
 import com.workingagenda.democracydroid.screens.podcast.PodcastFragment
 import com.workingagenda.democracydroid.screens.settings.SettingsActivity
 import com.workingagenda.democracydroid.screens.story.StoryFragment
+import com.workingagenda.democracydroid.util.SharedPreferenceExtensions.getTabPreference
 
 /**
  * Created by derrickrocha on 12/10/17.
@@ -60,5 +62,9 @@ class MainModel(private var mActivity:MainActivity) {
     fun onCreateOptionsMenu(menu: Menu): Boolean {
         mActivity.menuInflater.inflate(R.menu.menu_main, menu)
         return true
+    }
+
+    fun getTabPreference():Int{
+        return MainApplication.get(mActivity).getTabPreference()
     }
 }

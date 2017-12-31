@@ -61,7 +61,7 @@ class DownloadFragment : Fragment() {
         btn.setOnClickListener {
             AlertDialog.Builder(context).setTitle("Delete all downloads")
                     .setMessage("Are you sure you want to delete all episodes?\nLong click and episode to delete them individually.")
-                    .setPositiveButton(android.R.string.yes) { dialog, which ->
+                    .setPositiveButton(android.R.string.yes) { _, _ ->
                         for (file in files) {
                             Log.d("File", file.name)
                             // remove files

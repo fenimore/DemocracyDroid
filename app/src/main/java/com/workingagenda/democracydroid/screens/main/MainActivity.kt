@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.workingagenda.democracydroid.screens.main.mvp.MainModel
+import com.workingagenda.democracydroid.screens.main.mvp.MainPresenter
 import com.workingagenda.democracydroid.screens.main.mvp.view.MainView
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mainModel = MainModel(this)
         val view = MainView(this)
+        val presenter = MainPresenter(mainModel,view)
+        presenter.onCreate()
         setContentView(view)
         setSupportActionBar(view.getToolbar())
     }
@@ -23,3 +27,4 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = mainModel.onOptionsItemSelected(item)
 }
+

@@ -126,7 +126,6 @@ public class PodcastFragment extends Fragment {
                     String today_audio = "dn" + formattedDate;
                     int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
                     int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
-                    Log.v("Count A/V", String.valueOf(audioLinks.size()) + " / " + String.valueOf(mEpisodes.size()));
 
                     boolean onSchedule = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY && hourOfDay > LIVE_TIME - 1);
                     if (onSchedule && hourOfDay == LIVE_TIME) {
@@ -139,10 +138,6 @@ public class PodcastFragment extends Fragment {
                     int SIZE = Math.min(mEpisodes.size(), audioLinks.size());
                     for (int i = 0; i < SIZE; i++) {
                         mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
-                        Log.d("Episode", "Day: " + String.valueOf(dayOfWeek)
-                                + " Hour: " + String.valueOf(hourOfDay));
-                        Log.d("EpisodeVideo", mEpisodes.get(i).getVideoUrl());
-                        Log.d("EpisodeAudio", mEpisodes.get(i).getAudioUrl());
                     }
                     mProgress.setVisibility(View.GONE);
                     mPodcastAdapter.notifyDataSetChanged();
