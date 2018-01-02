@@ -1,9 +1,12 @@
 package com.workingagenda.democracydroid;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
@@ -111,18 +114,32 @@ public class MediaService extends Service {
 		PendingIntent pendInt = PendingIntent.getActivity(this, 0,
 				notIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-		Notification.Builder builder = new Notification.Builder(this);
-
+        Notification not = null;
+        Notification.Builder builder = new Notification.Builder(this);
 		builder.setContentIntent(pendInt)
 		.setSmallIcon(R.drawable.ic_mic_none_white_24dp)
 		.setTicker("Democracy Now!")
 		.setOngoing(true)
 		.setContentTitle("Democracy Now!")
 		.setContentText("The War and Peace Report");
-        Notification not = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String channelID = "com.workingagenda.democracydroid";
+            NotificationChannel notificationChannel;
+            String CHANNEL_ONE_NAME = "Channel One";
+            notificationChannel = new NotificationChannel(channelID,
+                    CHANNEL_ONE_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.setShowBadge(true);
+            notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            manager.createNotificationChannel(notificationChannel);
+            builder.setChannelId(channelID);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             not = builder.build();
         }
+
         player.addListener(new EventListener() {
             @Override
             public void onTimelineChanged(Timeline timeline, Object manifest) {}
@@ -166,6 +183,7 @@ public class MediaService extends Service {
         startForeground(1333, not);
         return player;
     }
+
 
     @Override
     public boolean onUnbind(Intent intent) {
