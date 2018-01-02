@@ -108,7 +108,7 @@ public class MediaService extends Service {
             player.prepare(mediaSource);
         }
         // Notification
-  Intent notIntent = new Intent(getApplicationContext(), MediaActivity.class);
+        Intent notIntent = new Intent(getApplicationContext(), MediaActivity.class);
         // TODO: bundle
 		notIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent pendInt = PendingIntent.getActivity(this, 0,
@@ -122,10 +122,10 @@ public class MediaService extends Service {
 		.setOngoing(true)
 		.setContentTitle("Democracy Now!")
 		.setContentText("The War and Peace Report");
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String channelID = "com.workingagenda.democracydroid";
             NotificationChannel notificationChannel;
-            String CHANNEL_ONE_NAME = "Channel One";
+            String CHANNEL_ONE_NAME = "Democracy Now!";
             notificationChannel = new NotificationChannel(channelID,
                     CHANNEL_ONE_NAME, NotificationManager.IMPORTANCE_DEFAULT);
             notificationChannel.enableLights(true);
