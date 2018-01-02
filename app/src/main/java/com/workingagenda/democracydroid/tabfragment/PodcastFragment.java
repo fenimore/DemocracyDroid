@@ -39,6 +39,7 @@ public class PodcastFragment extends Fragment {
     private ArrayList<Episode> mEpisodes;
     private final int LIVE_TIME = 8;
     private SimpleDateFormat mFormat;
+    private boolean mHasSpanish = false;
 
     private SwipeRefreshLayout mySwipeRefreshLayout;
 
@@ -111,10 +112,10 @@ public class PodcastFragment extends Fragment {
     }
 
     private void getAudioFeed() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        boolean hasSpanish = preferences.getBoolean("spanish_preference", false);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mHasSpanish = preferences.getBoolean("spanish_preference", false);
         String feed = "https://www.democracynow.org/podcast.xml";
-        if (hasSpanish) {
+        if (mHasSpanish) {
             feed = "https://www.democracynow.org/podcast-es.xml";
         }
         new GetAudioFeed(new GetAudioFeed.GetAudioFeedCallback() {
