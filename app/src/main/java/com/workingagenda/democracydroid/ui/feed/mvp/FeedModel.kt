@@ -13,11 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.workingagenda.democracydroid.dagger
+package com.workingagenda.democracydroid.ui.feed.mvp
 
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import com.workingagenda.democracydroid.Network.Episode
 import com.workingagenda.democracydroid.Network.ServerApi
+import io.reactivex.Observable
 
-interface ApplicationComponent {
+class FeedModel(private val fragment: Fragment, private val serverApi: ServerApi) {
 
-    fun serverApi():ServerApi
+    fun getArgs(): Bundle? = fragment.arguments
+
+    fun getStoryFeed(): Observable<List<Episode>> = Observable.create { e -> e.onNext(serverApi.storyFeed) }
+
+
+    fun getVideoFeed():Observable<List<Episode>> = Observable.create { e -> e.onNext(serverApi.videoFeed) }
+
 }

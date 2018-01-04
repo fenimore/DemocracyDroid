@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.workingagenda.democracydroid.dagger
+package com.workingagenda.democracydroid.ui.main.mvp
 
-import com.workingagenda.democracydroid.Network.ServerApi
+import com.workingagenda.democracydroid.ui.main.mvp.view.MainView
 
-interface ApplicationComponent {
+class MainPresenter(private val model: MainModel,private val view:MainView) {
 
-    fun serverApi():ServerApi
+    fun onCreate(){
+        view.moveTabPosition(model.getTabPreference())
+    }
 }

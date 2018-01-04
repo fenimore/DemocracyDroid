@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".screens.main.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:icon="@drawable/appicon"
             android:label="@string/app_name"
@@ -28,53 +28,53 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".screens.about.AboutActivity"
+            android:name=".ui.about.AboutActivity"
             android:icon="@drawable/appicon"
             android:label="About Democracy Droid"
-            android:parentActivityName=".screens.main.MainActivity"
+            android:parentActivityName=".ui.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.workingagenda.democracydroid.screens.main.MainActivity" />
+                android:value="com.workingagenda.democracydroid.ui.main.MainActivity" />
         </activity>
         <activity
-            android:name=".screens.story.StoryActivity"
+            android:name=".ui.story.StoryActivity"
             android:icon="@drawable/appicon"
             android:label="@string/app_name"
-            android:parentActivityName=".screens.main.MainActivity"
+            android:parentActivityName=".ui.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.workingagenda.democracydroid.screens.main.MainActivity" />
+                android:value="com.workingagenda.democracydroid.ui.main.MainActivity" />
         </activity>
         <activity
-            android:name=".screens.media.MediaActivity"
+            android:name=".ui.media.MediaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:icon="@drawable/appicon"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:parentActivityName=".screens.main.MainActivity"
+            android:parentActivityName=".ui.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.workingagenda.democracydroid.screens.main.MainActivity" />
+                android:value="com.workingagenda.democracydroid.ui.main.MainActivity" />
         </activity>
 
-        <service android:name=".MediaService">
+        <service android:name=".util.MediaService">
             <intent-filter>
                 <action android:name=".MediaService"></action>
             </intent-filter>
         </service>
 
         <activity
-            android:name=".screens.settings.SettingsActivity"
+            android:name=".ui.settings.SettingsActivity"
             android:icon="@drawable/appicon"
             android:label="@string/name_setting"
-            android:parentActivityName=".screens.main.MainActivity"
+            android:parentActivityName=".ui.main.MainActivity"
             android:theme="@style/SettingsTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.workingagenda.democracydroid.screens.main.MainActivity" />
+                android:value="com.workingagenda.democracydroid.ui.main.MainActivity" />
         </activity>
 
     </application>

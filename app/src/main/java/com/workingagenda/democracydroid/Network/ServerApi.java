@@ -1,7 +1,22 @@
+/*
+ * Copyright (C) 2017 Derrick Rocha <drocha616@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.workingagenda.democracydroid.Network;
 
-import com.workingagenda.democracydroid.Feedreader.RssItem;
-import com.workingagenda.democracydroid.Feedreader.RssReader;
+import com.workingagenda.democracydroid.Network.Feedreader.RssItem;
+import com.workingagenda.democracydroid.Network.Feedreader.RssReader;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,10 +24,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-
-/**
- * Created by derrickrocha on 8/27/17.
- */
 
 @SuppressWarnings("DefaultFileTemplate")
 public class ServerApi {
@@ -24,7 +35,7 @@ public class ServerApi {
         mFormat = new SimpleDateFormat("yyyy-MMdd", Locale.US);
     }
 
-    public ArrayList<Episode>getVideoFeed() throws Exception {
+    public List<Episode>getVideoFeed() throws Exception {
 
         RssReader rssReader = new RssReader("https://www.democracynow.org/podcast-video.xml");
         List<RssItem>items = rssReader.getItems();
@@ -91,4 +102,32 @@ public class ServerApi {
         return todaysEpisode;
     }
 
+    public List<Episode> getStoryFeed() {
+        ArrayList<Episode> stories = new ArrayList<>();
+        ArrayList<Episode> todaysStories = new ArrayList<>(32);
+        try {
+            RssReader rssReader = new RssReader("https://www.democracynow.org/democracynow.rss");
+            for(RssItem item : rssReader.getItems()){
+                Episode b = new Episode();
+                b.setTitle(item.getTitle());
+                b.setDescription(item.getDescription());
+                b.setPubDate(item.getPubDate());
+                b.setImageUrl(item.getContentEnc());
+                b.setUrl(item.getLink());
+                // Headlines are last in Feed, sort by Headlines
+                todaysStories.add(0, b);
+                if (b.getTitle().contains("Headlines")) {
+                    stories.addAll(todaysStories);
+                    todaysStories.clear();
+                }
+            }
+            if (!todaysStories.isEmpty()) {
+                stories.addAll(todaysStories);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return stories;
+    }
 }
