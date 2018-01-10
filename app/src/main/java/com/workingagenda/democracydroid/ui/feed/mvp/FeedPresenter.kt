@@ -19,6 +19,7 @@ import com.workingagenda.democracydroid.Network.Episode
 import com.workingagenda.democracydroid.ui.feed.FeedFragment
 import com.workingagenda.democracydroid.ui.feed.FeedType
 import com.workingagenda.democracydroid.ui.feed.mvp.view.FeedView
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -46,37 +47,16 @@ class FeedPresenter(private val model: FeedModel,private val view: FeedView) {
     }
 
     private fun loadContent() {
-        when(feedType){
-            FeedType.STORY -> disposables.add(getStoryFeed())
-            FeedType.VIDEO -> disposables.add(getVideoFeed())
+        val observable:Observable<List<Episode>> = when(feedType){
+            FeedType.STORY -> model.getStoryFeed()
+            FeedType.VIDEO -> model.getVideoFeed()
         }
+        disposables.add(subscribeToFeed(observable))
     }
 
-    private fun getStoryFeed():Disposable{
+    private fun subscribeToFeed(observable: Observable<List<Episode>>):Disposable {
         view.showProgress(true)
-        return model.getStoryFeed()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableObserver<List<Episode>>() {
-                    override fun onNext(t: List<Episode>) {
-                        view.showEpisodes(t)
-                        view.showProgress(false)
-                    }
-
-                    override fun onComplete() {
-                    }
-
-                    override fun onError(e: Throwable) {
-                        e.printStackTrace()
-                        view.showProgress(false)
-                    }
-
-                })
-    }
-
-    private fun getVideoFeed():Disposable{
-        view.showProgress(true)
-        return model.getVideoFeed()
+        return observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<List<Episode>>() {

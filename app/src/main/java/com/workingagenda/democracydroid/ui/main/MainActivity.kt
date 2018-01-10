@@ -22,8 +22,6 @@ import android.view.MenuItem
 import com.workingagenda.democracydroid.ui.main.dagger.DaggerMainComponent
 import com.workingagenda.democracydroid.ui.main.dagger.MainModule
 import com.workingagenda.democracydroid.ui.main.mvp.MainModel
-import com.workingagenda.democracydroid.ui.main.mvp.MainPresenter
-import com.workingagenda.democracydroid.ui.main.mvp.view.MainView
 
 class MainActivity : AppCompatActivity() {
 
