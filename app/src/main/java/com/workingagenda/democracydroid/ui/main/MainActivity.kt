@@ -19,6 +19,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.workingagenda.democracydroid.ui.main.dagger.DaggerMainComponent
+import com.workingagenda.democracydroid.ui.main.dagger.MainModule
 import com.workingagenda.democracydroid.ui.main.mvp.MainModel
 import com.workingagenda.democracydroid.ui.main.mvp.MainPresenter
 import com.workingagenda.democracydroid.ui.main.mvp.view.MainView
@@ -29,9 +31,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainModel = MainModel(this)
-        val view = MainView(this)
-        val presenter = MainPresenter(mainModel,view)
+        val component = DaggerMainComponent.builder().mainModule(MainModule(this)).build()
+        mainModel = component.mainModel()
+        val view = component.mainView()
+        val presenter = component.mainPresenter()
         presenter.onCreate()
         setContentView(view)
         setSupportActionBar(view.getToolbar())

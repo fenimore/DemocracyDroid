@@ -16,7 +16,10 @@
 package com.workingagenda.democracydroid.dagger
 
 import com.workingagenda.democracydroid.Network.ServerApi
+import dagger.Component
 
+@ApplicationScope
+@Component(modules = arrayOf(ApplicationModule::class))
 interface ApplicationComponent {
 
     fun serverApi():ServerApi
