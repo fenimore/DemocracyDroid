@@ -16,6 +16,7 @@
 package com.workingagenda.democracydroid.ui.main.mvp.view
 
 import android.content.Context
+import android.support.design.widget.AppBarLayout
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
@@ -32,8 +33,11 @@ class MainView(context: Context) : FrameLayout(context) {
     private lateinit var tabLayout: TabLayout
     private var mToolbar: Toolbar
 
+    private var appbarLayout: AppBarLayout
+
     init {
         inflate(getContext(), R.layout.activity_main, this)
+        appbarLayout = findViewById(R.id.appbar_layout)
         mToolbar = findViewById(R.id.toolbar)
         initTabLayout()
         initViewPager()
@@ -59,6 +63,7 @@ class MainView(context: Context) : FrameLayout(context) {
         tabLayout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 mViewPager.currentItem = tab.position
+                appbarLayout.setExpanded(true,true)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {

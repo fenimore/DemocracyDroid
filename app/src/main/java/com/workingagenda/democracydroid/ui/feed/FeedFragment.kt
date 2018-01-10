@@ -21,14 +21,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.workingagenda.democracydroid.Network.ServerApi
+import com.workingagenda.democracydroid.ui.FragmentRefreshListener
 import com.workingagenda.democracydroid.ui.feed.mvp.FeedModel
 import com.workingagenda.democracydroid.ui.feed.mvp.FeedPresenter
 import com.workingagenda.democracydroid.ui.feed.mvp.view.FeedView
 
-/**
- * Created by derrickrocha on 1/3/18.
- */
-class FeedFragment : Fragment() {
+class FeedFragment : Fragment(),FragmentRefreshListener {
 
     companion object {
         val FEED_TYPE = "feedType"
@@ -52,5 +50,9 @@ class FeedFragment : Fragment() {
     override fun onDestroy() {
         presenter.onDestroy()
         super.onDestroy()
+    }
+
+    override fun refresh() {
+        presenter.refresh()
     }
 }

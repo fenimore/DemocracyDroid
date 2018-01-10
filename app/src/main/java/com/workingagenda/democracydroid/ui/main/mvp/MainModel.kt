@@ -21,6 +21,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.workingagenda.democracydroid.MainApplication
 import com.workingagenda.democracydroid.R
+import com.workingagenda.democracydroid.ui.FragmentRefreshListener
 import com.workingagenda.democracydroid.ui.about.AboutActivity
 import com.workingagenda.democracydroid.ui.main.MainActivity
 import com.workingagenda.democracydroid.ui.settings.SettingsActivity
@@ -42,11 +43,9 @@ class MainModel(private var mActivity:MainActivity) {
             R.id.action_refresh -> {
                 // Don't let user click before async tasks are done
                 item.isEnabled = false
-                /*for (x in mActivity.supportFragmentManager.fragments) {
-                    (x as? PodcastFragment)?.refresh()
-                    (x as? StoryFragment)?.refresh()
-                    (x as? DownloadFragment)?.refresh()
-                }*/
+                for (x in mActivity.supportFragmentManager.fragments) {
+                    (x as? FragmentRefreshListener)?.refresh()
+                }
                 // FIXME: Somehow enable this after async call...
                 item.isEnabled = true
                 return true

@@ -10,11 +10,13 @@ import android.util.Log
 import android.view.*
 import android.widget.*
 import com.workingagenda.democracydroid.R
+import com.workingagenda.democracydroid.ui.FragmentRefreshListener
 import com.workingagenda.democracydroid.ui.media.MediaActivity
 import java.io.File
 import java.util.ArrayList
 
-class DownloadFragment : Fragment() {
+class DownloadFragment : Fragment(), FragmentRefreshListener{
+
     lateinit var Txt1: TextView
     lateinit var btn: Button
     lateinit var btnRefresh: Button
@@ -72,8 +74,7 @@ class DownloadFragment : Fragment() {
             }.setIcon(android.R.drawable.ic_dialog_alert).show()
         }
         btnRefresh.setOnClickListener {
-            files = listFiles
-            dList.adapter = DownloadsAdapter(context, R.layout.row_download, files)
+            initAdapter()
         }
         dList.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             val f = files[position]
@@ -84,6 +85,11 @@ class DownloadFragment : Fragment() {
         }
 
         return rootView
+    }
+
+    private fun initAdapter() {
+        files = listFiles
+        dList.adapter = DownloadsAdapter(context, R.layout.row_download, files)
     }
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo) {
@@ -117,7 +123,8 @@ class DownloadFragment : Fragment() {
         }
     }
 
-    fun refresh() {
-        //do nothing
+    override fun refresh() {
+        initAdapter()
     }
+
 }

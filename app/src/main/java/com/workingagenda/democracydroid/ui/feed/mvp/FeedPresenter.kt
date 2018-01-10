@@ -108,13 +108,14 @@ class FeedPresenter(private val model: FeedModel,private val view: FeedView) {
                     }
 
                     override fun onNext(t: Any) {
-                        when(feedType){
-                            FeedType.STORY -> disposables.add(getStoryFeed())
-                            FeedType.VIDEO -> disposables.add(getVideoFeed())
-                        }
+                       loadContent()
                         view.hidePullToRefresh()
                     }
 
                 })
+    }
+
+    fun refresh() {
+        loadContent()
     }
 }
