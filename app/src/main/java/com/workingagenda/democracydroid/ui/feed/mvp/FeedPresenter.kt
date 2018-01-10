@@ -26,15 +26,15 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
-class FeedPresenter(private val model: FeedModel,private val view: FeedView) {
+class FeedPresenter(private val model: FeedModel, private val view: FeedView) {
 
     private val disposables = CompositeDisposable()
 
     private lateinit var feedType: FeedType
 
-    fun onCreate(){
+    fun onCreate() {
         val bundle = model.getArgs() ?: return
-        if (bundle.containsKey(FeedFragment.FEED_TYPE)){
+        if (bundle.containsKey(FeedFragment.FEED_TYPE)) {
             feedType = bundle.getSerializable(FeedFragment.FEED_TYPE) as FeedType
             view.initAdapter(feedType)
             loadContent()
@@ -42,19 +42,19 @@ class FeedPresenter(private val model: FeedModel,private val view: FeedView) {
         }
     }
 
-    fun onDestroy(){
+    fun onDestroy() {
         disposables.clear()
     }
 
     private fun loadContent() {
-        val observable:Observable<List<Episode>> = when(feedType){
+        val observable: Observable<List<Episode>> = when (feedType) {
             FeedType.STORY -> model.getStoryFeed()
             FeedType.VIDEO -> model.getVideoFeed()
         }
         disposables.add(subscribeToFeed(observable))
     }
 
-    private fun subscribeToFeed(observable: Observable<List<Episode>>):Disposable {
+    private fun subscribeToFeed(observable: Observable<List<Episode>>): Disposable {
         view.showProgress(true)
         return observable
                 .subscribeOn(Schedulers.io())
@@ -88,7 +88,7 @@ class FeedPresenter(private val model: FeedModel,private val view: FeedView) {
                     }
 
                     override fun onNext(t: Any) {
-                       loadContent()
+                        loadContent()
                         view.hidePullToRefresh()
                     }
 
