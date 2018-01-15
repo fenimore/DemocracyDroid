@@ -13,7 +13,7 @@ public class MainApplication extends Application {
 
     private ApplicationComponent component;
 
-    public static MainApplication get(Activity activity){
+    public static MainApplication get(Activity activity) {
         return (MainApplication) activity.getApplication();
     }
 
@@ -26,7 +26,7 @@ public class MainApplication extends Application {
                 .build();
     }
 
-    public ApplicationComponent getApplicationComponent(){
+    public ApplicationComponent getApplicationComponent() {
         return component;
     }
 }

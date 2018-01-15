@@ -28,19 +28,19 @@ class FeedModule(private val fragment: FeedFragment) {
 
     @Provides
     @FeedScope
-    fun feedView():FeedView{
+    fun feedView(): FeedView {
         return FeedView(fragment.activity)
     }
 
     @Provides
     @FeedScope
-    fun feedModel(serverApi:ServerApi):FeedModel{
-        return FeedModel(fragment,serverApi)
+    fun feedModel(serverApi: ServerApi): FeedModel {
+        return FeedModel(fragment, serverApi)
     }
 
     @Provides
     @FeedScope
-    fun feedPresenter(model: FeedModel,view: FeedView):FeedPresenter{
-        return FeedPresenter(model,view)
+    fun feedPresenter(model: FeedModel, view: FeedView): FeedPresenter {
+        return FeedPresenter(model, view)
     }
 }

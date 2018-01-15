@@ -23,6 +23,6 @@ import dagger.Component
 @Component(modules = [(MainModule::class)], dependencies = [(ApplicationComponent::class)])
 interface MainComponent {
 
-    fun injectMainActivity(activity:MainActivity)
+    fun injectMainActivity(activity: MainActivity)
 
 }

@@ -20,8 +20,8 @@ import com.workingagenda.democracydroid.ui.feed.FeedFragment
 import dagger.Component
 
 @FeedScope
-@Component(modules = [(FeedModule::class)],dependencies = [(ApplicationComponent::class)])
+@Component(modules = [(FeedModule::class)], dependencies = [(ApplicationComponent::class)])
 interface FeedComponent {
 
-    fun injectFeedFragment(fragment:FeedFragment)
+    fun injectFeedFragment(fragment: FeedFragment)
 }
