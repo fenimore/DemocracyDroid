@@ -13,16 +13,13 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.workingagenda.democracydroid.ui.main.dagger
+package com.workingagenda.democracydroid.util
 
-import com.workingagenda.democracydroid.dagger.ApplicationComponent
-import com.workingagenda.democracydroid.ui.main.MainActivity
-import dagger.Component
+import android.content.SharedPreferences
 
-@MainScope
-@Component(modules = [(MainModule::class)], dependencies = [(ApplicationComponent::class)])
-interface MainComponent {
+class SharedPreferenceManager(private val prefs: SharedPreferences) {
 
-    fun injectMainActivity(activity:MainActivity)
-
+    fun getTabPreference():Int{
+        return Integer.parseInt(prefs.getString("tab_preference", "1"))
+    }
 }

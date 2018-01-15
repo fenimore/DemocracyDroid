@@ -13,27 +13,34 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.workingagenda.democracydroid.dagger
+package com.workingagenda.democracydroid.ui.feed.dagger
 
-import android.app.Application
 import com.workingagenda.democracydroid.Network.ServerApi
-import com.workingagenda.democracydroid.util.SharedPreferenceManager
-import com.workingagenda.democracydroid.util.ContextExtensions.getDefaultPreferences
+import com.workingagenda.democracydroid.ui.feed.FeedFragment
+import com.workingagenda.democracydroid.ui.feed.mvp.FeedModel
+import com.workingagenda.democracydroid.ui.feed.mvp.FeedPresenter
+import com.workingagenda.democracydroid.ui.feed.mvp.view.FeedView
 import dagger.Module
 import dagger.Provides
 
 @Module
-class ApplicationModule(private val application:Application) {
+class FeedModule(private val fragment: FeedFragment) {
 
     @Provides
-    @ApplicationScope
-    fun serverApi():ServerApi{
-        return ServerApi()
+    @FeedScope
+    fun feedView():FeedView{
+        return FeedView(fragment.activity)
     }
 
     @Provides
-    @ApplicationScope
-    fun sharedPreferenceManager():SharedPreferenceManager{
-        return SharedPreferenceManager(application.getDefaultPreferences())
+    @FeedScope
+    fun feedModel(serverApi:ServerApi):FeedModel{
+        return FeedModel(fragment,serverApi)
+    }
+
+    @Provides
+    @FeedScope
+    fun feedPresenter(model: FeedModel,view: FeedView):FeedPresenter{
+        return FeedPresenter(model,view)
     }
 }

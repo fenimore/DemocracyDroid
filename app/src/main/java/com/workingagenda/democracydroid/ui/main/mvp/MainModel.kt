@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Derrick Rocha <drocha616@gmail.com>
+ * Copyright (C) 2017 Democracy Droid
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,16 +24,12 @@ import com.workingagenda.democracydroid.ui.FragmentRefreshListener
 import com.workingagenda.democracydroid.ui.about.AboutActivity
 import com.workingagenda.democracydroid.ui.main.MainActivity
 import com.workingagenda.democracydroid.ui.settings.SettingsActivity
-import com.workingagenda.democracydroid.util.ContextExtensions.getDefaultPreferences
+import com.workingagenda.democracydroid.util.SharedPreferenceManager
 
-import com.workingagenda.democracydroid.util.SharedPreferenceExtensions.getTabPreference
-
-class MainModel(private var activity:MainActivity) {
+class MainModel(private var activity:MainActivity,
+                private val preferenceManager: SharedPreferenceManager) {
 
     fun onOptionsItemSelected(item: MenuItem): Boolean{
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
         when(id){
             R.id.action_settings -> {
@@ -42,12 +38,10 @@ class MainModel(private var activity:MainActivity) {
                 return true
             }
             R.id.action_refresh -> {
-                // Don't let user click before async tasks are done
                 item.isEnabled = false
                 for (x in activity.supportFragmentManager.fragments) {
                     (x as? FragmentRefreshListener)?.refresh()
                 }
-                // FIXME: Somehow enable this after async call...
                 item.isEnabled = true
                 return true
             }
@@ -74,8 +68,6 @@ class MainModel(private var activity:MainActivity) {
     }
 
     fun getTabPreference():Int{
-        return activity
-                .getDefaultPreferences()
-                .getTabPreference()
+        return preferenceManager.getTabPreference()
     }
 }

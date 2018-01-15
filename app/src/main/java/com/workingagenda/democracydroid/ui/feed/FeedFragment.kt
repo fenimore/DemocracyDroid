@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2014-2015 Derrick Rocha
+ *  Copyright (C) 2014-2015 Democracy Droid
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,11 +20,13 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.workingagenda.democracydroid.Network.ServerApi
+import com.workingagenda.democracydroid.MainApplication
 import com.workingagenda.democracydroid.ui.FragmentRefreshListener
-import com.workingagenda.democracydroid.ui.feed.mvp.FeedModel
+import com.workingagenda.democracydroid.ui.feed.dagger.DaggerFeedComponent
+import com.workingagenda.democracydroid.ui.feed.dagger.FeedModule
 import com.workingagenda.democracydroid.ui.feed.mvp.FeedPresenter
 import com.workingagenda.democracydroid.ui.feed.mvp.view.FeedView
+import javax.inject.Inject
 
 class FeedFragment : Fragment(),FragmentRefreshListener {
 
@@ -32,13 +34,19 @@ class FeedFragment : Fragment(),FragmentRefreshListener {
         val FEED_TYPE = "feedType"
     }
 
-    private lateinit var presenter: FeedPresenter
+    @Inject
+    lateinit var presenter: FeedPresenter
+
+    @Inject
+    lateinit var view:FeedView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = FeedView(context)
-        val serverApi = ServerApi()
-        val model = FeedModel(this,serverApi)
-        presenter = FeedPresenter(model,view)
+        DaggerFeedComponent
+                .builder()
+                .feedModule(FeedModule(this))
+                .applicationComponent(MainApplication.get(activity).applicationComponent)
+                .build()
+                .injectFeedFragment(this)
         return view
     }
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2014-2015 Derrick Rocha
+ *  Copyright (C) 2014-2015 Democracy Droid
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,23 +19,40 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.workingagenda.democracydroid.MainApplication
 import com.workingagenda.democracydroid.ui.main.dagger.DaggerMainComponent
 import com.workingagenda.democracydroid.ui.main.dagger.MainModule
 import com.workingagenda.democracydroid.ui.main.mvp.MainModel
+import com.workingagenda.democracydroid.ui.main.mvp.MainPresenter
+import com.workingagenda.democracydroid.ui.main.mvp.view.MainView
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainModel: MainModel
+    @Inject
+    lateinit var mainModel: MainModel
+    @Inject
+    lateinit var presenter: MainPresenter
+    @Inject
+    lateinit var view: MainView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val component = DaggerMainComponent.builder().mainModule(MainModule(this)).build()
-        mainModel = component.mainModel()
-        val view = component.mainView()
-        val presenter = component.mainPresenter()
+        DaggerMainComponent
+                .builder()
+                .applicationComponent(MainApplication.get(this).applicationComponent)
+                .mainModule(MainModule(this))
+                .build()
+                .injectMainActivity(this)
+
         presenter.onCreate()
         setContentView(view)
         setSupportActionBar(view.getToolbar())
+    }
+
+    override fun onDestroy() {
+        presenter.onDestroy()
+        super.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean = mainModel.onCreateOptionsMenu(menu)

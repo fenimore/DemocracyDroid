@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Derrick Rocha <drocha616@gmail.com>
+ * Copyright (C) 2017 Democracy Droid
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,14 @@
 package com.workingagenda.democracydroid.dagger
 
 import com.workingagenda.democracydroid.Network.ServerApi
+import com.workingagenda.democracydroid.util.SharedPreferenceManager
 import dagger.Component
 
 @ApplicationScope
-@Component(modules = arrayOf(ApplicationModule::class))
+@Component(modules = [(ApplicationModule::class)])
 interface ApplicationComponent {
 
     fun serverApi():ServerApi
+
+    fun sharedPreferenceManager():SharedPreferenceManager
 }

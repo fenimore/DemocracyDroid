@@ -22,4 +22,8 @@ class MainPresenter(private val model: MainModel,private val view:MainView) {
     fun onCreate(){
         view.moveTabPosition(model.getTabPreference())
     }
+
+    fun onDestroy() {
+
+    }
 }

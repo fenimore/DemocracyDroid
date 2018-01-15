@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2014-2015 Derrick Rocha
+ *  Copyright (C) 2014-2015 Democracy Droid
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -13,13 +13,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.workingagenda.democracydroid.util
+package com.workingagenda.democracydroid.ui.feed.dagger
 
-import android.content.SharedPreferences
+import java.lang.annotation.Retention
+import java.lang.annotation.RetentionPolicy
+import javax.inject.Scope
 
-object SharedPreferenceExtensions {
-
-    fun SharedPreferences.getTabPreference():Int{
-        return Integer.parseInt(this.getString("tab_preference", "1"))
-    }
-}
+@Retention(value = RetentionPolicy.CLASS)
+@Scope
+annotation class FeedScope

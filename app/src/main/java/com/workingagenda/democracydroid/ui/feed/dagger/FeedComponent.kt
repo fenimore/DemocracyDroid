@@ -13,16 +13,15 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.workingagenda.democracydroid.ui.main.dagger
+package com.workingagenda.democracydroid.ui.feed.dagger
 
 import com.workingagenda.democracydroid.dagger.ApplicationComponent
-import com.workingagenda.democracydroid.ui.main.MainActivity
+import com.workingagenda.democracydroid.ui.feed.FeedFragment
 import dagger.Component
 
-@MainScope
-@Component(modules = [(MainModule::class)], dependencies = [(ApplicationComponent::class)])
-interface MainComponent {
+@FeedScope
+@Component(modules = [(FeedModule::class)],dependencies = [(ApplicationComponent::class)])
+interface FeedComponent {
 
-    fun injectMainActivity(activity:MainActivity)
-
+    fun injectFeedFragment(fragment:FeedFragment)
 }

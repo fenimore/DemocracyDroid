@@ -47,11 +47,11 @@ class FeedPresenter(private val model: FeedModel, private val view: FeedView) {
     }
 
     private fun loadContent() {
-        val observable: Observable<List<Episode>> = when (feedType) {
+        val feed: Observable<List<Episode>> = when (feedType) {
             FeedType.STORY -> model.getStoryFeed()
             FeedType.VIDEO -> model.getVideoFeed()
         }
-        disposables.add(subscribeToFeed(observable))
+        disposables.add(subscribeToFeed(feed))
     }
 
     private fun subscribeToFeed(observable: Observable<List<Episode>>): Disposable {
