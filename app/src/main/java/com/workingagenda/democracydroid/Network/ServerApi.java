@@ -1,8 +1,22 @@
+/*
+ *  Copyright (C) 2014-2015 Democracy Droid
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 package com.workingagenda.democracydroid.Network;
 
-import com.workingagenda.democracydroid.Feedreader.RssItem;
-import com.workingagenda.democracydroid.Feedreader.RssReader;
-import com.workingagenda.democracydroid.Objects.Episode;
+import com.workingagenda.democracydroid.Network.Feedreader.RssItem;
+import com.workingagenda.democracydroid.Network.Feedreader.RssReader;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,10 +24,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-
-/**
- * Created by derrickrocha on 8/27/17.
- */
 
 @SuppressWarnings("DefaultFileTemplate")
 public class ServerApi {
@@ -25,7 +35,7 @@ public class ServerApi {
         mFormat = new SimpleDateFormat("yyyy-MMdd", Locale.US);
     }
 
-    public ArrayList<Episode>getVideoFeed() throws Exception {
+    public List<Episode>getVideoFeed() throws Exception {
 
         RssReader rssReader = new RssReader("https://www.democracynow.org/podcast-video.xml");
         List<RssItem>items = rssReader.getItems();
@@ -92,4 +102,32 @@ public class ServerApi {
         return todaysEpisode;
     }
 
+    public List<Episode> getStoryFeed() {
+        ArrayList<Episode> stories = new ArrayList<>();
+        ArrayList<Episode> todaysStories = new ArrayList<>(32);
+        try {
+            RssReader rssReader = new RssReader("https://www.democracynow.org/democracynow.rss");
+            for(RssItem item : rssReader.getItems()){
+                Episode b = new Episode();
+                b.setTitle(item.getTitle());
+                b.setDescription(item.getDescription());
+                b.setPubDate(item.getPubDate());
+                b.setImageUrl(item.getContentEnc());
+                b.setUrl(item.getLink());
+                // Headlines are last in Feed, sort by Headlines
+                todaysStories.add(0, b);
+                if (b.getTitle().contains("Headlines")) {
+                    stories.addAll(todaysStories);
+                    todaysStories.clear();
+                }
+            }
+            if (!todaysStories.isEmpty()) {
+                stories.addAll(todaysStories);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return stories;
+    }
 }
