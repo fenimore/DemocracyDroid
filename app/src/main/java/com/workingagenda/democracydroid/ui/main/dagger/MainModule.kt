@@ -24,23 +24,23 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class MainModule(private val activity:MainActivity) {
+class MainModule(private val activity: MainActivity) {
 
     @Provides
     @MainScope
-    fun mainView():MainView{
+    fun mainView(): MainView {
         return MainView(activity)
     }
 
     @Provides
     @MainScope
-    fun mainPresenter(mainModel: MainModel,mainView: MainView):MainPresenter{
-        return MainPresenter(mainModel,mainView)
+    fun mainPresenter(mainModel: MainModel, mainView: MainView): MainPresenter {
+        return MainPresenter(mainModel, mainView)
     }
 
     @Provides
     @MainScope
-    fun mainModel(preferenceManager:SharedPreferenceManager):MainModel{
-        return MainModel(activity,preferenceManager)
+    fun mainModel(preferenceManager: SharedPreferenceManager): MainModel {
+        return MainModel(activity, preferenceManager)
     }
 }

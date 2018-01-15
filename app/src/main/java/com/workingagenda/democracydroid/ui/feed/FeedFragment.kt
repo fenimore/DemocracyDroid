@@ -28,7 +28,7 @@ import com.workingagenda.democracydroid.ui.feed.mvp.FeedPresenter
 import com.workingagenda.democracydroid.ui.feed.mvp.view.FeedView
 import javax.inject.Inject
 
-class FeedFragment : Fragment(),FragmentRefreshListener {
+class FeedFragment : Fragment(), FragmentRefreshListener {
 
     companion object {
         val FEED_TYPE = "feedType"
@@ -38,7 +38,7 @@ class FeedFragment : Fragment(),FragmentRefreshListener {
     lateinit var presenter: FeedPresenter
 
     @Inject
-    lateinit var view:FeedView
+    lateinit var view: FeedView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         DaggerFeedComponent
