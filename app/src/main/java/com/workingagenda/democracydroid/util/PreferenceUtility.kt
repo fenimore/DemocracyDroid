@@ -15,16 +15,21 @@
  */
 package com.workingagenda.democracydroid.util
 
+import android.preference.PreferenceManager
 import com.workingagenda.democracydroid.MainApplication
-import com.workingagenda.democracydroid.util.ApplicationExtension.defaultSharedPreferences
 
-class SharedPreferenceManager {
+class PreferenceUtility {
 
     companion object {
 
-        fun getTabPreference():Int{
-            val preferences = MainApplication.getInstance().defaultSharedPreferences()
-            return Integer.parseInt(preferences.getString("tab_preference", "1"))
+        fun startingTab():Int{
+            val preferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.getInstance())
+            return Integer.parseInt(preferences.getString(Constants.TAB_PREFERENCE, "1"))
+        }
+
+        fun spanish(): Boolean {
+            val preferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.getInstance())
+            return preferences.getBoolean("spanish_preference", false)
         }
     }
 

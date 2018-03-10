@@ -9,5 +9,11 @@ class Constants {
 
         const val FEED_TYPE = "feedType"
 
+        const val TAB_PREFERENCE = "tab_preference"
+
+        const val STREAM_PREFERENCE = "stream_preference"
+
+        const val OPEN_PREFERENCE = "open_preference"
+
     }
 }

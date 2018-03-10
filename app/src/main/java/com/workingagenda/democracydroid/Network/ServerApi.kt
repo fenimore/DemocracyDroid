@@ -70,8 +70,8 @@ class ServerApi {
                         !audio.get(0).contains(today_audio)) {
                     audio.add(0, "http://traffic.libsyn.com/democracynow/$today_audio.mp3")
                 }
-                val size = Math.min(episodes.size, audio.size)
-                for (i in 0 until size) {
+                val audioSize = Math.min(episodes.size, audio.size)
+                for (i in 0 until audioSize) {
                     episodes[i].audioUrl = audio[i]
                 }
             }

@@ -16,7 +16,6 @@
 package com.workingagenda.democracydroid.ui.feed
 
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DefaultItemAnimator
@@ -35,6 +34,7 @@ import com.workingagenda.democracydroid.R
 import com.workingagenda.democracydroid.ui.FragmentRefreshListener
 import com.workingagenda.democracydroid.util.Constants
 import com.workingagenda.democracydroid.util.DpToPixelHelper
+import com.workingagenda.democracydroid.util.PreferenceUtility
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -50,10 +50,12 @@ class FeedFragment : Fragment(), FragmentRefreshListener, SwipeRefreshLayout.OnR
     @BindView(R.id.progress_icon) lateinit var progress: ProgressBar
 
     private var stories: ArrayList<Episode> = ArrayList()
-    private var storyAdapter: FeedAdapter? = null
+    private var storyAdapter: RecyclerView.Adapter<BaseStoryViewHolder>? = null
 
     private lateinit var feedType: FeedType
     private lateinit var serverApi: ServerApi
+
+    lateinit var feed: Observable<List<Episode>>
 
     private val disposables = CompositeDisposable()
 
@@ -70,49 +72,39 @@ class FeedFragment : Fragment(), FragmentRefreshListener, SwipeRefreshLayout.OnR
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val bundle = arguments ?: return
-        if (bundle.containsKey(Constants.FEED_TYPE)) {
-            feedType = bundle.getSerializable(Constants.FEED_TYPE) as FeedType
-        }
+        feedType = (arguments?.getSerializable(Constants.FEED_TYPE) as FeedType)
         serverApi = MainApplication.getInstance().applicationComponent.serverApi()
+        feed = when (feedType) {
+            FeedType.STORY -> serverApi.storyFeed()
+            FeedType.EPISODE -> {
+                var feed = resources.getString(R.string.podcast_url)
+                if (PreferenceUtility.spanish()) {
+                    feed = resources.getString(R.string.spanish_podcast_url)
+                }
+                serverApi.videoFeed(feed)
+            }
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_story, container, false)
         ButterKnife.bind(this,rootView)
-        setupRecycler(feedType)
-        storySwipeRefreshLayout.setOnRefreshListener(this)
-        loadContent()
-        return rootView
-    }
 
-    private fun setupRecycler(feedType: FeedType){
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(GridSpacingItemDecoration(1, DpToPixelHelper.dpToPx(4, resources.displayMetrics), true))
         recyclerView.itemAnimator = DefaultItemAnimator()
-        storyAdapter = FeedAdapter(context, stories, feedType)
+        storyAdapter = when(feedType){ FeedType.STORY -> StoryAdapter(context, stories) else -> context?.let { EpisodeAdapter(it, stories)}}
         recyclerView.adapter = storyAdapter
+        storySwipeRefreshLayout.setOnRefreshListener(this)
+
+        disposables.add(subscribeToFeed())
+
+        return rootView
     }
 
-    private fun loadContent() {
-        val feed: Observable<List<Episode>> = when (feedType) {
-            FeedType.STORY -> serverApi.storyFeed()
-            FeedType.EPISODE -> {
-                val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
-                val mHasSpanish = preferences.getBoolean("spanish_preference", false)
-                var feed = "https://www.democracynow.org/podcast.xml"
-                if (mHasSpanish) {
-                    feed = "https://www.democracynow.org/podcast-es.xml"
-                }
-                serverApi.videoFeed(feed)
-            }
-        }
-        disposables.add(subscribeToFeed(feed))
-    }
-
-    private fun subscribeToFeed(observable: Observable<List<Episode>>): Disposable {
+    private fun subscribeToFeed(): Disposable {
         progress.visibility = View.VISIBLE
-        return observable
+        return feed
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<List<Episode>>() {
@@ -140,11 +132,11 @@ class FeedFragment : Fragment(), FragmentRefreshListener, SwipeRefreshLayout.OnR
     }
 
     override fun onRefresh() {
-        loadContent()
+        disposables.add(subscribeToFeed())
         storySwipeRefreshLayout.isRefreshing = false
     }
 
     override fun refresh() {
-        loadContent()
+        disposables.add(subscribeToFeed())
     }
 }

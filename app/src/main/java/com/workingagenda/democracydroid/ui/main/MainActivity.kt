@@ -15,8 +15,6 @@
  */
 package com.workingagenda.democracydroid.ui.main
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.TabLayout
@@ -32,14 +30,13 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.workingagenda.democracydroid.R
 import com.workingagenda.democracydroid.ui.FragmentRefreshListener
-import com.workingagenda.democracydroid.ui.about.AboutActivity
 import com.workingagenda.democracydroid.ui.download.DownloadFragment
 import com.workingagenda.democracydroid.ui.feed.FeedFragment
 import com.workingagenda.democracydroid.ui.feed.FeedType
-import com.workingagenda.democracydroid.ui.settings.SettingsActivity
-import com.workingagenda.democracydroid.util.SharedPreferenceManager
+import com.workingagenda.democracydroid.util.NavigationUtility
+import com.workingagenda.democracydroid.util.PreferenceUtility
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
     @BindView(R.id.appbar_layout) lateinit var appbarLayout: AppBarLayout
     @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
@@ -52,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         ButterKnife.bind(this)
         setupTabLayout()
         setupViewPager()
-        setupAdapter()
         setSupportActionBar(toolbar)
     }
 
@@ -61,34 +57,26 @@ class MainActivity : AppCompatActivity() {
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_live_tv_white_24dp))
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_file_download_white_24dp))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+        tabLayout.addOnTabSelectedListener(this)
     }
 
     private fun setupViewPager(){
         viewPager.offscreenPageLimit = 2
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-    }
-
-    private fun setupAdapter(){
         viewPager.adapter = SectionsPagerAdapter(supportFragmentManager)
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                viewPager.currentItem = tab.position
-                appbarLayout.setExpanded(true,true)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab) {
-            }
-        })
-        viewPager.currentItem = SharedPreferenceManager.getTabPreference()
+        viewPager.currentItem = PreferenceUtility.startingTab()
     }
 
-    private fun actionViewIntent(url:String) {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(url)
-        startActivity(intent)
+    override fun onTabReselected(tab: TabLayout.Tab?) {
+
+    }
+
+    override fun onTabUnselected(tab: TabLayout.Tab?) {
+    }
+
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+        viewPager.currentItem = tab?.position?: 0
+        appbarLayout.setExpanded(true,true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean{
@@ -100,8 +88,7 @@ class MainActivity : AppCompatActivity() {
         val id = item.itemId
         when(id){
             R.id.action_settings -> {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
+                NavigationUtility.startSettingsActivity(this)
                 return true
             }
             R.id.action_refresh -> {
@@ -112,24 +99,21 @@ class MainActivity : AppCompatActivity() {
                 item.isEnabled = true
                 return true
             }
-            R.id.action_donate -> actionViewIntent("https://www.democracynow.org/donate")
-            R.id.action_exclusives -> actionViewIntent("https://www.democracynow.org/categories/web_exclusive")
-            R.id.action_site -> actionViewIntent("http://www.democracynow.org/")
-            R.id.action_about -> {
-                val intent = Intent(this, AboutActivity::class.java)
-                startActivityForResult(intent, 0)
-            }
+            R.id.action_donate -> NavigationUtility.startActionViewIntent(this, getString(R.string.donate_url))
+            R.id.action_exclusives -> NavigationUtility.startActionViewIntent(this, getString(R.string.web_exclusives_url))
+            R.id.action_site -> NavigationUtility.startActionViewIntent(this, getString(R.string.democracy_now_url))
+            R.id.action_about -> NavigationUtility.startAboutActivity(this)
+
         }
         return true
     }
 
-    inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    inner private class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
         override fun getItem(position: Int): Fragment = when (position) {
             0 -> FeedFragment.newInstance(FeedType.STORY)
             1 -> FeedFragment.newInstance(FeedType.EPISODE)
-            2 -> DownloadFragment()
-            else -> FeedFragment.newInstance(FeedType.EPISODE)
+            else -> DownloadFragment()
         }
 
         override fun getCount(): Int = 3

@@ -15,10 +15,10 @@ import com.workingagenda.democracydroid.R;
 import com.workingagenda.democracydroid.ui.story.StoryActivity;
 
 public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
-    Episode mEpisode;
 
     BaseStoryViewHolder(View itemView) {
         super(itemView);
+        itemView.setOnCreateContextMenuListener(this);
     }
 
     @Override
@@ -31,14 +31,15 @@ public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder implem
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
+        Episode episode = currentEpisode();
         switch(menuItem.getItemId()) {
             case R.id.action_blog_description:
-                if (mEpisode == null)
+                if (episode == null)
                     return false;
                 AlertDialog description = new AlertDialog.Builder(itemView.getContext()).create();
                 // Get Description and Title
                 description.setTitle("Democracy Now! Story");
-                description.setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle());
+                description.setMessage(episode.getDescription() + "\n\n" + episode.getTitle());
                 description.setButton("Close", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // do nothing
@@ -59,4 +60,6 @@ public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder implem
     }
 
     public abstract void showEpisode(Episode episode);
+
+    public abstract Episode currentEpisode();
 }
