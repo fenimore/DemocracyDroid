@@ -37,6 +37,7 @@ import com.workingagenda.democracydroid.ui.download.DownloadFragment
 import com.workingagenda.democracydroid.ui.feed.FeedFragment
 import com.workingagenda.democracydroid.ui.feed.FeedType
 import com.workingagenda.democracydroid.ui.settings.SettingsActivity
+import com.workingagenda.democracydroid.util.SharedPreferenceManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupAdapter(){
         viewPager.adapter = SectionsPagerAdapter(supportFragmentManager)
-        tabLayout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
                 appbarLayout.setExpanded(true,true)
@@ -81,6 +82,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab) {
             }
         })
+        viewPager.currentItem = SharedPreferenceManager.getTabPreference()
     }
 
     private fun actionViewIntent(url:String) {
