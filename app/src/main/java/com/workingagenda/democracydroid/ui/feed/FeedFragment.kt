@@ -16,51 +16,135 @@
 package com.workingagenda.democracydroid.ui.feed
 
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import butterknife.BindView
+import butterknife.ButterKnife
 import com.workingagenda.democracydroid.MainApplication
+import com.workingagenda.democracydroid.Network.Episode
+import com.workingagenda.democracydroid.Network.ServerApi
+import com.workingagenda.democracydroid.R
 import com.workingagenda.democracydroid.ui.FragmentRefreshListener
-import com.workingagenda.democracydroid.ui.feed.dagger.DaggerFeedComponent
-import com.workingagenda.democracydroid.ui.feed.dagger.FeedModule
-import com.workingagenda.democracydroid.ui.feed.mvp.FeedPresenter
-import com.workingagenda.democracydroid.ui.feed.mvp.view.FeedView
-import javax.inject.Inject
+import com.workingagenda.democracydroid.util.Constants
+import com.workingagenda.democracydroid.util.DpToPixelHelper
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.observers.DisposableObserver
+import io.reactivex.schedulers.Schedulers
+import com.workingagenda.democracydroid.util.ViewExtensions.snack
 
-class FeedFragment : Fragment(), FragmentRefreshListener {
+class FeedFragment : Fragment(), FragmentRefreshListener, SwipeRefreshLayout.OnRefreshListener {
+
+    @BindView(R.id.recycler_view) lateinit var recyclerView: RecyclerView
+    @BindView(R.id.swiperefresh) lateinit var storySwipeRefreshLayout: SwipeRefreshLayout
+    @BindView(R.id.progress_icon) lateinit var progress: ProgressBar
+
+    private var stories: ArrayList<Episode> = ArrayList()
+    private var storyAdapter: FeedAdapter? = null
+
+    private lateinit var feedType: FeedType
+    private lateinit var serverApi: ServerApi
+
+    private val disposables = CompositeDisposable()
 
     companion object {
-        val FEED_TYPE = "feedType"
+
+        fun newInstance(type: FeedType): Fragment {
+            val fragment = FeedFragment()
+            val extras1 = Bundle()
+            extras1.putSerializable(Constants.FEED_TYPE, type)
+            fragment.arguments = extras1
+            return fragment
+        }
     }
 
-    @Inject
-    lateinit var presenter: FeedPresenter
-
-    @Inject
-    lateinit var view: FeedView
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val bundle = arguments ?: return
+        if (bundle.containsKey(Constants.FEED_TYPE)) {
+            feedType = bundle.getSerializable(Constants.FEED_TYPE) as FeedType
+        }
+        serverApi = MainApplication.get(activity).applicationComponent.serverApi()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        DaggerFeedComponent
-                .builder()
-                .feedModule(FeedModule(this))
-                .applicationComponent(MainApplication.get(activity).applicationComponent)
-                .build()
-                .injectFeedFragment(this)
-        return view
+        val rootView = inflater.inflate(R.layout.fragment_story, container, false)
+        ButterKnife.bind(this,rootView)
+        setupRecycler(feedType)
+        storySwipeRefreshLayout.setOnRefreshListener(this)
+        loadContent()
+        return rootView
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        presenter.onCreate()
+    private fun setupRecycler(feedType: FeedType){
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.addItemDecoration(GridSpacingItemDecoration(1, DpToPixelHelper.dpToPx(4, resources.displayMetrics), true))
+        recyclerView.itemAnimator = DefaultItemAnimator()
+        storyAdapter = FeedAdapter(context, stories, feedType)
+        recyclerView.adapter = storyAdapter
+    }
+
+    private fun loadContent() {
+        val feed: Observable<List<Episode>> = when (feedType) {
+            FeedType.STORY -> serverApi.storyFeed
+            FeedType.EPISODE -> {
+                val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
+                val mHasSpanish = preferences.getBoolean("spanish_preference", false)
+                var feed = "https://www.democracynow.org/podcast.xml"
+                if (mHasSpanish) {
+                    feed = "https://www.democracynow.org/podcast-es.xml"
+                }
+                serverApi.videoFeed(feed)
+            }
+        }
+        disposables.add(subscribeToFeed(feed))
+    }
+
+    private fun subscribeToFeed(observable: Observable<List<Episode>>): Disposable {
+        progress.visibility = View.VISIBLE
+        return observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableObserver<List<Episode>>() {
+                    override fun onNext(episodes: List<Episode>) {
+                        progress.visibility = View.INVISIBLE
+                        stories.clear()
+                        stories.addAll(episodes)
+                        storyAdapter?.notifyDataSetChanged()                    }
+
+                    override fun onComplete() {
+                    }
+
+                    override fun onError(e: Throwable) {
+                        e.printStackTrace()
+                        progress.visibility = View.INVISIBLE
+                        recyclerView.snack("Network error")
+                    }
+
+                })
     }
 
     override fun onDestroy() {
-        presenter.onDestroy()
         super.onDestroy()
+        disposables.clear()
+    }
+
+    override fun onRefresh() {
+        loadContent()
+        storySwipeRefreshLayout.isRefreshing = false
     }
 
     override fun refresh() {
-        presenter.refresh()
+        loadContent()
     }
 }

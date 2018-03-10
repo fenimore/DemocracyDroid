@@ -14,7 +14,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.workingagenda.democracydroid.ui.feed.mvp.view;
+package com.workingagenda.democracydroid.ui.feed;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -22,13 +22,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.workingagenda.democracydroid.ui.feed.mvp.view.ViewHolders.BaseStoryViewHolder;
-import com.workingagenda.democracydroid.ui.feed.mvp.view.ViewHolders.EpisodeViewHolder;
-import com.workingagenda.democracydroid.ui.feed.mvp.view.ViewHolders.StoryHeadlineViewHolder;
-import com.workingagenda.democracydroid.ui.feed.mvp.view.ViewHolders.StoryViewHolder;
 import com.workingagenda.democracydroid.Network.Episode;
 import com.workingagenda.democracydroid.R;
-import com.workingagenda.democracydroid.ui.feed.FeedType;
 
 import java.util.List;
 
@@ -48,7 +43,7 @@ public class FeedAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
 
     @Override
     public BaseStoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (mFeedType.equals(FeedType.VIDEO)){
+        if (mFeedType.equals(FeedType.EPISODE)){
             View v = mInflator.inflate(R.layout.row_episodes, null);
             return new EpisodeViewHolder(v);
         }

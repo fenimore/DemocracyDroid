@@ -71,19 +71,16 @@ public class MediaActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d("Saving Inst", String.valueOf(mMediaPosition));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("Media", "onPause called");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("Media", "onStop called");
         //player.release();
         //unbindService(mConnection);
     }
@@ -92,10 +89,8 @@ public class MediaActivity extends AppCompatActivity {
     protected void onDestroy() {
         //mVideoView.stopPlayback();
         super.onDestroy();
-        Log.d("onDestroy", "Do Destroy");
         unbindService(mConnection);
     }
-
 
     @Override
     protected void onResume() {
@@ -159,11 +154,9 @@ public class MediaActivity extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
-           Log.d("ServiceConnection","connected");
             MediaService.LocalBinder binder = (MediaService.LocalBinder) service;
             MediaService mediaService = binder.getService();
             player = mediaService.setUpPlayer(url);
-            Log.d("ServiceConnection", player.toString());
             // ExoPlayer Views
             SimpleExoPlayerView mVideoView = findViewById(R.id.media_player);
             mVideoView.setPlayer(player);
@@ -184,7 +177,6 @@ public class MediaActivity extends AppCompatActivity {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.d("ServiceConnection", "onServiceDisconnected");
             player.release();
         }
     };

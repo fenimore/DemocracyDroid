@@ -14,7 +14,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.workingagenda.democracydroid.ui.feed.mvp.view.ViewHolders;
+package com.workingagenda.democracydroid.ui.feed;
 
 import android.Manifest;
 import android.app.Activity;
@@ -32,7 +32,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -47,62 +46,61 @@ import com.workingagenda.democracydroid.R;
 
 public class EpisodeViewHolder extends BaseStoryViewHolder implements View.OnCreateContextMenuListener,MenuItem.OnMenuItemClickListener {
 
-    private final TextView txt;
-    private final ImageView img;
-    private final TextView tag;
-    private final ImageView mOptions;
-    private final ImageView mDownload;
+    private final TextView titleView;
+    private final ImageView imageView;
+    private final TextView tagView;
+    private final ImageView optionsView;
+    private final ImageView downloadView;
 
     private static final int STREAM_VIDEO = 0;
     private static final int STREAM_AUDIO = 1;
     private static final int OPEN_THIS_APP = 0;
-    private Episode mEpisode;
+    private Episode episode;
 
     public EpisodeViewHolder(final View itemView) {
         super(itemView);
-        img = itemView.findViewById(R.id.row_image);
-        txt = itemView.findViewById(R.id.row_title);
-        tag = itemView.findViewById(R.id.row_tag);
-        tag.setMaxLines(3);
-        mOptions = itemView.findViewById(R.id.row_options);
-        mDownload = itemView.findViewById(R.id.row_download);
+        imageView = itemView.findViewById(R.id.row_image);
+        titleView = itemView.findViewById(R.id.row_title);
+        tagView = itemView.findViewById(R.id.row_tag);
+        tagView.setMaxLines(3);
+        optionsView = itemView.findViewById(R.id.row_options);
+        downloadView = itemView.findViewById(R.id.row_download);
         itemView.setOnCreateContextMenuListener(this);
-
     }
 
-    public void showEpisode(final Episode e) {
-        if (e != null) {
-            mEpisode = e;
+    public void showEpisode(final Episode episode) {
+        if (episode != null) {
+            this.episode = episode;
             try {
-                img.setImageURI(Uri.parse(e.getImageUrl()));
+                imageView.setImageURI(Uri.parse(episode.getImageUrl()));
             } catch (Exception ex) {
-                Log.v("Episode Adapter", "exception");
+                ex.printStackTrace();
             }
-            if (txt != null) {
-                String fullTitle = e.getTitle().trim();
+            if (titleView != null) {
+                String fullTitle = episode.getTitle().trim();
                 if (fullTitle.startsWith("Democracy Now!")){
                     String title = fullTitle.substring(14).trim();
-                    txt.setText(title);
+                    titleView.setText(title);
                 }
                 else {
-                    txt.setText(fullTitle);
+                    titleView.setText(fullTitle);
                 }
             }
-            if (tag != null) {
-                String description = e.getDescription().trim();
+            if (tagView != null) {
+                String description = episode.getDescription().trim();
                 if (description.startsWith("Headlines for ")) {
                     description = description.substring(description.indexOf(";") + 1);
                 }
-                tag.setText(description);
-                tag.setEllipsize(TextUtils.TruncateAt.END);
+                tagView.setText(description);
+                tagView.setEllipsize(TextUtils.TruncateAt.END);
             }
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    loadEpisode(e);
+                    loadEpisode(episode);
                 }
             });
-            mDownload.setOnClickListener(new View.OnClickListener() {
+            downloadView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
@@ -116,14 +114,14 @@ public class EpisodeViewHolder extends BaseStoryViewHolder implements View.OnCre
                         @RequiresApi(api = Build.VERSION_CODES.M)
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
+                            Download(episode.getAudioUrl(), episode.getTitle(), episode.getDescription());
                         }
                     });
                     builder.setPositiveButton("Video", new DialogInterface.OnClickListener() {
                         @RequiresApi(api = Build.VERSION_CODES.M)
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
+                            Download(episode.getVideoUrl(), episode.getTitle(), episode.getDescription());
                         }
                     });
                     AlertDialog alert = builder.create();
@@ -131,10 +129,10 @@ public class EpisodeViewHolder extends BaseStoryViewHolder implements View.OnCre
                 }
             }
             );
-            mOptions.setOnClickListener(new View.OnClickListener() {
+            optionsView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mOptions.showContextMenu();
+                    optionsView.showContextMenu();
                 }
             });
         }
@@ -158,7 +156,6 @@ public class EpisodeViewHolder extends BaseStoryViewHolder implements View.OnCre
                 startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
             else if (DEFAULT_STREAM == STREAM_AUDIO)
                 startMediaIntent(e.getAudioUrl(), DEFAULT_OPEN, actionTitle);
-
         }
     }
 
@@ -203,21 +200,19 @@ public class EpisodeViewHolder extends BaseStoryViewHolder implements View.OnCre
         }
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
         int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
         int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this ap
         String actionTitle = "Democracy Now!";
-        if (mEpisode.getTitle().length() > 16){
-            if("Today's Broadcast".equals(mEpisode.getTitle())){
-                actionTitle = mEpisode.getTitle();
-            } else if (mEpisode.getTitle().startsWith("Democracy Now!")){
-                actionTitle = mEpisode.getTitle().substring(14);
+        if (episode.getTitle().length() > 16){
+            if("Today's Broadcast".equals(episode.getTitle())){
+                actionTitle = episode.getTitle();
+            } else if (episode.getTitle().startsWith("Democracy Now!")){
+                actionTitle = episode.getTitle().substring(14);
             } else {
-                actionTitle = mEpisode.getTitle();
+                actionTitle = episode.getTitle();
             }
         }
 
@@ -225,33 +220,33 @@ public class EpisodeViewHolder extends BaseStoryViewHolder implements View.OnCre
             case R.id.action_share:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT, mEpisode.getTitle());
-                sendIntent.putExtra(Intent.EXTRA_TEXT, mEpisode.getUrl());
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT, episode.getTitle());
+                sendIntent.putExtra(Intent.EXTRA_TEXT, episode.getUrl());
                 sendIntent.setType("text/plain");
                 itemView.getContext().startActivity(sendIntent);
                 return true;
             case R.id.reverse_default_media:
-                if (mEpisode.getVideoUrl().contains("m3u8"))
-                    startMediaIntent(mEpisode.getAudioUrl(), 1, mEpisode.getTitle());
+                if (episode.getVideoUrl().contains("m3u8"))
+                    startMediaIntent(episode.getAudioUrl(), 1, episode.getTitle());
                 else if (DEFAULT_STREAM == 0)
-                    startMediaIntent(mEpisode.getAudioUrl(), DEFAULT_OPEN, actionTitle);
+                    startMediaIntent(episode.getAudioUrl(), DEFAULT_OPEN, actionTitle);
                 else
-                    startMediaIntent(mEpisode.getVideoUrl(), DEFAULT_OPEN, actionTitle);
+                    startMediaIntent(episode.getVideoUrl(), DEFAULT_OPEN, actionTitle);
                 return true;
             case R.id.reverse_default_open:
                 int reverseOpen = 0;
                 if (reverseOpen == DEFAULT_OPEN)
                     reverseOpen = 1;
                 if (DEFAULT_STREAM == 0)
-                    startMediaIntent(mEpisode.getVideoUrl(), reverseOpen, actionTitle);
+                    startMediaIntent(episode.getVideoUrl(), reverseOpen, actionTitle);
                 else
-                    startMediaIntent(mEpisode.getAudioUrl(), reverseOpen, actionTitle);
+                    startMediaIntent(episode.getAudioUrl(), reverseOpen, actionTitle);
                 return true;
             case R.id.action_description:
                 AlertDialog description = new AlertDialog.Builder(itemView.getContext()).create();
                 // Get Description and Title
                 description.setTitle("The War and Peace Report");
-                description.setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle());
+                description.setMessage(episode.getDescription() + "\n\n" + episode.getTitle());
                 description.setButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // do nothing
@@ -260,55 +255,57 @@ public class EpisodeViewHolder extends BaseStoryViewHolder implements View.OnCre
                 description.show();
                 return true;
             case R.id.video_download:
-                if (mEpisode.getTitle().equals("Stream Live"))
+                if (episode.getTitle().equals("Stream Live"))
                     return true;
-                Download(mEpisode.getVideoUrl(), mEpisode.getTitle(), mEpisode.getDescription());
+                Download(episode.getVideoUrl(), episode.getTitle(), episode.getDescription());
                 return true;
             case R.id.audio_download:
-                if (mEpisode.getTitle().equals("Stream Live"))
+                if (episode.getTitle().equals("Stream Live"))
                     return true;
-                Download(mEpisode.getAudioUrl(), mEpisode.getTitle(), mEpisode.getDescription());
+                Download(episode.getAudioUrl(), episode.getTitle(), episode.getDescription());
                 return true;
             case R.id.open_browser:
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.parse(mEpisode.getUrl()), "*/*");
+                intent.setDataAndType(Uri.parse(episode.getUrl()), "*/*");
                 itemView.getContext().startActivity(intent);
                 return true;
         }
         return false;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void Download(String url, String title, String desc) {
-        if (ContextCompat.checkSelfPermission(itemView.getContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ((Activity)itemView.getContext()).requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    0);
-            // TODO: catch onRequestPermissionsResult
-        } else {
-            if ("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8".equals(url)) {
-                Toast toast = Toast.makeText(itemView.getContext(),
-                        "You can't download the Live Stream", Toast.LENGTH_LONG);
-                toast.show();
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (ContextCompat.checkSelfPermission(itemView.getContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ((Activity)itemView.getContext()).requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
                 return;
+                // TODO: catch onRequestPermissionsResult
             }
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-            request.setDescription(desc);
-            request.setTitle(title);
-            request.allowScanningByMediaScanner();
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-            String fileext = url.substring(url.lastIndexOf('/') + 1);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PODCASTS, fileext);
-            //http://stackoverflow.com/questions/24427414/getsystemservices-is-undefined-when-called-in-a-fragment
-
-            // get download service and enqueue file
-            DownloadManager manager = (DownloadManager) itemView.getContext().getSystemService(Context.DOWNLOAD_SERVICE);
-            manager.enqueue(request);
-            // TODO: Save que ID for cancel button
-            Toast toast = Toast.makeText(itemView.getContext(), "Starting download of " + title, Toast.LENGTH_LONG);
-            toast.show();
         }
+        if ("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8".equals(url)) {
+            Toast toast = Toast.makeText(itemView.getContext(),
+                    "You can't download the Live Stream", Toast.LENGTH_LONG);
+            toast.show();
+            return;
+        }
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        request.setDescription(desc);
+        request.setTitle(title);
+        request.allowScanningByMediaScanner();
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+        String fileext = url.substring(url.lastIndexOf('/') + 1);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PODCASTS, fileext);
+        //http://stackoverflow.com/questions/24427414/getsystemservices-is-undefined-when-called-in-a-fragment
+
+        // get download service and enqueue file
+        DownloadManager manager = (DownloadManager) itemView.getContext().getSystemService(Context.DOWNLOAD_SERVICE);
+        manager.enqueue(request);
+        // TODO: Save que ID for cancel button
+        Toast toast = Toast.makeText(itemView.getContext(), "Starting download of " + title, Toast.LENGTH_LONG);
+        toast.show();
+
     }
 }

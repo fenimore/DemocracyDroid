@@ -36,6 +36,9 @@ dependencies {
     // Dagger
     compile "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    // Butterknife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
     // Exoplayer
     compile 'com.google.android.exoplayer:exoplayer-core:2.6.0'
     compile 'com.google.android.exoplayer:exoplayer-hls:2.6.0'

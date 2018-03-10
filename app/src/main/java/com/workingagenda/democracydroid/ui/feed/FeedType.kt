@@ -17,5 +17,5 @@ package com.workingagenda.democracydroid.ui.feed
 
 enum class FeedType {
     STORY,
-    VIDEO
+    EPISODE
 }

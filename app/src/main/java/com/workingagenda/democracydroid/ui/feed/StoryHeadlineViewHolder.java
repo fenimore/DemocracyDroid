@@ -1,4 +1,4 @@
-package com.workingagenda.democracydroid.ui.feed.mvp.view.ViewHolders;
+package com.workingagenda.democracydroid.ui.feed;
 
 import android.net.Uri;
 import android.util.Log;

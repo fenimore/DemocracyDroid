@@ -15,48 +15,122 @@
  */
 package com.workingagenda.democracydroid.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
+import android.support.design.widget.TabLayout
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import com.workingagenda.democracydroid.MainApplication
-import com.workingagenda.democracydroid.ui.main.dagger.DaggerMainComponent
-import com.workingagenda.democracydroid.ui.main.dagger.MainModule
-import com.workingagenda.democracydroid.ui.main.mvp.MainModel
-import com.workingagenda.democracydroid.ui.main.mvp.MainPresenter
-import com.workingagenda.democracydroid.ui.main.mvp.view.MainView
-import javax.inject.Inject
+import butterknife.BindView
+import butterknife.ButterKnife
+import com.workingagenda.democracydroid.R
+import com.workingagenda.democracydroid.ui.FragmentRefreshListener
+import com.workingagenda.democracydroid.ui.about.AboutActivity
+import com.workingagenda.democracydroid.ui.download.DownloadFragment
+import com.workingagenda.democracydroid.ui.feed.FeedFragment
+import com.workingagenda.democracydroid.ui.feed.FeedType
+import com.workingagenda.democracydroid.ui.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var mainModel: MainModel
-    @Inject
-    lateinit var presenter: MainPresenter
-    @Inject
-    lateinit var view: MainView
+    @BindView(R.id.appbar_layout) lateinit var appbarLayout: AppBarLayout
+    @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
+    @BindView(R.id.tab_layout) lateinit var tabLayout: TabLayout
+    @BindView(R.id.container) lateinit var viewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerMainComponent
-                .builder()
-                .applicationComponent(MainApplication.get(this).applicationComponent)
-                .mainModule(MainModule(this))
-                .build()
-                .injectMainActivity(this)
-
-        presenter.onCreate()
-        setContentView(view)
-        setSupportActionBar(view.getToolbar())
+        setContentView(R.layout.activity_main)
+        ButterKnife.bind(this)
+        setupTabLayout()
+        setupViewPager()
+        setupAdapter()
+        setSupportActionBar(toolbar)
     }
 
-    override fun onDestroy() {
-        presenter.onDestroy()
-        super.onDestroy()
+    private fun setupTabLayout(){
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_library_books_white_24dp))
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_live_tv_white_24dp))
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_file_download_white_24dp))
+        tabLayout.tabGravity = TabLayout.GRAVITY_FILL
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean = mainModel.onCreateOptionsMenu(menu)
+    private fun setupViewPager(){
+        viewPager.offscreenPageLimit = 2
+        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = mainModel.onOptionsItemSelected(item)
+    private fun setupAdapter(){
+        viewPager.adapter = SectionsPagerAdapter(supportFragmentManager)
+        tabLayout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager.currentItem = tab.position
+                appbarLayout.setExpanded(true,true)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+            }
+        })
+    }
+
+    private fun actionViewIntent(url:String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean{
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean{
+        val id = item.itemId
+        when(id){
+            R.id.action_settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.action_refresh -> {
+                item.isEnabled = false
+                for (x in supportFragmentManager.fragments) {
+                    (x as? FragmentRefreshListener)?.refresh()
+                }
+                item.isEnabled = true
+                return true
+            }
+            R.id.action_donate -> actionViewIntent("https://www.democracynow.org/donate")
+            R.id.action_exclusives -> actionViewIntent("https://www.democracynow.org/categories/web_exclusive")
+            R.id.action_site -> actionViewIntent("http://www.democracynow.org/")
+            R.id.action_about -> {
+                val intent = Intent(this, AboutActivity::class.java)
+                startActivityForResult(intent, 0)
+            }
+        }
+        return true
+    }
+
+    inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+
+        override fun getItem(position: Int): Fragment = when (position) {
+            0 -> FeedFragment.newInstance(FeedType.STORY)
+            1 -> FeedFragment.newInstance(FeedType.EPISODE)
+            2 -> DownloadFragment()
+            else -> FeedFragment.newInstance(FeedType.EPISODE)
+        }
+
+        override fun getCount(): Int = 3
+    }
 }
 

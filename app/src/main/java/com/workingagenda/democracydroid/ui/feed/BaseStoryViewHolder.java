@@ -1,4 +1,4 @@
-package com.workingagenda.democracydroid.ui.feed.mvp.view.ViewHolders;
+package com.workingagenda.democracydroid.ui.feed;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,7 +13,6 @@ import android.view.View;
 import com.workingagenda.democracydroid.Network.Episode;
 import com.workingagenda.democracydroid.R;
 import com.workingagenda.democracydroid.ui.story.StoryActivity;
-
 
 public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
     Episode mEpisode;
