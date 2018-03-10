@@ -96,7 +96,7 @@ class FeedFragment : Fragment(), FragmentRefreshListener, SwipeRefreshLayout.OnR
 
     private fun loadContent() {
         val feed: Observable<List<Episode>> = when (feedType) {
-            FeedType.STORY -> serverApi.storyFeed
+            FeedType.STORY -> serverApi.storyFeed()
             FeedType.EPISODE -> {
                 val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
                 val mHasSpanish = preferences.getBoolean("spanish_preference", false)

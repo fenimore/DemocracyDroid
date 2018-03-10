@@ -54,6 +54,7 @@ class ServerApi {
             val audio = getAudio(feed)
             if (audio.size < 1) {
                 emitter.onError(Throwable("Network error"))
+                return@create
             } else {
 
                 val timeZone = TimeZone.getTimeZone("America/New_York")
@@ -69,8 +70,8 @@ class ServerApi {
                         !audio.get(0).contains(today_audio)) {
                     audio.add(0, "http://traffic.libsyn.com/democracynow/$today_audio.mp3")
                 }
-                val SIZE = Math.min(episodes.size, audio.size)
-                for (i in 0 until SIZE) {
+                val size = Math.min(episodes.size, audio.size)
+                for (i in 0 until size) {
                     episodes[i].audioUrl = audio[i]
                 }
             }
@@ -92,8 +93,8 @@ class ServerApi {
     }
 
     // Headlines are last in Feed, sort by Headlines
-    val storyFeed: Observable<List<Episode>>
-        get() = Observable.create(ObservableOnSubscribe { emitter ->
+    fun storyFeed(): Observable<List<Episode>> {
+        return Observable.create(ObservableOnSubscribe { emitter ->
             val stories = ArrayList<Episode>()
             val todaysStories = ArrayList<Episode>(32)
             try {
@@ -122,6 +123,7 @@ class ServerApi {
 
             emitter.onNext(stories)
         })
+    }
 
     private fun checkLiveStream(epis: ArrayList<Episode>): ArrayList<Episode> {
         // Make it Pretty, and NY eastern Time
