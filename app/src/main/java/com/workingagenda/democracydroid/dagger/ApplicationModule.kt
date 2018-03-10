@@ -15,15 +15,12 @@
  */
 package com.workingagenda.democracydroid.dagger
 
-import android.app.Application
 import com.workingagenda.democracydroid.Network.ServerApi
-import com.workingagenda.democracydroid.util.SharedPreferenceManager
-import com.workingagenda.democracydroid.util.ContextExtensions.getDefaultPreferences
 import dagger.Module
 import dagger.Provides
 
 @Module
-class ApplicationModule(private val application:Application) {
+class ApplicationModule {
 
     @Provides
     @ApplicationScope
@@ -31,9 +28,4 @@ class ApplicationModule(private val application:Application) {
         return ServerApi()
     }
 
-    @Provides
-    @ApplicationScope
-    fun sharedPreferenceManager():SharedPreferenceManager{
-        return SharedPreferenceManager(application.getDefaultPreferences())
-    }
 }

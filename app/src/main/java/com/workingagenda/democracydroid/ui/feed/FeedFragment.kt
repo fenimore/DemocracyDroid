@@ -74,7 +74,7 @@ class FeedFragment : Fragment(), FragmentRefreshListener, SwipeRefreshLayout.OnR
         if (bundle.containsKey(Constants.FEED_TYPE)) {
             feedType = bundle.getSerializable(Constants.FEED_TYPE) as FeedType
         }
-        serverApi = MainApplication.get(activity).applicationComponent.serverApi()
+        serverApi = MainApplication.getInstance().applicationComponent.serverApi()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

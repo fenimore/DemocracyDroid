@@ -16,7 +16,6 @@
 package com.workingagenda.democracydroid.dagger
 
 import com.workingagenda.democracydroid.Network.ServerApi
-import com.workingagenda.democracydroid.util.SharedPreferenceManager
 import dagger.Component
 
 @ApplicationScope
@@ -25,5 +24,4 @@ interface ApplicationComponent {
 
     fun serverApi():ServerApi
 
-    fun sharedPreferenceManager():SharedPreferenceManager
 }
