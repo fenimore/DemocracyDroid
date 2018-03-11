@@ -132,10 +132,6 @@ class EpisodeAdapter(private val context: Context, private val mEpisodes: List<E
             if (open == OPEN_THIS_APP) {
                 NavigationUtility.startMediaActivity(context as MainActivity,url,title)
             } else {
-                // FIXME: SecurityException
-               // val intent = Intent(Intent.ACTION_VIEW)
-               // intent.setDataAndType(Uri.parse(url), "*/*")
-               // context.startActivity(intent)
                 NavigationUtility.startActionViewIntent(context as MainActivity,url)
             }
         }
