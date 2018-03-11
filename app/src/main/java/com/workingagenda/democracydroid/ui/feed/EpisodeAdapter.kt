@@ -5,7 +5,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.DownloadManager
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -23,7 +22,6 @@ import butterknife.ButterKnife
 import com.workingagenda.democracydroid.Network.Episode
 import com.workingagenda.democracydroid.R
 import com.workingagenda.democracydroid.ui.main.MainActivity
-import com.workingagenda.democracydroid.ui.media.MediaActivity
 import com.workingagenda.democracydroid.util.Constants
 import com.workingagenda.democracydroid.util.NavigationUtility
 
@@ -31,10 +29,11 @@ import com.workingagenda.democracydroid.util.NavigationUtility
  * Created by derrickrocha on 3/10/18.
  */
 class EpisodeAdapter(private val context: Context, private val mEpisodes: List<Episode>) : RecyclerView.Adapter<BaseStoryViewHolder>() {
-    private val mInflator: LayoutInflater = LayoutInflater.from(context)
+
+    private val inflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseStoryViewHolder {
-        val v = mInflator.inflate(R.layout.row_episodes, null)
+        val v = inflater.inflate(R.layout.row_episodes, null)
         return EpisodeViewHolder(v)
     }
 
