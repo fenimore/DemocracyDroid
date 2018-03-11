@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import com.workingagenda.democracydroid.ui.about.AboutActivity
 import com.workingagenda.democracydroid.ui.main.MainActivity
+import com.workingagenda.democracydroid.ui.media.MediaActivity
 import com.workingagenda.democracydroid.ui.settings.SettingsActivity
 
 /**
@@ -28,6 +29,22 @@ class NavigationUtility {
         fun startAboutActivity(mainActivity: MainActivity) {
             val intent = Intent(mainActivity, AboutActivity::class.java)
             mainActivity.startActivityForResult(intent, 0)
+        }
+
+        fun startMediaActivity(mainActivity: MainActivity, url: String, title: String) {
+            val intent = Intent(mainActivity, MediaActivity::class.java)
+            intent.putExtra("url", url)
+            intent.putExtra("title", title)
+            mainActivity.startActivityForResult(intent, 0) //Activity load = 0
+        }
+
+        fun startShareIntent(mainActivity: MainActivity, title: String?, url: String?) {
+            val sendIntent = Intent()
+            sendIntent.action = Intent.ACTION_SEND
+            sendIntent.putExtra(Intent.EXTRA_SUBJECT, title)
+            sendIntent.putExtra(Intent.EXTRA_TEXT, url)
+            sendIntent.type = "text/plain"
+            mainActivity.startActivity(sendIntent)
         }
 
     }

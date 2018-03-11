@@ -80,7 +80,7 @@ public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
         return episodes.size();
     }
 
-    protected class StoryHeadlineViewHolder extends BaseStoryViewHolder {
+    class StoryHeadlineViewHolder extends BaseStoryViewHolder {
 
         @BindView(R.id.row_headline_image) ImageView mImg;
         @BindView(R.id.row_options) ImageView mOptions;
@@ -124,7 +124,7 @@ public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
         }
     }
 
-    protected class StoryViewHolder extends BaseStoryViewHolder {
+    class StoryViewHolder extends BaseStoryViewHolder {
 
         @BindView(R.id.row_image) ImageView image;
         @BindView(R.id.row_options) ImageView options;

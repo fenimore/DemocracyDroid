@@ -18,10 +18,14 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import butterknife.BindView
+import butterknife.ButterKnife
 import com.workingagenda.democracydroid.Network.Episode
 import com.workingagenda.democracydroid.R
+import com.workingagenda.democracydroid.ui.main.MainActivity
 import com.workingagenda.democracydroid.ui.media.MediaActivity
 import com.workingagenda.democracydroid.util.Constants
+import com.workingagenda.democracydroid.util.NavigationUtility
 
 /**
  * Created by derrickrocha on 3/10/18.
@@ -42,31 +46,25 @@ class EpisodeAdapter(private val context: Context, private val mEpisodes: List<E
         return mEpisodes.size
     }
 
-    inner internal class EpisodeViewHolder(itemView: View) : BaseStoryViewHolder(itemView), View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
-        override fun currentEpisode(): Episode {
-            return mEpisodes[adapterPosition]
-        }
+    inner class EpisodeViewHolder(itemView: View) : BaseStoryViewHolder(itemView), View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
 
-        private val titleView: TextView?
-        private val imageView: ImageView
-        private val tagView: TextView?
-        private val optionsView: ImageView
-        private val downloadView: ImageView
+        @BindView(R.id.row_title) lateinit var titleView: TextView
+        @BindView(R.id.row_image) lateinit var imageView: ImageView
+        @BindView(R.id.row_tag) lateinit var tagView: TextView
+        @BindView(R.id.row_options) lateinit var optionsView: ImageView
+        @BindView(R.id.row_download) lateinit var downloadView: ImageView
 
         private val STREAM_VIDEO = 0
         private val STREAM_AUDIO = 1
         private val OPEN_THIS_APP = 0
 
         init {
-            imageView = itemView.findViewById(R.id.row_image)
-            titleView = itemView.findViewById(R.id.row_title)
-            tagView = itemView.findViewById(R.id.row_tag)
-            tagView!!.maxLines = 3
-            optionsView = itemView.findViewById(R.id.row_options)
-            downloadView = itemView.findViewById(R.id.row_download)
+            ButterKnife.bind(this,itemView)
+            tagView.maxLines = 3
+            itemView.setOnCreateContextMenuListener(this)
         }
 
-        override fun showEpisode(episode: Episode?) {
+        override  fun showEpisode(episode: Episode?) {
             if (episode != null) {
                 try {
                     imageView.setImageURI(Uri.parse(episode.imageUrl))
@@ -74,23 +72,20 @@ class EpisodeAdapter(private val context: Context, private val mEpisodes: List<E
                     ex.printStackTrace()
                 }
 
-                if (titleView != null) {
-                    val fullTitle = episode.title.trim { it <= ' ' }
-                    if (fullTitle.startsWith("Democracy Now!")) {
-                        val title = fullTitle.substring(14).trim { it <= ' ' }
-                        titleView.text = title
-                    } else {
-                        titleView.text = fullTitle
-                    }
+                val fullTitle = episode.title.trim { it <= ' ' }
+                if (fullTitle.startsWith("Democracy Now!")) {
+                    val title = fullTitle.substring(14).trim { it <= ' ' }
+                    titleView.text = title
+                } else {
+                    titleView.text = fullTitle
                 }
-                if (tagView != null) {
-                    var description = episode.description.trim { it <= ' ' }
-                    if (description.startsWith("Headlines for ")) {
-                        description = description.substring(description.indexOf(";") + 1)
-                    }
-                    tagView.text = description
-                    tagView.ellipsize = TextUtils.TruncateAt.END
+
+                var description = episode.description.trim { it <= ' ' }
+                if (description.startsWith("Headlines for ")) {
+                    description = description.substring(description.indexOf(";") + 1)
                 }
+                tagView.text = description
+                tagView.ellipsize = TextUtils.TruncateAt.END
                 itemView.setOnClickListener { loadEpisode(episode) }
                 downloadView.setOnClickListener {
                     val builder = AlertDialog.Builder(itemView.context)
@@ -104,6 +99,10 @@ class EpisodeAdapter(private val context: Context, private val mEpisodes: List<E
                 }
                 optionsView.setOnClickListener { optionsView.showContextMenu() }
             }
+        }
+
+        override fun currentEpisode(): Episode {
+            return mEpisodes[adapterPosition]
         }
 
         private fun loadEpisode(episode: Episode) {
@@ -131,15 +130,13 @@ class EpisodeAdapter(private val context: Context, private val mEpisodes: List<E
             // pass in the URL if either audio or video (make check above)
             // Media Activity
             if (open == OPEN_THIS_APP) {
-                val intent = Intent(context, MediaActivity::class.java)
-                intent.putExtra("url", url)
-                intent.putExtra("title", title)
-                (context as Activity).startActivityForResult(intent, 0) //Activity load = 0
+                NavigationUtility.startMediaActivity(context as MainActivity,url,title)
             } else {
                 // FIXME: SecurityException
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.setDataAndType(Uri.parse(url), "*/*")
-                context.startActivity(intent)
+               // val intent = Intent(Intent.ACTION_VIEW)
+               // intent.setDataAndType(Uri.parse(url), "*/*")
+               // context.startActivity(intent)
+                NavigationUtility.startActionViewIntent(context as MainActivity,url)
             }
         }
 
@@ -148,15 +145,15 @@ class EpisodeAdapter(private val context: Context, private val mEpisodes: List<E
             menu.setHeaderTitle("Democracy Now!")
             inflater.inflate(R.menu.context_menu, menu)
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-            val DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")) // 0=video
-            val DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")) // 0 = within this app
+            val defaultStream = Integer.parseInt(preferences.getString("stream_preference", "0")) // 0=video
+            val defaultOpen = Integer.parseInt(preferences.getString("open_preference", "0")) // 0 = within this app
 
-            if (DEFAULT_STREAM == 0)
+            if (defaultStream == 0)
                 menu.getItem(2).title = "Stream Audio"
             else
                 menu.getItem(2).title = "Stream Video"
 
-            if (DEFAULT_OPEN == 0)
+            if (defaultOpen == 0)
                 menu.getItem(3).title = "Stream in Another App"
             else
                 menu.getItem(3).title = "Stream in This App"
@@ -168,12 +165,12 @@ class EpisodeAdapter(private val context: Context, private val mEpisodes: List<E
         override fun onMenuItemClick(menuItem: MenuItem): Boolean {
             val episode = mEpisodes[adapterPosition]
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-            val DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")) // 0=video
-            val DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")) // 0 = within this ap
+            val defaultStream = Integer.parseInt(preferences.getString("stream_preference", "0")) // 0=video
+            val defaultOpen = Integer.parseInt(preferences.getString("open_preference", "0")) // 0 = within this ap
             var actionTitle = "Democracy Now!"
             if (episode.title.length > 16) {
                 actionTitle = when {
-                    "Today's Broadcast" == episode!!.title -> episode.title
+                    "Today's Broadcast" == episode.title -> episode.title
                     episode.title.startsWith("Democracy Now!") -> episode.title.substring(14)
                     else -> episode.title
                 }
@@ -181,27 +178,23 @@ class EpisodeAdapter(private val context: Context, private val mEpisodes: List<E
 
             when (menuItem.itemId) {
                 R.id.action_share -> {
-                    val sendIntent = Intent()
-                    sendIntent.action = Intent.ACTION_SEND
-                    sendIntent.putExtra(Intent.EXTRA_SUBJECT, episode!!.title)
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, episode!!.url)
-                    sendIntent.type = "text/plain"
-                    context.startActivity(sendIntent)
+                    NavigationUtility.startShareIntent(context as MainActivity, episode.title, episode.url)
+
                     return true
                 }
                 R.id.reverse_default_media -> {
                     when {
                         episode.videoUrl.contains("m3u8") -> startMediaIntent(episode.audioUrl, 1, episode.title)
-                        DEFAULT_STREAM == 0 -> startMediaIntent(episode.audioUrl, DEFAULT_OPEN, actionTitle)
-                        else -> startMediaIntent(episode.videoUrl, DEFAULT_OPEN, actionTitle)
+                        defaultStream == 0 -> startMediaIntent(episode.audioUrl, defaultOpen, actionTitle)
+                        else -> startMediaIntent(episode.videoUrl, defaultOpen, actionTitle)
                     }
                     return true
                 }
                 R.id.reverse_default_open -> {
                     var reverseOpen = 0
-                    if (reverseOpen == DEFAULT_OPEN)
+                    if (reverseOpen == defaultOpen)
                         reverseOpen = 1
-                    if (DEFAULT_STREAM == 0)
+                    if (defaultStream == 0)
                         startMediaIntent(episode.videoUrl, reverseOpen, actionTitle)
                     else
                         startMediaIntent(episode.audioUrl, reverseOpen, actionTitle)
@@ -231,9 +224,7 @@ class EpisodeAdapter(private val context: Context, private val mEpisodes: List<E
                     return true
                 }
                 R.id.open_browser -> {
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.setDataAndType(Uri.parse(episode.url), "*/*")
-                    context.startActivity(intent)
+                    NavigationUtility.startActionViewIntent(context as MainActivity, episode.url)
                     return true
                 }
             }
