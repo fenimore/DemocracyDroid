@@ -155,8 +155,8 @@ public class PodcastFragment extends Fragment {
                         mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
                         Log.d("Episode", "Day: " + String.valueOf(dayOfWeek)
                                 + " Hour: " + String.valueOf(hourOfDay));
-                        Log.d("EpisodeVideo", mEpisodes.get(i).getVideoUrl());
-                        Log.d("EpisodeAudio", mEpisodes.get(i).getAudioUrl());
+                        //Log.d("EpisodeVideo", mEpisodes.get(i).getVideoUrl());
+                        //Log.d("EpisodeAudio", mEpisodes.get(i).getAudioUrl());
                     }
                     mProgress.setVisibility(View.GONE);
                     episodeAdapter.notifyDataSetChanged();

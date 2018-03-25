@@ -8,8 +8,8 @@ android {
         applicationId "com.workingagenda.democracydroid"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 40
-        versionName "3.6.3"
+        versionCode 41
+        versionName "3.6.4"
     }
     buildTypes {
         release {
