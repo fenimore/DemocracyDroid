@@ -24,9 +24,6 @@ import com.workingagenda.democracydroid.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by derrickrocha on 7/16/17.
- */
 
 @SuppressWarnings("DefaultFileTemplate")
 public class StoryFragment extends Fragment {
