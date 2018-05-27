@@ -96,9 +96,8 @@ public class MediaService extends Service {
                         Intent notIntent = new Intent(getApplicationContext(), MediaActivity.class);
                         // TODO: bundle
                         notIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        PendingIntent pendInt = PendingIntent.getActivity(getApplicationContext(), 0,
+                        return PendingIntent.getActivity(getApplicationContext(), 0,
                                 notIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        return pendInt;
                     }
 
                     @Nullable

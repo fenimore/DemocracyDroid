@@ -89,7 +89,7 @@ public class RssItem {
         if(this.description == null){
             this.description = addition;
         } else {
-            this.description.concat(addition);
+            this.description = this.description.concat(addition);
         }
     }
 
