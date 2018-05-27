@@ -45,12 +45,13 @@ public class PodcastFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private ServerApi mServerApi;
 
-    private final String TAG = "PODCAST";
+    private final String TAG = "PODCASTS";
     private final int LIVE_TIME = 8;
-    private final String DN_SPANISH_FEED = getString(R.string.spanish_podcast_feed);
-    private final String DN_AUDIO_FEED = getString(R.string.audio_podcast_feed);
-    private final String DN_AUDIO_HOSTING = getString(R.string.dn_audio_hosting);
-    private final String DN_LIVE_HOSTING = getString(R.string.dn_live_hosting);
+    private final String DN_SPANISH_FEED = "https://www.democracynow.org/podcast-es.xml";
+    private final String DN_AUDIO_FEED = "https://www.democracynow.org/podcast.xml";
+    private final String DN_AUDIO_HOSTING = "http://traffic.libsyn.com/democracynow/";
+    private final String DN_LIVE_HOSTING = "http://democracynow.videocdn.scaleengine.net/democracynow-" +
+            "iphone/play/democracynow/playlist.m3u8";
 
     public void refresh() {
         getVideoFeed(false);
@@ -142,6 +143,7 @@ public class PodcastFragment extends Fragment {
                 for (int i = 0; i < smallest; i++) {
                     mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
                 }
+                Log.d(TAG, mEpisodes.toString());
                 mProgress.setVisibility(View.GONE);
                 episodeAdapter.notifyDataSetChanged();
             }
