@@ -59,6 +59,7 @@
     <string name="pause_content">Pause</string>
     <string name="play_content">Play</string>
     <string name="rewind_content">Rewind</string>
+    <string name="channel_name">com.workingagenda.democracydroid</string>
     <string-array name="tabsAlias">
         <item>Transcripts</item>
         <item>Broadcast</item>

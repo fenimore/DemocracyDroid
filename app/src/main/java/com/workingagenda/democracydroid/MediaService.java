@@ -6,6 +6,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Binder;
@@ -21,6 +23,7 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -34,6 +37,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.PlayerNotificationManager;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
@@ -46,7 +50,9 @@ import com.google.android.exoplayer2.Player.EventListener;
 
 public class MediaService extends Service {
 
+    private PlayerNotificationManager playerNotificationManager;
     private SimpleExoPlayer player;
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -74,7 +80,61 @@ public class MediaService extends Service {
         // Create Player
         player = ExoPlayerFactory.newSimpleInstance(getApplicationContext(),
                 trackSelector, loadControl);
+        String channelID = "com.workingagenda.democracydroid";  // TODO: should this be diff than the name?
+        playerNotificationManager = PlayerNotificationManager.createWithNotificationChannel(
+                getApplicationContext(),
+                channelID,
+                R.string.channel_name,
+                1337,
+                new PlayerNotificationManager.MediaDescriptionAdapter() {
+                    // TODO: Serialize and pass an episode to this service
+                    // TODO: Set the image and title from the current Episode
+                    @Override
+                    public String getCurrentContentTitle(Player player) {
+                        return "Democracy Now!";
+                    }
 
+                    @Nullable
+                    @Override
+                    public PendingIntent createCurrentContentIntent(Player player) {
+                        Intent notIntent = new Intent(getApplicationContext(), MediaActivity.class);
+                        // TODO: bundle
+                        notIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        PendingIntent pendInt = PendingIntent.getActivity(getApplicationContext(), 0,
+                                notIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        return pendInt;
+                    }
+
+                    @Nullable
+                    @Override
+                    public String getCurrentContentText(Player player) {
+                        return "The War and Peace Report";
+                    }
+
+                    @Nullable
+                    @Override
+                    public Bitmap getCurrentLargeIcon(final Player player, final PlayerNotificationManager.BitmapCallback callback) {
+                        return BitmapFactory.decodeResource(getResources(),R.drawable.appicon);
+                    }
+                }
+        );
+
+
+        playerNotificationManager.setNotificationListener(new PlayerNotificationManager.NotificationListener() {
+            @Override
+            public void onNotificationStarted(int notificationId, Notification notification) {
+                startForeground(notificationId, notification);
+            }
+
+            @Override
+            public void onNotificationCancelled(int notificationId) {
+                stopSelf();
+            }
+        });
+        playerNotificationManager.setOngoing(false);
+        playerNotificationManager.setUseNavigationActions(false);
+        playerNotificationManager.setStopAction(null);
+        playerNotificationManager.setPlayer(player);
     }
 
     @Override
@@ -107,42 +167,10 @@ public class MediaService extends Service {
             player.setPlayWhenReady(true);
             player.prepare(mediaSource);
         }
-        // Notification
-        Intent notIntent = new Intent(getApplicationContext(), MediaActivity.class);
-        // TODO: bundle
-		notIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		PendingIntent pendInt = PendingIntent.getActivity(this, 0,
-				notIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Notification not = null;
-        Notification.Builder builder = new Notification.Builder(this);
-		builder.setContentIntent(pendInt)
-		.setSmallIcon(R.drawable.ic_mic_none_white_24dp)
-		.setTicker("Democracy Now!")
-		.setOngoing(true)
-		.setContentTitle("Democracy Now!")
-		.setContentText("The War and Peace Report");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelID = "com.workingagenda.democracydroid";
-            NotificationChannel notificationChannel;
-            String CHANNEL_ONE_NAME = "Democracy Now!";
-            notificationChannel = new NotificationChannel(channelID,
-                    CHANNEL_ONE_NAME, NotificationManager.IMPORTANCE_DEFAULT);
-            notificationChannel.enableLights(true);
-            notificationChannel.setLightColor(Color.RED);
-            notificationChannel.setShowBadge(true);
-            notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            manager.createNotificationChannel(notificationChannel);
-            builder.setChannelId(channelID);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            not = builder.build();
-        }
 
         player.addListener(new EventListener() {
             @Override
-            public void onTimelineChanged(Timeline timeline, Object manifest) {}
+            public void onTimelineChanged(Timeline timeline, Object manifest, int reason) {}
             @Override
             public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {}
             @Override
@@ -180,13 +208,13 @@ public class MediaService extends Service {
             public void onSeekProcessed() {}
         });
 
-        startForeground(1333, not);
         return player;
     }
 
 
     @Override
     public boolean onUnbind(Intent intent) {
+        playerNotificationManager.setPlayer(null);
         player.stop();
         player.release();
         return false;
