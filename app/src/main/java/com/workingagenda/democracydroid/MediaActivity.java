@@ -21,7 +21,6 @@ import android.widget.ImageView;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-import com.google.android.exoplayer2.ui.PlayerNotificationManager;
 
 public class MediaActivity extends AppCompatActivity {
 
