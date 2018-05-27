@@ -37,7 +37,7 @@ public class PodcastFragment extends Fragment {
     private EpisodeAdapter episodeAdapter;
     private ArrayList<Episode> mEpisodes;
     private SimpleDateFormat mFormat;
-    private boolean mHasSpanish = false;
+    private boolean mSpanishFeed = false;
 
     private SwipeRefreshLayout mySwipeRefreshLayout;
 
@@ -87,7 +87,7 @@ public class PodcastFragment extends Fragment {
             });
         }
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mHasSpanish = preferences.getBoolean("spanish_preference", false);
+        mSpanishFeed = preferences.getBoolean("spanish_preference", false);
 
         mEpisodes = new ArrayList<>();
         mServerApi = new ServerApi();
@@ -120,7 +120,7 @@ public class PodcastFragment extends Fragment {
     }
 
     private void getAudioFeed() {
-        String feed = mHasSpanish ? DN_SPANISH_FEED : DN_AUDIO_FEED;
+        String feed = mSpanishFeed ? DN_SPANISH_FEED : DN_AUDIO_FEED;
 
         new GetAudioFeed(new GetAudioFeed.GetAudioFeedCallback() {
             @Override

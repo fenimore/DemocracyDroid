@@ -9,7 +9,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 42
-        versionName "3.6.5"
+        versionName "3.7.0"
     }
     buildTypes {
         release {
