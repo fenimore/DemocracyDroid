@@ -16,10 +16,12 @@ public class ServerApi {
 
     private final int LIVE_TIME = 8;
     private final SimpleDateFormat mFormat;
+
     private final String DN_LIVE_STREAM= "http://democracynow.videocdn.scaleengine.net/" +
             "democracynow-iphone/play/democracynow/playlist.m3u8";
-    private final String DN_VIDEO_HOST= "http://publish.dvlabs.com/democracynow/video-podcast/dn";
-
+    private final String DN_VIDEO_HOST = "http://publish.dvlabs.com/democracynow/video-podcast/dn";
+    private final String DN_VIDEO_FEED = "https://www.democracynow.org/podcast-video.xml";
+    private final String TIME_ZONE = "America/New_York";
 
 
     public ServerApi(){
@@ -28,7 +30,7 @@ public class ServerApi {
 
     public ArrayList<Episode>getVideoFeed() throws Exception {
 
-        RssReader rssReader = new RssReader("https://www.democracynow.org/podcast-video.xml");
+        RssReader rssReader = new RssReader(DN_VIDEO_FEED);
         List<RssItem>items = rssReader.getItems();
         int size = items.size();
         ArrayList<Episode> epis = new ArrayList<>(size);
@@ -49,7 +51,7 @@ public class ServerApi {
 
     private ArrayList<Episode> checkLiveStream(ArrayList<Episode> epis) {
         // Make it Pretty, and NY eastern Time
-        TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
+        TimeZone timeZone = TimeZone.getTimeZone(TIME_ZONE);
         Calendar c = Calendar.getInstance(timeZone);
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
