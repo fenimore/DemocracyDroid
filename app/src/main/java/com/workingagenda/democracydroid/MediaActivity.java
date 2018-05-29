@@ -53,15 +53,16 @@ public class MediaActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         assert extras != null;
         path = (String) extras.get("url");
-        url = Uri.parse(path);
-        title = (String) extras.get("title"); // Doesn't work
-        getSupportActionBar().setTitle(title);
-
-        // Start Service
-        Intent i = new Intent(this, MediaService.class);
-        Log.d("Service", mConnection.toString());
-        bindService(i, mConnection, BIND_AUTO_CREATE);
-        if (!path.contains("mp3")) hideStatusBar();
+        if (path != null && !path.isEmpty()) {
+            url = Uri.parse(path);
+            title = (String) extras.get("title");
+            getSupportActionBar().setTitle(title);
+            // Start Service
+            Intent i = new Intent(this, MediaService.class);
+            Log.d("Service", mConnection.toString());
+            bindService(i, mConnection, BIND_AUTO_CREATE);
+            if (!path.contains("mp3")) hideStatusBar();
+        }
     }
 
 

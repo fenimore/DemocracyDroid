@@ -29,10 +29,8 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
-        ==== 3.6.2\n
-        - Fix for Android 8.1 Oreo Versions!\n
-        ==== 3.6.3\n
-        - Fix occasional nullpointer exception\n
+        ==== 3.7.1\n
+        - Add playback controls to the Notification drawer!\n
     </string>
     <string name="open_stream">Default Application to Play Media</string>
     <string name="download_video">Download Video</string>
