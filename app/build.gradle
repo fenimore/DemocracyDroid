@@ -3,8 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.2"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.workingagenda.democracydroid"
@@ -40,9 +40,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     kapt 'com.jakewharton:butterknife-compiler:8.8.1'
     // Exoplayer
-    compile 'com.google.android.exoplayer:exoplayer-core:2.6.0'
-    compile 'com.google.android.exoplayer:exoplayer-hls:2.6.0'
-    compile 'com.google.android.exoplayer:exoplayer-ui:2.6.0'
+    compile 'com.google.android.exoplayer:exoplayer-core:2.8.1'
+    compile 'com.google.android.exoplayer:exoplayer-hls:2.8.1'
+    compile 'com.google.android.exoplayer:exoplayer-ui:2.8.1'
     // Jsoup
     compile group: 'org.jsoup', name: 'jsoup', version: '1.10.3'
     //rxjava

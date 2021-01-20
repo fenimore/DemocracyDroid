@@ -98,7 +98,7 @@ class ServerApi {
             val stories = ArrayList<Episode>()
             val todaysStories = ArrayList<Episode>(32)
             try {
-                val rssReader = RssReader("https://www.democracynow.org/democracynow.rss")
+                val rssReader = RssReader("https://www.democracynow.org/podcast.xml")
                 for (item in rssReader.items) {
                     val b = Episode()
                     b.title = item.title
