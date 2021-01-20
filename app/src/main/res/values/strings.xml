@@ -84,4 +84,11 @@
         <item>0</item>
         <item>1</item>
     </string-array>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="podcast_url">https://www.democracynow.org/podcast.xml</string>
+    <string name="spanish_podcast_url">https://www.democracynow.org/podcast-es.xml</string>
+    <string name="donate_url">https://www.democracynow.org/donate</string>
+    <string name="web_exclusives_url">https://www.democracynow.org/categories/web_exclusive</string>
+    <string name="democracy_now_url">http://www.democracynow.org/</string>
+    <string name="democracy_now_logo_url">https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png</string>
 </resources>
