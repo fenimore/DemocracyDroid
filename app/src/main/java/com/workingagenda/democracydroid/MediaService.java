@@ -153,12 +153,17 @@ public class MediaService extends Service {
             player.setPlayWhenReady(true);
             player.prepare(mediaSource);
         } else {
-            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(),
-                    Util.getUserAgent(this, "DemocracyDroid"));
+            DefaultHttpDataSourceFactory httpDataSourceFactory = new DefaultHttpDataSourceFactory(
+                    Util.getUserAgent(this, "DemocracyDroid"),
+                    null /* listener */,
+                    DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS,
+                    DefaultHttpDataSource.DEFAULT_READ_TIMEOUT_MILLIS,
+                    true /* allowCrossProtocolRedirects */
+            );
             // Produces Extractor instances for parsing the media data.
             ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
             MediaSource mediaSource = new ExtractorMediaSource(url,
-                    dataSourceFactory, extractorsFactory, null, null);
+                    httpDataSourceFactory, extractorsFactory, null, null);
             player.setPlayWhenReady(true);
             player.prepare(mediaSource);
         }

@@ -85,6 +85,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/sourceButton"
                 android:text="@string/source"/>
+            <Button
+                android:id="@+id/officialAppButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/official_app" />
         </LinearLayout>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

@@ -16,46 +16,24 @@
  */
 package com.workingagenda.democracydroid;
 
-import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.workingagenda.democracydroid.Adapters.DownloadsAdapter;
 import com.workingagenda.democracydroid.tabfragment.PodcastFragment;
 import com.workingagenda.democracydroid.tabfragment.StoryFragment;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_library_books_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_live_tv_white_24dp));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_file_download_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -96,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.container);
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(1);  // ???
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(DEFAULT_TAB);
         // Gather the Episode Lists
@@ -109,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
+                mViewPager.setCurrentItem(1);
             }
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
@@ -148,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
                     ((PodcastFragment) x).refresh();
                 if (x instanceof StoryFragment)
                     ((StoryFragment) x).refresh();
-                if (x instanceof DownloadFragment)
-                    ((DownloadFragment) x).refresh();
             }
             // FIXME: Somehow enable this after async call...
             item.setEnabled(true);
@@ -184,158 +159,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    /**
-     * A Download fragment
-     */
-    public static class DownloadFragment extends Fragment {
-        public TextView Txt1;
-        public Button btn;
-        public Button btnRefresh;
-        public ListView dList;
-        public List<File> files;
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public DownloadFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static DownloadFragment newInstance(int sectionNumber) {
-            DownloadFragment fragment = new DownloadFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            final View rootView = inflater.inflate(R.layout.fragment_download, container, false);
-
-            files = getListFiles();
-
-            dList = rootView.findViewById(android.R.id.list);
-            Txt1 = rootView.findViewById(R.id.download_help);
-            Txt1.setText(R.string.download_help);
-            dList.setEmptyView(Txt1);
-            btn = rootView.findViewById(R.id.clear);
-            btnRefresh= rootView.findViewById(R.id.refresh);
-            registerForContextMenu(dList);
-
-            dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
-
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new AlertDialog.Builder(getContext()).setTitle("Delete all downloads")
-                        .setMessage("Are you sure you want to delete all episodes?\nLong click and episode to delete them individually.")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    for (File file : files) {
-                                        boolean delete = file.delete();
-                                        Log.d("File: ", file.getName() + String.valueOf(delete));
-                                    }
-                                    files = getListFiles();
-                                    dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
-                                    Toast toast = Toast.makeText(getActivity(), "Downloads Removed", Toast.LENGTH_SHORT);
-                                    toast.show();
-                                }
-                            }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // do nothing
-                        }
-                    }).setIcon(android.R.drawable.ic_dialog_alert).show();
-                }
-            });
-            btnRefresh.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    files = getListFiles();
-                    dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
-                }
-            });
-            dList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    File f = files.get(position);
-                    Intent y = new Intent(getContext(), MediaActivity.class);
-                    y.putExtra("url", Uri.fromFile(f).toString()); //can't pass in article object?
-                    y.putExtra("title", f.getName());
-                    startActivityForResult(y, 0); //Activity load = 0
-                }
-            });
-
-            return rootView;
-        }
-
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            super.onCreateContextMenu(menu, v, menuInfo);
-            if (v.getId()==android.R.id.list) {
-                MenuInflater inflater = new MenuInflater(getContext());
-                menu.setHeaderTitle("Democracy Now!");
-                inflater.inflate(R.menu.download_menu, menu);
-            }
-        }
-        @Override
-        public boolean onContextItemSelected(MenuItem item) {
-            //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
-            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            if (info == null)
-                return super.onContextItemSelected(item);
-            int pos = info.position;
-            File file = files.get(pos);
-            switch(item.getItemId()) {
-                case R.id.action_delete:
-                    boolean delete = file.delete();
-                    Log.d("File: ", file.getName() + String.valueOf(delete));
-                    files = getListFiles();
-                    dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
-                    return true;
-                case R.id.action_external_player:
-                    Intent z = new Intent(Intent.ACTION_VIEW);
-                    z.setDataAndType(Uri.fromFile(file), "*/*");
-                    startActivity(z);
-                default:
-                    return super.onContextItemSelected(item);
-            }
-        }
-        private List<File> getListFiles() {
-            ArrayList<File> inFiles = new ArrayList<>();
-            File parentDir = new File(Environment.getExternalStorageDirectory().toString()+
-                    File.separator + Environment.DIRECTORY_PODCASTS);
-            File[] files = parentDir.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    if(file.getName().startsWith("dn") || file.getName().endsWith("-podcast.mp4") || file.getName().endsWith("-podcast.mp3")){ // there must be a smarter way to do this
-                        if(file.getName().endsWith(".mp3") || file.getName().endsWith(".mp4")){
-                            inFiles.add(file);
-                        }
-                    }
-                }
-            }
-            // Collections.reverse(inFiles);
-            return inFiles;
-        }
-        private void refresh(){
-            if (ContextCompat.checkSelfPermission(getContext(),
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED){
-                files = getListFiles();
-                dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
-            }
-
-        }
-    }
-
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -355,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
 
                 case 0: return StoryFragment.newInstance(position + 1);
                 case 1: return PodcastFragment.newInstance(position + 1);
-                case 2: return DownloadFragment.newInstance(position + 1);
                 default: return PodcastFragment.newInstance(position + 1);
             }
         }

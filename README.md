@@ -14,11 +14,12 @@ It also streams the live-stream (at 8am Eastern) and collects transcripts for in
 
 ## Disclaimer
 
-We have no affiliation with Democracy Now!
+We have no affiliation with Democracy Now! And Since creating this application, Democracy Now! has published
+an official Android application on the Play Store. It'll be better maintained than this one.
 
 ## License and Dependencies
 
-- Democracy Droid GPLv3
+- Democracy Droid! GPLv3
 - Democracy Now! CC BY-NC-ND 3.0 US
 - [ExoPlayer](https://github.com/google/ExoPlayer) Apache 2
 - [Jsoup](https://jsoup.org/) MIT
@@ -26,7 +27,7 @@ We have no affiliation with Democracy Now!
 
 ## Latest Release
 
-version 3.5
+version 3.8.0
 
 [Change Log](CHANGELOG.md)
 

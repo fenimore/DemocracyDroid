@@ -50,6 +50,7 @@ public class AboutActivity extends AppCompatActivity {
         Button btnSrc = findViewById(R.id.sourceButton);
         Button btnDon = findViewById(R.id.btn_donate);
         Button btnMail = findViewById(R.id.emailButton);
+        Button btnOff = findViewById(R.id.officialAppButton);
 
         btnRev.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -96,6 +97,30 @@ public class AboutActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Democracy Droid Support");
                 intent.putExtra(Intent.EXTRA_TEXT, "Hi Fenimore,");
                 startActivity(intent);
+            }
+        });
+
+        btnOff.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("market://details?id=org.democracynow.mobile");
+                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                // To count with Play market backstack, After pressing back button,
+                // to taken back to our application, we need to add following flags to intent.
+                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                try {
+                    startActivity(goToMarket);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(
+                            new Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("http://play.google.com/store/apps/details?id=org.democracynow.mobile")
+                            )
+                    );
+                }
             }
         });
 

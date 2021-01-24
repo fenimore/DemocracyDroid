@@ -5,9 +5,10 @@
     <string name="action_donate">Donate at Democracy Now!</string>
     <string name="about_app">Democracy Droid! provides easy access to the Democracy Now Broadcast and Individual Story feed, the Live stream, and Downloads. Long-click on a broadcast to show its options.\n\nDemocracy Droid is not affiliated with Democracy Now! If you like the application, I encourage you to donate at \nhttps://democracynow.org.\nThis application is Free and Open Source Software.\n</string>
     <string name="about_dm">Democracy Now! is a national, daily, independent, award-winning news program hosted by journalists Amy Goodman and Juan Gonzalez. Pioneering the largest public media collaboration in the U.S.\n\nDemocracy Now! is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States License.\n\nDemocracy Now! streams live weekdays at 8 am\n</string>
-    <string name="about_info">\nFenimore Love | 2015 - 2017 GPLv3\n\nFile
-        bugs by email or at the Issue Tracker at the Source Repository below.\n\n Any
-        feedback here is greatly appreciated :).
+    <string name="about_info">\nFenimore Love | 2015 - 2021 GPLv3\n\nFile
+        bugs by email or at the Issue Tracker at the Source Repository below.\n\n
+        Any feedback here is greatly appreciated :).\n\n
+        Since creating this application, Democracy Now! has published an official Democracy Now! Android application on the Google Play Store. Their app will provide better support and more features.
     </string>
     <string name="download_help">Long Click An Episode to Download, Share, Read Description, and Stream. Long Click a Download to Open it in an External Player.</string>
     <string name="about_title">About Democracy Droid</string>
@@ -29,8 +30,10 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
-        ==== 3.7.1\n
-        - Add playback controls to the Notification drawer!\n
+
+        ==== 3.8.0\n
+        - Remove broken downloads tab :(\n
+        - Fix the Audio Streaming functionality\n
     </string>
     <string name="open_stream">Default Application to Play Media</string>
     <string name="download_video">Download Video</string>
@@ -58,6 +61,7 @@
     <string name="play_content">Play</string>
     <string name="rewind_content">Rewind</string>
     <string name="channel_name">com.workingagenda.democracydroid</string>
+    <string name="official_app">Official App</string>
     <string-array name="tabsAlias">
         <item>Transcripts</item>
         <item>Broadcast</item>

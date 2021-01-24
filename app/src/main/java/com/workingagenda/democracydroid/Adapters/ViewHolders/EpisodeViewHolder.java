@@ -19,8 +19,6 @@ package com.workingagenda.democracydroid.Adapters.ViewHolders;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DownloadManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -53,7 +51,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
     private final ImageView img;
     private final TextView tag;
     private final ImageView mOptions;
-    private final ImageView mDownload;
     // ENUMS
     private static final int STREAM_VIDEO = 0;
     private static final int STREAM_AUDIO = 1;
@@ -67,7 +64,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
         tag = itemView.findViewById(R.id.row_tag);
         tag.setMaxLines(3);
         mOptions = itemView.findViewById(R.id.row_options);
-        mDownload = itemView.findViewById(R.id.row_download);
         itemView.setOnCreateContextMenuListener(this);
 
     }
@@ -104,35 +100,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                     loadEpisode(e);
                 }
             });
-            mDownload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                    builder.setTitle("Download");
-                    builder.setMessage("Are you sure you want to download today's episode?");
-                    builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {}
-                    });
-                    builder.setNegativeButton("Audio", new DialogInterface.OnClickListener() {
-                        @RequiresApi(api = Build.VERSION_CODES.M)
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Download(e.getAudioUrl(), e.getTitle(), e.getDescription());
-                        }
-                    });
-                    builder.setPositiveButton("Video", new DialogInterface.OnClickListener() {
-                        @RequiresApi(api = Build.VERSION_CODES.M)
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Download(e.getVideoUrl(), e.getTitle(), e.getDescription());
-                        }
-                    });
-                    AlertDialog alert = builder.create();
-                    alert.show();
-                }
-            }
-            );
             mOptions.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -192,14 +159,14 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
         int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
 
         if (DEFAULT_STREAM == 0)
-            menu.getItem(2).setTitle("Stream Audio");
+            menu.getItem(0).setTitle("Stream Audio");
         else
-            menu.getItem(2).setTitle("Stream Video");
+            menu.getItem(0).setTitle("Stream Video");
 
         if(DEFAULT_OPEN == 0)
-            menu.getItem(3).setTitle("Stream in Another App");
+            menu.getItem(1).setTitle("Stream in Another App");
         else
-            menu.getItem(3).setTitle("Stream in This App");
+            menu.getItem(1).setTitle("Stream in This App");
         for (int i = 0;i<menu.size();i++){
             menu.getItem(i).setOnMenuItemClickListener(this);
         }
@@ -261,16 +228,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                 });
                 description.show();
                 return true;
-            case R.id.video_download:
-                if (mEpisode.getTitle().equals("Stream Live"))
-                    return true;
-                Download(mEpisode.getVideoUrl(), mEpisode.getTitle(), mEpisode.getDescription());
-                return true;
-            case R.id.audio_download:
-                if (mEpisode.getTitle().equals("Stream Live"))
-                    return true;
-                Download(mEpisode.getAudioUrl(), mEpisode.getTitle(), mEpisode.getDescription());
-                return true;
             case R.id.open_browser:
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.parse(mEpisode.getUrl()), "*/*");
@@ -278,41 +235,5 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                 return true;
         }
         return false;
-    }
-
-    // FIXME: Show progress:
-    // http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void Download(String url, String title, String desc) {
-        if (ContextCompat.checkSelfPermission(itemView.getContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ((Activity)itemView.getContext()).requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    0);
-            // TODO: catch onRequestPermissionsResult
-        } else {
-            if ("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8".equals(url)) {
-                Toast toast = Toast.makeText(itemView.getContext(),
-                        "You can't download the Live Stream", Toast.LENGTH_LONG);
-                toast.show();
-                return;
-            }
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-            request.setDescription(desc);
-            request.setTitle(title);
-            request.allowScanningByMediaScanner();
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-            String fileext = url.substring(url.lastIndexOf('/') + 1);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PODCASTS, fileext);
-            //http://stackoverflow.com/questions/24427414/getsystemservices-is-undefined-when-called-in-a-fragment
-
-            // get download service and enqueue file
-            DownloadManager manager = (DownloadManager) itemView.getContext().getSystemService(Context.DOWNLOAD_SERVICE);
-            manager.enqueue(request);
-            // TODO: Save que ID for cancel button
-            Toast toast = Toast.makeText(itemView.getContext(), "Starting download of " + title, Toast.LENGTH_LONG);
-            toast.show();
-        }
     }
 }
