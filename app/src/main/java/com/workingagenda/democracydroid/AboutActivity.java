@@ -5,15 +5,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 
 /**
  * Created by fen on 1/14/16.
@@ -53,7 +53,6 @@ public class AboutActivity extends AppCompatActivity {
         Button btnOff = findViewById(R.id.officialAppButton);
 
         btnRev.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 Uri uri = Uri.parse("market://details?id=" + getBaseContext().getPackageName());
@@ -101,7 +100,6 @@ public class AboutActivity extends AppCompatActivity {
         });
 
         btnOff.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 Uri uri = Uri.parse("market://details?id=org.democracynow.mobile");

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,6 +12,8 @@ import android.view.View;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 import com.workingagenda.democracydroid.StoryActivity;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{

@@ -9,18 +9,19 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.NavUtils;
 
 
 /**
@@ -103,12 +104,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         super.onPostCreate(savedInstanceState);
         getDelegate().onPostCreate(savedInstanceState);
     }
-    public ActionBar getSupportActionBar() {
-        return getDelegate().getSupportActionBar();
-    }
-    public void setSupportActionBar(@Nullable Toolbar toolbar) {
-        getDelegate().setSupportActionBar(toolbar);
-    }
+
     @NonNull
     @Override
     public MenuInflater getMenuInflater() {

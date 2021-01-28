@@ -10,13 +10,13 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
@@ -24,10 +24,17 @@ import com.google.android.exoplayer2.Player.EventListener;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.extractor.ExtractorInput;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+import com.google.android.exoplayer2.source.AdaptiveMediaSourceEventListener;
+import com.google.android.exoplayer2.source.CompositeSequenceableLoaderFactory;
+import com.google.android.exoplayer2.source.DefaultCompositeSequenceableLoaderFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.source.hls.DefaultHlsExtractorFactory;
+import com.google.android.exoplayer2.source.hls.HlsExtractorFactory;
+import com.google.android.exoplayer2.source.hls.HlsMediaChunkExtractor;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
@@ -38,10 +45,16 @@ import com.google.android.exoplayer2.ui.PlayerNotificationManager;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.util.TimestampAdjuster;
 import com.google.android.exoplayer2.util.Util;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import androidx.annotation.Nullable;
 
 
 public class MediaService extends Service {
@@ -69,7 +82,8 @@ public class MediaService extends Service {
         // Load controls
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
 
-        TrackSelection.Factory videoFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
+        TrackSelection.Factory videoFactory = new AdaptiveTrackSelection.Factory();
+        //bandwidthMeter);
         TrackSelector trackSelector = new DefaultTrackSelector(videoFactory);
         LoadControl loadControl = new DefaultLoadControl();
 
@@ -126,9 +140,9 @@ public class MediaService extends Service {
                 stopSelf();
             }
         });
-        playerNotificationManager.setOngoing(false);
-        playerNotificationManager.setUseNavigationActions(false);
-        playerNotificationManager.setStopAction(null);
+        ///playerNotificationManager.setOngoing(false);
+        //playerNotificationManager.setUseNavigationActions(false);
+        //playerNotificationManager.setStopAction(null);
         playerNotificationManager.setPlayer(player);
     }
 
@@ -148,10 +162,11 @@ public class MediaService extends Service {
                     DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS,
                     1800000,
                     true);
-            HlsMediaSource mediaSource = new HlsMediaSource(url, dataSourceFactory, 1800000,
-                    mHandler, null);
+            HlsMediaSource hlsMediaSource =
+                    new HlsMediaSource.Factory(dataSourceFactory)
+                            .createMediaSource(url);
             player.setPlayWhenReady(true);
-            player.prepare(mediaSource);
+            player.prepare(hlsMediaSource);
         } else {
             DefaultHttpDataSourceFactory httpDataSourceFactory = new DefaultHttpDataSourceFactory(
                     Util.getUserAgent(this, "DemocracyDroid"),

@@ -3,17 +3,13 @@ package com.workingagenda.democracydroid.tabfragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
 import com.workingagenda.democracydroid.Adapters.GridSpacingItemDecoration;
 import com.workingagenda.democracydroid.Helpers.DpToPixelHelper;
@@ -29,6 +25,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 public class PodcastFragment extends Fragment {

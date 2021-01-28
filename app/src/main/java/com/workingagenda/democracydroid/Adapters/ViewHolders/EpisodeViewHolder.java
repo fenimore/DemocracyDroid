@@ -27,9 +27,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -43,6 +42,8 @@ import android.widget.Toast;
 import com.workingagenda.democracydroid.MediaActivity;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener,MenuItem.OnMenuItemClickListener {
@@ -172,8 +173,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
         }
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
