@@ -143,7 +143,6 @@ public class StoryActivity extends AppCompatActivity {
 
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            // TODO: pass image with the Intent
             String page = "<h2>" + title + "</h2><strong>" + date +
                     "</strong><br><small>Viewer Supported News:</small> " +
                     "<a class='donate_button' data-width='800' data-height='590' " +

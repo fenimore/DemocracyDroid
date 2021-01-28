@@ -29,7 +29,10 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
-
+        ==== 3.8.2\n
+        - Fix the story tab\n
+        ==== 3.8.1\n
+        - Fix everything, woops\n
         ==== 3.8.0\n
         - Remove broken downloads tab :(\n
         - Fix the Audio Streaming functionality\n

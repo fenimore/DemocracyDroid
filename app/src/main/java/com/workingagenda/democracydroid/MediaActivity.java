@@ -85,13 +85,10 @@ public class MediaActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         Log.d("Media", "onStop called");
-        //player.release();
-        //unbindService(mConnection);
     }
 
     @Override
     protected void onDestroy() {
-        //mVideoView.stopPlayback();
         super.onDestroy();
         Log.d("onDestroy", "Do Destroy");
         unbindService(mConnection);
