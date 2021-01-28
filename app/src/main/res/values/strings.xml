@@ -10,7 +10,6 @@
         Any feedback here is greatly appreciated :).\n\n
         Since creating this application, Democracy Now! has published an official Democracy Now! Android application on the Google Play Store. Their app will provide better support and more features.
     </string>
-    <string name="download_help">Long Click An Episode to Download, Share, Read Description, and Stream. Long Click a Download to Open it in an External Player.</string>
     <string name="about_title">About Democracy Droid</string>
     <string name="action_site">Visit democracynow.org</string>
     <string name="action_about">About Democracy Droid!</string>
@@ -36,8 +35,6 @@
         - Fix the Audio Streaming functionality\n
     </string>
     <string name="open_stream">Default Application to Play Media</string>
-    <string name="download_video">Download Video</string>
-    <string name="download_audio">Download Audio</string>
     <string name="open_elsewhere">Open Elsewhere</string>
     <string name="stream">Stream</string>
     <string name="read_description">Read Description</string>
@@ -46,20 +43,11 @@
     <string name="action_exclusives">Web Exclusives</string>
     <string name="btn_donate">Donate at DemocracyNow.org</string>
     <string name="setting_language">Difusión de Audio en Español</string>
-    <string name="refresh">Refresh</string>
     <string name="description_menu_title">Description</string>
-    <string name="delete">Delete</string>
-    <string name="play_in_external_player">Play In External Player</string>
     <string name="share">Share</string>
     <string name="tab_1">Tab 1</string>
     <string name="tab_2">Tab 2</string>
     <string name="tab_3">Tab 3</string>
-    <string name="clear_all">Clear All</string>
-    <string name="democracy_now_the_war_and_peace_report_text">Democracy Now! The War and Peace Report</string>
-    <string name="ffwd_content">Fast forward</string>
-    <string name="pause_content">Pause</string>
-    <string name="play_content">Play</string>
-    <string name="rewind_content">Rewind</string>
     <string name="channel_name">com.workingagenda.democracydroid</string>
     <string name="official_app">Official App</string>
     <string-array name="tabsAlias">

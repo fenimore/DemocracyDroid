@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -150,14 +149,11 @@ public class StoryActivity extends AppCompatActivity {
                     "<a class='donate_button' data-width='800' data-height='590' " +
                     "data-ga-action='Story: Donate' href='https://democracynow.org/donate'>" +
                     "Donate</a><br>Donate at democracynow.org<hr>" + result;
-            webview.loadData(page, "text/html; charset=utf-8", "UTF-8");
+            webview.loadDataWithBaseURL(null, page, "text/html; charset=utf-8", "UTF-8", null);
         }
     }
 
     private String getContent(String url) throws IOException {
-        // DN feed starting spitting out this http://www.democracynow.org:443/2017/5/12/on_black_mamas_bail_out_day
-        // so I got to make sure the port isn't included anymore! It'll be fixed soon I bet.
-        url = url.replaceFirst(":443", "");
         Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
         Element data;
         // Get the Individual Videos
@@ -180,7 +176,6 @@ public class StoryActivity extends AppCompatActivity {
         for(Element e:select_img){e.attr("src", e.absUrl("src"));}
         for(Element e:select){e.attr("href", e.absUrl("href"));}
         data.getElementsByClass("donate_container").remove();
-
         return CSS + data.toString() + "</body>";
     }
 }

@@ -106,7 +106,7 @@ public class MediaActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         switch(e.getAction()) {
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_MOVE:
                 if (path.contains(".mp3"))
                     return true;
                 if(flag)
