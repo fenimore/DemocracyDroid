@@ -3,6 +3,7 @@ package com.workingagenda.democracydroid;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,16 +14,19 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.LoadControl;
+import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Player.EventListener;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorInput;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
@@ -31,6 +35,8 @@ import com.google.android.exoplayer2.source.CompositeSequenceableLoaderFactory;
 import com.google.android.exoplayer2.source.DefaultCompositeSequenceableLoaderFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.MediaSourceFactory;
+import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.hls.DefaultHlsExtractorFactory;
 import com.google.android.exoplayer2.source.hls.HlsExtractorFactory;
@@ -56,6 +62,8 @@ import java.util.Map;
 
 import androidx.annotation.Nullable;
 
+import static android.media.AudioAttributes.USAGE_MEDIA;
+
 
 public class MediaService extends Service {
 
@@ -79,23 +87,30 @@ public class MediaService extends Service {
     @Override
     public void onCreate() {
         Log.d("MediaService", "OnCreate");
-        // Load controls
-        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
 
         TrackSelection.Factory videoFactory = new AdaptiveTrackSelection.Factory();
-        //bandwidthMeter);
+
         TrackSelector trackSelector = new DefaultTrackSelector(videoFactory);
         LoadControl loadControl = new DefaultLoadControl();
 
         // Create Player
-        player = ExoPlayerFactory.newSimpleInstance(getApplicationContext(),
-                trackSelector, loadControl);
-        String channelID = "com.workingagenda.democracydroid";  // TODO: should this be diff than the name?
+        player = new SimpleExoPlayer.Builder(getApplicationContext())
+                .setLoadControl(loadControl).setTrackSelector(trackSelector).build();
+
+        player.setPlayWhenReady(true);
+        player.setHandleAudioBecomingNoisy(true);  // pause when bluetooth disconnects
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setUsage(C.USAGE_MEDIA)
+                .setContentType(C.CONTENT_TYPE_SPEECH)
+                .build();
+        player.setAudioAttributes(audioAttributes, true);
+
         playerNotificationManager = PlayerNotificationManager.createWithNotificationChannel(
                 getApplicationContext(),
-                channelID,
+                "com.workingagenda.democracydroid",
                 R.string.channel_name,
-                1337,
+                0,
+                420,
                 new PlayerNotificationManager.MediaDescriptionAdapter() {
                     // TODO: Serialize and pass an episode to this service
                     // TODO: Set the image and title from the current Episode
@@ -125,24 +140,21 @@ public class MediaService extends Service {
                     public Bitmap getCurrentLargeIcon(final Player player, final PlayerNotificationManager.BitmapCallback callback) {
                         return BitmapFactory.decodeResource(getResources(),R.drawable.appicon);
                     }
+                },
+                new PlayerNotificationManager.NotificationListener() {
+
+                    @Override
+                    public void onNotificationPosted(int notificationId, Notification notification, boolean ongoing) {
+                        startForeground(notificationId, notification);
+                    }
+
+                    @Override
+                    public void onNotificationCancelled(int notificationId, boolean dismissedByUser) {
+                        stopSelf();
+                    }
                 }
         );
 
-
-        playerNotificationManager.setNotificationListener(new PlayerNotificationManager.NotificationListener() {
-            @Override
-            public void onNotificationStarted(int notificationId, Notification notification) {
-                startForeground(notificationId, notification);
-            }
-
-            @Override
-            public void onNotificationCancelled(int notificationId) {
-                stopSelf();
-            }
-        });
-        ///playerNotificationManager.setOngoing(false);
-        //playerNotificationManager.setUseNavigationActions(false);
-        //playerNotificationManager.setStopAction(null);
         playerNotificationManager.setPlayer(player);
     }
 
@@ -152,36 +164,25 @@ public class MediaService extends Service {
     }
 
     public SimpleExoPlayer setUpPlayer(Uri url) {
+
         String ext = url.toString().substring(url.toString().lastIndexOf("."));
         Log.d("Extension", ext);
+        DataSource.Factory dataSourceFactory = new DefaultHttpDataSourceFactory(
+                "DemocracyDroid!", null,
+                DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS,
+                1800000,
+                true
+        );
         if (ext.equals(".m3u8")) {
-            Handler mHandler = new Handler();
-            String userAgent = Util.getUserAgent(this, "DemocracyDroid");
-            DataSource.Factory dataSourceFactory = new DefaultHttpDataSourceFactory(
-                    userAgent, null,
-                    DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS,
-                    1800000,
-                    true);
-            HlsMediaSource hlsMediaSource =
-                    new HlsMediaSource.Factory(dataSourceFactory)
-                            .createMediaSource(url);
-            player.setPlayWhenReady(true);
-            player.prepare(hlsMediaSource);
+            HlsMediaSource.Factory hlsExtractorFactory = new HlsMediaSource.Factory(dataSourceFactory);
+            HlsMediaSource hlsMediaSource = hlsExtractorFactory.createMediaSource(MediaItem.fromUri(url));
+            player.setMediaSource(hlsMediaSource);
         } else {
-            DefaultHttpDataSourceFactory httpDataSourceFactory = new DefaultHttpDataSourceFactory(
-                    Util.getUserAgent(this, "DemocracyDroid"),
-                    null /* listener */,
-                    DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS,
-                    DefaultHttpDataSource.DEFAULT_READ_TIMEOUT_MILLIS,
-                    true /* allowCrossProtocolRedirects */
-            );
-            // Produces Extractor instances for parsing the media data.
-            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-            MediaSource mediaSource = new ExtractorMediaSource(url,
-                    httpDataSourceFactory, extractorsFactory, null, null);
-            player.setPlayWhenReady(true);
-            player.prepare(mediaSource);
+            MediaSourceFactory mediaFactory = new ProgressiveMediaSource.Factory(dataSourceFactory);
+            MediaSource mediaSource = mediaFactory.createMediaSource(MediaItem.fromUri(url));
+            player.setMediaSource(mediaSource);
         }
+        player.prepare();
 
         player.addListener(new EventListener() {
             @Override
@@ -226,7 +227,6 @@ public class MediaService extends Service {
         return player;
     }
 
-
     @Override
     public boolean onUnbind(Intent intent) {
         playerNotificationManager.setPlayer(null);
@@ -234,10 +234,6 @@ public class MediaService extends Service {
         player.release();
         return false;
     }
-
-    // TODO: startPlaying
-    // TODO: notification
-    // TODO: release on unbind
 
     public class LocalBinder extends Binder {
         public MediaService getService() {

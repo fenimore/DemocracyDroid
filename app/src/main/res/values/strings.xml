@@ -29,13 +29,9 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
-        ==== 3.8.2\n
-        - Fix the story tab\n
-        ==== 3.8.1\n
-        - Fix everything, woops\n
-        ==== 3.8.0\n
-        - Remove broken downloads tab :(\n
-        - Fix the Audio Streaming functionality\n
+        ==== 3.8.3\n
+        - Finally handle bluetooth disconnection gracefully!\n
+        - I\'ve also updated some of the dependencies used\n
     </string>
     <string name="open_stream">Default Application to Play Media</string>
     <string name="open_elsewhere">Open Elsewhere</string>
@@ -56,12 +52,10 @@
     <string-array name="tabsAlias">
         <item>Transcripts</item>
         <item>Broadcast</item>
-        <item>Downloads</item>
     </string-array>
     <string-array name="tabs">
         <item>0</item>
         <item>1</item>
-        <item>2</item>
     </string-array>
     <string-array name="streamAlias">
         <item>Video</item>
