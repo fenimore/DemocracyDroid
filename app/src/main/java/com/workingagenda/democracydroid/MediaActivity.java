@@ -158,8 +158,10 @@ public class MediaActivity extends AppCompatActivity {
             MediaService mediaService = binder.getService();
             player = mediaService.setUpPlayer(url);
             Log.d("ServiceConnection", player.toString());
+
             // ExoPlayer Views
             StyledPlayerView mVideoView = findViewById(R.id.media_player);
+
             mVideoView.setPlayer(player);
             mVideoView.requestFocus();
         }
