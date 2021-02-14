@@ -27,7 +27,7 @@ an official Android application on the Play Store. It'll be better maintained th
 
 ## Latest Release
 
-version 3.8.0
+version 3.8.3
 
 [Change Log](CHANGELOG.md)
 

@@ -32,6 +32,7 @@
         ==== 3.8.3\n
         - Finally handle bluetooth disconnection gracefully!\n
         - Increase the rewind increment to 15 seconds\n
+        - Updated round icon!\n
         - I\'ve also updated some of the dependencies used\n
     </string>
     <string name="open_stream">Default Application to Play Media</string>
