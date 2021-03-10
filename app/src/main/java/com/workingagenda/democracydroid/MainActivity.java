@@ -132,13 +132,6 @@ public class MainActivity extends AppCompatActivity {
             item.setEnabled(true);
             return true;
         }
-        if (id == R.id.action_donate) {
-            String url = "https://www.democracynow.org/donate";
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
-            return true;
-        }
         if (id == R.id.action_exclusives) {
             String url = "https://www.democracynow.org/categories/web_exclusive";
             Intent i = new Intent(Intent.ACTION_VIEW);

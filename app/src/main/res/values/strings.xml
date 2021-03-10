@@ -2,22 +2,18 @@
     <string name="app_name">Democracy Droid</string>
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
-    <string name="action_donate">Donate at Democracy Now!</string>
-    <string name="about_app">Democracy Droid! provides easy access to the Democracy Now Broadcast and Individual Story feed, the Live stream, and Downloads. Long-click on a broadcast to show its options.\n\nDemocracy Droid is not affiliated with Democracy Now! If you like the application, I encourage you to donate at \nhttps://democracynow.org.\nThis application is Free and Open Source Software.\n</string>
+    <string name="about_app">Democracy Droid! provides easy access to the Democracy Now Broadcast and Individual Story feed, the Live stream, and Downloads. Long-click on a broadcast to show its options.\n\nThis application is Free and Open Source Software. (GPLv3)\n</string>
     <string name="about_dm">Democracy Now! is a national, daily, independent, award-winning news program hosted by journalists Amy Goodman and Juan Gonzalez. Pioneering the largest public media collaboration in the U.S.\n\nDemocracy Now! is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States License.\n\nDemocracy Now! streams live weekdays at 8 am\n</string>
-    <string name="about_info">\nFenimore Love | 2015 - 2021 GPLv3\n\nFile
-        bugs by email or at the Issue Tracker at the Source Repository below.\n\n
-        Any feedback here is greatly appreciated :).\n\n
-        Since creating this application, Democracy Now! has published an official Democracy Now! Android application on the Google Play Store. Their app will provide better support and more features.
+    <string name="about_info">\nFile bugs by email or at the Issue Tracker at the Source Repository below.\n\nAny and all feedback is greatly appreciated :).\n
     </string>
     <string name="about_title">About Democracy Droid</string>
     <string name="action_site">Visit democracynow.org</string>
-    <string name="action_about">About Democracy Droid!</string>
+    <string name="action_about">About Democracy Now!</string>
     <string name="connect_error">Connection Error</string>
     <string name="setting_tab">Default Tab on Start Up</string>
     <string name="name_setting">Settings</string>
     <string name="setting_stream">Default Stream on Select</string>
-    <string name="pref_category_info">Application Information</string>
+    <string name="pref_category_info">News Application Information</string>
     <string name="pref_category_settings">Application Settings</string>
     <string name="review">Review at the Play Store</string>
     <string name="story_audio">Listen To Story</string>
@@ -29,6 +25,10 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer Information</string>
     <string name="whatsnew">
+        ==== 3.9.1\n
+        I think Google Play wants me to remove the link to donate and add a link\n
+        ==== 3.9.0\n
+        - Google Play Store is restricting updates, hopefully this update fixes the issue.\n
         ==== 3.8.3\n
         - Finally handle bluetooth disconnection gracefully!\n
         - Increase the rewind increment to 15 seconds\n
@@ -42,7 +42,7 @@
     <string name="share_link">Share Link</string>
     <string name="email_dev">Email the developer</string>
     <string name="action_exclusives">Web Exclusives</string>
-    <string name="btn_donate">Donate at DemocracyNow.org</string>
+    <string name="btn_donate">Visit DemocracyNow.org</string>
     <string name="setting_language">Difusión de Audio en Español</string>
     <string name="description_menu_title">Description</string>
     <string name="share">Share</string>

@@ -33,6 +33,25 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_info">
         <Preference
+            android:key="pref_static_field_key5"
+            android:title="Publisher Information:"
+            android:summary="Democracy Now! produces a daily, global, independent news hour hosted by award-winning journalists Amy Goodman and Juan González">
+        <intent android:action="android.intent.action.VIEW"
+            android:data="https://www.democracynow.org/"/>
+        </Preference>
+        <Preference
+            android:key="pref_static_field_key5"
+            android:title="Contact Democracy Now!"
+            android:summary="Click Here To Contact Democracy Now! at democracynow.org">
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://www.democracynow.org/contact"/>
+        </Preference>
+        <Preference
+            android:key="pref_static_field_key2"
+            android:selectable="false"
+            android:title="Content License"
+            android:summary="Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States"/>
+        <Preference
             android:key="pref_static_field_key0"
             android:selectable="false"
             android:title="Application Version"
@@ -43,23 +62,11 @@
             android:title="Software License"
             android:summary="GNU General Public License v3"/>
         <Preference
-            android:key="pref_static_field_key2"
-            android:selectable="false"
-            android:title="Content License"
-            android:summary="Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States"/>
-        <Preference
             android:key="pref_static_field_key3"
             android:title="Source Code and Issue Tracker"
             android:summary="Click to open">
             <intent android:action="android.intent.action.VIEW"
                 android:data="https://github.com/fenimore/DemocracyDroid"/>
-        </Preference>
-        <Preference
-            android:key="pref_static_field_key4"
-            android:title="Contributors"
-            android:summary="Fenimore Love, Derrick Rocha">
-            <intent android:action="android.intent.action.VIEW"
-                android:data="https://github.com/fenimore/DemocracyDroid/graphs/contributors"/>
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

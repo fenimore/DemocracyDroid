@@ -43,6 +43,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_donate"/>
+            <Button
+                android:id="@+id/btn_contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contact Democracy Now!"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -85,11 +90,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/sourceButton"
                 android:text="@string/source"/>
-            <Button
-                android:id="@+id/officialAppButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/official_app" />
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

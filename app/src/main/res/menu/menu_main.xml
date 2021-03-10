@@ -15,11 +15,6 @@
         android:icon="@drawable/ic_public_white_24dp"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_donate"
-        android:orderInCategory="200"
-        android:title="@string/action_donate"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_exclusives"
         android:orderInCategory="180"
         android:title="@string/action_exclusives"

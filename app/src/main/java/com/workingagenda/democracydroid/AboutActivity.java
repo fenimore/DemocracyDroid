@@ -50,7 +50,7 @@ public class AboutActivity extends AppCompatActivity {
         Button btnSrc = findViewById(R.id.sourceButton);
         Button btnDon = findViewById(R.id.btn_donate);
         Button btnMail = findViewById(R.id.emailButton);
-        Button btnOff = findViewById(R.id.officialAppButton);
+        Button btnCont = findViewById(R.id.btn_contact);
 
         btnRev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,33 +99,10 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
-        btnOff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri uri = Uri.parse("market://details?id=org.democracynow.mobile");
-                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                // To count with Play market backstack, After pressing back button,
-                // to taken back to our application, we need to add following flags to intent.
-                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
-                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                try {
-                    startActivity(goToMarket);
-                } catch (ActivityNotFoundException e) {
-                    startActivity(
-                            new Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("http://play.google.com/store/apps/details?id=org.democracynow.mobile")
-                            )
-                    );
-                }
-            }
-        });
-
         btnDon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("https://www.democracynow.org/donate");
+                Uri uri = Uri.parse("https://www.democracynow.org/");
                 Intent donateIntent = new Intent(Intent.ACTION_VIEW, uri);
                 donateIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
                         Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
@@ -133,7 +110,17 @@ public class AboutActivity extends AppCompatActivity {
                 startActivity(donateIntent);
             }
         });
-
+        btnCont.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://www.democracynow.org/contact");
+                Intent contactIntent = new Intent(Intent.ACTION_VIEW, uri);
+                contactIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                startActivity(contactIntent);
+            }
+        });
 
 
     }
@@ -156,13 +143,6 @@ public class AboutActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_settings) {
-            return true;
-        }
-        if (id == R.id.action_donate) {
-            String url = "https://www.democracynow.org/donate";
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
             return true;
         }
         if (id == R.id.action_site) {
