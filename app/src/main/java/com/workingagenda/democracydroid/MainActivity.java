@@ -27,16 +27,20 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentActivity;
 import androidx.preference.PreferenceManager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.workingagenda.democracydroid.databinding.ActivityMainBinding;
 import com.workingagenda.democracydroid.tabfragment.PodcastFragment;
 import com.workingagenda.democracydroid.tabfragment.StoryFragment;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int POS_STORY = 0;
+    private static final int POS_PODCAST = 1;
+    private static final int TOTAL_COUNT = 2;
     ActivityMainBinding binding;
 
     @Override
@@ -52,39 +56,19 @@ public class MainActivity extends AppCompatActivity {
         boolean PREF_FIRST_TIME = preferences.getBoolean("first_preference", true);
         // TODO: have splash screen for new users
         Log.d("First time", String.valueOf(PREF_FIRST_TIME));
-        // Tab Layouts
-        binding.mainTabLayout.addTab(binding.mainTabLayout.newTab().setIcon(R.drawable.ic_library_books));
-        binding.mainTabLayout.addTab(binding.mainTabLayout.newTab().setIcon(R.drawable.ic_live_tv));
-        binding.mainTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        final SectionsStateAdapter mSectionsStateAdapter = new SectionsStateAdapter(this);
 
         // Set up the ViewPager with the sections adapter.
-        binding.mainViewPager.setOffscreenPageLimit(1);  // ???
-        binding.mainViewPager.setAdapter(mSectionsPagerAdapter);
-        binding.mainViewPager.setCurrentItem(DEFAULT_TAB);
-        // Gather the Episode Lists
-        // Set up the tab and View Pager
-        binding.mainViewPager.addOnPageChangeListener(
-                new TabLayout.TabLayoutOnPageChangeListener(binding.mainTabLayout));
-        binding.mainTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                binding.mainViewPager.setCurrentItem(tab.getPosition());
-            }
+        binding.mainViewPager2.setAdapter(mSectionsStateAdapter);
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                binding.mainViewPager.setCurrentItem(1);
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                binding.mainViewPager.setCurrentItem(tab.getPosition());
-            }
-        });
+        new TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager2,
+                mSectionsStateAdapter::getPageIcon
+        ).attach();
+        binding.mainTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        binding.mainViewPager2.setCurrentItem(DEFAULT_TAB);
     }
 
     @Override
@@ -142,32 +126,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * A {@link FragmentStateAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    private class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private static class SectionsStateAdapter extends FragmentStateAdapter {
 
-        SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
+        SectionsStateAdapter(final FragmentActivity fa) {
+            super(fa);
         }
 
         @NonNull
         @Override
-        public Fragment getItem(int position) {
+        public Fragment createFragment(int position) {
             // getItem is called to instantiate the fragment for the given page.
             switch (position) {
                 default: // Deliberate fall-through to story fragment
-                case 0:
+                case POS_STORY:
                     return new StoryFragment();
-                case 1:
+                case POS_PODCAST:
                     return new PodcastFragment();
             }
         }
 
+        void getPageIcon(final TabLayout.Tab tab, final int position) {
+            switch (position) {
+                default: // Deliberate fall-through to story fragment
+                case POS_STORY:
+                    tab.setIcon(R.drawable.ic_library_books);
+                    tab.setContentDescription(R.string.tab_transcripts);
+                    break;
+                case POS_PODCAST:
+                    tab.setIcon(R.drawable.ic_live_tv);
+                    tab.setContentDescription(R.string.tab_broadcasts);
+                    break;
+            }
+        }
+
         @Override
-        public int getCount() {
+        public int getItemCount() {
             // Show 2 total pages.
-            return 2;
+            return TOTAL_COUNT;
         }
     }
 }

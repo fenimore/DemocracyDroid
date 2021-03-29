@@ -76,9 +76,11 @@
     <string name="spanish_broadcast_summ">Spanish language Audio broadcast</string>
     <string name="what_is_new">What\'s new in this version</string>
     <string name="what_is_new_summ">Features and bug fixes (press here)</string>
+    <string name="tab_transcripts">Transcripts</string>
+    <string name="tab_broadcasts">Broadcasts</string>
     <string-array name="tabsAlias">
-        <item>Transcripts</item>
-        <item>Broadcast</item>
+        <item>@string/tab_transcripts</item>
+        <item>@string/tab_broadcasts</item>
     </string-array>
     <string-array name="tabs">
         <item>0</item>
