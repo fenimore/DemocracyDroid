@@ -4,15 +4,15 @@
     tools:context="com.workingagenda.democracydroid.MainActivity">
     <item
         android:id="@+id/action_refresh"
+        android:icon="@drawable/ic_refresh_white_24dp"
         android:orderInCategory="100"
         android:title="@string/action_refresh"
-        android:icon="@drawable/ic_refresh_white_24dp"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_site"
+        android:icon="@drawable/ic_public_white_24dp"
         android:orderInCategory="150"
         android:title="@string/action_site"
-        android:icon="@drawable/ic_public_white_24dp"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_exclusives"
@@ -21,14 +21,14 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_about"
+        android:icon="@drawable/ic_feedback_white_24dp"
         android:orderInCategory="200"
         android:title="@string/action_about"
-        android:icon="@drawable/ic_feedback_white_24dp"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings_white_24dp"
         android:orderInCategory="300"
         android:title="@string/action_settings"
-        android:icon="@drawable/ic_settings_white_24dp"
         app:showAsAction="ifRoom" />
 </menu>

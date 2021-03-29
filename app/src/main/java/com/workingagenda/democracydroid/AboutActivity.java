@@ -3,7 +3,6 @@ package com.workingagenda.democracydroid;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,13 +17,7 @@ import androidx.core.app.NavUtils;
 /**
  * Created by fen on 1/14/16.
  */
-@SuppressWarnings("DefaultFileTemplate")
 public class AboutActivity extends AppCompatActivity {
-
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +59,8 @@ public class AboutActivity extends AppCompatActivity {
                     startActivity(goToMarket);
                 } catch (ActivityNotFoundException e) {
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id=" + getBaseContext().getPackageName())));
+                            Uri.parse("http://play.google.com/store/apps/details?id="
+                                    + getBaseContext().getPackageName())));
                 }
             }
         });
@@ -121,9 +115,8 @@ public class AboutActivity extends AppCompatActivity {
                 startActivity(contactIntent);
             }
         });
-
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -155,5 +148,4 @@ public class AboutActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }

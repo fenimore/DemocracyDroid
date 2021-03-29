@@ -16,19 +16,13 @@
  */
 package com.workingagenda.democracydroid.Adapters.ViewHolders;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
 import android.preference.PreferenceManager;
-
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -37,25 +31,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.workingagenda.democracydroid.MediaActivity;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 
-import androidx.recyclerview.widget.RecyclerView;
+public class EpisodeViewHolder extends RecyclerView.ViewHolder
+        implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
 
-
-public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener,MenuItem.OnMenuItemClickListener {
-
-    private final TextView txt;
-    private final ImageView img;
-    private final TextView tag;
-    private final ImageView mOptions;
     // ENUMS
     private static final int STREAM_VIDEO = 0;
     private static final int STREAM_AUDIO = 1;
     private static final int OPEN_THIS_APP = 0;
+    private final TextView txt;
+    private final ImageView img;
+    private final TextView tag;
+    private final ImageView mOptions;
     private Episode mEpisode;
 
     public EpisodeViewHolder(final View itemView) {
@@ -66,7 +59,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
         tag.setMaxLines(3);
         mOptions = itemView.findViewById(R.id.row_options);
         itemView.setOnCreateContextMenuListener(this);
-
     }
 
     public void showEpisode(final Episode e) {
@@ -79,11 +71,10 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
             }
             if (txt != null) {
                 String fullTitle = e.getTitle().trim();
-                if (fullTitle.startsWith("Democracy Now!")){
+                if (fullTitle.startsWith("Democracy Now!")) {
                     String title = fullTitle.substring(14).trim();
                     txt.setText(title);
-                }
-                else {
+                } else {
                     txt.setText(fullTitle);
                 }
             }
@@ -128,7 +119,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                 startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
             else if (DEFAULT_STREAM == STREAM_AUDIO)
                 startMediaIntent(e.getAudioUrl(), DEFAULT_OPEN, actionTitle);
-
         }
     }
 
@@ -141,7 +131,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
             Intent intent = new Intent(itemView.getContext(), MediaActivity.class);
             intent.putExtra("url", url);
             intent.putExtra("title", title);
-            ((Activity)itemView.getContext()).startActivityForResult(intent, 0); //Activity load = 0
+            ((Activity) itemView.getContext()).startActivityForResult(intent, 0); //Activity load = 0
         } else {
             // FIXME: SecurityException
             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -164,11 +154,11 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
         else
             menu.getItem(0).setTitle("Stream Video");
 
-        if(DEFAULT_OPEN == 0)
+        if (DEFAULT_OPEN == 0)
             menu.getItem(1).setTitle("Stream in Another App");
         else
             menu.getItem(1).setTitle("Stream in This App");
-        for (int i = 0;i<menu.size();i++){
+        for (int i = 0; i < menu.size(); i++) {
             menu.getItem(i).setOnMenuItemClickListener(this);
         }
     }
@@ -179,17 +169,17 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
         int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
         int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this ap
         String actionTitle = "Democracy Now!";
-        if (mEpisode.getTitle().length() > 16){
-            if("Today's Broadcast".equals(mEpisode.getTitle())){
+        if (mEpisode.getTitle().length() > 16) {
+            if ("Today's Broadcast".equals(mEpisode.getTitle())) {
                 actionTitle = mEpisode.getTitle();
-            } else if (mEpisode.getTitle().startsWith("Democracy Now!")){
+            } else if (mEpisode.getTitle().startsWith("Democracy Now!")) {
                 actionTitle = mEpisode.getTitle().substring(14);
             } else {
                 actionTitle = mEpisode.getTitle();
             }
         }
 
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.action_share:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);

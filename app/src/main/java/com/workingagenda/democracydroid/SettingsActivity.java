@@ -13,44 +13,39 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toolbar;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NavUtils;
 
-
 /**
  * Created by fen on 5/15/16.
  */
-@SuppressWarnings("DefaultFileTemplate")
 public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
-    private AppCompatDelegate mDelegate;
     public static final String KEY_WIFI = "wifi_preference";
+    private AppCompatDelegate mDelegate;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences);
         ListPreference tab = (ListPreference) findPreference("tab_preference");
-        if(tab.getValue() == null){
+        if (tab.getValue() == null) {
             tab.setValueIndex(1);
         }
 
         final ListPreference stream = (ListPreference) findPreference("stream_preference");
-        if(stream.getValue() == null){
+        if (stream.getValue() == null) {
             stream.setValueIndex(0);
         }
 
         ListPreference open = (ListPreference) findPreference("open_preference");
-        if(open.getValue() == null){
+        if (open.getValue() == null) {
             open.setValueIndex(0);
         }
         String versionName = BuildConfig.VERSION_NAME;
@@ -62,9 +57,9 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         spanish.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (spanish.isChecked()){
+                if (spanish.isChecked()) {
                     spanish.setChecked(false);
-                } else{
+                } else {
                     stream.setValueIndex(1);
                     spanish.setChecked(true);
                 }
@@ -72,12 +67,13 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
             }
         });
 
-
         newPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
-                builder.setMessage(R.string.whatsnew).setTitle("What's New").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                builder.setMessage(R.string.whatsnew)
+                        .setTitle("What's New")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!
                     }
@@ -89,15 +85,14 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     }
 
     @Override
-     public boolean onOptionsItemSelected(MenuItem item) {
-         switch (item.getItemId())
-         {
-             case android.R.id.home:
-                 NavUtils.navigateUpFromSameTask(this);
-                 return true;
-         }
-         return super.onOptionsItemSelected(item);
-     }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -110,50 +105,61 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     public MenuInflater getMenuInflater() {
         return getDelegate().getMenuInflater();
     }
+
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         getDelegate().setContentView(layoutResID);
     }
+
     @Override
     public void setContentView(View view) {
         getDelegate().setContentView(view);
     }
+
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         getDelegate().setContentView(view, params);
     }
+
     @Override
     public void addContentView(View view, ViewGroup.LayoutParams params) {
         getDelegate().addContentView(view, params);
     }
+
     @Override
     protected void onPostResume() {
         super.onPostResume();
         getDelegate().onPostResume();
     }
+
     @Override
     protected void onTitleChanged(CharSequence title, int color) {
         super.onTitleChanged(title, color);
         getDelegate().setTitle(title);
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         getDelegate().onConfigurationChanged(newConfig);
     }
+
     @Override
     protected void onStop() {
         super.onStop();
         getDelegate().onStop();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         getDelegate().onDestroy();
     }
+
     public void invalidateOptionsMenu() {
         getDelegate().invalidateOptionsMenu();
     }
+
     private AppCompatDelegate getDelegate() {
         if (mDelegate == null) {
             mDelegate = AppCompatDelegate.create(this, null);
@@ -163,6 +169,5 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
     }
 }

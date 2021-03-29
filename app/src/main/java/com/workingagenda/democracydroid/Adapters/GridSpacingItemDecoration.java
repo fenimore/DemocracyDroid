@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Created by derrickrocha on 7/16/17.
  */
-
-@SuppressWarnings("DefaultFileTemplate")
-public class GridSpacingItemDecoration  extends RecyclerView.ItemDecoration {
+public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
     private final int spanCount;
     private final int spacing;
@@ -21,7 +19,6 @@ public class GridSpacingItemDecoration  extends RecyclerView.ItemDecoration {
         this.spacing = spacing;
         this.includeEdge = includeEdge;
     }
-
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {

@@ -8,11 +8,10 @@
         android:id="@+id/reverse_default_open"
         android:orderInCategory="400"
         android:title="@string/open_elsewhere" />
-
     <item
         android:id="@+id/open_browser"
         android:orderInCategory="500"
-        android:title="@string/action_browser"/>
+        android:title="@string/action_browser" />
     <item
         android:id="@+id/action_share"
         android:orderInCategory="600"
@@ -21,5 +20,4 @@
         android:id="@+id/action_description"
         android:orderInCategory="700"
         android:title="@string/read_description" />
-
 </menu>

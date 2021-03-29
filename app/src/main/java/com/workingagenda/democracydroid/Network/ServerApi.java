@@ -11,30 +11,28 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-@SuppressWarnings("DefaultFileTemplate")
 public class ServerApi {
 
     private final int LIVE_TIME = 8;
     private final SimpleDateFormat mFormat;
 
-    private final String DN_LIVE_STREAM= "http://democracynow.videocdn.scaleengine.net/" +
+    private final String DN_LIVE_STREAM = "http://democracynow.videocdn.scaleengine.net/" +
             "democracynow-iphone/play/democracynow/playlist.m3u8";
     private final String DN_VIDEO_HOST = "http://publish.dvlabs.com/democracynow/video-podcast/dn";
     private final String DN_VIDEO_FEED = "https://www.democracynow.org/podcast-video.xml";
     private final String TIME_ZONE = "America/New_York";
 
-
-    public ServerApi(){
+    public ServerApi() {
         mFormat = new SimpleDateFormat("yyyy-MMdd", Locale.US);
     }
 
-    public ArrayList<Episode>getVideoFeed() throws Exception {
+    public ArrayList<Episode> getVideoFeed() throws Exception {
 
         RssReader rssReader = new RssReader(DN_VIDEO_FEED);
-        List<RssItem>items = rssReader.getItems();
+        List<RssItem> items = rssReader.getItems();
         int size = items.size();
         ArrayList<Episode> epis = new ArrayList<>(size);
-        for(int i = 0; i< size; i++) {
+        for (int i = 0; i < size; i++) {
             Episode e = new Episode();
             RssItem item = items.get(i);
             String title = item.getTitle();

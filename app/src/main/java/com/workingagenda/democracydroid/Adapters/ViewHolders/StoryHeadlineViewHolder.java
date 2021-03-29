@@ -28,14 +28,15 @@ public class StoryHeadlineViewHolder extends BaseStoryViewHolder {
     }
 
     @Override
-    public void showEpisode(final Episode episode){
+    public void showEpisode(final Episode episode) {
         if (episode != null) {
             mEpisode = episode;
             if (mTxt != null) {
                 mTxt.setText(episode.getTitle());
             }
             try {
-                mImg.setImageURI(Uri.parse("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png"));
+                mImg.setImageURI(
+                        Uri.parse("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png"));
             } catch (Exception e) {
                 Log.v("Story Adapter", "exception" + e.toString());
             }

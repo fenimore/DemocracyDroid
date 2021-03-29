@@ -14,11 +14,9 @@ public class Episode {
     private String description;
     private String pubDate;
 
-
     public String toString() {
-        return  "\nEpisode: " + videoUrl + " " + pubDate
-                + "\n"+ audioUrl + " "+ title;
-
+        return "\nEpisode: " + videoUrl + " " + pubDate
+                + "\n" + audioUrl + " " + title;
     }
 
     public String getPubDate() {
@@ -76,5 +74,4 @@ public class Episode {
     public void setDescription(String description) {
         this.description = description;
     }
-
 }

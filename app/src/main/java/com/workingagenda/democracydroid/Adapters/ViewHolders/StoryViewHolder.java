@@ -25,7 +25,6 @@ import android.widget.TextView;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 
-
 public class StoryViewHolder extends BaseStoryViewHolder {
     private final ImageView mImg;
     private final ImageView mOptions;
@@ -40,7 +39,7 @@ public class StoryViewHolder extends BaseStoryViewHolder {
     }
 
     @Override
-    public void showEpisode(final Episode episode){
+    public void showEpisode(final Episode episode) {
         if (episode != null) {
             mEpisode = episode;
             try {
@@ -65,5 +64,4 @@ public class StoryViewHolder extends BaseStoryViewHolder {
             });
         }
     }
-
 }

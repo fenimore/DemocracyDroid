@@ -20,19 +20,20 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.workingagenda.democracydroid.Adapters.ViewHolders.EpisodeViewHolder;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 
 import java.util.List;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeViewHolder> {
     private final LayoutInflater mInflator;
     private final List<Episode> mEpisodes;
 
-    public EpisodeAdapter(Context context, List<Episode> episodes){
+    public EpisodeAdapter(Context context, List<Episode> episodes) {
         mEpisodes = episodes;
         mInflator = LayoutInflater.from(context);
     }
@@ -48,7 +49,6 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeViewHolder> {
         Episode episode = mEpisodes.get(position);
         holder.showEpisode(episode);
     }
-
 
     @Override
     public int getItemCount() {

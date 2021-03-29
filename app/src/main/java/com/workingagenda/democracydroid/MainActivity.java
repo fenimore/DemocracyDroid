@@ -21,14 +21,9 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.google.android.material.tabs.TabLayout;
-import com.workingagenda.democracydroid.tabfragment.PodcastFragment;
-import com.workingagenda.democracydroid.tabfragment.StoryFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -37,12 +32,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.tabs.TabLayout;
+import com.workingagenda.democracydroid.tabfragment.PodcastFragment;
+import com.workingagenda.democracydroid.tabfragment.StoryFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,16 +61,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_library_books_white_24dp));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_live_tv_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        /*
-      The {@link android.support.v4.view.PagerAdapter} that will provide
-      fragments for each of the sections. We use a
-      {@link FragmentPagerAdapter} derivative, which will keep every
-      loaded fragment in memory. If this becomes too memory intensive, it
-      may be best to switch to a
-      {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -86,10 +79,12 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 mViewPager.setCurrentItem(tab.getPosition());
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 mViewPager.setCurrentItem(1);
             }
+
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 mViewPager.setCurrentItem(tab.getPosition());
@@ -111,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
@@ -122,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             item.setEnabled(false);
             // Call Fragment refresh methods
             getSupportFragmentManager().getFragments();
-            for(Fragment x :getSupportFragmentManager().getFragments()){
+            for (Fragment x : getSupportFragmentManager().getFragments()) {
                 if (x instanceof PodcastFragment)
                     ((PodcastFragment) x).refresh();
                 if (x instanceof StoryFragment)
@@ -146,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
             return true;
         }
-        if(id == R.id.action_about){
+        if (id == R.id.action_about) {
             Intent intent = new Intent(this, AboutActivity.class);
             startActivityForResult(intent, 0);
         }
@@ -169,11 +163,13 @@ public class MainActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PodcastFragment (defined as a static inner class below).
             // Return PodcastFragment.newInstance(position + 1);
-            switch(position) {
-
-                case 0: return StoryFragment.newInstance(position + 1);
-                case 1: return PodcastFragment.newInstance(position + 1);
-                default: return PodcastFragment.newInstance(position + 1);
+            switch (position) {
+                case 0:
+                    return StoryFragment.newInstance(position + 1);
+                case 1:
+                    return PodcastFragment.newInstance(position + 1);
+                default:
+                    return PodcastFragment.newInstance(position + 1);
             }
         }
 

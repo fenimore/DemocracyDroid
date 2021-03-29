@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.workingagenda.democracydroid">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="com.workingagenda.democracydroid.MainApplication"
         android:allowBackup="true"
@@ -66,17 +70,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.workingagenda.democracydroid.MainActivity" />
         </activity>
+
         <service android:name=".MediaService">
             <intent-filter>
-                <action android:name=".MediaService"></action>
+                <action android:name=".MediaService" />
             </intent-filter>
         </service>
-
-
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
 </manifest>

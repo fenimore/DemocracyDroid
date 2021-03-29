@@ -21,6 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.workingagenda.democracydroid.Adapters.ViewHolders.BaseStoryViewHolder;
 import com.workingagenda.democracydroid.Adapters.ViewHolders.StoryHeadlineViewHolder;
 import com.workingagenda.democracydroid.Adapters.ViewHolders.StoryViewHolder;
@@ -29,9 +31,6 @@ import com.workingagenda.democracydroid.R;
 
 import java.util.List;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-
 public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
 
     private static final int TYPE_HEADLINE = 0;
@@ -39,7 +38,7 @@ public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
     private final LayoutInflater mInflator;
     private final List<Episode> mEpisodes;
 
-    public StoryAdapter(Context context, List<Episode> episodes){
+    public StoryAdapter(Context context, List<Episode> episodes) {
         mInflator = LayoutInflater.from(context);
         mEpisodes = episodes;
     }
@@ -49,8 +48,7 @@ public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
         if (viewType == TYPE_EPISODE) {
             View v = mInflator.inflate(R.layout.row_story, null);
             return new StoryViewHolder(v);
-        }
-        else {
+        } else {
             View v = mInflator.inflate(R.layout.row_story_headline, null);
             return new StoryHeadlineViewHolder(v);
         }
@@ -64,10 +62,9 @@ public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
     @Override
     public int getItemViewType(int position) {
         Episode episode = mEpisodes.get(position);
-        if (episode.getTitle().startsWith("Headlines")){
+        if (episode.getTitle().startsWith("Headlines")) {
             return TYPE_HEADLINE;
-        }
-        else{
+        } else {
             return TYPE_EPISODE;
         }
     }

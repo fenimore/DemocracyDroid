@@ -7,14 +7,13 @@ import com.workingagenda.democracydroid.Objects.Episode;
 
 import java.util.ArrayList;
 
-
-public class GetVideoFeed extends AsyncTask<Object,Void,ArrayList<Episode>> {
+public class GetVideoFeed extends AsyncTask<Object, Void, ArrayList<Episode>> {
 
     private final GetVideoFeedCallback mCallback;
     private final ServerApi mServerApi;
     private final boolean mShowLoading;
 
-    public GetVideoFeed(boolean showLoading, ServerApi serverApi, GetVideoFeedCallback callback){
+    public GetVideoFeed(boolean showLoading, ServerApi serverApi, GetVideoFeedCallback callback) {
         mCallback = callback;
         mServerApi = serverApi;
         mShowLoading = showLoading;
@@ -34,7 +33,8 @@ public class GetVideoFeed extends AsyncTask<Object,Void,ArrayList<Episode>> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return episodeList;    }
+        return episodeList;
+    }
 
     @Override
     protected void onPostExecute(ArrayList<Episode> result) {
@@ -42,11 +42,9 @@ public class GetVideoFeed extends AsyncTask<Object,Void,ArrayList<Episode>> {
         mCallback.onGetVideoFeedPostExecute(result);
     }
 
-    public interface GetVideoFeedCallback{
-
+    public interface GetVideoFeedCallback {
         void onGetVideoFeedPreExecute(boolean showLoading);
 
         void onGetVideoFeedPostExecute(ArrayList<Episode> result);
     }
-
 }

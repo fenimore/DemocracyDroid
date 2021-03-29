@@ -4,5 +4,4 @@
         android:id="@+id/action_blog_description"
         android:orderInCategory="100"
         android:title="@string/description_menu_title" />
-
 </menu>

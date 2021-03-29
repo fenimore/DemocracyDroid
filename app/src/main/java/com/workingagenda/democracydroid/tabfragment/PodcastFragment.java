@@ -3,11 +3,16 @@ package com.workingagenda.democracydroid.tabfragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
@@ -26,26 +31,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-
 public class PodcastFragment extends Fragment {
 
-    private View mProgress;
-    private EpisodeAdapter episodeAdapter;
-    private ArrayList<Episode> mEpisodes;
-    private SimpleDateFormat mFormat;
-    private boolean mSpanishFeed = false;
-
-    private SwipeRefreshLayout mySwipeRefreshLayout;
-
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private ServerApi mServerApi;
-
     private final String TAG = "PODCASTS";
     private final int LIVE_TIME = 8;
     private final String DN_SPANISH_FEED = "https://www.democracynow.org/podcast-es.xml";
@@ -53,10 +41,13 @@ public class PodcastFragment extends Fragment {
     private final String DN_AUDIO_HOSTING = "http://traffic.libsyn.com/democracynow/";
     private final String DN_LIVE_HOSTING = "http://democracynow.videocdn.scaleengine.net/democracynow-" +
             "iphone/play/democracynow/playlist.m3u8";
-
-    public void refresh() {
-        getVideoFeed(false);
-    }
+    private View mProgress;
+    private EpisodeAdapter episodeAdapter;
+    private ArrayList<Episode> mEpisodes;
+    private SimpleDateFormat mFormat;
+    private boolean mSpanishFeed = false;
+    private SwipeRefreshLayout mySwipeRefreshLayout;
+    private ServerApi mServerApi;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -70,6 +61,10 @@ public class PodcastFragment extends Fragment {
         return fragment;
     }
 
+    public void refresh() {
+        getVideoFeed(false);
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,7 +75,7 @@ public class PodcastFragment extends Fragment {
         mProgress = rootView.findViewById(R.id.progress_icon);
 
         mySwipeRefreshLayout = rootView.findViewById(R.id.swiperefresh);
-        if (mySwipeRefreshLayout != null ) {
+        if (mySwipeRefreshLayout != null) {
             mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
@@ -97,7 +92,8 @@ public class PodcastFragment extends Fragment {
         episodeAdapter = new EpisodeAdapter(getContext(), mEpisodes);
         mList.setAdapter(episodeAdapter);
         mList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mList.addItemDecoration(new GridSpacingItemDecoration(1, DpToPixelHelper.dpToPx(4,getResources().getDisplayMetrics()), true));
+        mList.addItemDecoration(new GridSpacingItemDecoration(
+                1, DpToPixelHelper.dpToPx(4, getResources().getDisplayMetrics()), true));
         mFormat = new SimpleDateFormat("yyyy-MMdd", Locale.US);
         getVideoFeed(true);
 
@@ -113,7 +109,7 @@ public class PodcastFragment extends Fragment {
             }
 
             @Override
-            public void onGetVideoFeedPostExecute(ArrayList<Episode>episodes) {
+            public void onGetVideoFeedPostExecute(ArrayList<Episode> episodes) {
                 mProgress.setVisibility(View.GONE);
                 showEpisodes(episodes);
                 getAudioFeed();
@@ -127,13 +123,12 @@ public class PodcastFragment extends Fragment {
         new GetAudioFeed(new GetAudioFeed.GetAudioFeedCallback() {
             @Override
             public void onGetAudioFeedPreExecute() {
-
             }
 
             @Override
             public void onGetAudioFeedPostExecute(List<String> audioLinks) {
                 if (audioLinks.size() < 1) {
-                    Snackbar.make(mProgress,R.string.connect_error,Snackbar.LENGTH_INDEFINITE).show();
+                    Snackbar.make(mProgress, R.string.connect_error, Snackbar.LENGTH_INDEFINITE).show();
                     return;
                 }
                 if (mySwipeRefreshLayout != null) {
@@ -181,5 +176,4 @@ public class PodcastFragment extends Fragment {
 
         return audioUrls;
     }
-
 }

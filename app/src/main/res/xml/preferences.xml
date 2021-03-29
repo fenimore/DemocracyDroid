@@ -1,72 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
     <Preference
         android:key="whats_new"
         android:selectable="true"
-        android:title="What's New In This Version"
-        android:summary="Features and Bug Fixes (press here)"/>
+        android:summary="Features and Bug Fixes (press here)"
+        android:title="What's New In This Version" />
+
     <PreferenceCategory android:title="@string/pref_category_settings">
         <CheckBoxPreference
-            android:key="spanish_preference"
-            android:title="@string/setting_language"
-            android:summary="Spanish language Audio broadcast"
             android:defaultValue="false"
-            />
+            android:key="spanish_preference"
+            android:summary="Spanish language Audio broadcast"
+            android:title="@string/setting_language" />
         <ListPreference
-            android:key="tab_preference"
-            android:title="@string/setting_tab"
-            android:summary="%s Tab"
             android:entries="@array/tabsAlias"
-            android:entryValues="@array/tabs" />
+            android:entryValues="@array/tabs"
+            android:key="tab_preference"
+            android:summary="%s Tab"
+            android:title="@string/setting_tab" />
         <ListPreference
-            android:key="stream_preference"
-            android:title="@string/setting_stream"
-            android:summary="%s Stream"
             android:entries="@array/streamAlias"
-            android:entryValues="@array/stream" />
+            android:entryValues="@array/stream"
+            android:key="stream_preference"
+            android:summary="%s Stream"
+            android:title="@string/setting_stream" />
         <ListPreference
-            android:key="open_preference"
-            android:title="@string/open_stream"
-            android:summary="Open Stream In %s"
             android:entries="@array/openAlias"
-            android:entryValues="@array/open" />
+            android:entryValues="@array/open"
+            android:key="open_preference"
+            android:summary="Open Stream In %s"
+            android:title="@string/open_stream" />
     </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/pref_category_info">
         <Preference
             android:key="pref_static_field_key5"
-            android:title="Publisher Information:"
-            android:summary="Democracy Now! produces a daily, global, independent news hour hosted by award-winning journalists Amy Goodman and Juan González">
-        <intent android:action="android.intent.action.VIEW"
-            android:data="https://www.democracynow.org/"/>
+            android:summary="Democracy Now! produces a daily, global, independent news hour hosted by award-winning journalists Amy Goodman and Juan González"
+            android:title="Publisher Information:">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://www.democracynow.org/" />
         </Preference>
         <Preference
             android:key="pref_static_field_key5"
-            android:title="Contact Democracy Now!"
-            android:summary="Click Here To Contact Democracy Now! at democracynow.org">
-            <intent android:action="android.intent.action.VIEW"
-                android:data="https://www.democracynow.org/contact"/>
+            android:summary="Click Here To Contact Democracy Now! at democracynow.org"
+            android:title="Contact Democracy Now!">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://www.democracynow.org/contact" />
         </Preference>
         <Preference
             android:key="pref_static_field_key2"
             android:selectable="false"
-            android:title="Content License"
-            android:summary="Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States"/>
+            android:summary="Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States"
+            android:title="Content License" />
         <Preference
             android:key="pref_static_field_key0"
             android:selectable="false"
-            android:title="Application Version"
-            android:summary="Democracy Droid!"/>
+            android:summary="Democracy Droid!"
+            android:title="Application Version" />
         <Preference
             android:key="pref_static_field_key1"
             android:selectable="false"
-            android:title="Software License"
-            android:summary="GNU General Public License v3"/>
+            android:summary="GNU General Public License v3"
+            android:title="Software License" />
         <Preference
             android:key="pref_static_field_key3"
-            android:title="Source Code and Issue Tracker"
-            android:summary="Click to open">
-            <intent android:action="android.intent.action.VIEW"
-                android:data="https://github.com/fenimore/DemocracyDroid"/>
+            android:summary="Click to open"
+            android:title="Source Code and Issue Tracker">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/fenimore/DemocracyDroid" />
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

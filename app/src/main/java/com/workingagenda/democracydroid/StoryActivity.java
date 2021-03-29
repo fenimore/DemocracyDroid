@@ -9,6 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,21 +20,8 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NavUtils;
-
 
 public class StoryActivity extends AppCompatActivity {
-
-    private WebView webview;
-
-    // Data
-    private String title;
-    private String date;
-    private String url;
-    private String video;
-    private String audio;
 
     private static final String CSS = "<head><style type='text/css'> "
             + "body {max-width: 100%; margin: 0.3cm; font-family: sans-serif-light; color: black; background-color: #f6f6f6; line-height: 150%} "
@@ -59,6 +50,13 @@ public class StoryActivity extends AppCompatActivity {
             + ".button-section p.marginfix {margin: 0.5cm 0 0.5cm 0}"
             + ".button-section input, .button-section a {font-family: sans-serif-light; font-size: 100%; color: #FFFFFF; background-color:#52A7DF; text-decoration: none; border: none; border-radius:0.2cm; padding: 0.3cm} "
             + "</style><meta name='viewport' content='width=device-width'/></head><body>";
+    private WebView webview;
+    // Data
+    private String title;
+    private String date;
+    private String url;
+    private String video;
+    private String audio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,9 +94,9 @@ public class StoryActivity extends AppCompatActivity {
         if (video == null && audio == null) {
             return super.onOptionsItemSelected(item);
         }
-        if(id == android.R.id.home){
-             NavUtils.navigateUpFromSameTask(this);
-             return true;
+        if (id == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
         } else if (id == R.id.action_share) {
             // share intent
             Intent sendIntent = new Intent();
@@ -131,27 +129,6 @@ public class StoryActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class  RetrieveContent extends AsyncTask<String, Void, String> {
-        protected String doInBackground(String... urls){
-            try {
-                return getContent(urls[0]);
-            }catch (Exception e){
-                Log.v("Story Failure:", e.toString());
-                return null;
-            }
-        }
-
-        protected void onPostExecute(String result){
-            super.onPostExecute(result);
-            String page = "<h2>" + title + "</h2><strong>" + date +
-                    "</strong><br><small>Viewer Supported News:</small> " +
-                    "<a class='donate_button' data-width='800' data-height='590' " +
-                    "data-ga-action='Story: Donate' href='https://democracynow.org/donate'>" +
-                    "Donate</a><br>Donate at democracynow.org<hr>" + result;
-            webview.loadDataWithBaseURL(null, page, "text/html; charset=utf-8", "UTF-8", null);
-        }
-    }
-
     private String getContent(String url) throws IOException {
         Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
         Element data;
@@ -161,7 +138,7 @@ public class StoryActivity extends AppCompatActivity {
         audio = audioElem.attr("abs:href");
         video = videoElem.attr("abs:href");
         // Get the Transcript URL
-        if (doc.getElementById("headlines") == null){
+        if (doc.getElementById("headlines") == null) {
             data = doc.getElementById("story_text");
             data.getElementsByClass("left_panel").remove();
             data.getElementsByClass("hidden-xs").remove();
@@ -172,9 +149,35 @@ public class StoryActivity extends AppCompatActivity {
         // Change the links to absolute!! so that images work
         Elements select_img = data.select("img");
         Elements select = data.select("a");
-        for(Element e:select_img){e.attr("src", e.absUrl("src"));}
-        for(Element e:select){e.attr("href", e.absUrl("href"));}
+        for (Element e : select_img) {
+            e.attr("src", e.absUrl("src"));
+        }
+        for (Element e : select) {
+            e.attr("href", e.absUrl("href"));
+        }
         data.getElementsByClass("donate_container").remove();
         return CSS + data.toString() + "</body>";
+    }
+
+    private class RetrieveContent extends AsyncTask<String, Void, String> {
+        protected String doInBackground(String... urls) {
+            try {
+                return getContent(urls[0]);
+            } catch (Exception e) {
+                Log.v("Story Failure:", e.toString());
+                return null;
+            }
+        }
+
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            String page = "<h2>" + title + "</h2><strong>" + date +
+                    "</strong><br><small>Viewer Supported News:</small> " +
+                    "<a class='donate_button' data-width='800' data-height='590' " +
+                    "data-ga-action='Story: Donate' href='https://democracynow.org/donate'>" +
+                    "Donate</a><br>Donate at democracynow.org<hr>" + result;
+            webview.loadDataWithBaseURL(null, page,
+                    "text/html; charset=utf-8", "UTF-8", null);
+        }
     }
 }
