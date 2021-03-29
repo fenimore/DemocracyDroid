@@ -163,7 +163,7 @@ public class PodcastFragment extends Fragment {
 
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
-        boolean onSchedule = (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY && hourOfDay > LIVE_TIME - 1);
+        boolean onSchedule = dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY && hourOfDay > LIVE_TIME - 1;
         // There isn't an unlisted audio recording or live feed
         if (!onSchedule) return audioUrls;
 

@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
         boolean PREF_FIRST_TIME = preferences.getBoolean("first_preference", true);
         // TODO: have splash screen for new users
-        Log.d("First time", String.valueOf((PREF_FIRST_TIME)));
+        Log.d("First time", String.valueOf(PREF_FIRST_TIME));
         // Tab Layouts
         TabLayout tabLayout = findViewById(R.id.main_tablayout);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_library_books));

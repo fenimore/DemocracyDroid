@@ -26,7 +26,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -224,7 +224,7 @@ public class RssReader {
         stream = new ByteArrayInputStream(
                 doc.toString()
                         .replaceAll("&nbsp", " ")
-                        .getBytes(Charset.forName("UTF-8"))
+                        .getBytes(StandardCharsets.UTF_8)
         );
         items = getRssItems(stream);
         return items;
