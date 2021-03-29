@@ -15,18 +15,16 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.ui.StyledPlayerView;
+import com.workingagenda.democracydroid.databinding.ActivityMediaBinding;
 
 public class MediaActivity extends AppCompatActivity {
-
+    ActivityMediaBinding binding;
     private SimpleExoPlayer player;
     private Uri url; // cause all urls are uris
     private final ServiceConnection mConnection = new ServiceConnection() {
-
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
             Log.d("ServiceConnection", "connected");
@@ -35,11 +33,8 @@ public class MediaActivity extends AppCompatActivity {
             player = mediaService.setUpPlayer(url);
             Log.d("ServiceConnection", player.toString());
 
-            // ExoPlayer Views
-            StyledPlayerView mVideoView = findViewById(R.id.media_player);
-
-            mVideoView.setPlayer(player);
-            mVideoView.requestFocus();
+            binding.mediaPlayer.setPlayer(player);
+            binding.mediaPlayer.requestFocus();
         }
 
         @Override
@@ -62,13 +57,13 @@ public class MediaActivity extends AppCompatActivity {
             mMediaPosition = savedInstanceState.getInt("pos");
             Log.d("Unbundling: ", String.valueOf(mMediaPosition));
         }
-        setContentView(R.layout.activity_media);
-        // Toolbar
-        Toolbar toolbar = findViewById(R.id.media_toolbar);
-        setSupportActionBar(toolbar);
+        binding = ActivityMediaBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        setSupportActionBar(binding.mediaToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setTitle("Democracy Droid!");
+        binding.mediaToolbar.setTitle("Democracy Droid!");
 
         // Intent Get Extras
         Bundle extras = getIntent().getExtras();

@@ -4,7 +4,7 @@
     android:layout_height="fill_parent">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/story_swiperefresh"
+        android:id="@+id/story_swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="fill_parent">
 

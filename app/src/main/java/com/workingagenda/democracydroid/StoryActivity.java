@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
+
+import com.workingagenda.democracydroid.databinding.ActivityStoryBinding;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -50,7 +50,7 @@ public class StoryActivity extends AppCompatActivity {
             + ".button-section p.marginfix {margin: 0.5cm 0 0.5cm 0}"
             + ".button-section input, .button-section a {font-family: sans-serif-light; font-size: 100%; color: #FFFFFF; background-color:#52A7DF; text-decoration: none; border: none; border-radius:0.2cm; padding: 0.3cm} "
             + "</style><meta name='viewport' content='width=device-width'/></head><body>";
-    private WebView webview;
+    ActivityStoryBinding binding;
     // Data
     private String title;
     private String date;
@@ -61,10 +61,9 @@ public class StoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_story);
-        webview = findViewById(R.id.story_webview);
-        Toolbar toolbar = findViewById(R.id.story_toolbar);
-        setSupportActionBar(toolbar);
+        binding = ActivityStoryBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.storyToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle extras = getIntent().getExtras();
@@ -177,7 +176,7 @@ public class StoryActivity extends AppCompatActivity {
                     "<a class='donate_button' data-width='800' data-height='590' " +
                     "data-ga-action='Story: Donate' href='https://democracynow.org/donate'>" +
                     "Donate</a><br>Donate at democracynow.org<hr>" + result;
-            webview.loadDataWithBaseURL(null, page,
+            binding.storyWebview.loadDataWithBaseURL(null, page,
                     "text/html; charset=utf-8", "UTF-8", null);
         }
     }

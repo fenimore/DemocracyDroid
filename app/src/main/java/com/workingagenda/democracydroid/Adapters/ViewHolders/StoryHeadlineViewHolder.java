@@ -2,27 +2,27 @@ package com.workingagenda.democracydroid.Adapters.ViewHolders;
 
 import android.net.Uri;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.workingagenda.democracydroid.Objects.Episode;
-import com.workingagenda.democracydroid.R;
+import com.workingagenda.democracydroid.databinding.RowStoryHeadlineBinding;
 
 /**
  * Created by derrickrocha on 7/15/17.
  */
 public class StoryHeadlineViewHolder extends BaseStoryViewHolder {
-
+    final RowStoryHeadlineBinding binding;
     private final ImageView mImg;
     private final ImageView mOptions;
     private final TextView mTxt;
 
-    public StoryHeadlineViewHolder(View itemView) {
-        super(itemView);
-        mImg = itemView.findViewById(R.id.row_story_headline_image);
-        mTxt = itemView.findViewById(R.id.row_story_headline_title);
-        mOptions = itemView.findViewById(R.id.row_story_headline_options);
+    public StoryHeadlineViewHolder(final RowStoryHeadlineBinding binding) {
+        super(binding.getRoot());
+        this.binding = binding;
+        mImg = binding.rowStoryHeadlineImage;
+        mTxt = binding.rowStoryHeadlineTitle;
+        mOptions = binding.rowStoryHeadlineOptions;
         itemView.setOnCreateContextMenuListener(this);
     }
 

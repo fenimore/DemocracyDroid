@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.workingagenda.democracydroid.MediaActivity;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
+import com.workingagenda.democracydroid.databinding.RowEpisodesBinding;
 
 public class EpisodeViewHolder extends RecyclerView.ViewHolder
         implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
@@ -44,6 +45,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
     private static final int STREAM_VIDEO = 0;
     private static final int STREAM_AUDIO = 1;
     private static final int OPEN_THIS_APP = 0;
+    final RowEpisodesBinding binding;
     private final TextView txt;
     private final ImageView img;
     private final TextView tag;
@@ -51,13 +53,14 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
     private final SharedPreferences preferences;
     private Episode mEpisode;
 
-    public EpisodeViewHolder(final View itemView) {
-        super(itemView);
-        img = itemView.findViewById(R.id.row_episodes_image);
-        txt = itemView.findViewById(R.id.row_episodes_title);
-        tag = itemView.findViewById(R.id.row_episodes_tag);
+    public EpisodeViewHolder(final RowEpisodesBinding binding) {
+        super(binding.getRoot());
+        this.binding = binding;
+        img = binding.rowEpisodesImage;
+        txt = binding.rowEpisodesTitle;
+        tag = binding.rowEpisodesTag;
         tag.setMaxLines(3);
-        mOptions = itemView.findViewById(R.id.row_episodes_options);
+        mOptions = binding.rowEpisodesOptions;
         itemView.setOnCreateContextMenuListener(this);
         preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
     }

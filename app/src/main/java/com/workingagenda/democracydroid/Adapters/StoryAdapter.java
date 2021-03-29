@@ -18,7 +18,6 @@ package com.workingagenda.democracydroid.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -28,7 +27,8 @@ import com.workingagenda.democracydroid.Adapters.ViewHolders.BaseStoryViewHolder
 import com.workingagenda.democracydroid.Adapters.ViewHolders.StoryHeadlineViewHolder;
 import com.workingagenda.democracydroid.Adapters.ViewHolders.StoryViewHolder;
 import com.workingagenda.democracydroid.Objects.Episode;
-import com.workingagenda.democracydroid.R;
+import com.workingagenda.democracydroid.databinding.RowStoryBinding;
+import com.workingagenda.democracydroid.databinding.RowStoryHeadlineBinding;
 
 import java.util.List;
 
@@ -47,13 +47,10 @@ public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
     @NonNull
     @Override
     public BaseStoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v;
         if (viewType == TYPE_EPISODE) {
-            v = mInflator.inflate(R.layout.row_story, null);
-            return new StoryViewHolder(v);
+            return new StoryViewHolder(RowStoryBinding.inflate(mInflator));
         } else {
-            v = mInflator.inflate(R.layout.row_story_headline, null);
-            return new StoryHeadlineViewHolder(v);
+            return new StoryHeadlineViewHolder(RowStoryHeadlineBinding.inflate(mInflator));
         }
     }
 

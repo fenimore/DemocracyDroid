@@ -26,31 +26,26 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.preference.PreferenceManager;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.workingagenda.democracydroid.databinding.ActivityMainBinding;
 import com.workingagenda.democracydroid.tabfragment.PodcastFragment;
 import com.workingagenda.democracydroid.tabfragment.StoryFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        Toolbar toolbar = findViewById(R.id.main_toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.mainToolbar);
         // Shared Preferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int DEFAULT_TAB = Integer.parseInt(preferences.getString("pref_default_tab", "0"));
@@ -58,37 +53,36 @@ public class MainActivity extends AppCompatActivity {
         // TODO: have splash screen for new users
         Log.d("First time", String.valueOf(PREF_FIRST_TIME));
         // Tab Layouts
-        TabLayout tabLayout = findViewById(R.id.main_tablayout);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_library_books));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_live_tv));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        binding.mainTabLayout.addTab(binding.mainTabLayout.newTab().setIcon(R.drawable.ic_library_books));
+        binding.mainTabLayout.addTab(binding.mainTabLayout.newTab().setIcon(R.drawable.ic_live_tv));
+        binding.mainTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.main_viewpager);
-        mViewPager.setOffscreenPageLimit(1);  // ???
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(DEFAULT_TAB);
+        binding.mainViewPager.setOffscreenPageLimit(1);  // ???
+        binding.mainViewPager.setAdapter(mSectionsPagerAdapter);
+        binding.mainViewPager.setCurrentItem(DEFAULT_TAB);
         // Gather the Episode Lists
         // Set up the tab and View Pager
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        binding.mainViewPager.addOnPageChangeListener(
+                new TabLayout.TabLayoutOnPageChangeListener(binding.mainTabLayout));
+        binding.mainTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
+                binding.mainViewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(1);
+                binding.mainViewPager.setCurrentItem(1);
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
+                binding.mainViewPager.setCurrentItem(tab.getPosition());
             }
         });
     }

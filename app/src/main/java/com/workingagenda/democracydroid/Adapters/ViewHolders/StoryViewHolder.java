@@ -18,23 +18,24 @@ package com.workingagenda.democracydroid.Adapters.ViewHolders;
 
 import android.net.Uri;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.workingagenda.democracydroid.Objects.Episode;
-import com.workingagenda.democracydroid.R;
+import com.workingagenda.democracydroid.databinding.RowStoryBinding;
 
 public class StoryViewHolder extends BaseStoryViewHolder {
+    final RowStoryBinding binding;
     private final ImageView mImg;
     private final ImageView mOptions;
     private final TextView mTxt;
 
-    public StoryViewHolder(final View itemView) {
-        super(itemView);
-        mImg = itemView.findViewById(R.id.row_story_image);
-        mTxt = itemView.findViewById(R.id.row_story_title);
-        mOptions = itemView.findViewById(R.id.row_story_options);
+    public StoryViewHolder(final RowStoryBinding binding) {
+        super(binding.getRoot());
+        this.binding = binding;
+        mImg = binding.rowStoryImage;
+        mTxt = binding.rowStoryTitle;
+        mOptions = binding.rowStoryOptions;
         itemView.setOnCreateContextMenuListener(this);
     }
 

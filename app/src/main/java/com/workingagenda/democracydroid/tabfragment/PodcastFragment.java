@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
@@ -23,6 +21,7 @@ import com.workingagenda.democracydroid.Network.Podcast.GetVideoFeed;
 import com.workingagenda.democracydroid.Network.ServerApi;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
+import com.workingagenda.democracydroid.databinding.FragmentMainBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,13 +38,12 @@ public class PodcastFragment extends Fragment {
     private final String DN_AUDIO_HOSTING = "http://traffic.libsyn.com/democracynow/";
     private final String DN_LIVE_HOSTING = "http://democracynow.videocdn.scaleengine.net/democracynow-" +
             "iphone/play/democracynow/playlist.m3u8";
-    private View mProgress;
     private EpisodeAdapter episodeAdapter;
     private ArrayList<Episode> mEpisodes;
     private SimpleDateFormat mFormat;
     private boolean mSpanishFeed = false;
-    private SwipeRefreshLayout mySwipeRefreshLayout;
     private ServerApi mServerApi;
+    private FragmentMainBinding binding;
 
     public void refresh() {
         getVideoFeed(false);
@@ -54,15 +52,10 @@ public class PodcastFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentMainBinding.inflate(inflater, container, false);
 
-        final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-        RecyclerView mList = rootView.findViewById(R.id.main_recyclerview);
-        mProgress = rootView.findViewById(R.id.main_progress_icon);
-
-        mySwipeRefreshLayout = rootView.findViewById(R.id.main_swiperefresh);
-        if (mySwipeRefreshLayout != null) {
-            mySwipeRefreshLayout.setOnRefreshListener(this::refresh);
+        if (binding.mainSwipeRefresh != null) {
+            binding.mainSwipeRefresh.setOnRefreshListener(this::refresh);
         }
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mSpanishFeed = preferences.getBoolean("pref_spanish", false);
@@ -71,14 +64,20 @@ public class PodcastFragment extends Fragment {
         mServerApi = new ServerApi();
 
         episodeAdapter = new EpisodeAdapter(getContext(), mEpisodes);
-        mList.setAdapter(episodeAdapter);
-        mList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mList.addItemDecoration(new GridSpacingItemDecoration(
+        binding.mainRecyclerview.setAdapter(episodeAdapter);
+        binding.mainRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.mainRecyclerview.addItemDecoration(new GridSpacingItemDecoration(
                 1, DpToPixelHelper.dpToPx(4, getResources().getDisplayMetrics()), true));
         mFormat = new SimpleDateFormat("yyyy-MMdd", Locale.US);
         getVideoFeed(true);
 
-        return rootView;
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
     private void getVideoFeed(boolean showLoading) {
@@ -86,12 +85,12 @@ public class PodcastFragment extends Fragment {
 
             @Override
             public void onGetVideoFeedPreExecute(boolean showLoading) {
-                mProgress.setVisibility(showLoading ? View.VISIBLE : View.GONE);
+                binding.mainProgressIcon.setVisibility(showLoading ? View.VISIBLE : View.GONE);
             }
 
             @Override
             public void onGetVideoFeedPostExecute(ArrayList<Episode> episodes) {
-                mProgress.setVisibility(View.GONE);
+                binding.mainProgressIcon.setVisibility(View.GONE);
                 showEpisodes(episodes);
                 getAudioFeed();
             }
@@ -109,11 +108,11 @@ public class PodcastFragment extends Fragment {
             @Override
             public void onGetAudioFeedPostExecute(List<String> audioLinks) {
                 if (audioLinks.size() < 1) {
-                    Snackbar.make(mProgress, R.string.connect_error, Snackbar.LENGTH_INDEFINITE).show();
+                    Snackbar.make(binding.mainProgressIcon, R.string.connect_error, Snackbar.LENGTH_INDEFINITE).show();
                     return;
                 }
-                if (mySwipeRefreshLayout != null) {
-                    mySwipeRefreshLayout.setRefreshing(false);
+                if (binding.mainSwipeRefresh != null) {
+                    binding.mainSwipeRefresh.setRefreshing(false);
                 }
                 audioLinks = fillInMissingAudioLink(audioLinks);
                 int smallest = Math.min(mEpisodes.size(), audioLinks.size());
@@ -121,7 +120,7 @@ public class PodcastFragment extends Fragment {
                     mEpisodes.get(i).setAudioUrl(audioLinks.get(i));
                 }
                 Log.d(TAG, mEpisodes.toString());
-                mProgress.setVisibility(View.GONE);
+                binding.mainProgressIcon.setVisibility(View.GONE);
                 episodeAdapter.notifyDataSetChanged();
             }
         }).execute(feed); // must be called onPostExecute

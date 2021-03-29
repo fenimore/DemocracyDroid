@@ -21,7 +21,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/main_tablayout"
+            android:id="@+id/main_tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/main_toolbar"
@@ -32,7 +32,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/main_viewpager"
+        android:id="@+id/main_viewPager"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

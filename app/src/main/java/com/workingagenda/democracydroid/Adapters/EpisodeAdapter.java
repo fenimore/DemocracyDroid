@@ -18,7 +18,6 @@ package com.workingagenda.democracydroid.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -26,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.workingagenda.democracydroid.Adapters.ViewHolders.EpisodeViewHolder;
 import com.workingagenda.democracydroid.Objects.Episode;
-import com.workingagenda.democracydroid.R;
+import com.workingagenda.democracydroid.databinding.RowEpisodesBinding;
 
 import java.util.List;
 
@@ -42,8 +41,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeViewHolder> {
     @NonNull
     @Override
     public EpisodeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = mInflator.inflate(R.layout.row_episodes, null);
-        return new EpisodeViewHolder(v);
+        return new EpisodeViewHolder(RowEpisodesBinding.inflate(mInflator));
     }
 
     @Override

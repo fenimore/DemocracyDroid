@@ -4,21 +4,23 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
+
+import com.workingagenda.democracydroid.databinding.ActivitySettingsBinding;
 
 /**
  * Created by fen on 5/15/16.
  */
 public class SettingsActivity extends AppCompatActivity {
+    ActivitySettingsBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        binding = ActivitySettingsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        final Toolbar toolbar = findViewById(R.id.settings_toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.settingsToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportFragmentManager()

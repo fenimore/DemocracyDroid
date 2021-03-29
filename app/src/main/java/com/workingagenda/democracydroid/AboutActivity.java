@@ -6,45 +6,35 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
+
+import com.workingagenda.democracydroid.databinding.ActivityAboutBinding;
 
 /**
  * Created by fen on 1/14/16.
  */
 public class AboutActivity extends AppCompatActivity {
+    ActivityAboutBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-        Toolbar toolbar = findViewById(R.id.about_toolbar);
+        binding = ActivityAboutBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.about_title);
-        toolbar.setLogo(R.drawable.appicon);
+        setSupportActionBar(binding.aboutToolbar);
+        binding.aboutToolbar.setTitle(R.string.about_title);
+        binding.aboutToolbar.setLogo(R.drawable.appicon);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        binding.aboutDm.setText(R.string.about_dm);
+        binding.aboutApp.setText(R.string.about_app);
+        binding.aboutInfo.setText(R.string.about_info);
 
-        TextView txt1 = findViewById(R.id.about_dm);
-        txt1.setText(R.string.about_dm);
-        TextView txt2 = findViewById(R.id.about_app);
-        txt2.setText(R.string.about_app);
-        TextView txt4 = findViewById(R.id.about_info);
-        txt4.setText(R.string.about_info);
-
-        Button btnRev = findViewById(R.id.about_review_btn);
-        Button btnSrc = findViewById(R.id.about_source_btn);
-        Button btnDon = findViewById(R.id.about_donate_btn);
-        Button btnMail = findViewById(R.id.about_email_btn);
-        Button btnCont = findViewById(R.id.about_contact_btn);
-
-        btnRev.setOnClickListener(v -> {
+        binding.aboutReviewBtn.setOnClickListener(v -> {
             Uri uri = Uri.parse("market://details?id=" + getBaseContext().getPackageName());
             Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
             // To count with Play market backstack, After pressing back button,
@@ -61,7 +51,7 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
-        btnSrc.setOnClickListener(v -> {
+        binding.aboutSourceBtn.setOnClickListener(v -> {
             Uri uri = Uri.parse("https://github.com/fenimore/democracydroid");
             Intent goToSource = new Intent(Intent.ACTION_VIEW, uri);
             // To count with Github backstack, After pressing back button,
@@ -72,7 +62,7 @@ public class AboutActivity extends AppCompatActivity {
             startActivity(goToSource);
         });
 
-        btnMail.setOnClickListener(v -> {
+        binding.aboutEmailBtn.setOnClickListener(v -> {
             String[] addresses = new String[1];
             addresses[0] = "exorable.ludos@gmail.com";
             Intent intent = new Intent(Intent.ACTION_SEND);
@@ -83,7 +73,7 @@ public class AboutActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        btnDon.setOnClickListener(v -> {
+        binding.aboutDonateBtn.setOnClickListener(v -> {
             Uri uri = Uri.parse("https://www.democracynow.org/");
             Intent donateIntent = new Intent(Intent.ACTION_VIEW, uri);
             donateIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
@@ -92,7 +82,7 @@ public class AboutActivity extends AppCompatActivity {
             startActivity(donateIntent);
         });
 
-        btnCont.setOnClickListener(v -> {
+        binding.aboutContactBtn.setOnClickListener(v -> {
             Uri uri = Uri.parse("https://www.democracynow.org/contact");
             Intent contactIntent = new Intent(Intent.ACTION_VIEW, uri);
             contactIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
