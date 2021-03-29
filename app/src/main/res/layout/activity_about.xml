@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/about_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -42,20 +42,20 @@
                 android:text="@string/about_dm_header" />
 
             <TextView
-                android:id="@+id/about_1"
+                android:id="@+id/about_dm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/btn_donate"
+                android:id="@+id/about_donate_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_donate" />
 
             <Button
-                android:id="@+id/btn_contact"
+                android:id="@+id/about_contact_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Contact Democracy Now!" />
@@ -67,7 +67,7 @@
                 android:text="@string/about_dd_header" />
 
             <TextView
-                android:id="@+id/about_2"
+                android:id="@+id/about_app"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -84,7 +84,7 @@
                 android:text="@string/about_dev_header" />
 
             <TextView
-                android:id="@+id/about_4"
+                android:id="@+id/about_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
@@ -92,19 +92,19 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/reviewButton"
+                android:id="@+id/about_review_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/review" />
 
             <Button
-                android:id="@+id/emailButton"
+                android:id="@+id/about_email_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/email_dev" />
 
             <Button
-                android:id="@+id/sourceButton"
+                android:id="@+id/about_source_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/source" />

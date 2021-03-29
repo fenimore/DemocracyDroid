@@ -34,7 +34,7 @@ public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-            case R.id.action_blog_description:
+            case R.id.menu_blog_description:
                 if (mEpisode == null)
                     return false;
                 new AlertDialog.Builder(itemView.getContext())

@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         // Shared Preferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         // TODO: have splash screen for new users
         Log.d("First time", String.valueOf((PREF_FIRST_TIME)));
         // Tab Layouts
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        TabLayout tabLayout = findViewById(R.id.main_tablayout);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_library_books));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_live_tv));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container);
+        mViewPager = findViewById(R.id.main_viewpager);
         mViewPager.setOffscreenPageLimit(1);  // ???
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(DEFAULT_TAB);
@@ -106,12 +106,12 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu_main_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             return true;
         }
-        if (id == R.id.action_refresh) {
+        if (id == R.id.menu_main_refresh) {
             // Don't let user click before async tasks are done
             item.setEnabled(false);
             // Call Fragment refresh methods
@@ -126,21 +126,21 @@ public class MainActivity extends AppCompatActivity {
             item.setEnabled(true);
             return true;
         }
-        if (id == R.id.action_exclusives) {
+        if (id == R.id.menu_main_exclusives) {
             String url = "https://www.democracynow.org/categories/web_exclusive";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             startActivity(i);
             return true;
         }
-        if (id == R.id.action_site) {
+        if (id == R.id.menu_main_site) {
             String url = "http://www.democracynow.org/";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             startActivity(i);
             return true;
         }
-        if (id == R.id.action_about) {
+        if (id == R.id.menu_main_about) {
             Intent intent = new Intent(this, AboutActivity.class);
             startActivityForResult(intent, 0);
         }

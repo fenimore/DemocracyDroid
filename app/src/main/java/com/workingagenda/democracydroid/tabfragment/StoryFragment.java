@@ -51,8 +51,8 @@ public class StoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_story, container, false);
-        RecyclerView sList = rootView.findViewById(R.id.recycler_view);
-        mProgress = rootView.findViewById(R.id.progress_icon);
+        RecyclerView sList = rootView.findViewById(R.id.story_recyclerview);
+        mProgress = rootView.findViewById(R.id.story_progress_icon);
         mStories = new ArrayList<>();
         storyAdapter = new StoryAdapter(getContext(), mStories);
         sList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -61,7 +61,7 @@ public class StoryFragment extends Fragment {
         );
         sList.setItemAnimator(new DefaultItemAnimator());
         sList.setAdapter(storyAdapter);
-        storySwipeRefreshLayout = rootView.findViewById(R.id.swiperefresh);
+        storySwipeRefreshLayout = rootView.findViewById(R.id.story_swiperefresh);
         new GetStoryFeed(true).execute("https://www.democracynow.org/democracynow.rss");
         if (storySwipeRefreshLayout != null) {
             storySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

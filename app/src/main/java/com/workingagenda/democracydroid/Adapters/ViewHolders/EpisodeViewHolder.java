@@ -52,11 +52,11 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
 
     public EpisodeViewHolder(final View itemView) {
         super(itemView);
-        img = itemView.findViewById(R.id.row_image);
-        txt = itemView.findViewById(R.id.row_title);
-        tag = itemView.findViewById(R.id.row_tag);
+        img = itemView.findViewById(R.id.row_episodes_image);
+        txt = itemView.findViewById(R.id.row_episodes_title);
+        tag = itemView.findViewById(R.id.row_episodes_tag);
         tag.setMaxLines(3);
-        mOptions = itemView.findViewById(R.id.row_options);
+        mOptions = itemView.findViewById(R.id.row_episodes_options);
         itemView.setOnCreateContextMenuListener(this);
     }
 
@@ -179,7 +179,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
         }
 
         switch (menuItem.getItemId()) {
-            case R.id.action_share:
+            case R.id.menu_context_share:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_SUBJECT, mEpisode.getTitle());
@@ -187,7 +187,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
                 sendIntent.setType("text/plain");
                 itemView.getContext().startActivity(sendIntent);
                 return true;
-            case R.id.reverse_default_media:
+            case R.id.menu_context_reverse_default_media:
                 if (mEpisode.getVideoUrl().contains("m3u8"))
                     startMediaIntent(mEpisode.getAudioUrl(), 1, mEpisode.getTitle());
                 else if (DEFAULT_STREAM == 0)
@@ -195,7 +195,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
                 else
                     startMediaIntent(mEpisode.getVideoUrl(), DEFAULT_OPEN, actionTitle);
                 return true;
-            case R.id.reverse_default_open:
+            case R.id.menu_context_reverse_default_open:
                 int reverseOpen = 0;
                 if (reverseOpen == DEFAULT_OPEN)
                     reverseOpen = 1;
@@ -204,7 +204,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
                 else
                     startMediaIntent(mEpisode.getAudioUrl(), reverseOpen, actionTitle);
                 return true;
-            case R.id.action_description:
+            case R.id.menu_context_description:
                 new AlertDialog.Builder(itemView.getContext())
                         // Get Description and Title
                         .setTitle("The War and Peace Report")
@@ -212,7 +212,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
                         .setPositiveButton(android.R.string.ok, null)
                         .show();
                 return true;
-            case R.id.open_browser:
+            case R.id.menu_context_open_browser:
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.parse(mEpisode.getUrl()), "*/*");
                 itemView.getContext().startActivity(intent);

@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardBackgroundColor="@color/white"
+        card_view:cardBackgroundColor="@android:color/white"
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="2dp"
         card_view:cardUseCompatPadding="true">
@@ -18,56 +18,47 @@
             android:layout_height="match_parent">
 
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/row_image"
+                android:id="@+id/row_episodes_image"
                 android:layout_width="130dp"
                 android:layout_height="73dp"
                 android:scaleType="fitCenter" />
 
             <ImageView
-                android:id="@+id/row_options"
+                android:id="@+id/row_episodes_options"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 card_view:srcCompat="@drawable/ic_more_vert" />
 
             <TextView
-                android:id="@+id/row_tag"
+                android:id="@+id/row_episodes_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="4dp"
                 android:layout_marginBottom="4dp"
-                android:layout_toStartOf="@id/row_options"
-                android:layout_toLeftOf="@id/row_options"
-                android:layout_toEndOf="@id/row_image"
-                android:layout_toRightOf="@id/row_image"
+                android:layout_toStartOf="@id/row_episodes_options"
+                android:layout_toEndOf="@id/row_episodes_image"
                 android:maxLines="5"
                 android:minLines="1"
-                android:textColor="@color/black"
+                android:textColor="@android:color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/row_title"
+                android:id="@+id/row_episodes_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/row_image"
+                android:layout_alignBottom="@id/row_episodes_image"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
-                android:layout_marginRight="4dp"
                 android:layout_marginBottom="4dp"
-                android:layout_toStartOf="@id/row_options"
-                android:layout_toLeftOf="@id/row_options"
-                android:layout_toEndOf="@id/row_image"
-                android:layout_toRightOf="@id/row_image"
+                android:layout_toStartOf="@id/row_episodes_options"
+                android:layout_toEndOf="@id/row_episodes_image"
                 android:maxLines="1"
                 android:textSize="12sp"
                 android:textStyle="italic" />

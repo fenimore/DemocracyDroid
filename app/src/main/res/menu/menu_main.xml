@@ -3,25 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.workingagenda.democracydroid.MainActivity">
     <item
-        android:id="@+id/action_refresh"
+        android:id="@+id/menu_main_refresh"
         android:icon="@drawable/ic_refresh"
         android:title="@string/action_refresh"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/menu_main_settings"
         android:icon="@drawable/ic_settings"
         android:title="@string/action_settings"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_site"
+        android:id="@+id/menu_main_site"
         android:title="@string/action_site"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_exclusives"
+        android:id="@+id/menu_main_exclusives"
         android:title="@string/action_exclusives"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_about"
+        android:id="@+id/menu_main_about"
         android:title="@string/action_about"
         app:showAsAction="never" />
 </menu>

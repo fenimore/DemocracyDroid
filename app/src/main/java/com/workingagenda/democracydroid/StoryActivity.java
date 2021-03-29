@@ -62,8 +62,8 @@ public class StoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
-        webview = findViewById(R.id.webview);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        webview = findViewById(R.id.story_webview);
+        Toolbar toolbar = findViewById(R.id.story_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -97,7 +97,7 @@ public class StoryActivity extends AppCompatActivity {
         if (id == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
             return true;
-        } else if (id == R.id.action_share) {
+        } else if (id == R.id.menu_story_share) {
             // share intent
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
@@ -106,19 +106,19 @@ public class StoryActivity extends AppCompatActivity {
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
             return true;
-        } else if (id == R.id.action_web) {
+        } else if (id == R.id.menu_story_web) {
             // Open Story in Browser
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             startActivity(i);
             return true;
-        } else if (id == R.id.action_story_audio) {
+        } else if (id == R.id.menu_story_play_audio) {
             Intent intent = new Intent(this, MediaActivity.class);
             intent.putExtra("url", audio);
             intent.putExtra("title", title);
             startActivityForResult(intent, 0); //Activity load = 0
             return true;
-        } else if (id == R.id.action_story_video) {
+        } else if (id == R.id.menu_story_play_video) {
             Intent intent = new Intent(this, MediaActivity.class);
             intent.putExtra("url", video);
             intent.putExtra("title", title);

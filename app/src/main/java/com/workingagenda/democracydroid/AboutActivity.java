@@ -23,7 +23,7 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.about_toolbar);
 
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.about_title);
@@ -32,18 +32,18 @@ public class AboutActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        TextView txt1 = findViewById(R.id.about_1);
+        TextView txt1 = findViewById(R.id.about_dm);
         txt1.setText(R.string.about_dm);
-        TextView txt2 = findViewById(R.id.about_2);
+        TextView txt2 = findViewById(R.id.about_app);
         txt2.setText(R.string.about_app);
-        TextView txt4 = findViewById(R.id.about_4);
+        TextView txt4 = findViewById(R.id.about_info);
         txt4.setText(R.string.about_info);
 
-        Button btnRev = findViewById(R.id.reviewButton);
-        Button btnSrc = findViewById(R.id.sourceButton);
-        Button btnDon = findViewById(R.id.btn_donate);
-        Button btnMail = findViewById(R.id.emailButton);
-        Button btnCont = findViewById(R.id.btn_contact);
+        Button btnRev = findViewById(R.id.about_review_btn);
+        Button btnSrc = findViewById(R.id.about_source_btn);
+        Button btnDon = findViewById(R.id.about_donate_btn);
+        Button btnMail = findViewById(R.id.about_email_btn);
+        Button btnCont = findViewById(R.id.about_contact_btn);
 
         btnRev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,15 +130,14 @@ public class AboutActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu_main_settings) {
             return true;
         }
-        if (id == R.id.action_site) {
+        if (id == R.id.menu_main_site) {
             String url = "http://www.democracynow.org/";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));

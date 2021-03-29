@@ -71,10 +71,10 @@ public class PodcastFragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        RecyclerView mList = rootView.findViewById(R.id.recycler_view);
-        mProgress = rootView.findViewById(R.id.progress_icon);
+        RecyclerView mList = rootView.findViewById(R.id.main_recyclerview);
+        mProgress = rootView.findViewById(R.id.main_progress_icon);
 
-        mySwipeRefreshLayout = rootView.findViewById(R.id.swiperefresh);
+        mySwipeRefreshLayout = rootView.findViewById(R.id.main_swiperefresh);
         if (mySwipeRefreshLayout != null) {
             mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override

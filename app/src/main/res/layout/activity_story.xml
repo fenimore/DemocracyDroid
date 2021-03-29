@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/story_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -22,7 +22,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <WebView
-        android:id="@+id/webview"
+        android:id="@+id/story_webview"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_marginTop="?attr/actionBarSize"

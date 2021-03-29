@@ -5,18 +5,18 @@
     android:orientation="vertical">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swiperefresh"
+        android:id="@+id/main_swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="fill_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/main_recyclerview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
-        android:id="@+id/progress_icon"
+        android:id="@+id/main_progress_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"

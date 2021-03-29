@@ -32,9 +32,9 @@ public class StoryViewHolder extends BaseStoryViewHolder {
 
     public StoryViewHolder(final View itemView) {
         super(itemView);
-        mImg = itemView.findViewById(R.id.row_image);
-        mTxt = itemView.findViewById(R.id.row_title);
-        mOptions = itemView.findViewById(R.id.row_options);
+        mImg = itemView.findViewById(R.id.row_story_image);
+        mTxt = itemView.findViewById(R.id.row_story_title);
+        mOptions = itemView.findViewById(R.id.row_story_options);
         itemView.setOnCreateContextMenuListener(this);
     }
 
