@@ -3,26 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_story_video"
-        android:icon="@drawable/ic_play_arrow_white_24dp"
-        android:orderInCategory="100"
+        android:icon="@drawable/ic_play_arrow"
         android:title="@string/story_video"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_story_audio"
-        android:icon="@drawable/ic_mic_none_white_24dp"
-        android:orderInCategory="100"
+        android:icon="@drawable/ic_mic"
         android:title="@string/story_audio"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_share"
-        android:icon="@drawable/ic_share_white_24dp"
-        android:orderInCategory="200"
+        android:icon="@drawable/ic_share"
         android:title="@string/share"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_web"
-        android:icon="@drawable/ic_public_white_24dp"
-        android:orderInCategory="300"
+        android:icon="@drawable/ic_public"
         android:title="@string/story_web"
         app:showAsAction="ifRoom" />
 </menu>

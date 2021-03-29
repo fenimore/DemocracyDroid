@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("First time", String.valueOf((PREF_FIRST_TIME)));
         // Tab Layouts
         TabLayout tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_library_books_white_24dp));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_live_tv_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_library_books));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_live_tv));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Create the adapter that will return a fragment for each of the three
