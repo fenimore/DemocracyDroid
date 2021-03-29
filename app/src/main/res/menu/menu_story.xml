@@ -19,6 +19,6 @@
     <item
         android:id="@+id/menu_story_web"
         android:icon="@drawable/ic_public"
-        android:title="@string/story_web"
+        android:title="@string/action_browser"
         app:showAsAction="ifRoom" />
 </menu>

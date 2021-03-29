@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Preference
-        android:key="whats_new"
-        android:selectable="true"
-        android:summary="Features and Bug Fixes (press here)"
-        android:title="What's New In This Version" />
-
-    <PreferenceCategory android:title="@string/pref_category_settings">
-        <CheckBoxPreference
+    <PreferenceCategory
+        android:title="@string/pref_category_settings"
+        app:iconSpaceReserved="false">
+        <SwitchPreferenceCompat
             android:defaultValue="false"
-            android:key="spanish_preference"
-            android:summary="Spanish language Audio broadcast"
-            android:title="@string/setting_language" />
+            android:key="pref_spanish"
+            android:summary="@string/spanish_broadcast_summ"
+            android:title="@string/setting_language"
+            app:iconSpaceReserved="false" />
         <ListPreference
+            android:defaultValue="0"
             android:entries="@array/tabsAlias"
             android:entryValues="@array/tabs"
-            android:key="tab_preference"
-            android:summary="%s Tab"
-            android:title="@string/setting_tab" />
+            android:key="pref_default_tab"
+            android:summary="@string/preference_tab"
+            android:title="@string/setting_tab"
+            app:iconSpaceReserved="false" />
         <ListPreference
+            android:defaultValue="0"
             android:entries="@array/streamAlias"
             android:entryValues="@array/stream"
-            android:key="stream_preference"
-            android:summary="%s Stream"
-            android:title="@string/setting_stream" />
+            android:key="pref_default_stream"
+            android:summary="@string/preference_stream"
+            android:title="@string/setting_stream"
+            app:iconSpaceReserved="false" />
         <ListPreference
+            android:defaultValue="0"
             android:entries="@array/openAlias"
             android:entryValues="@array/open"
-            android:key="open_preference"
-            android:summary="Open Stream In %s"
-            android:title="@string/open_stream" />
+            android:key="pref_default_media_player"
+            android:summary="@string/open_stream_summ"
+            android:title="@string/open_stream"
+            app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_category_info">
+    <PreferenceCategory
+        android:title="@string/pref_category_info"
+        app:iconSpaceReserved="false">
         <Preference
-            android:key="pref_static_field_key5"
-            android:summary="Democracy Now! produces a daily, global, independent news hour hosted by award-winning journalists Amy Goodman and Juan González"
-            android:title="Publisher Information:">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://www.democracynow.org/" />
-        </Preference>
+            android:key="pref_whats_new"
+            android:summary="@string/what_is_new_summ"
+            android:title="@string/what_is_new"
+            app:iconSpaceReserved="false" />
         <Preference
-            android:key="pref_static_field_key5"
-            android:summary="Click Here To Contact Democracy Now! at democracynow.org"
-            android:title="Contact Democracy Now!">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://www.democracynow.org/contact" />
-        </Preference>
+            android:key="pref_about_publisher"
+            android:summary="@string/publisher_info_summ"
+            android:title="@string/publisher_info"
+            app:iconSpaceReserved="false" />
         <Preference
-            android:key="pref_static_field_key2"
-            android:selectable="false"
-            android:summary="Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States"
-            android:title="Content License" />
+            android:key="pref_about_contact_dm"
+            android:summary="@string/contact_democracy_now_summ"
+            android:title="@string/contact_democracy_now"
+            app:iconSpaceReserved="false" />
         <Preference
-            android:key="pref_static_field_key0"
-            android:selectable="false"
-            android:summary="Democracy Droid!"
-            android:title="Application Version" />
+            android:key="pref_about_dm_license"
+            android:summary="@string/content_license_summ"
+            android:title="@string/content_license"
+            app:iconSpaceReserved="false" />
         <Preference
-            android:key="pref_static_field_key1"
-            android:selectable="false"
-            android:summary="GNU General Public License v3"
-            android:title="Software License" />
+            android:key="pref_about_app_version"
+            android:title="@string/app_version_text"
+            app:iconSpaceReserved="false" />
         <Preference
-            android:key="pref_static_field_key3"
-            android:summary="Click to open"
-            android:title="Source Code and Issue Tracker">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://github.com/fenimore/DemocracyDroid" />
-        </Preference>
+            android:key="pref_about_app_license"
+            android:summary="@string/software_license_summ"
+            android:title="@string/software_license"
+            app:iconSpaceReserved="false" />
+        <Preference
+            android:key="pref_about_source_code"
+            android:title="@string/source_code"
+            app:iconSpaceReserved="false" />
     </PreferenceCategory>
 </PreferenceScreen>

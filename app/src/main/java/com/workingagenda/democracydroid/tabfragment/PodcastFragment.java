@@ -2,7 +2,6 @@ package com.workingagenda.democracydroid.tabfragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -65,7 +65,7 @@ public class PodcastFragment extends Fragment {
             mySwipeRefreshLayout.setOnRefreshListener(this::refresh);
         }
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mSpanishFeed = preferences.getBoolean("spanish_preference", false);
+        mSpanishFeed = preferences.getBoolean("pref_spanish", false);
 
         mEpisodes = new ArrayList<>();
         mServerApi = new ServerApi();

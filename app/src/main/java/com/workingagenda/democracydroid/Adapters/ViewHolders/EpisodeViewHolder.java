@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -31,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.workingagenda.democracydroid.MediaActivity;
@@ -94,8 +94,8 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
 
     private void loadEpisode(Episode e) {
         if (e != null) {
-            int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
-            int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
+            int DEFAULT_STREAM = Integer.parseInt(preferences.getString("pref_default_stream", "0")); // 0=video
+            int DEFAULT_OPEN = Integer.parseInt(preferences.getString("pref_default_media_player", "0")); // 0 = within this app
             // Set the Title for Toolbar
             String actionTitle = "Democracy Now!";
             String title = e.getTitle().trim();
@@ -135,8 +135,8 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
         MenuInflater inflater = new MenuInflater(itemView.getContext());
         menu.setHeaderTitle("Democracy Now!");
         inflater.inflate(R.menu.context_menu, menu);
-        int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
-        int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
+        int DEFAULT_STREAM = Integer.parseInt(preferences.getString("pref_default_stream", "0")); // 0=video
+        int DEFAULT_OPEN = Integer.parseInt(preferences.getString("pref_default_media_player", "0")); // 0 = within this app
 
         if (DEFAULT_STREAM == 0)
             menu.getItem(0).setTitle("Stream Audio");
@@ -154,8 +154,8 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
-        int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this ap
+        int DEFAULT_STREAM = Integer.parseInt(preferences.getString("pref_default_stream", "0")); // 0=video
+        int DEFAULT_OPEN = Integer.parseInt(preferences.getString("pref_default_media_player", "0")); // 0 = within this ap
         String actionTitle = "Democracy Now!";
         if (mEpisode.getTitle().length() > 16) {
             if ("Today's Broadcast".equals(mEpisode.getTitle())) {
