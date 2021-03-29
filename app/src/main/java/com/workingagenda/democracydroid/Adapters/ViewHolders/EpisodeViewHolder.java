@@ -17,8 +17,6 @@
 package com.workingagenda.democracydroid.Adapters.ViewHolders;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -32,6 +30,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.workingagenda.democracydroid.MediaActivity;
@@ -206,16 +205,12 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
                     startMediaIntent(mEpisode.getAudioUrl(), reverseOpen, actionTitle);
                 return true;
             case R.id.action_description:
-                AlertDialog description = new AlertDialog.Builder(itemView.getContext()).create();
-                // Get Description and Title
-                description.setTitle("The War and Peace Report");
-                description.setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle());
-                description.setButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                });
-                description.show();
+                new AlertDialog.Builder(itemView.getContext())
+                        // Get Description and Title
+                        .setTitle("The War and Peace Report")
+                        .setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle())
+                        .setPositiveButton(android.R.string.ok, null)
+                        .show();
                 return true;
             case R.id.open_browser:
                 Intent intent = new Intent(Intent.ACTION_VIEW);

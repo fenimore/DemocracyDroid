@@ -1,14 +1,13 @@
 package com.workingagenda.democracydroid.Adapters.ViewHolders;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.workingagenda.democracydroid.Objects.Episode;
@@ -38,16 +37,12 @@ public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder
             case R.id.action_blog_description:
                 if (mEpisode == null)
                     return false;
-                AlertDialog description = new AlertDialog.Builder(itemView.getContext()).create();
-                // Get Description and Title
-                description.setTitle("Democracy Now! Story");
-                description.setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle());
-                description.setButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                });
-                description.show();
+                new AlertDialog.Builder(itemView.getContext())
+                        // Get Description and Title
+                        .setTitle("Democracy Now! Story")
+                        .setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle())
+                        .setPositiveButton(R.string.close, null)
+                        .show();
                 return true;
         }
         return false;

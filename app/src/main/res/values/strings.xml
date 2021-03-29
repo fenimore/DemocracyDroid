@@ -51,6 +51,7 @@
     <string name="tab_3">Tab 3</string>
     <string name="channel_name">com.workingagenda.democracydroid</string>
     <string name="official_app">Official App</string>
+    <string name="close">Close</string>
     <string-array name="tabsAlias">
         <item>Transcripts</item>
         <item>Broadcast</item>
