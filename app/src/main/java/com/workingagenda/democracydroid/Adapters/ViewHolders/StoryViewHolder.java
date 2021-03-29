@@ -50,18 +50,8 @@ public class StoryViewHolder extends BaseStoryViewHolder {
             if (mTxt != null) {
                 mTxt.setText(episode.getTitle());
             }
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    loadTranscript(episode);
-                }
-            });
-            mOptions.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mOptions.showContextMenu();
-                }
-            });
+            itemView.setOnClickListener(view -> loadTranscript(episode));
+            mOptions.setOnClickListener(view -> mOptions.showContextMenu());
         }
     }
 }

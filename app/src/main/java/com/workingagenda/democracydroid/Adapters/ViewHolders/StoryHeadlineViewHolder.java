@@ -12,7 +12,6 @@ import com.workingagenda.democracydroid.R;
 /**
  * Created by derrickrocha on 7/15/17.
  */
-@SuppressWarnings("DefaultFileTemplate")
 public class StoryHeadlineViewHolder extends BaseStoryViewHolder {
 
     private final ImageView mImg;
@@ -40,19 +39,8 @@ public class StoryHeadlineViewHolder extends BaseStoryViewHolder {
             } catch (Exception e) {
                 Log.v("Story Adapter", "exception" + e.toString());
             }
-            mOptions.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mOptions.showContextMenu();
-                }
-            });
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    loadTranscript(episode);
-                }
-            });
+            mOptions.setOnClickListener(view -> mOptions.showContextMenu());
+            itemView.setOnClickListener(view -> loadTranscript(episode));
         }
     }
 }

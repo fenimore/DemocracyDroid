@@ -26,21 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StoryFragment extends Fragment {
-    private static final String ARG_SECTION_NUMBER = "section_number";
     private ArrayList<Episode> mStories;
     private SwipeRefreshLayout storySwipeRefreshLayout;
     private StoryAdapter storyAdapter;
     private View mProgress;
 
     public StoryFragment() {
-    }
-
-    public static StoryFragment newInstance(int sectionNumber) {
-        StoryFragment fragment = new StoryFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     public void refresh() {
@@ -64,12 +55,7 @@ public class StoryFragment extends Fragment {
         storySwipeRefreshLayout = rootView.findViewById(R.id.story_swiperefresh);
         new GetStoryFeed(true).execute("https://www.democracynow.org/democracynow.rss");
         if (storySwipeRefreshLayout != null) {
-            storySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    refresh();
-                }
-            });
+            storySwipeRefreshLayout.setOnRefreshListener(this::refresh);
         }
         return rootView;
     }

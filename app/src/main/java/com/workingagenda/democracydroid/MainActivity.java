@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         // Shared Preferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
+        int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "0"));
         boolean PREF_FIRST_TIME = preferences.getBoolean("first_preference", true);
         // TODO: have splash screen for new users
         Log.d("First time", String.valueOf(PREF_FIRST_TIME));
@@ -106,43 +107,41 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.menu_main_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.menu_main_refresh) {
-            // Don't let user click before async tasks are done
-            item.setEnabled(false);
-            // Call Fragment refresh methods
-            getSupportFragmentManager().getFragments();
-            for (Fragment x : getSupportFragmentManager().getFragments()) {
-                if (x instanceof PodcastFragment)
-                    ((PodcastFragment) x).refresh();
-                if (x instanceof StoryFragment)
-                    ((StoryFragment) x).refresh();
-            }
-            // FIXME: Somehow enable this after async call...
-            item.setEnabled(true);
-            return true;
-        }
-        if (id == R.id.menu_main_exclusives) {
-            String url = "https://www.democracynow.org/categories/web_exclusive";
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
-            return true;
-        }
-        if (id == R.id.menu_main_site) {
-            String url = "http://www.democracynow.org/";
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
-            return true;
-        }
-        if (id == R.id.menu_main_about) {
-            Intent intent = new Intent(this, AboutActivity.class);
-            startActivityForResult(intent, 0);
+        switch (id) {
+            case R.id.menu_main_settings:
+                Intent intent1 = new Intent(this, SettingsActivity.class);
+                startActivity(intent1);
+                return true;
+            case R.id.menu_main_refresh:
+                // Don't let user click before async tasks are done
+                item.setEnabled(false);
+                // Call Fragment refresh methods
+                getSupportFragmentManager().getFragments();
+                for (Fragment x : getSupportFragmentManager().getFragments()) {
+                    if (x instanceof PodcastFragment)
+                        ((PodcastFragment) x).refresh();
+                    if (x instanceof StoryFragment)
+                        ((StoryFragment) x).refresh();
+                }
+                // FIXME: Somehow enable this after async call...
+                item.setEnabled(true);
+                return true;
+            case R.id.menu_main_exclusives:
+                String url = "https://www.democracynow.org/categories/web_exclusive";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+                return true;
+            case R.id.menu_main_site:
+                String url1 = "http://www.democracynow.org/";
+                Intent i1 = new Intent(Intent.ACTION_VIEW);
+                i1.setData(Uri.parse(url1));
+                startActivity(i1);
+                return true;
+            case R.id.menu_main_about:
+                Intent intent = new Intent(this, AboutActivity.class);
+                startActivityForResult(intent, 0);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -152,46 +151,29 @@ public class MainActivity extends AppCompatActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PodcastFragment (defined as a static inner class below).
-            // Return PodcastFragment.newInstance(position + 1);
             switch (position) {
+                default: // Deliberate fall-through to story fragment
                 case 0:
-                    return StoryFragment.newInstance(position + 1);
+                    return new StoryFragment();
                 case 1:
-                    return PodcastFragment.newInstance(position + 1);
-                default:
-                    return PodcastFragment.newInstance(position + 1);
+                    return new PodcastFragment();
             }
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 2 total pages.
+            return 2;
         }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
-            return null;
-        }
-
     }
-
 }

@@ -94,36 +94,37 @@ public class StoryActivity extends AppCompatActivity {
         if (video == null && audio == null) {
             return super.onOptionsItemSelected(item);
         }
-        if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
-            return true;
-        } else if (id == R.id.menu_story_share) {
-            // share intent
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_SUBJECT, title);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, date + " \n\n" + url);
-            sendIntent.setType("text/plain");
-            startActivity(sendIntent);
-            return true;
-        } else if (id == R.id.menu_story_web) {
-            // Open Story in Browser
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
-            return true;
-        } else if (id == R.id.menu_story_play_audio) {
-            Intent intent = new Intent(this, MediaActivity.class);
-            intent.putExtra("url", audio);
-            intent.putExtra("title", title);
-            startActivityForResult(intent, 0); //Activity load = 0
-            return true;
-        } else if (id == R.id.menu_story_play_video) {
-            Intent intent = new Intent(this, MediaActivity.class);
-            intent.putExtra("url", video);
-            intent.putExtra("title", title);
-            startActivityForResult(intent, 0); //Activity load = 0
-            return true;
+        switch (id) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.menu_story_share:
+                // share intent
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT, title);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, date + " \n\n" + url);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+                return true;
+            case R.id.menu_story_web:
+                // Open Story in Browser
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+                return true;
+            case R.id.menu_story_play_audio:
+                Intent intent = new Intent(this, MediaActivity.class);
+                intent.putExtra("url", audio);
+                intent.putExtra("title", title);
+                startActivityForResult(intent, 0); //Activity load = 0
+                return true;
+            case R.id.menu_story_play_video:
+                Intent intent1 = new Intent(this, MediaActivity.class);
+                intent1.putExtra("url", video);
+                intent1.putExtra("title", title);
+                startActivityForResult(intent1, 0); //Activity load = 0
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

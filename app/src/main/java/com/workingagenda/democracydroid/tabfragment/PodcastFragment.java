@@ -32,8 +32,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class PodcastFragment extends Fragment {
-
-    private static final String ARG_SECTION_NUMBER = "section_number";
     private final String TAG = "PODCASTS";
     private final int LIVE_TIME = 8;
     private final String DN_SPANISH_FEED = "https://www.democracynow.org/podcast-es.xml";
@@ -48,18 +46,6 @@ public class PodcastFragment extends Fragment {
     private boolean mSpanishFeed = false;
     private SwipeRefreshLayout mySwipeRefreshLayout;
     private ServerApi mServerApi;
-
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
-    public static PodcastFragment newInstance(int sectionNumber) {
-        PodcastFragment fragment = new PodcastFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public void refresh() {
         getVideoFeed(false);
@@ -76,12 +62,7 @@ public class PodcastFragment extends Fragment {
 
         mySwipeRefreshLayout = rootView.findViewById(R.id.main_swiperefresh);
         if (mySwipeRefreshLayout != null) {
-            mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    refresh();
-                }
-            });
+            mySwipeRefreshLayout.setOnRefreshListener(this::refresh);
         }
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mSpanishFeed = preferences.getBoolean("spanish_preference", false);

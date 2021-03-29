@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.workingagenda.democracydroid.Adapters.ViewHolders.BaseStoryViewHolder;
@@ -43,13 +44,15 @@ public class StoryAdapter extends RecyclerView.Adapter<BaseStoryViewHolder> {
         mEpisodes = episodes;
     }
 
+    @NonNull
     @Override
-    public BaseStoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseStoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v;
         if (viewType == TYPE_EPISODE) {
-            View v = mInflator.inflate(R.layout.row_story, null);
+            v = mInflator.inflate(R.layout.row_story, null);
             return new StoryViewHolder(v);
         } else {
-            View v = mInflator.inflate(R.layout.row_story_headline, null);
+            v = mInflator.inflate(R.layout.row_story_headline, null);
             return new StoryHeadlineViewHolder(v);
         }
     }

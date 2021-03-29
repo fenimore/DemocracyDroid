@@ -218,15 +218,12 @@ public class RssReader {
 
     public List<RssItem> getItems() throws Exception {
         this.nameSpace = null;//"http://www.w3.org/2005/Atom";//null;//"http://www.w3.org/2005/Atom";
-        InputStream stream;
-        List<RssItem> items;
         Document doc = Jsoup.connect(rssUrl).get();
-        stream = new ByteArrayInputStream(
+        InputStream stream = new ByteArrayInputStream(
                 doc.toString()
                         .replaceAll("&nbsp", " ")
                         .getBytes(StandardCharsets.UTF_8)
         );
-        items = getRssItems(stream);
-        return items;
+        return getRssItems(stream);
     }
 }

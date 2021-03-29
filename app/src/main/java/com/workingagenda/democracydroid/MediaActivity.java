@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -86,7 +87,7 @@ public class MediaActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d("Saving Inst", String.valueOf(mMediaPosition));
     }
@@ -117,16 +118,15 @@ public class MediaActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        switch (e.getAction()) {
-            case MotionEvent.ACTION_MOVE:
-                if (path.contains(".mp3"))
-                    return true;
-                if (flag)
-                    hideStatusBar();
-                else
-                    getSupportActionBar().show();
-                flag = !flag;
+        if (e.getAction() == MotionEvent.ACTION_MOVE) {
+            if (path.contains(".mp3"))
                 return true;
+            if (flag)
+                hideStatusBar();
+            else
+                getSupportActionBar().show();
+            flag = !flag;
+            return true;
         }
         return false;
     }

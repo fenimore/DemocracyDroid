@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.workingagenda.democracydroid.Adapters.ViewHolders.EpisodeViewHolder;
@@ -38,8 +39,9 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeViewHolder> {
         mInflator = LayoutInflater.from(context);
     }
 
+    @NonNull
     @Override
-    public EpisodeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EpisodeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = mInflator.inflate(R.layout.row_episodes, null);
         return new EpisodeViewHolder(v);
     }

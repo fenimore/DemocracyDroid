@@ -48,6 +48,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
     private final ImageView img;
     private final TextView tag;
     private final ImageView mOptions;
+    private final SharedPreferences preferences;
     private Episode mEpisode;
 
     public EpisodeViewHolder(final View itemView) {
@@ -58,6 +59,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
         tag.setMaxLines(3);
         mOptions = itemView.findViewById(R.id.row_episodes_options);
         itemView.setOnCreateContextMenuListener(this);
+        preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
     }
 
     public void showEpisode(final Episode e) {
@@ -85,24 +87,13 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
                 tag.setText(description);
                 tag.setEllipsize(TextUtils.TruncateAt.END);
             }
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    loadEpisode(e);
-                }
-            });
-            mOptions.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mOptions.showContextMenu();
-                }
-            });
+            itemView.setOnClickListener(view -> loadEpisode(e));
+            mOptions.setOnClickListener(view -> mOptions.showContextMenu());
         }
     }
 
     private void loadEpisode(Episode e) {
         if (e != null) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
             int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
             int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
             // Set the Title for Toolbar
@@ -144,7 +135,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
         MenuInflater inflater = new MenuInflater(itemView.getContext());
         menu.setHeaderTitle("Democracy Now!");
         inflater.inflate(R.menu.context_menu, menu);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
         int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
         int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
 
@@ -164,7 +154,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
         int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
         int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this ap
         String actionTitle = "Democracy Now!";

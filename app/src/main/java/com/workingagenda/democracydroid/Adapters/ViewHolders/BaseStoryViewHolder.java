@@ -33,17 +33,17 @@ public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.menu_blog_description:
-                if (mEpisode == null)
-                    return false;
-                new AlertDialog.Builder(itemView.getContext())
-                        // Get Description and Title
-                        .setTitle("Democracy Now! Story")
-                        .setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle())
-                        .setPositiveButton(R.string.close, null)
-                        .show();
-                return true;
+        if (menuItem.getItemId() == R.id.menu_blog_description) {
+            if (mEpisode == null) {
+                return false;
+            }
+            new AlertDialog.Builder(itemView.getContext())
+                    // Get Description and Title
+                    .setTitle("Democracy Now! Story")
+                    .setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle())
+                    .setPositiveButton(R.string.close, null)
+                    .show();
+            return true;
         }
         return false;
     }
