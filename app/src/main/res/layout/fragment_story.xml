@@ -4,24 +4,20 @@
     android:layout_height="fill_parent">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swiperefresh"
+        android:id="@+id/story_swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="fill_parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/story_recyclerview"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/recycler_view">
-
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="fill_parent" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
-        android:id="@+id/progress_icon"
+        android:id="@+id/story_progress_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_centerHorizontal="true"/>
-
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp" />
 </RelativeLayout>

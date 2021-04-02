@@ -2,28 +2,39 @@
     <string name="app_name">Democracy Droid</string>
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
-    <string name="about_app">Democracy Droid! provides easy access to the Democracy Now Broadcast and Individual Story feed, the Live stream, and Downloads. Long-click on a broadcast to show its options.\n\nThis application is Free and Open Source Software. (GPLv3)\n</string>
-    <string name="about_dm">Democracy Now! is a national, daily, independent, award-winning news program hosted by journalists Amy Goodman and Juan Gonzalez. Pioneering the largest public media collaboration in the U.S.\n\nDemocracy Now! is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States License.\n\nDemocracy Now! streams live weekdays at 8 am\n</string>
-    <string name="about_info">\nFile bugs by email or at the Issue Tracker at the Source Repository below.\n\nAny and all feedback is greatly appreciated :).\n
+    <string name="about_app">
+        Democracy Droid! provides easy access to the Democracy Now broadcast and individual story feed, live stream, and downloads.
+        Long-click on a broadcast to show its options.
+        \n\nThis application is free and open-source software (GPLv3).
+        \n
+    </string>
+    <string name="about_dm">
+        Democracy Now! is a national, daily, independent, award-winning news program hosted by journalists Amy Goodman and Juan Gonzalez, pioneering the largest public media collaboration in the U.S.
+        \n\nDemocracy Now! is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States License.
+        \n\nDemocracy Now! streams live weekdays at 8 am.
+        \n
+    </string>
+    <string name="about_info">
+        \nFile bugs by email or the issue tracker at the source repository below.
+        \n\nAny and all feedback is greatly appreciated :).
+        \n
     </string>
     <string name="about_title">About Democracy Droid</string>
     <string name="action_site">Visit democracynow.org</string>
-    <string name="action_about">About Democracy Now!</string>
-    <string name="connect_error">Connection Error</string>
-    <string name="setting_tab">Default Tab on Start Up</string>
+    <string name="connect_error">Connection error</string>
+    <string name="setting_tab">Default tab on startup</string>
     <string name="name_setting">Settings</string>
-    <string name="setting_stream">Default Stream on Select</string>
-    <string name="pref_category_info">News Application Information</string>
-    <string name="pref_category_settings">Application Settings</string>
-    <string name="review">Review at the Play Store</string>
-    <string name="story_audio">Listen To Story</string>
-    <string name="story_video">Watch To Story</string>
-    <string name="story_web">Open in browser</string>
-    <string name="action_browser">Open in Browser</string>
-    <string name="source">View Source Code</string>
+    <string name="setting_stream">Default stream on select</string>
+    <string name="pref_category_info">About</string>
+    <string name="pref_category_settings">Application settings</string>
+    <string name="review">Review on Play Store</string>
+    <string name="story_audio">Listen to story</string>
+    <string name="story_video">Watch story</string>
+    <string name="action_browser">Open in browser</string>
+    <string name="source">View source code</string>
     <string name="about_dm_header">About Democracy Now!</string>
     <string name="about_dd_header">About Democracy Droid!</string>
-    <string name="about_dev_header">Developer Information</string>
+    <string name="about_dev_header">Developer info</string>
     <string name="whatsnew">
         ==== 3.9.1\n
         I think Google Play wants me to remove the link to donate and add a link\n
@@ -35,25 +46,41 @@
         - Updated round icon!\n
         - I\'ve also updated some of the dependencies used\n
     </string>
-    <string name="open_stream">Default Application to Play Media</string>
-    <string name="open_elsewhere">Open Elsewhere</string>
+    <string name="open_stream">Default application to play media</string>
+    <string name="open_elsewhere">Open elsewhere</string>
     <string name="stream">Stream</string>
-    <string name="read_description">Read Description</string>
-    <string name="share_link">Share Link</string>
+    <string name="read_description">Read description</string>
+    <string name="share_link">Share link</string>
     <string name="email_dev">Email the developer</string>
     <string name="action_exclusives">Web Exclusives</string>
     <string name="btn_donate">Visit DemocracyNow.org</string>
     <string name="setting_language">Difusión de Audio en Español</string>
     <string name="description_menu_title">Description</string>
     <string name="share">Share</string>
-    <string name="tab_1">Tab 1</string>
-    <string name="tab_2">Tab 2</string>
-    <string name="tab_3">Tab 3</string>
     <string name="channel_name">com.workingagenda.democracydroid</string>
-    <string name="official_app">Official App</string>
+    <string name="close">Close</string>
+
+    <string name="source_code">Source code &amp; issue tracker</string>
+    <string name="software_license">Software License</string>
+    <string name="software_license_summ">GNU General Public License v3</string>
+    <string name="app_version_text">App version</string>
+    <string name="content_license">Content license</string>
+    <string name="content_license_summ">Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States</string>
+    <string name="contact_democracy_now">Contact Democracy Now!</string>
+    <string name="contact_democracy_now_summ">Click here to contact Democracy Now! at democracynow.org</string>
+    <string name="publisher_info">Publisher information</string>
+    <string name="publisher_info_summ">Democracy Now! is a national, daily, independent, award-winning news program hosted by journalists Amy Goodman and Juan Gonzalez.</string>
+    <string name="open_stream_summ">%s</string>
+    <string name="preference_stream">%s stream</string>
+    <string name="preference_tab">%s tab</string>
+    <string name="spanish_broadcast_summ">Spanish language Audio broadcast</string>
+    <string name="what_is_new">What\'s new in this version</string>
+    <string name="what_is_new_summ">Features and bug fixes (press here)</string>
+    <string name="tab_transcripts">Transcripts</string>
+    <string name="tab_broadcasts">Broadcasts</string>
     <string-array name="tabsAlias">
-        <item>Transcripts</item>
-        <item>Broadcast</item>
+        <item>@string/tab_transcripts</item>
+        <item>@string/tab_broadcasts</item>
     </string-array>
     <string-array name="tabs">
         <item>0</item>
@@ -68,8 +95,8 @@
         <item>1</item>
     </string-array>
     <string-array name="openAlias">
-        <item>This Application</item>
-        <item>Other Application</item>
+        <item>Built-in media player</item>
+        <item>Another application</item>
     </string-array>
     <string-array name="open">
         <item>0</item>

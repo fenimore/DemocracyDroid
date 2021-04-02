@@ -3,6 +3,5 @@
     <color name="colorPrimary">#670001</color>
     <color name="colorPrimaryDark">#3e2723</color>
     <color name="colorAccent">#ffcd40</color>
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
+    <color name="ic_launcher_background">#69170C</color>
 </resources>

@@ -20,81 +20,55 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.preference.PreferenceManager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+import com.workingagenda.democracydroid.databinding.ActivityMainBinding;
 import com.workingagenda.democracydroid.tabfragment.PodcastFragment;
 import com.workingagenda.democracydroid.tabfragment.StoryFragment;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 public class MainActivity extends AppCompatActivity {
+    private static final int POS_STORY = 0;
+    private static final int POS_PODCAST = 1;
+    private static final int TOTAL_COUNT = 2;
+    ActivityMainBinding binding;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.mainToolbar);
         // Shared Preferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        int DEFAULT_TAB = Integer.parseInt(preferences.getString("tab_preference", "1"));
+        int DEFAULT_TAB = Integer.parseInt(preferences.getString("pref_default_tab", "0"));
         boolean PREF_FIRST_TIME = preferences.getBoolean("first_preference", true);
         // TODO: have splash screen for new users
-        Log.d("First time", String.valueOf((PREF_FIRST_TIME)));
-        // Tab Layouts
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_library_books_white_24dp));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_live_tv_white_24dp));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        Log.d("First time", String.valueOf(PREF_FIRST_TIME));
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        /*
-      The {@link android.support.v4.view.PagerAdapter} that will provide
-      fragments for each of the sections. We use a
-      {@link FragmentPagerAdapter} derivative, which will keep every
-      loaded fragment in memory. If this becomes too memory intensive, it
-      may be best to switch to a
-      {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        final SectionsStateAdapter mSectionsStateAdapter = new SectionsStateAdapter(this);
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container);
-        mViewPager.setOffscreenPageLimit(1);  // ???
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(DEFAULT_TAB);
-        // Gather the Episode Lists
-        // Set up the tab and View Pager
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(1);
-            }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-        });
+        binding.mainViewPager2.setAdapter(mSectionsStateAdapter);
+
+        new TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager2,
+                mSectionsStateAdapter::getPageIcon
+        ).attach();
+        binding.mainTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        binding.mainViewPager2.setCurrentItem(DEFAULT_TAB);
     }
 
     @Override
@@ -111,91 +85,87 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.action_refresh) {
-            // Don't let user click before async tasks are done
-            item.setEnabled(false);
-            // Call Fragment refresh methods
-            getSupportFragmentManager().getFragments();
-            for(Fragment x :getSupportFragmentManager().getFragments()){
-                if (x instanceof PodcastFragment)
-                    ((PodcastFragment) x).refresh();
-                if (x instanceof StoryFragment)
-                    ((StoryFragment) x).refresh();
-            }
-            // FIXME: Somehow enable this after async call...
-            item.setEnabled(true);
-            return true;
-        }
-        if (id == R.id.action_exclusives) {
-            String url = "https://www.democracynow.org/categories/web_exclusive";
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
-            return true;
-        }
-        if (id == R.id.action_site) {
-            String url = "http://www.democracynow.org/";
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
-            return true;
-        }
-        if(id == R.id.action_about){
-            Intent intent = new Intent(this, AboutActivity.class);
-            startActivityForResult(intent, 0);
+        switch (id) {
+            case R.id.menu_main_settings:
+                Intent intent1 = new Intent(this, SettingsActivity.class);
+                startActivity(intent1);
+                return true;
+            case R.id.menu_main_refresh:
+                // Don't let user click before async tasks are done
+                item.setEnabled(false);
+                // Call Fragment refresh methods
+                getSupportFragmentManager().getFragments();
+                for (Fragment x : getSupportFragmentManager().getFragments()) {
+                    if (x instanceof PodcastFragment)
+                        ((PodcastFragment) x).refresh();
+                    if (x instanceof StoryFragment)
+                        ((StoryFragment) x).refresh();
+                }
+                // FIXME: Somehow enable this after async call...
+                item.setEnabled(true);
+                return true;
+            case R.id.menu_main_exclusives:
+                String url = "https://www.democracynow.org/categories/web_exclusive";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+                return true;
+            case R.id.menu_main_site:
+                String url1 = "http://www.democracynow.org/";
+                Intent i1 = new Intent(Intent.ACTION_VIEW);
+                i1.setData(Uri.parse(url1));
+                startActivity(i1);
+                return true;
+            case R.id.menu_main_about:
+                Intent intent = new Intent(this, AboutActivity.class);
+                startActivityForResult(intent, 0);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * A {@link FragmentStateAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private static class SectionsStateAdapter extends FragmentStateAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
+        SectionsStateAdapter(final FragmentActivity fa) {
+            super(fa);
         }
 
+        @NonNull
         @Override
-        public Fragment getItem(int position) {
+        public Fragment createFragment(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PodcastFragment (defined as a static inner class below).
-            // Return PodcastFragment.newInstance(position + 1);
-            switch(position) {
-
-                case 0: return StoryFragment.newInstance(position + 1);
-                case 1: return PodcastFragment.newInstance(position + 1);
-                default: return PodcastFragment.newInstance(position + 1);
-            }
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
             switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
+                default: // Deliberate fall-through to story fragment
+                case POS_STORY:
+                    return new StoryFragment();
+                case POS_PODCAST:
+                    return new PodcastFragment();
             }
-            return null;
         }
 
-    }
+        void getPageIcon(final TabLayout.Tab tab, final int position) {
+            switch (position) {
+                default: // Deliberate fall-through to story fragment
+                case POS_STORY:
+                    tab.setIcon(R.drawable.ic_library_books);
+                    tab.setContentDescription(R.string.tab_transcripts);
+                    break;
+                case POS_PODCAST:
+                    tab.setIcon(R.drawable.ic_live_tv);
+                    tab.setContentDescription(R.string.tab_broadcasts);
+                    break;
+            }
+        }
 
+        @Override
+        public int getItemCount() {
+            // Show 2 total pages.
+            return TOTAL_COUNT;
+        }
+    }
 }

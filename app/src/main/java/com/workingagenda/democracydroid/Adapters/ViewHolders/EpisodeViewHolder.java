@@ -16,19 +16,10 @@
  */
 package com.workingagenda.democracydroid.Adapters.ViewHolders;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.preference.PreferenceManager;
-
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -37,36 +28,41 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.workingagenda.democracydroid.MediaActivity;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
+import com.workingagenda.democracydroid.databinding.RowEpisodesBinding;
 
-import androidx.recyclerview.widget.RecyclerView;
+public class EpisodeViewHolder extends RecyclerView.ViewHolder
+        implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
 
-
-public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener,MenuItem.OnMenuItemClickListener {
-
-    private final TextView txt;
-    private final ImageView img;
-    private final TextView tag;
-    private final ImageView mOptions;
     // ENUMS
     private static final int STREAM_VIDEO = 0;
     private static final int STREAM_AUDIO = 1;
     private static final int OPEN_THIS_APP = 0;
+    final RowEpisodesBinding binding;
+    private final TextView txt;
+    private final ImageView img;
+    private final TextView tag;
+    private final ImageView mOptions;
+    private final SharedPreferences preferences;
     private Episode mEpisode;
 
-    public EpisodeViewHolder(final View itemView) {
-        super(itemView);
-        img = itemView.findViewById(R.id.row_image);
-        txt = itemView.findViewById(R.id.row_title);
-        tag = itemView.findViewById(R.id.row_tag);
+    public EpisodeViewHolder(final RowEpisodesBinding binding) {
+        super(binding.getRoot());
+        this.binding = binding;
+        img = binding.rowEpisodesImage;
+        txt = binding.rowEpisodesTitle;
+        tag = binding.rowEpisodesTag;
         tag.setMaxLines(3);
-        mOptions = itemView.findViewById(R.id.row_options);
+        mOptions = binding.rowEpisodesOptions;
         itemView.setOnCreateContextMenuListener(this);
-
+        preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
     }
 
     public void showEpisode(final Episode e) {
@@ -79,11 +75,10 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
             }
             if (txt != null) {
                 String fullTitle = e.getTitle().trim();
-                if (fullTitle.startsWith("Democracy Now!")){
+                if (fullTitle.startsWith("Democracy Now!")) {
                     String title = fullTitle.substring(14).trim();
                     txt.setText(title);
-                }
-                else {
+                } else {
                     txt.setText(fullTitle);
                 }
             }
@@ -95,26 +90,15 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                 tag.setText(description);
                 tag.setEllipsize(TextUtils.TruncateAt.END);
             }
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    loadEpisode(e);
-                }
-            });
-            mOptions.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mOptions.showContextMenu();
-                }
-            });
+            itemView.setOnClickListener(view -> loadEpisode(e));
+            mOptions.setOnClickListener(view -> mOptions.showContextMenu());
         }
     }
 
     private void loadEpisode(Episode e) {
         if (e != null) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
-            int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
-            int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
+            int DEFAULT_STREAM = Integer.parseInt(preferences.getString("pref_default_stream", "0")); // 0=video
+            int DEFAULT_OPEN = Integer.parseInt(preferences.getString("pref_default_media_player", "0")); // 0 = within this app
             // Set the Title for Toolbar
             String actionTitle = "Democracy Now!";
             String title = e.getTitle().trim();
@@ -128,7 +112,6 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                 startMediaIntent(e.getVideoUrl(), DEFAULT_OPEN, actionTitle);
             else if (DEFAULT_STREAM == STREAM_AUDIO)
                 startMediaIntent(e.getAudioUrl(), DEFAULT_OPEN, actionTitle);
-
         }
     }
 
@@ -141,7 +124,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
             Intent intent = new Intent(itemView.getContext(), MediaActivity.class);
             intent.putExtra("url", url);
             intent.putExtra("title", title);
-            ((Activity)itemView.getContext()).startActivityForResult(intent, 0); //Activity load = 0
+            ((Activity) itemView.getContext()).startActivityForResult(intent, 0); //Activity load = 0
         } else {
             // FIXME: SecurityException
             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -155,42 +138,40 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
         MenuInflater inflater = new MenuInflater(itemView.getContext());
         menu.setHeaderTitle("Democracy Now!");
         inflater.inflate(R.menu.context_menu, menu);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
-        int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
-        int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this app
+        int DEFAULT_STREAM = Integer.parseInt(preferences.getString("pref_default_stream", "0")); // 0=video
+        int DEFAULT_OPEN = Integer.parseInt(preferences.getString("pref_default_media_player", "0")); // 0 = within this app
 
         if (DEFAULT_STREAM == 0)
             menu.getItem(0).setTitle("Stream Audio");
         else
             menu.getItem(0).setTitle("Stream Video");
 
-        if(DEFAULT_OPEN == 0)
+        if (DEFAULT_OPEN == 0)
             menu.getItem(1).setTitle("Stream in Another App");
         else
             menu.getItem(1).setTitle("Stream in This App");
-        for (int i = 0;i<menu.size();i++){
+        for (int i = 0; i < menu.size(); i++) {
             menu.getItem(i).setOnMenuItemClickListener(this);
         }
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
-        int DEFAULT_STREAM = Integer.parseInt(preferences.getString("stream_preference", "0")); // 0=video
-        int DEFAULT_OPEN = Integer.parseInt(preferences.getString("open_preference", "0")); // 0 = within this ap
+        int DEFAULT_STREAM = Integer.parseInt(preferences.getString("pref_default_stream", "0")); // 0=video
+        int DEFAULT_OPEN = Integer.parseInt(preferences.getString("pref_default_media_player", "0")); // 0 = within this ap
         String actionTitle = "Democracy Now!";
-        if (mEpisode.getTitle().length() > 16){
-            if("Today's Broadcast".equals(mEpisode.getTitle())){
+        if (mEpisode.getTitle().length() > 16) {
+            if ("Today's Broadcast".equals(mEpisode.getTitle())) {
                 actionTitle = mEpisode.getTitle();
-            } else if (mEpisode.getTitle().startsWith("Democracy Now!")){
+            } else if (mEpisode.getTitle().startsWith("Democracy Now!")) {
                 actionTitle = mEpisode.getTitle().substring(14);
             } else {
                 actionTitle = mEpisode.getTitle();
             }
         }
 
-        switch(menuItem.getItemId()) {
-            case R.id.action_share:
+        switch (menuItem.getItemId()) {
+            case R.id.menu_context_share:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_SUBJECT, mEpisode.getTitle());
@@ -198,7 +179,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                 sendIntent.setType("text/plain");
                 itemView.getContext().startActivity(sendIntent);
                 return true;
-            case R.id.reverse_default_media:
+            case R.id.menu_context_reverse_default_media:
                 if (mEpisode.getVideoUrl().contains("m3u8"))
                     startMediaIntent(mEpisode.getAudioUrl(), 1, mEpisode.getTitle());
                 else if (DEFAULT_STREAM == 0)
@@ -206,7 +187,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                 else
                     startMediaIntent(mEpisode.getVideoUrl(), DEFAULT_OPEN, actionTitle);
                 return true;
-            case R.id.reverse_default_open:
+            case R.id.menu_context_reverse_default_open:
                 int reverseOpen = 0;
                 if (reverseOpen == DEFAULT_OPEN)
                     reverseOpen = 1;
@@ -215,19 +196,15 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder implements View.O
                 else
                     startMediaIntent(mEpisode.getAudioUrl(), reverseOpen, actionTitle);
                 return true;
-            case R.id.action_description:
-                AlertDialog description = new AlertDialog.Builder(itemView.getContext()).create();
-                // Get Description and Title
-                description.setTitle("The War and Peace Report");
-                description.setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle());
-                description.setButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                });
-                description.show();
+            case R.id.menu_context_description:
+                new AlertDialog.Builder(itemView.getContext())
+                        // Get Description and Title
+                        .setTitle("The War and Peace Report")
+                        .setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle())
+                        .setPositiveButton(android.R.string.ok, null)
+                        .show();
                 return true;
-            case R.id.open_browser:
+            case R.id.menu_context_open_browser:
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.parse(mEpisode.getUrl()), "*/*");
                 itemView.getContext().startActivity(intent);

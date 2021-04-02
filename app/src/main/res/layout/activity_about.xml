@@ -1,97 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fitsSystemWindows="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.workingagenda.democracydroid.AboutActivity">
 
-    <com.google.android.material.appbar.AppBarLayout android:layout_height="wrap_content"
-        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/about_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:paddingTop="?attr/actionBarSize">
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical" android:layout_width="match_parent"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="15dp"
+            android:layout_marginBottom="50dp"
+            android:orientation="vertical"
             android:paddingLeft="15dp"
-            android:paddingBottom="70dp"
-            android:layout_marginBottom="50dp">
+            android:paddingRight="15dp"
+            android:paddingBottom="70dp">
+
             <TextView
+                style="?android:attr/listSeparatorTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/about_dm_header"
-                style="?android:attr/listSeparatorTextViewStyle"/>
+                android:text="@string/about_dm_header" />
+
             <TextView
-                android:id="@+id/about_1"
+                android:id="@+id/about_dm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
                 android:paddingTop="5dp"
-                />
+                android:textSize="20sp" />
+
             <Button
-                android:id="@+id/btn_donate"
+                android:id="@+id/about_donate_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_donate"/>
+                android:text="@string/btn_donate" />
+
             <Button
-                android:id="@+id/btn_contact"
+                android:id="@+id/about_contact_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Contact Democracy Now!"/>
+                android:text="Contact Democracy Now!" />
+
             <TextView
+                style="?android:attr/listSeparatorTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/about_dd_header"
-                style="?android:attr/listSeparatorTextViewStyle"/>
+                android:text="@string/about_dd_header" />
+
             <TextView
-                android:id="@+id/about_2"
+                android:id="@+id/about_app"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:paddingTop="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="5dp"
-                android:autoLink="web"/>
+                android:autoLink="web"
+                android:paddingTop="5dp"
+                android:textSize="20sp" />
+
             <TextView
+                style="?android:attr/listSeparatorTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/about_dev_header"
-                style="?android:attr/listSeparatorTextViewStyle"/>
+                android:text="@string/about_dev_header" />
+
             <TextView
-                android:id="@+id/about_4"
+                android:id="@+id/about_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:autoLink="web"
                 android:paddingTop="5dp"
-                android:autoLink="web"/>
+                android:textSize="16sp" />
+
             <Button
+                android:id="@+id/about_review_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/reviewButton"
-                android:text="@string/review"/>
+                android:text="@string/review" />
+
             <Button
+                android:id="@+id/about_email_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/emailButton"
-                android:text="@string/email_dev"/>
+                android:text="@string/email_dev" />
+
             <Button
+                android:id="@+id/about_source_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/sourceButton"
-                android:text="@string/source"/>
+                android:text="@string/source" />
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-

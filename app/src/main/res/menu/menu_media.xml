@@ -2,10 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_share"
+        android:id="@+id/menu_media_share"
+        android:icon="@drawable/ic_share"
         android:title="@string/share"
-        android:orderInCategory="100"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_share_white_24dp"/>
-
+        app:showAsAction="always" />
 </menu>

@@ -15,3 +15,6 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-dontobfuscate
+-keeppackagenames org.jsoup.nodes
+-keepnames class org.jsoup.nodes.Entities

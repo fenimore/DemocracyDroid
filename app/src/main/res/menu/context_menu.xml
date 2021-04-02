@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/reverse_default_media"
-        android:orderInCategory="300"
+        android:id="@+id/menu_context_reverse_default_media"
         android:title="@string/stream" />
     <item
-        android:id="@+id/reverse_default_open"
-        android:orderInCategory="400"
+        android:id="@+id/menu_context_reverse_default_open"
         android:title="@string/open_elsewhere" />
-
     <item
-        android:id="@+id/open_browser"
-        android:orderInCategory="500"
-        android:title="@string/action_browser"/>
+        android:id="@+id/menu_context_open_browser"
+        android:title="@string/action_browser" />
     <item
-        android:id="@+id/action_share"
-        android:orderInCategory="600"
+        android:id="@+id/menu_context_share"
         android:title="@string/share_link" />
     <item
-        android:id="@+id/action_description"
-        android:orderInCategory="700"
+        android:id="@+id/menu_context_description"
         android:title="@string/read_description" />
-
 </menu>

@@ -15,7 +15,6 @@
  */
 package com.workingagenda.democracydroid.Feedreader;
 
-
 public class RssItem {
     private String title;
     private String description;
@@ -24,6 +23,7 @@ public class RssItem {
     private String videoUrl;
     private String pubDate;
     private String contentEnc; // story feed image_urls are stored here
+    private String test;
 
     public RssItem(String title, String description, String link, String imageUrl, String videoUrl, String pubDate, String contentEnc) {
         this.title = title;
@@ -34,7 +34,6 @@ public class RssItem {
         this.pubDate = pubDate;
         this.contentEnc = contentEnc;
     }
-
 
     public String getPubDate() {
         return pubDate;
@@ -52,26 +51,36 @@ public class RssItem {
         this.test = test;
     }
 
-    private String test;
-
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getImageUrl() {
         return imageUrl;
     }
 
-    public String getVideoUrl() {return videoUrl;}
-
-
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-    public void setVideoUrl(String videoUrl) { this.videoUrl = videoUrl; }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
 
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getLink() {
@@ -82,11 +91,8 @@ public class RssItem {
         this.link = link;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public void addToDescription(String addition){
-        if(this.description == null){
+    public void addToDescription(String addition) {
+        if (this.description == null) {
             this.description = addition;
         } else {
             this.description = this.description.concat(addition);
@@ -99,9 +105,5 @@ public class RssItem {
 
     public void setContentEnc(String contentEnc) {
         this.contentEnc = contentEnc;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 }

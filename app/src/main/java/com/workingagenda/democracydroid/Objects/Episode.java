@@ -1,9 +1,10 @@
 package com.workingagenda.democracydroid.Objects;
 
+import androidx.annotation.NonNull;
+
 /**
  * Created by fen on 12/9/15.
  */
-@SuppressWarnings("DefaultFileTemplate")
 public class Episode {
 
     private String title;
@@ -14,11 +15,10 @@ public class Episode {
     private String description;
     private String pubDate;
 
-
+    @NonNull
     public String toString() {
-        return  "\nEpisode: " + videoUrl + " " + pubDate
-                + "\n"+ audioUrl + " "+ title;
-
+        return "\nEpisode: " + videoUrl + " " + pubDate
+                + "\n" + audioUrl + " " + title;
     }
 
     public String getPubDate() {
@@ -76,5 +76,4 @@ public class Episode {
     public void setDescription(String description) {
         this.description = description;
     }
-
 }

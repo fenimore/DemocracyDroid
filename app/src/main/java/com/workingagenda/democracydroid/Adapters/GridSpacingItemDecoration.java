@@ -3,14 +3,13 @@ package com.workingagenda.democracydroid.Adapters;
 import android.graphics.Rect;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by derrickrocha on 7/16/17.
  */
-
-@SuppressWarnings("DefaultFileTemplate")
-public class GridSpacingItemDecoration  extends RecyclerView.ItemDecoration {
+public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
     private final int spanCount;
     private final int spacing;
@@ -22,9 +21,9 @@ public class GridSpacingItemDecoration  extends RecyclerView.ItemDecoration {
         this.includeEdge = includeEdge;
     }
 
-
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, RecyclerView parent,
+                               @NonNull RecyclerView.State state) {
         int position = parent.getChildAdapterPosition(view); // item position
         int column = position % spanCount; // item column
 

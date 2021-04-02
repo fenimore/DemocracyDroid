@@ -26,7 +26,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +39,9 @@ public class RssReader {
         rssUrl = url;
     }
 
-
     private List<RssItem> getRssItems(InputStream in) throws XmlPullParserException, IOException {
         try {
-            XmlPullParser parser= Xml.newPullParser();
+            XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in, null);
             parser.nextTag();
@@ -56,7 +55,7 @@ public class RssReader {
         List<RssItem> entries = new ArrayList<>();
         parser.require(XmlPullParser.START_TAG, this.nameSpace, "rss");
         while (parser.next() != XmlPullParser.END_TAG) {
-            if (parser.getEventType() != XmlPullParser.START_TAG){
+            if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
             String name = parser.getName();
@@ -79,7 +78,7 @@ public class RssReader {
         String videoUrl = null;
         String pubDate = null;
         String contentEnc = null;
-        while(parser.next() != XmlPullParser.END_TAG) {
+        while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -117,7 +116,7 @@ public class RssReader {
     private String readVideoUrl(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, this.nameSpace, "media:content");
         String result = parser.getAttributeValue(this.nameSpace, "url");
-        while(parser.next() != XmlPullParser.END_TAG) {
+        while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -176,7 +175,7 @@ public class RssReader {
         if (parser.next() == XmlPullParser.TEXT) {
             result = parser.getText();
             if (result.contains("src=")) {
-                result = result.substring(result.indexOf("src=") + 5 );
+                result = result.substring(result.indexOf("src=") + 5);
                 result = result.substring(0, result.indexOf("\""));
             }
             parser.nextTag();
@@ -219,11 +218,12 @@ public class RssReader {
 
     public List<RssItem> getItems() throws Exception {
         this.nameSpace = null;//"http://www.w3.org/2005/Atom";//null;//"http://www.w3.org/2005/Atom";
-        InputStream stream;
-        List<RssItem> items;
         Document doc = Jsoup.connect(rssUrl).get();
-        stream = new ByteArrayInputStream(doc.toString().replaceAll("&nbsp", " ").getBytes(Charset.forName("UTF-8")));
-        items = getRssItems(stream);
-        return items;
+        InputStream stream = new ByteArrayInputStream(
+                doc.toString()
+                        .replaceAll("&nbsp", " ")
+                        .getBytes(StandardCharsets.UTF_8)
+        );
+        return getRssItems(stream);
     }
 }

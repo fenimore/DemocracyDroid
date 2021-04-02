@@ -8,12 +8,11 @@ import com.workingagenda.democracydroid.Feedreader.RssReader;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class GetAudioFeed extends AsyncTask<String, Void, List<String>>{
+public class GetAudioFeed extends AsyncTask<String, Void, List<String>> {
 
     private final GetAudioFeedCallback mCallback;
 
-    public GetAudioFeed(GetAudioFeedCallback callback){
+    public GetAudioFeed(GetAudioFeedCallback callback) {
         mCallback = callback;
     }
 
@@ -29,13 +28,14 @@ public class GetAudioFeed extends AsyncTask<String, Void, List<String>>{
 
         ArrayList<String> audio = new ArrayList<>();
         try {
-            for(RssItem item : rssReader.getItems())
+            for (RssItem item : rssReader.getItems())
                 audio.add(item.getVideoUrl());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return audio;    }
+        return audio;
+    }
 
     @Override
     protected void onPostExecute(List<String> strings) {
@@ -43,14 +43,9 @@ public class GetAudioFeed extends AsyncTask<String, Void, List<String>>{
         mCallback.onGetAudioFeedPostExecute(strings);
     }
 
-    public interface GetAudioFeedCallback{
-
+    public interface GetAudioFeedCallback {
         void onGetAudioFeedPreExecute();
 
         void onGetAudioFeedPostExecute(List<String> strings);
-
-
-
     }
 }
-
