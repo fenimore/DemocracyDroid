@@ -24,6 +24,17 @@
                 android:scaleType="fitCenter" />
 
             <ImageView
+                android:id="@+id/row_download"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_toRightOf="@+id/row_episodes_title"
+                android:layout_toEndOf="@+id/row_episodes_title"
+                android:layout_alignBottom="@+id/row_episodes_title"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_download"/>
+
+            <ImageView
                 android:id="@+id/row_episodes_options"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"

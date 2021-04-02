@@ -16,10 +16,17 @@
  */
 package com.workingagenda.democracydroid.Adapters.ViewHolders;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.DownloadManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -28,8 +35,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +47,8 @@ import com.workingagenda.democracydroid.MediaActivity;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 import com.workingagenda.democracydroid.databinding.RowEpisodesBinding;
+
+import static androidx.core.content.ContextCompat.*;
 
 public class EpisodeViewHolder extends RecyclerView.ViewHolder
         implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
@@ -50,6 +62,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
     private final ImageView img;
     private final TextView tag;
     private final ImageView mOptions;
+    private final ImageView mDownload;
     private final SharedPreferences preferences;
     private Episode mEpisode;
 
@@ -61,6 +74,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
         tag = binding.rowEpisodesTag;
         tag.setMaxLines(3);
         mOptions = binding.rowEpisodesOptions;
+        mDownload = binding.rowDownload;
         itemView.setOnCreateContextMenuListener(this);
         preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
     }
@@ -92,8 +106,23 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
             }
             itemView.setOnClickListener(view -> loadEpisode(e));
             mOptions.setOnClickListener(view -> mOptions.showContextMenu());
-        }
+            mDownload.setOnClickListener(view -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                builder.setTitle("Download");
+                builder.setMessage("Are you sure you want to download today's episode?");
+                builder.setNeutralButton("Cancel", (dialog, which) -> {});
+                builder.setNegativeButton("Audio", (dialog, which) ->
+                        Download(e.getAudioUrl(), e.getTitle(), e.getDescription()));
+                builder.setPositiveButton("Video", (dialog, which) ->
+                        Download(e.getVideoUrl(), e.getTitle(), e.getDescription()));
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        );
     }
+}
+
+
 
     private void loadEpisode(Episode e) {
         if (e != null) {
@@ -155,6 +184,41 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
         }
     }
 
+
+    // FIXME: Show progress:
+    // http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
+    private void Download(String url, String title, String desc) {
+        if (checkSelfPermission(itemView.getContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ((Activity)itemView.getContext()).requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    0);
+            // TODO: catch onRequestPermissionsResult
+        } else {
+            if ("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8".equals(url)) {
+                Toast toast = Toast.makeText(itemView.getContext(),
+                        "You can't download the Live Stream", Toast.LENGTH_LONG);
+                toast.show();
+                return;
+            }
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+            request.setDescription(desc);
+            request.setTitle(title);
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+            String fileext = url.substring(url.lastIndexOf('/') + 1);
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PODCASTS, fileext);
+            //http://stackoverflow.com/questions/24427414/getsystemservices-is-undefined-when-called-in-a-fragment
+
+            // get download service and enqueue file
+            DownloadManager manager = (DownloadManager) itemView.getContext().getSystemService(Context.DOWNLOAD_SERVICE);
+            manager.enqueue(request);
+            // TODO: Save que ID for cancel button
+            Toast toast = Toast.makeText(itemView.getContext(), "Starting download of " + title, Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         int DEFAULT_STREAM = Integer.parseInt(preferences.getString("pref_default_stream", "0")); // 0=video
@@ -203,6 +267,16 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
                         .setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle())
                         .setPositiveButton(android.R.string.ok, null)
                         .show();
+                return true;
+            case R.id.menu_video_download:
+                if (mEpisode.getTitle().equals("Stream Live"))
+                    return true;
+                Download(mEpisode.getVideoUrl(), mEpisode.getTitle(), mEpisode.getDescription());
+                return true;
+            case R.id.menu_audio_download:
+                if (mEpisode.getTitle().equals("Stream Live"))
+                    return true;
+                Download(mEpisode.getAudioUrl(), mEpisode.getTitle(), mEpisode.getDescription());
                 return true;
             case R.id.menu_context_open_browser:
                 Intent intent = new Intent(Intent.ACTION_VIEW);
