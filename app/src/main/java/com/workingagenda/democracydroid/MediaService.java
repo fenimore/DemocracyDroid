@@ -140,6 +140,7 @@ public class MediaService extends Service {
     public SimpleExoPlayer setUpPlayer(Uri url) {
         String ext = url.toString().substring(url.toString().lastIndexOf("."));
         Log.d("Extension", ext);
+
         DataSource.Factory dataSourceFactory = new DefaultHttpDataSource.Factory()
                 .setUserAgent("DemocracyDroid!")
                 .setTransferListener(null)

@@ -34,13 +34,15 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.workingagenda.democracydroid.databinding.ActivityMainBinding;
+import com.workingagenda.democracydroid.tabfragment.DownloadFragment;
 import com.workingagenda.democracydroid.tabfragment.PodcastFragment;
 import com.workingagenda.democracydroid.tabfragment.StoryFragment;
 
 public class MainActivity extends AppCompatActivity {
     private static final int POS_STORY = 0;
     private static final int POS_PODCAST = 1;
-    private static final int TOTAL_COUNT = 2;
+    private static final int POS_DOWNLOAD = 2;
+    private static final int TOTAL_COUNT = 3;
     ActivityMainBinding binding;
 
     @Override
@@ -145,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
                     return new StoryFragment();
                 case POS_PODCAST:
                     return new PodcastFragment();
+                case POS_DOWNLOAD:
+                    return new DownloadFragment();
             }
         }
 
@@ -159,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
                     tab.setIcon(R.drawable.ic_live_tv);
                     tab.setContentDescription(R.string.tab_broadcasts);
                     break;
+                case POS_DOWNLOAD:
+                    tab.setIcon(R.drawable.ic_download_white);
+                    tab.setContentDescription("Downloads");
             }
         }
 

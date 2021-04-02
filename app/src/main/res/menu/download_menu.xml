@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_delete"
+        android:orderInCategory="100"
+        android:title="Delete" />
+    <item
+        android:id="@+id/action_external_player"
+        android:orderInCategory="200"
+        android:title="Play in external player"/>
+</menu>
