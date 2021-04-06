@@ -2,35 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
+
     <ImageView
         android:id="@+id/row_image"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginBottom="5dp" />
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:paddingBottom="16dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        >
+        android:paddingBottom="16dp">
+
         <TextView
             android:id="@+id/row_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:paddingTop="5dp"/>
+            android:paddingTop="5dp"
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/row_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
             android:paddingTop="5dp"
-            android:text="The War And Peace Report"/>
+            android:text="The War And Peace Report"
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

@@ -3,7 +3,6 @@ package com.workingagenda.democracydroid.tabfragment;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,41 +24,26 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.workingagenda.democracydroid.Adapters.DownloadsAdapter;
-import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
-import com.workingagenda.democracydroid.Adapters.GridSpacingItemDecoration;
-import com.workingagenda.democracydroid.Helpers.DpToPixelHelper;
 import com.workingagenda.democracydroid.MediaActivity;
-import com.workingagenda.democracydroid.Network.Podcast.GetAudioFeed;
-import com.workingagenda.democracydroid.Network.Podcast.GetVideoFeed;
-import com.workingagenda.democracydroid.Network.ServerApi;
-import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
-import com.workingagenda.democracydroid.databinding.FragmentMainBinding;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 public class DownloadFragment extends Fragment {
-    public TextView Txt1;
-    public Button btn;
-    public Button btnRefresh;
-    public ListView dList;
-    public List<File> files;
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
+    public TextView Txt1;
+    public Button btn;
+    public Button btnRefresh;
+    public ListView dList;
+    public List<File> files;
 
     public DownloadFragment() {
     }
@@ -88,7 +72,7 @@ public class DownloadFragment extends Fragment {
         Txt1.setText("Long Click An Episode to Download, Share, Read Description, and Stream. Long Click a Download to Open it in an External Player.");
         dList.setEmptyView(Txt1);
         btn = rootView.findViewById(R.id.clear);
-        btnRefresh= rootView.findViewById(R.id.refresh);
+        btnRefresh = rootView.findViewById(R.id.refresh);
         registerForContextMenu(dList);
 
         dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
@@ -137,12 +121,13 @@ public class DownloadFragment extends Fragment {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        if (v.getId()==android.R.id.list) {
+        if (v.getId() == android.R.id.list) {
             MenuInflater inflater = new MenuInflater(getContext());
             menu.setHeaderTitle("Democracy Now!");
             inflater.inflate(R.menu.download_menu, menu);
         }
     }
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
@@ -151,7 +136,7 @@ public class DownloadFragment extends Fragment {
             return super.onContextItemSelected(item);
         int pos = info.position;
         File file = files.get(pos);
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.action_delete:
                 boolean delete = file.delete();
                 Log.d("File: ", file.getName() + String.valueOf(delete));
@@ -166,15 +151,16 @@ public class DownloadFragment extends Fragment {
                 return super.onContextItemSelected(item);
         }
     }
+
     private List<File> getListFiles() {
         ArrayList<File> inFiles = new ArrayList<>();
-        File parentDir = new File(Environment.getExternalStorageDirectory().toString()+
+        File parentDir = new File(Environment.getExternalStorageDirectory().toString() +
                 File.separator + Environment.DIRECTORY_PODCASTS);
         File[] files = parentDir.listFiles();
         if (files != null) {
             for (File file : files) {
-                if(file.getName().startsWith("dn") || file.getName().endsWith("-podcast.mp4") || file.getName().endsWith("-podcast.mp3")){ // there must be a smarter way to do this
-                    if(file.getName().endsWith(".mp3") || file.getName().endsWith(".mp4")){
+                if (file.getName().startsWith("dn") || file.getName().endsWith("-podcast.mp4") || file.getName().endsWith("-podcast.mp3")) { // there must be a smarter way to do this
+                    if (file.getName().endsWith(".mp3") || file.getName().endsWith(".mp4")) {
                         inFiles.add(file);
                     }
                 }
@@ -183,10 +169,11 @@ public class DownloadFragment extends Fragment {
         // Collections.reverse(inFiles);
         return inFiles;
     }
-    private void refresh(){
+
+    private void refresh() {
         if (ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED){
+                == PackageManager.PERMISSION_GRANTED) {
             files = getListFiles();
             dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
         }

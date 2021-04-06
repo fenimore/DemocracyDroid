@@ -20,5 +20,5 @@
         android:title="Download audio" />
     <item
         android:id="@+id/menu_video_download"
-        android:title="Download video"/>
+        android:title="Download video" />
 </menu>

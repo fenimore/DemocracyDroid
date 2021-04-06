@@ -1,40 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingRight="15dp"
+    android:layout_marginBottom="50dp"
+    android:orientation="vertical"
     android:paddingLeft="15dp"
-    android:paddingBottom="70dp"
-    android:layout_marginBottom="50dp">
+    android:paddingRight="15dp"
+    android:paddingBottom="70dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_clear_icon"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
-            style="?android:attr/buttonBarButtonStyle"
             android:id="@+id/clear"
-            android:text="Clear All"
-            android:layout_marginTop="10dp"/>
-        <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/buttonBarButtonStyle"
-            android:drawableLeft="@drawable/ic_refresh"
-            android:paddingRight="20dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_clear_icon"
             android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Clear All" />
+
+        <Button
             android:id="@+id/refresh"
-            android:text="Refresh"
-            android:layout_marginTop="10dp"/>
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_refresh"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Refresh" />
     </LinearLayout>
 
-    <ListView android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@android:id/list">
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
 
     </ListView>
@@ -43,7 +48,7 @@
         android:id="@+id/download_help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
         android:paddingTop="5dp"
-        android:textStyle="italic"/>
+        android:textSize="20sp"
+        android:textStyle="italic" />
 </LinearLayout>

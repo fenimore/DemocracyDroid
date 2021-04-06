@@ -20,12 +20,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -37,7 +35,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
@@ -47,8 +44,6 @@ import com.workingagenda.democracydroid.MediaActivity;
 import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
 import com.workingagenda.democracydroid.databinding.RowEpisodesBinding;
-
-import static androidx.core.content.ContextCompat.*;
 
 public class EpisodeViewHolder extends RecyclerView.ViewHolder
         implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
@@ -107,22 +102,21 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
             itemView.setOnClickListener(view -> loadEpisode(e));
             mOptions.setOnClickListener(view -> mOptions.showContextMenu());
             mDownload.setOnClickListener(view -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                builder.setTitle("Download");
-                builder.setMessage("Are you sure you want to download today's episode?");
-                builder.setNeutralButton("Cancel", (dialog, which) -> {});
-                builder.setNegativeButton("Audio", (dialog, which) ->
-                        Download(e.getAudioUrl(), e.getTitle(), e.getDescription()));
-                builder.setPositiveButton("Video", (dialog, which) ->
-                        Download(e.getVideoUrl(), e.getTitle(), e.getDescription()));
-                AlertDialog alert = builder.create();
-                alert.show();
-            }
-        );
+                        AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                        builder.setTitle("Download");
+                        builder.setMessage("Are you sure you want to download today's episode?");
+                        builder.setNeutralButton("Cancel", (dialog, which) -> {
+                        });
+                        builder.setNegativeButton("Audio", (dialog, which) ->
+                                Download(e.getAudioUrl(), e.getTitle(), e.getDescription()));
+                        builder.setPositiveButton("Video", (dialog, which) ->
+                                Download(e.getVideoUrl(), e.getTitle(), e.getDescription()));
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }
+            );
+        }
     }
-}
-
-
 
     private void loadEpisode(Episode e) {
         if (e != null) {
@@ -188,10 +182,10 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
     // FIXME: Show progress:
     // http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
     private void Download(String url, String title, String desc) {
-        if (checkSelfPermission(itemView.getContext(),
+        if (ContextCompat.checkSelfPermission(itemView.getContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            ((Activity)itemView.getContext()).requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+            ((Activity) itemView.getContext()).requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     0);
             // TODO: catch onRequestPermissionsResult
         } else {

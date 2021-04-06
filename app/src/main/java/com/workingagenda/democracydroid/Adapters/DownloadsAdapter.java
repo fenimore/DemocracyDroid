@@ -17,7 +17,6 @@
 package com.workingagenda.democracydroid.Adapters;
 
 import android.content.Context;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,16 +37,16 @@ import java.util.List;
 @SuppressWarnings("DefaultFileTemplate")
 public class DownloadsAdapter extends ArrayAdapter<File> {
 
-    public DownloadsAdapter(Context context, int resource, List<File> files){
+    public DownloadsAdapter(Context context, int resource, List<File> files) {
         super(context, resource, files);
     }
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent){
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View v = convertView;
 
-        if(v == null) {
+        if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
             v = vi.inflate(R.layout.row_download, null);
@@ -60,19 +59,19 @@ public class DownloadsAdapter extends ArrayAdapter<File> {
             String title = f.getName();
             Boolean isVideo = false;
 
-            if (txt != null && title.startsWith("dn")){
+            if (txt != null && title.startsWith("dn")) {
                 title = title.substring(0, title.length() - 4);
                 title = title.substring(2, title.length());
                 title = title.substring(0, 7) + "-" + title.substring(7, title.length());
                 if (title.endsWith("-1"))
-                    title = title.substring(0, title.length()-2);
+                    title = title.substring(0, title.length() - 2);
                 txt.setText(title);
             } else if (txt != null) {
                 title = title.substring(0, title.length() - 12);
                 txt.setText(title);
             }
 
-            if(f.getName().endsWith(".mp4")){
+            if (f.getName().endsWith(".mp4")) {
                 isVideo = true;
             }
             if (isVideo) {
@@ -84,5 +83,4 @@ public class DownloadsAdapter extends ArrayAdapter<File> {
 
         return v;
     }
-
 }
