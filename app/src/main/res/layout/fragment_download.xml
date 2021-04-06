@@ -9,40 +9,38 @@
     android:paddingBottom="70dp">
 
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/clear"
+            android:id="@+id/download_clear"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:drawableLeft="@drawable/ic_clear_icon"
+            android:drawableStart="@drawable/ic_clear_all"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="Clear All" />
 
         <Button
-            android:id="@+id/refresh"
+            android:id="@+id/download_refresh"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:drawableLeft="@drawable/ic_refresh"
+            android:drawableStart="@drawable/ic_refresh"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="Refresh" />
     </LinearLayout>
 
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/download_list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-
-    </ListView>
+        android:layout_height="fill_parent" />
 
     <TextView
         android:id="@+id/download_help"

@@ -24,15 +24,14 @@
                 android:scaleType="fitCenter" />
 
             <ImageView
-                android:id="@+id/row_download"
+                android:id="@+id/row_episodes_download"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:layout_alignBottom="@+id/row_episodes_title"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"
                 android:layout_toEndOf="@+id/row_episodes_title"
-                android:layout_toRightOf="@+id/row_episodes_title"
-                android:src="@drawable/ic_download" />
+                card_view:srcCompat="@drawable/ic_download" />
 
             <ImageView
                 android:id="@+id/row_episodes_options"

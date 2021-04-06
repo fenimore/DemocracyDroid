@@ -67,12 +67,12 @@ public class DownloadFragment extends Fragment {
 
         files = getListFiles();
 
-        dList = rootView.findViewById(android.R.id.list);
+        dList = rootView.findViewById(R.id.download_list);
         Txt1 = rootView.findViewById(R.id.download_help);
         Txt1.setText("Long Click An Episode to Download, Share, Read Description, and Stream. Long Click a Download to Open it in an External Player.");
         dList.setEmptyView(Txt1);
-        btn = rootView.findViewById(R.id.clear);
-        btnRefresh = rootView.findViewById(R.id.refresh);
+        btn = rootView.findViewById(R.id.download_clear);
+        btnRefresh = rootView.findViewById(R.id.download_refresh);
         registerForContextMenu(dList);
 
         dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
@@ -137,13 +137,13 @@ public class DownloadFragment extends Fragment {
         int pos = info.position;
         File file = files.get(pos);
         switch (item.getItemId()) {
-            case R.id.action_delete:
+            case R.id.menu_download_delete:
                 boolean delete = file.delete();
                 Log.d("File: ", file.getName() + delete);
                 files = getListFiles();
                 dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
                 return true;
-            case R.id.action_external_player:
+            case R.id.menu_download_external_player:
                 Intent z = new Intent(Intent.ACTION_VIEW);
                 z.setDataAndType(Uri.fromFile(file), "*/*");
                 startActivity(z);

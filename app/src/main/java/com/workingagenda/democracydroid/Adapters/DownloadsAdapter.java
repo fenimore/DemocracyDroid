@@ -54,8 +54,8 @@ public class DownloadsAdapter extends ArrayAdapter<File> {
 
         File f = getItem(position);
         if (f != null) {
-            ImageView img = v.findViewById(R.id.row_image);
-            TextView txt = v.findViewById(R.id.row_title);
+            ImageView img = v.findViewById(R.id.row_download_image);
+            TextView txt = v.findViewById(R.id.row_download_title);
             String title = f.getName();
             Boolean isVideo = false;
 
@@ -75,9 +75,9 @@ public class DownloadsAdapter extends ArrayAdapter<File> {
                 isVideo = true;
             }
             if (isVideo) {
-                img.setImageResource(R.drawable.ic_movie_icon);
+                img.setImageResource(R.drawable.ic_movie);
             } else {
-                img.setImageResource(R.drawable.ic_microphone);
+                img.setImageResource(R.drawable.ic_mic);
             }
         }
 

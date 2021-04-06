@@ -4,7 +4,7 @@
     tools:context="com.workingagenda.democracydroid.MainActivity">
     <item
         android:id="@+id/menu_main_refresh"
-        android:icon="@drawable/ic_refresh_action"
+        android:icon="@drawable/ic_refresh"
         android:title="@string/action_refresh"
         app:showAsAction="ifRoom" />
     <item

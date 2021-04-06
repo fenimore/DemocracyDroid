@@ -164,14 +164,14 @@ public class MainActivity extends AppCompatActivity {
                     tab.setContentDescription(R.string.tab_broadcasts);
                     break;
                 case POS_DOWNLOAD:
-                    tab.setIcon(R.drawable.ic_download_white);
+                    tab.setIcon(R.drawable.ic_download);
                     tab.setContentDescription("Downloads");
             }
         }
 
         @Override
         public int getItemCount() {
-            // Show 2 total pages.
+            // Show 3 total pages.
             return TOTAL_COUNT;
         }
     }

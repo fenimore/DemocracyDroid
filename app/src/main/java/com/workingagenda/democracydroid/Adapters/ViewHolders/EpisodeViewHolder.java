@@ -69,7 +69,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
         tag = binding.rowEpisodesTag;
         tag.setMaxLines(3);
         mOptions = binding.rowEpisodesOptions;
-        mDownload = binding.rowDownload;
+        mDownload = binding.rowEpisodesDownload;
         itemView.setOnCreateContextMenuListener(this);
         preferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
     }
@@ -262,12 +262,12 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
                         .setPositiveButton(android.R.string.ok, null)
                         .show();
                 return true;
-            case R.id.menu_video_download:
+            case R.id.menu_context_video_download:
                 if (mEpisode.getTitle().equals("Stream Live"))
                     return true;
                 Download(mEpisode.getVideoUrl(), mEpisode.getTitle(), mEpisode.getDescription());
                 return true;
-            case R.id.menu_audio_download:
+            case R.id.menu_context_audio_download:
                 if (mEpisode.getTitle().equals("Stream Live"))
                     return true;
                 Download(mEpisode.getAudioUrl(), mEpisode.getTitle(), mEpisode.getDescription());
