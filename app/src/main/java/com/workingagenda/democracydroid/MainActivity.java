@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case POS_DOWNLOAD:
                     tab.setIcon(R.drawable.ic_download);
-                    tab.setContentDescription("Downloads");
+                    tab.setContentDescription(R.string.tab_downloads);
             }
         }
 

@@ -101,29 +101,29 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
             }
             itemView.setOnClickListener(view -> loadEpisode(e));
             mOptions.setOnClickListener(view -> mOptions.showContextMenu());
-            mDownload.setOnClickListener(view -> {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                        builder.setTitle("Download");
-                        builder.setMessage("Are you sure you want to download today's episode?");
-                        builder.setNeutralButton("Cancel", (dialog, which) -> {
-                        });
-                        builder.setNegativeButton("Audio", (dialog, which) ->
-                                Download(e.getAudioUrl(), e.getTitle(), e.getDescription()));
-                        builder.setPositiveButton("Video", (dialog, which) ->
-                                Download(e.getVideoUrl(), e.getTitle(), e.getDescription()));
-                        AlertDialog alert = builder.create();
-                        alert.show();
-                    }
+            mDownload.setOnClickListener(view ->
+                    new AlertDialog.Builder(itemView.getContext())
+                            .setTitle(R.string.download)
+                            .setMessage(R.string.download_episode_confirmation)
+                            .setNeutralButton(android.R.string.cancel, null)
+                            .setNegativeButton(R.string.audio, (dialog, which) ->
+                                    download(e.getAudioUrl(), e.getTitle(), e.getDescription()))
+                            .setPositiveButton(R.string.video, (dialog, which) ->
+                                    download(e.getVideoUrl(), e.getTitle(), e.getDescription()))
+                            .create()
+                            .show()
             );
         }
     }
 
     private void loadEpisode(Episode e) {
         if (e != null) {
-            int DEFAULT_STREAM = Integer.parseInt(preferences.getString("pref_default_stream", "0")); // 0=video
-            int DEFAULT_OPEN = Integer.parseInt(preferences.getString("pref_default_media_player", "0")); // 0 = within this app
+            int DEFAULT_STREAM = Integer.parseInt(
+                    preferences.getString("pref_default_stream", "0")); // 0=video
+            int DEFAULT_OPEN = Integer.parseInt(
+                    preferences.getString("pref_default_media_player", "0")); // 0 = within this app
             // Set the Title for Toolbar
-            String actionTitle = "Democracy Now!";
+            String actionTitle = itemView.getContext().getString(R.string.democracy_now);
             String title = e.getTitle().trim();
             if (title.length() > 16) {
                 if (title.startsWith("Democracy Now!"))
@@ -161,40 +161,41 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
         MenuInflater inflater = new MenuInflater(itemView.getContext());
         menu.setHeaderTitle("Democracy Now!");
         inflater.inflate(R.menu.context_menu, menu);
-        int DEFAULT_STREAM = Integer.parseInt(preferences.getString("pref_default_stream", "0")); // 0=video
-        int DEFAULT_OPEN = Integer.parseInt(preferences.getString("pref_default_media_player", "0")); // 0 = within this app
+        int DEFAULT_STREAM = Integer.parseInt(
+                preferences.getString("pref_default_stream", "0")); // 0=video
+        int DEFAULT_OPEN = Integer.parseInt(
+                preferences.getString("pref_default_media_player", "0")); // 0 = within this app
 
         if (DEFAULT_STREAM == 0)
-            menu.getItem(0).setTitle("Stream Audio");
+            menu.getItem(0).setTitle(R.string.stream_audio);
         else
-            menu.getItem(0).setTitle("Stream Video");
+            menu.getItem(0).setTitle(R.string.stream_video);
 
         if (DEFAULT_OPEN == 0)
-            menu.getItem(1).setTitle("Stream in Another App");
+            menu.getItem(1).setTitle(R.string.stream_in_another_app);
         else
-            menu.getItem(1).setTitle("Stream in This App");
+            menu.getItem(1).setTitle(R.string.stream_in_this_app);
         for (int i = 0; i < menu.size(); i++) {
             menu.getItem(i).setOnMenuItemClickListener(this);
         }
     }
 
-
     // FIXME: Show progress:
-    // http://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
-    private void Download(String url, String title, String desc) {
+    // https://stackoverflow.com/q/3028306/15418137
+    private void download(String url, String title, String desc) {
         if (ContextCompat.checkSelfPermission(itemView.getContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            ((Activity) itemView.getContext()).requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    0);
+            ((Activity) itemView.getContext()).requestPermissions(
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             // TODO: catch onRequestPermissionsResult
         } else {
             if ("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8".equals(url)) {
-                Toast toast = Toast.makeText(itemView.getContext(),
-                        "You can't download the Live Stream", Toast.LENGTH_LONG);
-                toast.show();
+                Toast.makeText(itemView.getContext(),
+                        R.string.live_stream_download_failed, Toast.LENGTH_LONG).show();
                 return;
             }
+
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
             request.setDescription(desc);
             request.setTitle(title);
@@ -265,12 +266,12 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
             case R.id.menu_context_video_download:
                 if (mEpisode.getTitle().equals("Stream Live"))
                     return true;
-                Download(mEpisode.getVideoUrl(), mEpisode.getTitle(), mEpisode.getDescription());
+                download(mEpisode.getVideoUrl(), mEpisode.getTitle(), mEpisode.getDescription());
                 return true;
             case R.id.menu_context_audio_download:
                 if (mEpisode.getTitle().equals("Stream Live"))
                     return true;
-                Download(mEpisode.getAudioUrl(), mEpisode.getTitle(), mEpisode.getDescription());
+                download(mEpisode.getAudioUrl(), mEpisode.getTitle(), mEpisode.getDescription());
                 return true;
             case R.id.menu_context_open_browser:
                 Intent intent = new Intent(Intent.ACTION_VIEW);

@@ -34,7 +34,6 @@ import java.util.List;
 /**
  * Created by fen on 12/9/15.
  */
-@SuppressWarnings("DefaultFileTemplate")
 public class DownloadsAdapter extends ArrayAdapter<File> {
 
     public DownloadsAdapter(Context context, int resource, List<File> files) {
@@ -47,8 +46,7 @@ public class DownloadsAdapter extends ArrayAdapter<File> {
         View v = convertView;
 
         if (v == null) {
-            LayoutInflater vi;
-            vi = LayoutInflater.from(getContext());
+            final LayoutInflater vi = LayoutInflater.from(getContext());
             v = vi.inflate(R.layout.row_download, null);
         }
 
@@ -57,7 +55,7 @@ public class DownloadsAdapter extends ArrayAdapter<File> {
             ImageView img = v.findViewById(R.id.row_download_image);
             TextView txt = v.findViewById(R.id.row_download_title);
             String title = f.getName();
-            Boolean isVideo = false;
+            boolean isVideo = false;
 
             if (txt != null && title.startsWith("dn")) {
                 title = title.substring(0, title.length() - 4);
