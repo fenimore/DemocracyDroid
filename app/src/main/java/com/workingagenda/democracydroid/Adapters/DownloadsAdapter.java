@@ -62,8 +62,8 @@ public class DownloadsAdapter extends ArrayAdapter<File> {
 
             if (txt != null && title.startsWith("dn")){
                 title = title.substring(0, title.length() - 4);
-                title = title.substring(2, title.length());
-                title = title.substring(0, 7) + "-" + title.substring(7, title.length());
+                title = title.substring(2);
+                title = title.substring(0, 7) + "-" + title.substring(7);
                 if (title.endsWith("-1"))
                     title = title.substring(0, title.length()-2);
                 txt.setText(title);

@@ -102,7 +102,11 @@ public class DownloadFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 for (File file : files) {
                                     boolean delete = file.delete();
+<<<<<<< HEAD
                                     Log.d("File: ", file.getName() + String.valueOf(delete));
+=======
+                                    Log.d("File: ", file.getName() + delete);
+>>>>>>> add-download-tab
                                 }
                                 files = getListFiles();
                                 dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
@@ -154,7 +158,7 @@ public class DownloadFragment extends Fragment {
         switch(item.getItemId()) {
             case R.id.action_delete:
                 boolean delete = file.delete();
-                Log.d("File: ", file.getName() + String.valueOf(delete));
+                Log.d("File: ", file.getName() + delete);
                 files = getListFiles();
                 dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
                 return true;
