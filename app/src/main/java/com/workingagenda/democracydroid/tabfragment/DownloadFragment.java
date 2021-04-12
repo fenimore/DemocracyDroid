@@ -1,10 +1,6 @@
 package com.workingagenda.democracydroid.tabfragment;
 
-import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,58 +19,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.workingagenda.democracydroid.Adapters.DownloadsAdapter;
-import com.workingagenda.democracydroid.Adapters.EpisodeAdapter;
-import com.workingagenda.democracydroid.Adapters.GridSpacingItemDecoration;
-import com.workingagenda.democracydroid.Helpers.DpToPixelHelper;
 import com.workingagenda.democracydroid.MediaActivity;
-import com.workingagenda.democracydroid.Network.Podcast.GetAudioFeed;
-import com.workingagenda.democracydroid.Network.Podcast.GetVideoFeed;
-import com.workingagenda.democracydroid.Network.ServerApi;
-import com.workingagenda.democracydroid.Objects.Episode;
 import com.workingagenda.democracydroid.R;
-import com.workingagenda.democracydroid.databinding.FragmentMainBinding;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 public class DownloadFragment extends Fragment {
-    public TextView Txt1;
-    public Button btn;
-    public Button btnRefresh;
-    public ListView dList;
-    public List<File> files;
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
-    private static final String ARG_SECTION_NUMBER = "section_number";
-
-    public DownloadFragment() {
-    }
-
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
-    public static DownloadFragment newInstance(int sectionNumber) {
-        DownloadFragment fragment = new DownloadFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private ListView dList;
+    private List<File> files;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -83,12 +40,12 @@ public class DownloadFragment extends Fragment {
 
         files = getListFiles();
 
-        dList = rootView.findViewById(android.R.id.list);
-        Txt1 = rootView.findViewById(R.id.download_help);
-        Txt1.setText("Long Click An Episode to Download, Share, Read Description, and Stream. Long Click a Download to Open it in an External Player.");
-        dList.setEmptyView(Txt1);
-        btn = rootView.findViewById(R.id.clear);
-        btnRefresh= rootView.findViewById(R.id.refresh);
+        dList = rootView.findViewById(R.id.download_list);
+        final TextView dHelp = rootView.findViewById(R.id.download_help);
+        dHelp.setText(R.string.download_tab_description);
+        dList.setEmptyView(dHelp);
+        final Button btnClear = rootView.findViewById(R.id.download_clear);
+        final Button btnRefresh = rootView.findViewById(R.id.download_refresh);
         registerForContextMenu(dList);
 
         dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
@@ -102,31 +59,28 @@ public class DownloadFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 for (File file : files) {
                                     boolean delete = file.delete();
-<<<<<<< HEAD
-                                    Log.d("File: ", file.getName() + String.valueOf(delete));
-=======
                                     Log.d("File: ", file.getName() + delete);
->>>>>>> add-download-tab
                                 }
                                 files = getListFiles();
                                 dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
                                 Toast toast = Toast.makeText(getActivity(), "Downloads Removed", Toast.LENGTH_SHORT);
                                 toast.show();
                             }
-                        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                }).setIcon(android.R.drawable.ic_dialog_alert).show();
-            }
+                            files = getListFiles();
+                            dList.setAdapter(
+                                    new DownloadsAdapter(getContext(), R.layout.row_download, files));
+                            Toast.makeText(getActivity(), R.string.downloads_removed, Toast.LENGTH_SHORT).show();
+                        })
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .setIcon(R.drawable.ic_warning)
+                        .show());
+
+        btnRefresh.setOnClickListener(v -> {
+            files = getListFiles();
+            dList.setAdapter(
+                    new DownloadsAdapter(getContext(), R.layout.row_download, files));
         });
-        btnRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                files = getListFiles();
-                dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
-            }
-        });
+
         dList.setOnItemClickListener((parent, view, position, id) -> {
             File f = files.get(position);
             Intent y = new Intent(getContext(), MediaActivity.class);
@@ -139,30 +93,33 @@ public class DownloadFragment extends Fragment {
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        if (v.getId()==android.R.id.list) {
+        if (v.getId() == android.R.id.list) {
             MenuInflater inflater = new MenuInflater(getContext());
             menu.setHeaderTitle("Democracy Now!");
             inflater.inflate(R.menu.download_menu, menu);
         }
     }
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        //int pos = ; FIND A WAY TO PASS LiST ITEM POSITION?
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        //int pos = ; FIND A WAY TO PASS LIST ITEM POSITION?
+        AdapterView.AdapterContextMenuInfo info
+                = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         if (info == null)
             return super.onContextItemSelected(item);
         int pos = info.position;
         File file = files.get(pos);
-        switch(item.getItemId()) {
-            case R.id.action_delete:
+        switch (item.getItemId()) {
+            case R.id.menu_download_delete:
                 boolean delete = file.delete();
                 Log.d("File: ", file.getName() + delete);
                 files = getListFiles();
                 dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
                 return true;
-            case R.id.action_external_player:
+            case R.id.menu_download_external_player:
                 Intent z = new Intent(Intent.ACTION_VIEW);
                 z.setDataAndType(Uri.fromFile(file), "*/*");
                 startActivity(z);
@@ -170,15 +127,18 @@ public class DownloadFragment extends Fragment {
                 return super.onContextItemSelected(item);
         }
     }
+
     private List<File> getListFiles() {
         ArrayList<File> inFiles = new ArrayList<>();
-        File parentDir = new File(Environment.getExternalStorageDirectory().toString()+
+        File parentDir = new File(Environment.getExternalStorageDirectory().toString() +
                 File.separator + Environment.DIRECTORY_PODCASTS);
         File[] files = parentDir.listFiles();
         if (files != null) {
             for (File file : files) {
-                if(file.getName().startsWith("dn") || file.getName().endsWith("-podcast.mp4") || file.getName().endsWith("-podcast.mp3")){ // there must be a smarter way to do this
-                    if(file.getName().endsWith(".mp3") || file.getName().endsWith(".mp4")){
+                if (file.getName().startsWith("dn")
+                        || file.getName().endsWith("-podcast.mp4")
+                        || file.getName().endsWith("-podcast.mp3")) {// there must be a smarter way to do this
+                    if (file.getName().endsWith(".mp3") || file.getName().endsWith(".mp4")) {
                         inFiles.add(file);
                     }
                 }
@@ -186,14 +146,5 @@ public class DownloadFragment extends Fragment {
         }
         // Collections.reverse(inFiles);
         return inFiles;
-    }
-    private void refresh(){
-        if (ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED){
-            files = getListFiles();
-            dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
-        }
-
     }
 }

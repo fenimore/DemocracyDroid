@@ -17,7 +17,6 @@
 package com.workingagenda.democracydroid.Adapters;
 
 import android.content.Context;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,54 +34,51 @@ import java.util.List;
 /**
  * Created by fen on 12/9/15.
  */
-@SuppressWarnings("DefaultFileTemplate")
 public class DownloadsAdapter extends ArrayAdapter<File> {
 
-    public DownloadsAdapter(Context context, int resource, List<File> files){
+    public DownloadsAdapter(Context context, int resource, List<File> files) {
         super(context, resource, files);
     }
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent){
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View v = convertView;
 
-        if(v == null) {
-            LayoutInflater vi;
-            vi = LayoutInflater.from(getContext());
+        if (v == null) {
+            final LayoutInflater vi = LayoutInflater.from(getContext());
             v = vi.inflate(R.layout.row_download, null);
         }
 
         File f = getItem(position);
         if (f != null) {
-            ImageView img = v.findViewById(R.id.row_image);
-            TextView txt = v.findViewById(R.id.row_title);
+            ImageView img = v.findViewById(R.id.row_download_image);
+            TextView txt = v.findViewById(R.id.row_download_title);
             String title = f.getName();
-            Boolean isVideo = false;
+            boolean isVideo = false;
 
-            if (txt != null && title.startsWith("dn")){
+            if (txt != null && title.startsWith("dn")) {
                 title = title.substring(0, title.length() - 4);
                 title = title.substring(2);
                 title = title.substring(0, 7) + "-" + title.substring(7);
                 if (title.endsWith("-1"))
-                    title = title.substring(0, title.length()-2);
+                    title = title.substring(0, title.length() - 2);
                 txt.setText(title);
             } else if (txt != null) {
                 title = title.substring(0, title.length() - 12);
                 txt.setText(title);
             }
 
-            if(f.getName().endsWith(".mp4")){
+            if (f.getName().endsWith(".mp4")) {
                 isVideo = true;
             }
             if (isVideo) {
-                img.setImageResource(R.drawable.ic_movie_icon);
+                img.setImageResource(R.drawable.ic_movie);
             } else {
-                img.setImageResource(R.drawable.ic_microphone);
+                img.setImageResource(R.drawable.ic_mic);
             }
         }
 
         return v;
     }
-
 }

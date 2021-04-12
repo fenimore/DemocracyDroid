@@ -16,9 +16,9 @@
         android:id="@+id/menu_context_description"
         android:title="@string/read_description" />
     <item
-        android:id="@+id/menu_audio_download"
+        android:id="@+id/menu_context_audio_download"
         android:title="Download audio" />
     <item
-        android:id="@+id/menu_video_download"
-        android:title="Download video"/>
+        android:id="@+id/menu_context_video_download"
+        android:title="Download video" />
 </menu>

@@ -1,49 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingRight="15dp"
+    android:layout_marginBottom="50dp"
+    android:orientation="vertical"
     android:paddingLeft="15dp"
-    android:paddingBottom="70dp"
-    android:layout_marginBottom="50dp">
+    android:paddingRight="15dp"
+    android:paddingBottom="70dp">
+
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <Button
+            android:id="@+id/download_clear"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_clear_icon"
-            android:paddingRight="20dp"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_clear_all"
             android:paddingLeft="20dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:id="@+id/clear"
-            android:text="Clear All"
-            android:layout_marginTop="10dp"/>
+            android:paddingRight="20dp"
+            android:text="Clear All" />
+
         <Button
+            android:id="@+id/download_refresh"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/buttonBarButtonStyle"
-            android:drawableLeft="@drawable/ic_refresh"
-            android:paddingRight="20dp"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_refresh"
             android:paddingLeft="20dp"
-            android:id="@+id/refresh"
-            android:text="Refresh"
-            android:layout_marginTop="10dp"/>
+            android:paddingRight="20dp"
+            android:text="Refresh" />
     </LinearLayout>
 
-    <ListView android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@android:id/list">
-
-
-    </ListView>
+    <ListView
+        android:id="@+id/download_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
     <TextView
         android:id="@+id/download_help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
         android:paddingTop="5dp"
-        android:textStyle="italic"/>
+        android:textSize="20sp"
+        android:textStyle="italic" />
 </LinearLayout>
