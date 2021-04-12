@@ -48,17 +48,23 @@ public class DownloadFragment extends Fragment {
         final Button btnRefresh = rootView.findViewById(R.id.download_refresh);
         registerForContextMenu(dList);
 
-        dList.setAdapter(
-                new DownloadsAdapter(getContext(), R.layout.row_download, files));
+        dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
 
-        btnClear.setOnClickListener(v ->
-                new AlertDialog.Builder(getContext())
-                        .setTitle(R.string.delete_all_downloads)
-                        .setMessage(R.string.delete_all_downloads_text)
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                            for (File file : files) {
-                                boolean delete = file.delete();
-                                Log.d("File: ", file.getName() + delete);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getContext()).setTitle("Delete all downloads")
+                        .setMessage("Are you sure you want to delete all episodes?\nLong click and episode to delete them individually.")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                for (File file : files) {
+                                    boolean delete = file.delete();
+                                    Log.d("File: ", file.getName() + delete);
+                                }
+                                files = getListFiles();
+                                dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
+                                Toast toast = Toast.makeText(getActivity(), "Downloads Removed", Toast.LENGTH_SHORT);
+                                toast.show();
                             }
                             files = getListFiles();
                             dList.setAdapter(
