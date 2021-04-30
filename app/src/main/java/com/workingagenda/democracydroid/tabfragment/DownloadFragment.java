@@ -1,5 +1,6 @@
 package com.workingagenda.democracydroid.tabfragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -50,7 +51,8 @@ public class DownloadFragment extends Fragment {
 
         dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        btnClear.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(getContext()).setTitle("Delete all downloads")
@@ -63,17 +65,16 @@ public class DownloadFragment extends Fragment {
                                 }
                                 files = getListFiles();
                                 dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
-                                Toast toast = Toast.makeText(getActivity(), "Downloads Removed", Toast.LENGTH_SHORT);
-                                toast.show();
+
+                                Toast.makeText(getActivity(), R.string.downloads_removed, Toast.LENGTH_SHORT).show();
                             }
-                            files = getListFiles();
-                            dList.setAdapter(
-                                    new DownloadsAdapter(getContext(), R.layout.row_download, files));
-                            Toast.makeText(getActivity(), R.string.downloads_removed, Toast.LENGTH_SHORT).show();
                         })
                         .setNegativeButton(android.R.string.cancel, null)
                         .setIcon(R.drawable.ic_warning)
-                        .show());
+                        .show();
+
+            }
+        });
 
         btnRefresh.setOnClickListener(v -> {
             files = getListFiles();
@@ -132,6 +133,7 @@ public class DownloadFragment extends Fragment {
         ArrayList<File> inFiles = new ArrayList<>();
         File parentDir = new File(Environment.getExternalStorageDirectory().toString() +
                 File.separator + Environment.DIRECTORY_PODCASTS);
+        Log.d("DownloadFragment", Environment.DIRECTORY_PODCASTS);
         File[] files = parentDir.listFiles();
         if (files != null) {
             for (File file : files) {

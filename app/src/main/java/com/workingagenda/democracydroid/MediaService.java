@@ -34,6 +34,8 @@ import com.google.android.exoplayer2.trackselection.ExoTrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.PlayerNotificationManager;
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultDataSource;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 
 public class MediaService extends Service {
@@ -139,15 +141,19 @@ public class MediaService extends Service {
 
     public SimpleExoPlayer setUpPlayer(Uri url) {
         String ext = url.toString().substring(url.toString().lastIndexOf("."));
-        Log.d("Extension", ext);
+        Log.d("Media", url.toString());
 
-        DataSource.Factory dataSourceFactory = new DefaultHttpDataSource.Factory()
-                .setUserAgent("DemocracyDroid!")
-                .setTransferListener(null)
-                .setConnectTimeoutMs(DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS)
-                .setReadTimeoutMs(1800000)
-                .setAllowCrossProtocolRedirects(true);
-
+        DataSource.Factory dataSourceFactory = null;
+        if (url.toString().startsWith("file:///")) {
+            dataSourceFactory = new DefaultDataSourceFactory(this);
+        } else {
+            dataSourceFactory = new DefaultHttpDataSource.Factory()
+                    .setUserAgent("DemocracyDroid!")
+                    .setTransferListener(null)
+                    .setConnectTimeoutMs(DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS)
+                    .setReadTimeoutMs(1800000)
+                    .setAllowCrossProtocolRedirects(true);
+        }
         if (ext.equals(".m3u8")) {
             HlsMediaSource.Factory hlsExtractorFactory = new HlsMediaSource.Factory(dataSourceFactory);
             HlsMediaSource hlsMediaSource = hlsExtractorFactory.createMediaSource(MediaItem.fromUri(url));
