@@ -35,17 +35,10 @@
     <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer info</string>
     <string name="whatsnew">
+        ==== 4.1.0\n
+        - Downloads are back! I\'m sorry it took so long!\n\n
         ==== 4.0.0\n
         - Thank you @TacoTheDank to the many code quality improvements!!\n
-        ==== 3.9.1\n
-        I think Google Play wants me to remove the link to donate and add a link\n
-        ==== 3.9.0\n
-        - Google Play Store is restricting updates, hopefully this update fixes the issue.\n
-        ==== 3.8.3\n
-        - Finally handle bluetooth disconnection gracefully!\n
-        - Increase the rewind increment to 15 seconds\n
-        - Updated round icon!\n
-        - I\'ve also updated some of the dependencies used\n
     </string>
     <string name="open_stream">Default application to play media</string>
     <string name="open_elsewhere">Open elsewhere</string>
