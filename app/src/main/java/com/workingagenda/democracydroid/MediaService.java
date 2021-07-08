@@ -21,7 +21,6 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.Player.EventListener;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -34,13 +33,58 @@ import com.google.android.exoplayer2.trackselection.ExoTrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.PlayerNotificationManager;
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultDataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 
 public class MediaService extends Service {
 
     private final IBinder binder = new LocalBinder();
+    private final PlayerNotificationManager.MediaDescriptionAdapter mediaDescriptionAdapter =
+            new PlayerNotificationManager.MediaDescriptionAdapter() {
+                // TODO: Serialize and pass an episode to this service
+                // TODO: Set the image and title from the current Episode
+                @NonNull
+                @Override
+                public String getCurrentContentTitle(@NonNull Player player) {
+                    return "Democracy Now!";
+                }
+
+                @Nullable
+                @Override
+                public PendingIntent createCurrentContentIntent(@NonNull Player player) {
+                    Intent notIntent = new Intent(getApplicationContext(), MediaActivity.class);
+                    // TODO: bundle
+                    notIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    return PendingIntent.getActivity(getApplicationContext(), 0,
+                            notIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                }
+
+                @NonNull
+                @Override
+                public String getCurrentContentText(@NonNull Player player) {
+                    return "The War and Peace Report";
+                }
+
+                @Nullable
+                @Override
+                public Bitmap getCurrentLargeIcon(@NonNull final Player player,
+                                                  @NonNull final PlayerNotificationManager.BitmapCallback callback) {
+                    return BitmapFactory.decodeResource(getResources(), R.drawable.appicon);
+                }
+            };
+    private final PlayerNotificationManager.NotificationListener notificationListener =
+            new PlayerNotificationManager.NotificationListener() {
+                @Override
+                public void onNotificationPosted(int notificationId,
+                                                 @NonNull Notification notification, boolean ongoing) {
+                    startForeground(notificationId, notification);
+                }
+
+                @Override
+                public void onNotificationCancelled(int notificationId, boolean dismissedByUser) {
+                    stopSelf();
+                }
+            };
     private PlayerNotificationManager playerNotificationManager;
     private SimpleExoPlayer player;
 
@@ -79,57 +123,13 @@ public class MediaService extends Service {
                 .build();
         player.setAudioAttributes(audioAttributes, true);
 
-        playerNotificationManager = PlayerNotificationManager.createWithNotificationChannel(
+        playerNotificationManager = new PlayerNotificationManager.Builder(
                 getApplicationContext(),
-                "com.workingagenda.democracydroid",
-                R.string.channel_name,
-                0,
                 420,
-                new PlayerNotificationManager.MediaDescriptionAdapter() {
-                    // TODO: Serialize and pass an episode to this service
-                    // TODO: Set the image and title from the current Episode
-                    @NonNull
-                    @Override
-                    public String getCurrentContentTitle(@NonNull Player player) {
-                        return "Democracy Now!";
-                    }
-
-                    @Nullable
-                    @Override
-                    public PendingIntent createCurrentContentIntent(@NonNull Player player) {
-                        Intent notIntent = new Intent(getApplicationContext(), MediaActivity.class);
-                        // TODO: bundle
-                        notIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        return PendingIntent.getActivity(getApplicationContext(), 0,
-                                notIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    }
-
-                    @Nullable
-                    @Override
-                    public String getCurrentContentText(@NonNull Player player) {
-                        return "The War and Peace Report";
-                    }
-
-                    @Nullable
-                    @Override
-                    public Bitmap getCurrentLargeIcon(@NonNull final Player player,
-                                                      @NonNull final PlayerNotificationManager.BitmapCallback callback) {
-                        return BitmapFactory.decodeResource(getResources(), R.drawable.appicon);
-                    }
-                },
-                new PlayerNotificationManager.NotificationListener() {
-                    @Override
-                    public void onNotificationPosted(int notificationId,
-                                                     @NonNull Notification notification, boolean ongoing) {
-                        startForeground(notificationId, notification);
-                    }
-
-                    @Override
-                    public void onNotificationCancelled(int notificationId, boolean dismissedByUser) {
-                        stopSelf();
-                    }
-                }
-        );
+                "com.workingagenda.democracydroid",
+                mediaDescriptionAdapter)
+                .setNotificationListener(notificationListener)
+                .build();
 
         playerNotificationManager.setPlayer(player);
     }
@@ -165,7 +165,7 @@ public class MediaService extends Service {
         }
         player.prepare();
 
-        player.addListener(new EventListener() {
+        player.addListener(new Player.Listener() {
             @Override
             public void onPlayerError(@NonNull ExoPlaybackException error) {
                 String TAG = "ExoError";
