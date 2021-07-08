@@ -1,6 +1,5 @@
 package com.workingagenda.democracydroid.tabfragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,30 +50,23 @@ public class DownloadFragment extends Fragment {
 
         dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
 
-        btnClear.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(getContext()).setTitle("Delete all downloads")
-                        .setMessage("Are you sure you want to delete all episodes?\nLong click and episode to delete them individually.")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                for (File file : files) {
-                                    boolean delete = file.delete();
-                                    Log.d("File: ", file.getName() + delete);
-                                }
-                                files = getListFiles();
-                                dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
-
-                                Toast.makeText(getActivity(), R.string.downloads_removed, Toast.LENGTH_SHORT).show();
+        btnClear.setOnClickListener(v ->
+                new AlertDialog.Builder(getContext())
+                        .setTitle(R.string.delete_downloads_dialog_title)
+                        .setMessage(R.string.delete_downloads_dialog_message)
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                            for (File file : files) {
+                                boolean delete = file.delete();
+                                Log.d("File: ", file.getName() + delete);
                             }
+                            files = getListFiles();
+                            dList.setAdapter(new DownloadsAdapter(getContext(), R.layout.row_download, files));
+
+                            Toast.makeText(getActivity(), R.string.downloads_removed, Toast.LENGTH_SHORT).show();
                         })
                         .setNegativeButton(android.R.string.cancel, null)
                         .setIcon(R.drawable.ic_warning)
-                        .show();
-
-            }
-        });
+                        .show());
 
         btnRefresh.setOnClickListener(v -> {
             files = getListFiles();
