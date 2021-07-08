@@ -32,7 +32,6 @@
     <string name="action_browser">Open in browser</string>
     <string name="source">View source code</string>
     <string name="about_dm_header">About Democracy Now!</string>
-    <string name="about_dd_header">About Democracy Droid!</string>
     <string name="about_dev_header">Developer info</string>
     <string name="whatsnew">
         ==== 4.1.0\n
@@ -47,7 +46,6 @@
     <string name="share_link">Share link</string>
     <string name="email_dev">Email the developer</string>
     <string name="action_exclusives">Web Exclusives</string>
-    <string name="btn_donate">Visit DemocracyNow.org</string>
     <string name="setting_language">Difusión de Audio en Español</string>
     <string name="description_menu_title">Description</string>
     <string name="share">Share</string>
@@ -73,10 +71,12 @@
     <string name="tab_transcripts">Transcripts</string>
     <string name="tab_broadcasts">Broadcasts</string>
     <string name="tab_downloads">Downloads</string>
-    <string name="download_tab_description">Long Click An Episode to Download, Share, Read Description, and Stream. Long Click a Download to Open it in an External Player.</string>
-    <string name="downloads_removed">Downloads Removed</string>
+    <string name="download_tab_description">
+        Long click an episode to download, share, read description, and stream.
+        Long click a download to open it in an external player.</string>
+    <string name="downloads_removed">Downloads removed</string>
     <string name="delete_all_downloads">Delete all downloads</string>
-    <string name="delete_all_downloads_text">Are you sure you want to delete all episodes?\nLong click and episode to delete them individually.</string>
+    <string name="delete_all_downloads_text">Are you sure you want to delete all episodes?\nLong click an episode to delete them individually.</string>
     <string name="democracy_now">Democracy Now!</string>
     <string name="stream_audio">Stream Audio</string>
     <string name="stream_video">Stream Video</string>
@@ -87,6 +87,23 @@
     <string name="download_episode_confirmation">Download today\'s episode?</string>
     <string name="audio">Audio</string>
     <string name="video">Video</string>
+    <string name="the_war_and_peace_report">The War and Peace Report</string>
+    <string name="democracy_now_story">Democracy Now! Story</string>
+    <string name="playlist_url">http://democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8</string>
+    <string name="starting_download_of">\"Starting download of \"</string>
+    <string name="todays_broadcast">Today\'s Broadcast</string>
+    <string name="stream_live">Stream Live</string>
+    <string name="logo_url">https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png</string>
+    <string name="episode_url">http://m.democracynow.org/</string>
+    <string name="error_episode_not_available">Episode isn\'t available yet! Try again in a few minutes.</string>
+    <string name="open_in_builtin">Built-in media player</string>
+    <string name="open_in_another">Another application</string>
+    <string name="whats_new">What\'s New</string>
+    <string name="clear_all">Clear all</string>
+    <string name="download_audio">Download audio</string>
+    <string name="download_video">Download video</string>
+    <string name="delete">Delete</string>
+    <string name="play_in_external_player">Play in external player</string>
     <string-array name="tabsAlias">
         <item>@string/tab_transcripts</item>
         <item>@string/tab_broadcasts</item>
@@ -98,16 +115,16 @@
         <item>2</item>
     </string-array>
     <string-array name="streamAlias">
-        <item>Video</item>
-        <item>Audio</item>
+        <item>@string/video</item>
+        <item>@string/audio</item>
     </string-array>
     <string-array name="stream">
         <item>0</item>
         <item>1</item>
     </string-array>
     <string-array name="openAlias">
-        <item>Built-in media player</item>
-        <item>Another application</item>
+        <item>@string/open_in_builtin</item>
+        <item>@string/open_in_another</item>
     </string-array>
     <string-array name="open">
         <item>0</item>

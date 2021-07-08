@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.workingagenda.democracydroid.Objects.Episode;
+import com.workingagenda.democracydroid.R;
 import com.workingagenda.democracydroid.databinding.RowStoryHeadlineBinding;
 
 /**
@@ -35,7 +36,7 @@ public class StoryHeadlineViewHolder extends BaseStoryViewHolder {
             }
             try {
                 mImg.setImageURI(
-                        Uri.parse("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png"));
+                        Uri.parse(itemView.getContext().getString(R.string.logo_url)));
             } catch (Exception e) {
                 Log.v("Story Adapter", "exception" + e.toString());
             }

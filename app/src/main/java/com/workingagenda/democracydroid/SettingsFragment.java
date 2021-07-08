@@ -34,7 +34,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         final Preference whatsNewPref = findPreference("pref_whats_new");
         whatsNewPref.setOnPreferenceClickListener(preference -> {
             new AlertDialog.Builder(getContext())
-                    .setTitle("What's New")
+                    .setTitle(R.string.whats_new)
                     .setMessage(R.string.whatsnew)
                     .setPositiveButton(android.R.string.ok, null)
                     .create()

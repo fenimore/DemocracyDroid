@@ -173,8 +173,7 @@ public class MediaService extends Service {
                     case ExoPlaybackException.TYPE_SOURCE:
                         Log.e(TAG, "TYPE_SOURCE: " + error.getSourceException().getMessage());
                         int duration = Toast.LENGTH_LONG;
-                        Toast toast = Toast.makeText(getApplicationContext(), "Episode isn't available yet! Try again in a few minutes.", duration);
-                        toast.show();
+                        Toast.makeText(getApplicationContext(), R.string.error_episode_not_available, duration).show();
                         player.release();
                         break;
                     case ExoPlaybackException.TYPE_RENDERER:

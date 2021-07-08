@@ -84,7 +84,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
             }
             if (txt != null) {
                 String fullTitle = e.getTitle().trim();
-                if (fullTitle.startsWith("Democracy Now!")) {
+                if (fullTitle.startsWith(String.valueOf(R.string.democracy_now))) {
                     String title = fullTitle.substring(14).trim();
                     txt.setText(title);
                 } else {
@@ -126,7 +126,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
             String actionTitle = itemView.getContext().getString(R.string.democracy_now);
             String title = e.getTitle().trim();
             if (title.length() > 16) {
-                if (title.startsWith("Democracy Now!"))
+                if (title.startsWith(actionTitle))
                     actionTitle = title.substring(14);
                 else
                     actionTitle = title;
@@ -159,7 +159,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuInflater inflater = new MenuInflater(itemView.getContext());
-        menu.setHeaderTitle("Democracy Now!");
+        menu.setHeaderTitle(R.string.democracy_now);
         inflater.inflate(R.menu.context_menu, menu);
         int DEFAULT_STREAM = Integer.parseInt(
                 preferences.getString("pref_default_stream", "0")); // 0=video
@@ -190,7 +190,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             // TODO: catch onRequestPermissionsResult
         } else {
-            if ("http://democracynow.videocdn.scaleengine.net/democracynow-iphone/play/democracynow/playlist.m3u8".equals(url)) {
+            if (itemView.getContext().getString(R.string.playlist_url).equals(url)) {
                 Toast.makeText(itemView.getContext(),
                         R.string.live_stream_download_failed, Toast.LENGTH_LONG).show();
                 return;
@@ -209,8 +209,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
             DownloadManager manager = (DownloadManager) itemView.getContext().getSystemService(Context.DOWNLOAD_SERVICE);
             manager.enqueue(request);
             // TODO: Save que ID for cancel button
-            Toast toast = Toast.makeText(itemView.getContext(), "Starting download of " + title, Toast.LENGTH_LONG);
-            toast.show();
+            Toast.makeText(itemView.getContext(), R.string.starting_download_of + title, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -218,11 +217,12 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
     public boolean onMenuItemClick(MenuItem menuItem) {
         int DEFAULT_STREAM = Integer.parseInt(preferences.getString("pref_default_stream", "0")); // 0=video
         int DEFAULT_OPEN = Integer.parseInt(preferences.getString("pref_default_media_player", "0")); // 0 = within this ap
-        String actionTitle = "Democracy Now!";
+        String actionTitle = itemView.getContext().getString(R.string.democracy_now);
+        final String todaysBroadcast = itemView.getContext().getString(R.string.todays_broadcast);
         if (mEpisode.getTitle().length() > 16) {
-            if ("Today's Broadcast".equals(mEpisode.getTitle())) {
+            if (todaysBroadcast.equals(mEpisode.getTitle())) {
                 actionTitle = mEpisode.getTitle();
-            } else if (mEpisode.getTitle().startsWith("Democracy Now!")) {
+            } else if (mEpisode.getTitle().startsWith(actionTitle)) {
                 actionTitle = mEpisode.getTitle().substring(14);
             } else {
                 actionTitle = mEpisode.getTitle();
@@ -258,18 +258,18 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
             case R.id.menu_context_description:
                 new AlertDialog.Builder(itemView.getContext())
                         // Get Description and Title
-                        .setTitle("The War and Peace Report")
+                        .setTitle(R.string.the_war_and_peace_report)
                         .setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle())
                         .setPositiveButton(android.R.string.ok, null)
                         .show();
                 return true;
             case R.id.menu_context_video_download:
-                if (mEpisode.getTitle().equals("Stream Live"))
+                if (mEpisode.getTitle().equals(itemView.getContext().getString(R.string.stream_live)))
                     return true;
                 download(mEpisode.getVideoUrl(), mEpisode.getTitle(), mEpisode.getDescription());
                 return true;
             case R.id.menu_context_audio_download:
-                if (mEpisode.getTitle().equals("Stream Live"))
+                if (mEpisode.getTitle().equals(itemView.getContext().getString(R.string.stream_live)))
                     return true;
                 download(mEpisode.getAudioUrl(), mEpisode.getTitle(), mEpisode.getDescription());
                 return true;

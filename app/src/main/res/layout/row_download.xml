@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
-            android:text="The War And Peace Report"
+            android:text="@string/the_war_and_peace_report"
             android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

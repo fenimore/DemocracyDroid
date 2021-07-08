@@ -3,6 +3,7 @@ package com.workingagenda.democracydroid.Network;
 import com.workingagenda.democracydroid.Feedreader.RssItem;
 import com.workingagenda.democracydroid.Feedreader.RssReader;
 import com.workingagenda.democracydroid.Objects.Episode;
+import com.workingagenda.democracydroid.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -79,11 +80,10 @@ public class ServerApi {
         Episode todaysEpisode = new Episode();
         todaysEpisode.setDescription("Stream Live between 8 and 9 weekdays Eastern time, " +
                 "the War and Peace Report");
-        todaysEpisode.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/0/01/" +
-                "Democracy_Now!_logo.svg/220px-Democracy_Now!_logo.svg.png");
-        todaysEpisode.setUrl("http://m.democracynow.org/");
+        todaysEpisode.setImageUrl(String.valueOf(R.string.logo_url));
+        todaysEpisode.setUrl(String.valueOf(R.string.episode_url));
         // Add Today's Broadcast even if RSS feed isn't updated yet
-        todaysEpisode.setTitle("Today's Broadcast");
+        todaysEpisode.setTitle(String.valueOf(R.string.todays_broadcast));
         todaysEpisode.setDescription("Democracy Now! The War and Peace Report");
         return todaysEpisode;
     }

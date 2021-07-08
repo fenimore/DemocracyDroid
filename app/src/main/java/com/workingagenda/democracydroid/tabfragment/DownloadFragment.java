@@ -52,8 +52,8 @@ public class DownloadFragment extends Fragment {
 
         btnClear.setOnClickListener(v ->
                 new AlertDialog.Builder(getContext())
-                        .setTitle(R.string.delete_downloads_dialog_title)
-                        .setMessage(R.string.delete_downloads_dialog_message)
+                        .setTitle(R.string.delete_all_downloads)
+                        .setMessage(R.string.delete_all_downloads_text)
                         .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                             for (File file : files) {
                                 boolean delete = file.delete();
@@ -91,7 +91,7 @@ public class DownloadFragment extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         if (v.getId() == android.R.id.list) {
             MenuInflater inflater = new MenuInflater(getContext());
-            menu.setHeaderTitle("Democracy Now!");
+            menu.setHeaderTitle(R.string.democracy_now);
             inflater.inflate(R.menu.download_menu, menu);
         }
     }

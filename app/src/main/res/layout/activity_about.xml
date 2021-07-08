@@ -52,19 +52,19 @@
                 android:id="@+id/about_donate_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_donate" />
+                android:text="@string/action_site" />
 
             <Button
                 android:id="@+id/about_contact_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Contact Democracy Now!" />
+                android:text="@string/contact_democracy_now" />
 
             <TextView
                 style="?android:attr/listSeparatorTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/about_dd_header" />
+                android:text="@string/about_title" />
 
             <TextView
                 android:id="@+id/about_app"

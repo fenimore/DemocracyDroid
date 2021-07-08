@@ -26,7 +26,7 @@ public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuInflater inflater = new MenuInflater(itemView.getContext());
-        menu.setHeaderTitle("Democracy Now!");
+        menu.setHeaderTitle(R.string.democracy_now);
         inflater.inflate(R.menu.blog_menu, menu);
         menu.getItem(0).setOnMenuItemClickListener(this);
     }
@@ -39,7 +39,7 @@ public abstract class BaseStoryViewHolder extends RecyclerView.ViewHolder
             }
             new AlertDialog.Builder(itemView.getContext())
                     // Get Description and Title
-                    .setTitle("Democracy Now! Story")
+                    .setTitle(R.string.democracy_now_story)
                     .setMessage(mEpisode.getDescription() + "\n\n" + mEpisode.getTitle())
                     .setPositiveButton(R.string.close, null)
                     .show();
