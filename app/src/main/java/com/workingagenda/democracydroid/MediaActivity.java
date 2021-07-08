@@ -10,12 +10,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.workingagenda.democracydroid.databinding.ActivityMediaBinding;
@@ -152,9 +153,9 @@ public class MediaActivity extends AppCompatActivity {
     }
 
     private void hideStatusBar() {
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
+        final WindowInsetsControllerCompat controller
+                = new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
+        controller.hide(WindowInsetsCompat.Type.statusBars());
         getSupportActionBar().hide();
     }
 }
