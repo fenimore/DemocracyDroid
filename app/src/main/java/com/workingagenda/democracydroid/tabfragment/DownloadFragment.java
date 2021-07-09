@@ -79,7 +79,7 @@ public class DownloadFragment extends Fragment {
             Intent y = new Intent(getContext(), MediaActivity.class);
             y.putExtra("url", Uri.fromFile(f).toString()); //can't pass in article object?
             y.putExtra("title", f.getName());
-            startActivityForResult(y, 0); //Activity load = 0
+            startActivity(y);
         });
 
         return rootView;

@@ -143,17 +143,17 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
     private void startMediaIntent(String url, int open, String title) {
         // pass in the URL if either audio or video (make check above)
         // Media Activity
+        Intent intent;
         if (open == OPEN_THIS_APP) {
-            Intent intent = new Intent(itemView.getContext(), MediaActivity.class);
+            intent = new Intent(itemView.getContext(), MediaActivity.class);
             intent.putExtra("url", url);
             intent.putExtra("title", title);
-            ((Activity) itemView.getContext()).startActivityForResult(intent, 0); //Activity load = 0
         } else {
             // FIXME: SecurityException
-            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.parse(url), "*/*");
-            itemView.getContext().startActivity(intent);
         }
+        itemView.getContext().startActivity(intent);
     }
 
     @Override

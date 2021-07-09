@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_main_about:
                 Intent intent = new Intent(this, AboutActivity.class);
-                startActivityForResult(intent, 0);
+                startActivity(intent);
                 break;
         }
 

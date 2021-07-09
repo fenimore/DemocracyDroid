@@ -116,13 +116,13 @@ public class StoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, MediaActivity.class);
                 intent.putExtra("url", audio);
                 intent.putExtra("title", title);
-                startActivityForResult(intent, 0); //Activity load = 0
+                startActivity(intent);
                 return true;
             case R.id.menu_story_play_video:
                 Intent intent1 = new Intent(this, MediaActivity.class);
                 intent1.putExtra("url", video);
                 intent1.putExtra("title", title);
-                startActivityForResult(intent1, 0); //Activity load = 0
+                startActivity(intent1);
                 return true;
         }
 
