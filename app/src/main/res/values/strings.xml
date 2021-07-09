@@ -62,7 +62,6 @@
     <string name="contact_democracy_now_summ">Click here to contact Democracy Now! at democracynow.org</string>
     <string name="publisher_info">Publisher information</string>
     <string name="publisher_info_summ">Democracy Now! is a national, daily, independent, award-winning news program hosted by journalists Amy Goodman and Juan Gonzalez.</string>
-    <string name="open_stream_summ">%s</string>
     <string name="preference_stream">%s stream</string>
     <string name="preference_tab">%s tab</string>
     <string name="spanish_broadcast_summ">Spanish language Audio broadcast</string>

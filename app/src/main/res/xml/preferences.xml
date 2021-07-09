@@ -32,9 +32,9 @@
             android:entries="@array/openAlias"
             android:entryValues="@array/open"
             android:key="pref_default_media_player"
-            android:summary="@string/open_stream_summ"
             android:title="@string/open_stream"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory
