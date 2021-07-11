@@ -23,7 +23,7 @@
             android:drawableStart="@drawable/ic_clear_all"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="Clear All" />
+            android:text="@string/clear_all" />
 
         <Button
             android:id="@+id/download_refresh"
@@ -34,7 +34,7 @@
             android:drawableStart="@drawable/ic_refresh"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="Refresh" />
+            android:text="@string/action_refresh" />
     </LinearLayout>
 
     <ListView
