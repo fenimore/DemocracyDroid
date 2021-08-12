@@ -14,8 +14,8 @@
         card_view:cardUseCompatPadding="true">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/row_episodes_image"
@@ -44,24 +44,26 @@
 
             <TextView
                 android:id="@+id/row_episodes_tag"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="4dp"
                 android:layout_toStartOf="@id/row_episodes_options"
                 android:layout_toEndOf="@id/row_episodes_image"
-                android:maxLines="5"
-                android:minLines="1"
+                android:maxLines="2"
+                android:inputType="none"
                 android:textColor="@android:color/black"
-                android:textSize="12sp"
+                android:ellipsize="end"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/row_episodes_title"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
                 android:layout_alignBottom="@id/row_episodes_image"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
@@ -70,7 +72,7 @@
                 android:layout_toStartOf="@id/row_episodes_options"
                 android:layout_toEndOf="@id/row_episodes_image"
                 android:maxLines="1"
-                android:textSize="12sp"
+                android:ellipsize="end"
                 android:textStyle="italic" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
