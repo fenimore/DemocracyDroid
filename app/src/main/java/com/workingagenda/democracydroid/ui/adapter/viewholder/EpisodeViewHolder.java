@@ -67,7 +67,7 @@ public class EpisodeViewHolder extends RecyclerView.ViewHolder
         img = binding.rowEpisodesImage;
         txt = binding.rowEpisodesTitle;
         tag = binding.rowEpisodesTag;
-        tag.setMaxLines(3);
+//        tag.setMaxLines(2);
         mOptions = binding.rowEpisodesOptions;
         mDownload = binding.rowEpisodesDownload;
         itemView.setOnCreateContextMenuListener(this);
