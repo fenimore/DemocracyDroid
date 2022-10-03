@@ -34,6 +34,8 @@
     <string name="about_dm_header">About Democracy Now!</string>
     <string name="about_dev_header">Developer info</string>
     <string name="whatsnew">
+        ==== 4.3.0\n
+        - Fixed the media playing! Things had gotten out of date\nn
         ==== 4.1.0\n
         - Downloads are back! I\'m sorry it took so long!\n\n
         ==== 4.0.0\n

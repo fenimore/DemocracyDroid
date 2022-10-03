@@ -1,5 +1,7 @@
 package com.workingagenda.democracydroid.core.network;
 
+import android.util.Log;
+
 import com.workingagenda.democracydroid.R;
 import com.workingagenda.democracydroid.core.object.Episode;
 import com.workingagenda.democracydroid.core.rss.RssItem;

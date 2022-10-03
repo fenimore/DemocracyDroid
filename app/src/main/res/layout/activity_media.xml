@@ -29,5 +29,5 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         app:default_artwork="@drawable/logo"
-        app:rewind_increment="15000" />
+        />
 </RelativeLayout>

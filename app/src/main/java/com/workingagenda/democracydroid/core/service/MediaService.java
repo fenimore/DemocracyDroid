@@ -1,6 +1,7 @@
 package com.workingagenda.democracydroid.core.service;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -20,8 +21,9 @@ import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.PlaybackException;
 import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.MediaSourceFactory;
@@ -35,6 +37,7 @@ import com.google.android.exoplayer2.ui.PlayerNotificationManager;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
+import com.google.android.exoplayer2.util.NotificationUtil;
 import com.workingagenda.democracydroid.R;
 import com.workingagenda.democracydroid.ui.player.MediaActivity;
 
@@ -58,7 +61,7 @@ public class MediaService extends Service {
                     // TODO: bundle
                     notIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     return PendingIntent.getActivity(getApplicationContext(), 0,
-                            notIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                            notIntent, PendingIntent.FLAG_IMMUTABLE);
                 }
 
                 @NonNull
@@ -79,6 +82,12 @@ public class MediaService extends Service {
                 @Override
                 public void onNotificationPosted(int notificationId,
                                                  @NonNull Notification notification, boolean ongoing) {
+                    NotificationUtil.createNotificationChannel(
+                            getApplicationContext(),
+                            "com.workingagenda.democracydroid",
+                            R.string.democracy_now,
+                            R.string.about_dm,
+                            NotificationUtil.IMPORTANCE_HIGH);
                     startForeground(notificationId, notification);
                 }
 
@@ -88,12 +97,13 @@ public class MediaService extends Service {
                 }
             };
     private PlayerNotificationManager playerNotificationManager;
-    private SimpleExoPlayer player;
+    private ExoPlayer player;
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         player.release();
+        playerNotificationManager.setPlayer(null);
     }
 
     @Nullable
@@ -112,7 +122,7 @@ public class MediaService extends Service {
         LoadControl loadControl = new DefaultLoadControl();
 
         // Create Player
-        player = new SimpleExoPlayer.Builder(getApplicationContext())
+        player = new ExoPlayer.Builder(getApplicationContext())
                 .setLoadControl(loadControl)
                 .setTrackSelector(trackSelector)
                 .build();
@@ -121,10 +131,9 @@ public class MediaService extends Service {
         player.setHandleAudioBecomingNoisy(true);  // pause when bluetooth disconnects
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setUsage(C.USAGE_MEDIA)
-                .setContentType(C.CONTENT_TYPE_SPEECH)
+                .setContentType(C.AUDIO_CONTENT_TYPE_MOVIE)
                 .build();
         player.setAudioAttributes(audioAttributes, true);
-
         playerNotificationManager = new PlayerNotificationManager.Builder(
                 getApplicationContext(),
                 420,
@@ -132,7 +141,6 @@ public class MediaService extends Service {
                 mediaDescriptionAdapter)
                 .setNotificationListener(notificationListener)
                 .build();
-
         playerNotificationManager.setPlayer(player);
     }
 
@@ -141,7 +149,7 @@ public class MediaService extends Service {
         return START_STICKY;
     }
 
-    public SimpleExoPlayer setUpPlayer(Uri url) {
+    public ExoPlayer setUpPlayer(Uri url) {
         String ext = url.toString().substring(url.toString().lastIndexOf("."));
         Log.d("Media", url.toString());
 
@@ -169,20 +177,15 @@ public class MediaService extends Service {
 
         player.addListener(new Player.Listener() {
             @Override
-            public void onPlayerError(@NonNull ExoPlaybackException error) {
+            public void onPlayerError(@NonNull PlaybackException error) {
                 String TAG = "ExoError";
-                switch (error.type) {
-                    case ExoPlaybackException.TYPE_SOURCE:
-                        Log.e(TAG, "TYPE_SOURCE: " + error.getSourceException().getMessage());
+                Log.e(TAG, error.getMessage());
+                switch (error.errorCode) {
+                    case PlaybackException.ERROR_CODE_IO_BAD_HTTP_STATUS:
+                        Log.e(TAG, "BAD HTTP STATUS");
                         int duration = Toast.LENGTH_LONG;
                         Toast.makeText(getApplicationContext(), R.string.error_episode_not_available, duration).show();
                         player.release();
-                        break;
-                    case ExoPlaybackException.TYPE_RENDERER:
-                        Log.e(TAG, "TYPE_RENDERER: " + error.getRendererException().getMessage());
-                        break;
-                    case ExoPlaybackException.TYPE_UNEXPECTED:
-                        Log.e(TAG, "TYPE_UNEXPECTED: " + error.getUnexpectedException().getMessage());
                         break;
                 }
             }

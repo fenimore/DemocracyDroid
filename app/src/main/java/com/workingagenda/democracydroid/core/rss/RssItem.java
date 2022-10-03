@@ -15,6 +15,7 @@
  */
 package com.workingagenda.democracydroid.core.rss;
 
+
 public class RssItem {
     private String title;
     private String description;

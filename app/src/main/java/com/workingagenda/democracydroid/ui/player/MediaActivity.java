@@ -18,14 +18,14 @@ import androidx.core.app.NavUtils;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
-import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ExoPlayer;
 import com.workingagenda.democracydroid.R;
 import com.workingagenda.democracydroid.core.service.MediaService;
 import com.workingagenda.democracydroid.databinding.ActivityMediaBinding;
 
 public class MediaActivity extends AppCompatActivity {
     ActivityMediaBinding binding;
-    private SimpleExoPlayer player;
+    private ExoPlayer player;
     private Uri url; // cause all urls are uris
     private final ServiceConnection mConnection = new ServiceConnection() {
         @Override

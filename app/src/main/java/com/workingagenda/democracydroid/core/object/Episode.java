@@ -1,5 +1,7 @@
 package com.workingagenda.democracydroid.core.object;
 
+import android.text.Html;
+
 import androidx.annotation.NonNull;
 
 /**
@@ -74,6 +76,6 @@ public class Episode {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = Html.fromHtml(description, Html.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE).toString();
     }
 }
